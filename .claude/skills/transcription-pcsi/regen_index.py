@@ -123,6 +123,13 @@ def is_clarisse(filename):
     return "_Clarisse_" in filename or "_Clarisse." in filename
 
 
+def is_td_or_exercice(titre):
+    """Un fichier "Cours Profs" dont l'intitulé contient TD/Exercice n'est pas
+    un cours mais un TD (= un exercice) : il ne doit pas apparaître dans le
+    tableau Cours, mais dans l'onglet Exercices (ajouté à la main)."""
+    return bool(re.search(r'\bTD\b', titre) or re.search(r'\bExercice', titre, re.I))
+
+
 def parse_number_and_title(filename):
     """Extrait le numéro de séquence et un intitulé lisible depuis le nom de fichier."""
     name = filename
@@ -259,6 +266,8 @@ def build_subject_body(repo_root, folder):
         if is_clarisse(f):
             continue
         num, titre = parse_number_and_title(f)
+        if is_td_or_exercice(titre):
+            continue
         profs_entries.append((None, num, titre, url, pdf_url))
     for source_name, num, titre, pdf_url in SUBJECT_EXTERNAL_PROFS.get(folder, []):
         profs_entries.append((source_name, num, titre, None, pdf_url))
