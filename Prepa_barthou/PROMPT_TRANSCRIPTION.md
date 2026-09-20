@@ -74,7 +74,7 @@ Langue : français, niveau de rigueur et vocabulaire CPGE.
 ### À la fin :
 - Copie ce code / ou fichier dans un fichier « [chiffre type « 01 » par ordre de fichier créé dans le répertoire associé]-[Date]_[Matière]_[Cours, ou TD, Exercice]_[nom du lien strict récupéré sous prepabarthou.fr sans les accents, espaces remplacés par _].html »
 - Mets ce fichier directement dans l'arborescence GitHub : `https://github.com/plouf34/prepabarthou` (branche `claude/pcsi-henri-iv-math-exercises-pubkis`), dans le sous-répertoire `Prepa_barthou/1ere_annee/` correspondant à la matière (01_MATHS, 02_PHYSIQUE, 03_CHIMIE, 04_SI), commit puis push.
-- Recrée ensuite automatiquement le fichier `Prepa_barthou/1ere_annee/index.html` (même gabarit carte/emoji que l'existant) en te basant sur le contenu réel des 4 dossiers, pas sur une liste mémorisée.
+- Régénère ensuite automatiquement les 4 pages Cours à la racine du dépôt (`Maths.html` / `Physique.html` / `Chimie.html` / `SI.html`, via `.claude/skills/transcription-pcsi/regen_index.py`) en te basant sur le contenu réel des 4 dossiers, pas sur une liste mémorisée.
 - Envoie aussi une copie locale du fichier (en pièce jointe / téléchargement) pour récupération sur le Bureau du Mac utilisé à ce moment-là.
 
 ## STYLE

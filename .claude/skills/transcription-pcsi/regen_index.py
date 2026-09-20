@@ -1,20 +1,30 @@
 #!/usr/bin/env python3
-"""Regenerate Prepa_barthou/1ere_annee/index.html by scanning the 4 subject folders.
+"""Regenerate the 4 subject pages (Maths.html / Physique.html / Chimie.html /
+SI.html, à la racine du dépôt) en scannant les 4 dossiers de cours.
 Usage: python3 regen_index.py <repo_root>
 
-Rendu aligné sur celui de Kit_Revision_PCSI.html : onglets sticky, bandeau
-"Sources" par matière, tableau N° / Intitulé / Lien avec lignes de section
-("1. Cours de Clarisse" / "2. Cours Profs").
+Chaque page matière a 3 onglets (Cours / DS / Exercices) matérialisés par de
+vraies pages séparées partageant un même gabarit (page_shell) :
+  - <Matière>.html            → onglet Cours, ENTIÈREMENT généré par ce script.
+  - <Matière>_DS.html         → onglet DS, tenu à la main (jamais régénéré ici).
+  - <Matière>_Exercices.html  → onglet Exercices, tenu à la main (placeholder).
+Le sélecteur de matière (Maths/Physique/Chimie/SI) et la barre d'onglets sont
+produits par les fonctions tab_bar_html()/subject_switch_html() ci-dessous,
+utilisées à la fois par ce générateur et par toute page DS/Exercices éditée
+à la main (le gabarit ne change qu'ici, pour les 12 pages à la fois).
 
 ⚠️ AVANT DE LANCER CE SCRIPT : faire un `git fetch` + `git merge` (ou pull)
 sur la branche courante. Une autre session travaille en parallèle sur ce
 dépôt et pousse régulièrement sur cette même branche ; lancer ce script
-depuis un checkout périmé régénère index.html en écrasant silencieusement
-les correctifs poussés entre-temps (libellés, favicons, liens...). Le
-fichier généré n'est JAMAIS à éditer à la main : toute modification passe
-par les constantes ci-dessous (SUBJECT_SOURCES / SUBJECT_MANUALS /
-SUBJECT_EXTRA_LINKS) ou par les fonctions de rendu, jamais par un patch
-direct sur Prepa_barthou/1ere_annee/index.html.
+depuis un checkout périmé régénère les pages Cours en écrasant silencieusement
+les correctifs poussés entre-temps (libellés, favicons, liens...).
+Les 4 fichiers <Matière>.html sont ENTIÈREMENT générés — ne jamais les éditer
+à la main. Toute modification de leur contenu (libellés, sources, manuels,
+liens complémentaires) doit passer par les constantes ci-dessous
+(SUBJECT_SOURCES / SUBJECT_MANUALS / SUBJECT_EXTRA_LINKS / SUBJECT_EXTERNAL_PROFS)
+ou par les fonctions de rendu, puis relancer ce script. Les fichiers
+<Matière>_DS.html et <Matière>_Exercices.html, eux, sont tenus à la main
+(comme l'était Kit_Revision_PCSI.html) : ce script ne les touche jamais.
 """
 import sys
 import os
@@ -22,10 +32,17 @@ import re
 import html
 
 SUBJECTS = [
-    ("01_MATHS", "🔢", "Maths", "maths"),
-    ("02_PHYSIQUE", "⚛️", "Physique", "physique"),
-    ("03_CHIMIE", "🧪", "Chimie", "chimie"),
-    ("04_SI", "⚙️", "SI", "si"),
+    ("01_MATHS", "🔢", "Maths"),
+    ("02_PHYSIQUE", "⚛️", "Physique"),
+    ("03_CHIMIE", "🧪", "Chimie"),
+    ("04_SI", "⚙️", "SI"),
+]
+
+# (suffixe de fichier, clé d'onglet, emoji, libellé affiché)
+TABS = [
+    ("", "cours", "📘", "Cours"),
+    ("_DS", "ds", "🎯", "DS"),
+    ("_Exercices", "exercices", "📝", "Exercices"),
 ]
 
 BASE_URL = "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee"
@@ -36,10 +53,10 @@ BASE_URL = "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee"
 # (None = source unique, capte tous les fichiers profs de la matière).
 SUBJECT_SOURCES = {
     "01_MATHS": [
-        ("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "../../logo-barthou.png", (1, 1), None),
-        ("Lycée Saint-Louis", "Paris", "https://pcsi1-saint-louis.ovh/site/", "../../logo-saint-louis.png", (2, 5), None),
+        ("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "logo-barthou.png", (1, 1), None),
+        ("Lycée Saint-Louis", "Paris", "https://pcsi1-saint-louis.ovh/site/", "logo-saint-louis.png", (2, 5), None),
     ],
-    "02_PHYSIQUE": [("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "../../logo-barthou.png", None, None)],
+    "02_PHYSIQUE": [("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "logo-barthou.png", None, None)],
     "03_CHIMIE": [
         ("Sainte-Geneviève", "Versailles", "http://www.pcsi1.bginette.com/Chim/Polys.php", "https://www.google.com/s2/favicons?domain=bginette.com&sz=32", (1, 7), None),
         ("Janson de Sailly", "Paris", "http://chimie-pcsi-jds.net", "https://www.janson-de-sailly.fr/wp-content/uploads/2025/05/favicon.png", (8, 11), None),
@@ -53,16 +70,15 @@ SUBJECT_SOURCES = {
 # Manuel de référence (PDF perso, hébergé localement dans manuels/ à la racine
 # du dépôt) affiché sous le titre de chaque matière, quand disponible.
 SUBJECT_MANUALS = {
-    "01_MATHS": ("Mathématiques PCSI — Ellipses 2021", "../../manuels/Maths_PCSI_Ellipses_2021.pdf"),
-    "02_PHYSIQUE": ("Physique PCSI — Ellipses 2021", "../../manuels/Physique_PCSI_Ellipses_2021.pdf"),
-    "04_SI": ("Sciences industrielles de l'ingénieur — Vuibert", "../../manuels/SI_Vuibert.pdf"),
+    "01_MATHS": ("Mathématiques PCSI — Ellipses 2021", "manuels/Maths_PCSI_Ellipses_2021.pdf"),
+    "02_PHYSIQUE": ("Physique PCSI — Ellipses 2021", "manuels/Physique_PCSI_Ellipses_2021.pdf"),
+    "04_SI": ("Sciences industrielles de l'ingénieur — Vuibert", "manuels/SI_Vuibert.pdf"),
 }
 
 # Ressources complémentaires libres (chaînes vidéo, sites tiers...) affichées
-# sous le manuel, sous forme de puces cliquables. Liste de (emoji, label, url).
-# Chaînes YouTube complémentaires par matière : (libellé court — nom de
-# l'école ou du site/chaîne YouTube —, url). Le logo YouTube est ajouté
-# automatiquement au rendu (cf. YOUTUBE_ICON).
+# sous le manuel, sous forme de puces cliquables. Chaînes YouTube complémentaires
+# par matière : (libellé court — nom de l'école ou du site/chaîne YouTube —, url).
+# Le logo YouTube est ajouté automatiquement au rendu (cf. YOUTUBE_ICON).
 SUBJECT_EXTRA_LINKS = {
     "01_MATHS": [
         ("Lycée du Parc", "https://www.youtube.com/@Giraud-Laignel-hy9hb"),
@@ -222,7 +238,10 @@ def list_entries(dir_path, folder):
     return entries
 
 
-def build_subject_block(repo_root, folder, emoji, label, anchor):
+def build_subject_body(repo_root, folder):
+    """Contenu de l'onglet Cours pour une matière : puce manuel/liens vidéo
+    puis tableau N° / Intitulé / Lien (sections « Cours de Clarisse » /
+    « Cours Profs »)."""
     dir_path = os.path.join(repo_root, "Prepa_barthou", "1ere_annee", folder)
     entries = list_entries(dir_path, folder)
 
@@ -300,189 +319,87 @@ def build_subject_block(repo_root, folder, emoji, label, anchor):
                 body += table_row(num, titre, url, pdf_url)
     body += table_close()
 
-    return (f'<section id="{anchor}" class="subject">'
-            f'<h2 class="subject-title">{emoji} {esc(label)}</h2>'
-            f'{manual_line_html(folder)}'
-            f'{body}</section>')
+    return manual_line_html(folder) + body
 
 
-def main():
-    repo_root = sys.argv[1] if len(sys.argv) > 1 else "."
-    blocks = "".join(build_subject_block(repo_root, folder, emoji, label, anchor)
-                      for folder, emoji, label, anchor in SUBJECTS)
-    nav_links = "".join(f'<a href="#{anchor}">{emoji} {esc(label)}</a>'
-                         for _, emoji, label, anchor in SUBJECTS)
+def tab_bar_html(label, active_key):
+    links = []
+    for suffix, key, emoji, name in TABS:
+        cls = ' class="active"' if key == active_key else ""
+        links.append(f'<a href="{esc(label)}{suffix}.html"{cls}>{emoji} {esc(name)}</a>')
+    return f'<nav class="tab-bar">{"".join(links)}</nav>'
 
-    out = f"""<!-- FICHIER GÉNÉRÉ AUTOMATIQUEMENT — NE PAS ÉDITER À LA MAIN.
-     Toute modification doit passer par .claude/skills/transcription-pcsi/regen_index.py
-     (constantes SUBJECT_SOURCES / SUBJECT_MANUALS / SUBJECT_EXTRA_LINKS, ou fonctions de rendu),
-     puis relancer : python3 .claude/skills/transcription-pcsi/regen_index.py <repo_root>
-     Faire un git fetch + merge AVANT de relancer ce script : une autre session
-     travaille en parallèle sur ce dépôt et pousse régulièrement sur cette branche. -->
-<!DOCTYPE html>
+
+def subject_switch_html(current_folder, active_key):
+    suffix = next(s for s, k, _e, _n in TABS if k == active_key)
+    links = []
+    for folder, emoji, label in SUBJECTS:
+        cls = ' class="active"' if folder == current_folder else ""
+        links.append(f'<a href="{esc(label)}{suffix}.html"{cls}>{emoji} {esc(label)}</a>')
+    return f'<nav class="subject-switch">{"".join(links)}</nav>'
+
+
+def page_shell(folder, emoji, label, active_key, subtitle, body_html, banner=""):
+    """Gabarit commun aux 12 pages matière (4 matières x 3 onglets) : en-tête,
+    barre d'onglets Cours/DS/Exercices, sélecteur de matière, contenu, pied de
+    page. Utilisé par ce générateur pour l'onglet Cours, et repris à la main
+    (même structure) pour les pages DS et Exercices."""
+    tab_name = next(n for _s, k, _e, n in TABS if k == active_key)
+    return f"""{banner}<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Prépa Barthou — 1ère année</title>
-<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32.png">
-<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
-<style>
-  :root {{
-    --bg: #f2f2f7;
-    --card-bg: #ffffff;
-    --text: #1c1c1e;
-    --sub: #6e6e73;
-    --accent: #0a63d3;
-    --accent-2: #0a8a4a;
-    --border: #e2e2e7;
-    --nav-bg: rgba(255,255,255,0.92);
-    --section-bg: #dfe8f7;
-    --section-text: #1F4E78;
-    --row-alt: #fafafc;
-  }}
-  @media (prefers-color-scheme: dark) {{
-    :root {{
-      --bg: #000000;
-      --card-bg: #1c1c1e;
-      --text: #f5f5f7;
-      --sub: #9a9a9e;
-      --accent: #4da3ff;
-      --accent-2: #4fd97a;
-      --border: #2c2c2e;
-      --nav-bg: rgba(28,28,30,0.92);
-      --section-bg: #16344f;
-      --section-text: #bcd6f2;
-      --row-alt: #232325;
-    }}
-  }}
-  * {{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }}
-  html, body {{
-    margin: 0; padding: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }}
-  header {{ padding: max(env(safe-area-inset-top, 14px), 14px) 16px 8px 16px; text-align: center; }}
-  .crosslinks {{ display:flex; justify-content:center; align-items:center; gap:14px; margin-bottom:8px; flex-wrap:wrap; }}
-  .crosslinks a {{ display:inline-flex; align-items:center; gap:4px; font-size:12px; font-weight:600; color:var(--accent); text-decoration:none; }}
-  .crosslinks img {{ height:16px; width:auto; border-radius:3px; vertical-align:middle; }}
-  header h1 {{ font-size: 19px; margin: 4px 0 2px 0; font-weight: 700; }}
-  header h1 a {{ display:flex; align-items:center; justify-content:center; gap:8px; color:var(--text); text-decoration:none; }}
-  header h1 img {{ height:26px; width:auto; vertical-align:middle; }}
-  header p {{ margin: 0; color: var(--sub); font-size: 12px; }}
-  html {{ scroll-behavior: smooth; }}
-  nav#tabs {{
-    position: sticky; top: 0; z-index: 20;
-    display: flex; gap: 4px; overflow-x: auto;
-    max-width: 760px; margin: 0 auto;
-    padding: 6px 8px;
-    -webkit-overflow-scrolling: touch;
-  }}
-  nav#tabs a {{
-    flex: 1 1 0; border-radius: 16px;
-    padding: 6px 4px; font-size: 12px; font-weight: 600;
-    background: var(--card-bg); color: var(--text);
-    text-decoration: none; white-space: nowrap;
-    border: 1px solid var(--border);
-    text-align: center;
-  }}
-  nav#tabs a.tab-home {{ flex: 0 0 auto; padding: 6px 10px; }}
-  main {{ padding: 10px 8px 40px 8px; max-width: 760px; margin: 0 auto; }}
-  .subject {{ scroll-margin-top: 56px; padding-top: 4px; }}
-  .subject-title {{
-    font-size: 18px; font-weight: 700; margin: 22px 4px 6px 4px;
-    padding-top: 10px; border-top: 1px solid var(--border);
-  }}
-  .subject:first-of-type .subject-title {{ border-top: none; margin-top: 4px; }}
-
-  .source-chip-inline {{
-    display: inline-flex; align-items: center; gap: 4px;
-    background: var(--card-bg); border: 1px solid var(--border);
-    padding: 3px 9px; border-radius: 12px; margin-left: 4px;
-    color: var(--accent); font-weight: 600; text-decoration: none;
-    font-size: 11px; text-transform: none; letter-spacing: normal;
-  }}
-  .source-chip-inline.source-chip-static {{ color: var(--section-text); }}
-  .source-chip-inline .arrow {{ opacity: .6; }}
-  .source-icon {{ height:13px; width:auto; border-radius:2px; vertical-align:middle; }}
-  .source-pin {{ opacity: .7; font-weight: 500; }}
-
-  .manual-line {{ display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 4px 8px 4px; }}
-  .manual-chip {{
-    display: inline-flex; align-items: center; gap: 3px;
-    background: rgba(10,138,74,0.10); border: 1px solid var(--border);
-    padding: 3px 8px; border-radius: 10px;
-    color: var(--accent-2); font-weight: 600; text-decoration: none; font-size: 10.5px;
-  }}
-  .manual-chip .arrow {{ opacity: .6; }}
-  .manual-chip.video-chip {{ background: rgba(214,40,40,0.08); color: #d62828; }}
-
-  table {{
-    width: 100%; border-collapse: collapse;
-    background: var(--card-bg); border-radius: 12px;
-    overflow: hidden; font-size: 12.5px;
-    border: 1px solid var(--border);
-  }}
-  thead th {{
-    background: #1F4E78; color: #fff;
-    font-size: 11px; text-transform: uppercase; letter-spacing: .03em;
-    padding: 8px 6px; text-align: left; font-weight: 700;
-  }}
-  tbody tr:nth-child(even):not(.section-row) {{ background: var(--row-alt); }}
-  tbody tr:not(.section-row) {{ border-top: 1px solid var(--border); }}
-  td {{ padding: 7px 6px; vertical-align: middle; }}
-  .section-row td {{
-    background: var(--section-bg); color: var(--section-text);
-    font-weight: 700; font-size: 11.5px; text-transform: uppercase;
-    letter-spacing: .02em; padding: 7px 8px;
-  }}
-  .col-n {{ width: 40px; color: var(--sub); font-size: 11.5px; white-space: nowrap; }}
-  .col-titre {{ min-width: 140px; }}
-  .col-link {{ width: 1%; white-space: nowrap; text-align: center; }}
-  .empty-cell {{ color: var(--sub); font-size: 12.5px; font-style: italic; text-align: center; }}
-
-  .pill {{ display: inline-block; font-size: 11px; font-weight: 700; text-decoration: none; padding: 4px 8px; border-radius: 8px; white-space: nowrap; margin: 2px; }}
-  .pill-sujet {{ background: rgba(10,99,211,0.12); color: var(--accent); }}
-  .pill-pdf {{ background: rgba(214,40,40,0.12); color:#d62828; }}
-  .pill-off {{ color: var(--sub); font-size: 12px; }}
-
-  footer {{ text-align: center; padding: 16px; color: var(--sub); font-size: 10.5px; }}
-
-  @media (max-width: 420px) {{ table {{ font-size: 11.5px; }} nav#tabs a {{ font-size: 11px; padding: 6px 2px; }} .manual-chip {{ font-size: 9.5px; padding: 3px 6px; }} }}
-</style>
+<title>{esc(label)} — {esc(tab_name)} — Prépa PCSI</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/pcsi.css">
 </head>
 <body>
 
 <header>
   <div class="crosslinks">
-    <a href="../../index.html">🏠 Accueil</a>
-    <a href="../../Kit_Revision_PCSI.html">🎯 DS</a>
-    <a href="../../Ressources_MP.html">🔗 Liens</a>
+    <a href="index.html">🏠 Accueil</a>
+    <a href="Ressources_MP.html">🔗 Liens</a>
   </div>
-  <h1><a href="https://www.prepabarthou.fr/cours/my/courses.php" target="_blank" rel="noopener"><img src="../../logo-barthou.png" alt="">Prépa Barthou — 1ère année</a></h1>
-  <p>Cours, TD et exercices — mis à jour au fil de l'année</p>
+  <h1>{emoji} {esc(label)}</h1>
+  <p>{esc(subtitle)}</p>
 </header>
 
-<nav id="tabs">
-  <a href="../../index.html" class="tab-home" title="Accueil">🏠</a>
-{nav_links}
-</nav>
+{tab_bar_html(label, active_key)}
+{subject_switch_html(folder, active_key)}
 
 <main>
-{blocks}
+{body_html}
 </main>
-
-<footer>Lien fixe — recharge la page pour voir les derniers fichiers ajoutés.</footer>
 
 </body>
 </html>
 """
-    index_path = os.path.join(repo_root, "Prepa_barthou", "1ere_annee", "index.html")
-    with open(index_path, "w", encoding="utf-8") as fh:
-        fh.write(out)
-    print(f"Wrote {index_path}")
+
+
+def main():
+    repo_root = sys.argv[1] if len(sys.argv) > 1 else "."
+    banner = (
+        "<!-- FICHIER GÉNÉRÉ AUTOMATIQUEMENT — NE PAS ÉDITER À LA MAIN.\n"
+        "     Toute modification doit passer par .claude/skills/transcription-pcsi/regen_index.py\n"
+        "     (constantes SUBJECT_SOURCES / SUBJECT_MANUALS / SUBJECT_EXTRA_LINKS / SUBJECT_EXTERNAL_PROFS,\n"
+        "     ou fonctions de rendu), puis relancer :\n"
+        "     python3 .claude/skills/transcription-pcsi/regen_index.py <repo_root>\n"
+        "     Faire un git fetch + merge AVANT de relancer ce script : une autre session\n"
+        "     travaille en parallèle sur ce dépôt et pousse régulièrement sur cette branche. -->\n"
+    )
+    for folder, emoji, label in SUBJECTS:
+        body = build_subject_body(repo_root, folder)
+        out = page_shell(
+            folder, emoji, label, "cours",
+            "Cours, TD et exercices — mis à jour au fil de l'année",
+            body, banner=banner,
+        )
+        out_path = os.path.join(repo_root, f"{label}.html")
+        with open(out_path, "w", encoding="utf-8") as fh:
+            fh.write(out)
+        print(f"Wrote {out_path}")
 
 
 if __name__ == "__main__":
