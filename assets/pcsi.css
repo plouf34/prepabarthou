@@ -131,7 +131,7 @@ main > section:first-child .section-title { border-top: none; margin-top: 6px; p
 .source-chip .arrow { opacity: .6; }
 .source-chip img { height: 14px; width: 14px; border-radius: 3px; vertical-align: middle; }
 .section-row .source-chip { text-transform: none; font-size: 11px; padding: 2px 8px; }
-.section-row td { overflow: hidden; }
+.section-row td { overflow: hidden; overflow-wrap: anywhere; word-break: break-word; }
 
 table {
   width: 100%; border-collapse: collapse;
@@ -156,7 +156,7 @@ td { padding: 7px 6px; vertical-align: middle; }
 }
 .col-n { width: 40px; color: var(--sub); font-size: 11.5px; white-space: nowrap; }
 .col-titre { min-width: 140px; }
-.col-link { width: 1%; white-space: nowrap; text-align: center; }
+.col-link { width: 1%; white-space: normal; text-align: center; }
 .empty-cell { color: var(--sub); font-size: 12.5px; font-style: italic; text-align: center; }
 
 .pill { display: inline-block; font-size: 11px; font-weight: 700; text-decoration: none; padding: 4px 8px; border-radius: 8px; white-space: nowrap; margin: 2px; }
