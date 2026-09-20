@@ -372,7 +372,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 <title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/pcsi.css?v=6">
+<link rel="stylesheet" href="assets/pcsi.css?v=7">
 </head>
 <body>
 
@@ -385,8 +385,8 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
   <p>Cours, exercices et DS — mis à jour au fil de l'année</p>
 </header>
 
-{tab_bar_html()}
 {subject_switch_html(folder)}
+{tab_bar_html()}
 
 <main>
 {sections_html}
