@@ -134,7 +134,7 @@ main > section:first-child .section-title { border-top: none; margin-top: 6px; p
 .section-row td { overflow: hidden; overflow-wrap: anywhere; word-break: break-word; }
 
 table {
-  width: 100%; border-collapse: collapse;
+  width: 100%; table-layout: fixed; border-collapse: collapse;
   background: var(--card-bg); border-radius: 12px;
   overflow: hidden; font-size: 12.5px;
   border: 1px solid var(--border);
@@ -154,9 +154,9 @@ td { padding: 7px 6px; vertical-align: middle; }
   font-weight: 700; font-size: 11.5px; text-transform: uppercase;
   letter-spacing: .02em; padding: 7px 8px;
 }
-.col-n { width: 40px; color: var(--sub); font-size: 11.5px; white-space: nowrap; }
-.col-titre { min-width: 140px; }
-.col-link { width: 1%; white-space: normal; text-align: center; }
+.col-n { width: 34px; color: var(--sub); font-size: 11.5px; overflow-wrap: anywhere; }
+.col-titre { overflow-wrap: anywhere; word-break: break-word; }
+.col-link { width: 70px; white-space: normal; text-align: center; overflow-wrap: anywhere; }
 .empty-cell { color: var(--sub); font-size: 12.5px; font-style: italic; text-align: center; }
 
 .pill { display: inline-block; font-size: 11px; font-weight: 700; text-decoration: none; padding: 4px 8px; border-radius: 8px; white-space: nowrap; margin: 2px; }
