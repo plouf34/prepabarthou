@@ -35,7 +35,10 @@ BASE_URL = "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee"
 # 5e élément = (num_min, num_max) des fichiers "Cours Profs" attribués à cette source
 # (None = source unique, capte tous les fichiers profs de la matière).
 SUBJECT_SOURCES = {
-    "01_MATHS": [("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "../../logo-barthou.png", None, None)],
+    "01_MATHS": [
+        ("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "../../logo-barthou.png", (1, 1), None),
+        ("Lycée Saint-Louis", "Paris", "https://pcsi1-saint-louis.ovh/site/", "https://www.google.com/s2/favicons?domain=pcsi1-saint-louis.ovh&sz=32", (2, 5), None),
+    ],
     "02_PHYSIQUE": [("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "../../logo-barthou.png", None, None)],
     "03_CHIMIE": [
         ("Sainte-Geneviève", "Versailles", "http://www.pcsi1.bginette.com/Chim/Polys.php", "https://www.google.com/s2/favicons?domain=bginette.com&sz=32", (1, 7), None),
@@ -77,6 +80,20 @@ SUBJECT_EXTRA_LINKS = {
 }
 
 YOUTUBE_ICON = "https://www.google.com/s2/favicons?domain=youtube.com&sz=32"
+
+# Documents "Cours Profs" externes : PDF hébergés directement sur le site de
+# la source (jamais téléchargés dans ce dépôt), utilisés quand aucun fichier
+# local n'existe pour ce cours. Liste de (numero, titre, url_pdf) par matière ;
+# le numero doit tomber dans le num_range attribué à la source correspondante
+# dans SUBJECT_SOURCES.
+SUBJECT_EXTERNAL_PROFS = {
+    "01_MATHS": [
+        ("02", "Rudiments de logique, généralités et révisions sur les suites et les fonctions", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch1_LogiqueFonctions.pdf"),
+        ("03", "Étude de fonctions, fonctions logarithme, exponentielle et puissances", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch2_LnExp.pdf"),
+        ("04", "Arithmétique", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch3_Arithmetique.pdf"),
+        ("05", "Arithmétique — exemples", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/exe3_Arithmetique.pdf"),
+    ],
+}
 
 
 def esc(s):
@@ -209,7 +226,19 @@ def build_subject_block(repo_root, folder, emoji, label, anchor):
     entries = list_entries(dir_path, folder)
 
     clarisse_entries = [e for e in entries if is_clarisse(e[0])]
-    profs_entries = [e for e in entries if not is_clarisse(e[0])]
+    # Chaque entrée "Cours Profs" devient (numero, titre, url_html, url_pdf) :
+    # fichiers réellement présents dans le dépôt (parsés depuis leur nom),
+    # complétés par les documents externes déclarés dans SUBJECT_EXTERNAL_PROFS
+    # (PDF hébergés directement chez la source, jamais téléchargés ici).
+    profs_entries = []
+    for f, url, pdf_url in entries:
+        if is_clarisse(f):
+            continue
+        num, titre = parse_number_and_title(f)
+        profs_entries.append((num, titre, url, pdf_url))
+    for num, titre, pdf_url in SUBJECT_EXTERNAL_PROFS.get(folder, []):
+        profs_entries.append((num, titre, None, pdf_url))
+    profs_entries.sort(key=lambda e: e[0].zfill(4) if e[0].isdigit() else e[0])
 
     body = table_open()
     body += section_row("1. Cours de Clarisse")
@@ -231,8 +260,7 @@ def build_subject_block(repo_root, folder, emoji, label, anchor):
             chip = ""
         body += section_row("2. Cours Profs", chip)
         if profs_entries:
-            for f, url, pdf_url in profs_entries:
-                num, titre = parse_number_and_title(f)
+            for num, titre, url, pdf_url in profs_entries:
                 body += table_row(num, titre, url, pdf_url)
         else:
             body += empty_row()
@@ -240,30 +268,26 @@ def build_subject_block(repo_root, folder, emoji, label, anchor):
         # Plusieurs sources : un pavé "Cours Profs — <source>" par source,
         # avec la puce source dans l'en-tête, les fichiers étant attribués
         # selon leur numéro (num_range).
-        assigned = set()
+        assigned_idx = set()
         section_idx = 2
         for name, ville, url, icon, num_range, password in sources:
             chip = source_chip_html(name, ville, url, icon, password)
             body += section_row(f"{section_idx}. Cours Profs", chip)
             section_idx += 1
             matched = []
-            for e in profs_entries:
-                f = e[0]
-                num, _titre = parse_number_and_title(f)
+            for i, (num, titre, e_url, e_pdf_url) in enumerate(profs_entries):
                 if num_range and num.isdigit() and num_range[0] <= int(num) <= num_range[1]:
-                    matched.append(e)
-                    assigned.add(f)
+                    matched.append((num, titre, e_url, e_pdf_url))
+                    assigned_idx.add(i)
             if matched:
-                for f, url, pdf_url in matched:
-                    num, titre = parse_number_and_title(f)
+                for num, titre, url, pdf_url in matched:
                     body += table_row(num, titre, url, pdf_url)
             else:
                 body += empty_row()
-        leftover = [e for e in profs_entries if e[0] not in assigned]
+        leftover = [e for i, e in enumerate(profs_entries) if i not in assigned_idx]
         if leftover:
             body += section_row(f"{section_idx}. Cours Profs — autres")
-            for f, url, pdf_url in leftover:
-                num, titre = parse_number_and_title(f)
+            for num, titre, url, pdf_url in leftover:
                 body += table_row(num, titre, url, pdf_url)
     body += table_close()
 
