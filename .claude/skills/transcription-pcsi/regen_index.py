@@ -37,7 +37,7 @@ BASE_URL = "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee"
 SUBJECT_SOURCES = {
     "01_MATHS": [
         ("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "../../logo-barthou.png", (1, 1), None),
-        ("Lycée Saint-Louis", "Paris", "https://pcsi1-saint-louis.ovh/site/", "https://www.google.com/s2/favicons?domain=pcsi1-saint-louis.ovh&sz=32", (2, 5), None),
+        ("Lycée Saint-Louis", "Paris", "https://pcsi1-saint-louis.ovh/site/", "../../logo-saint-louis.png", (2, 5), None),
     ],
     "02_PHYSIQUE": [("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "../../logo-barthou.png", None, None)],
     "03_CHIMIE": [
