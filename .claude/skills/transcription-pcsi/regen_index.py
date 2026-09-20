@@ -194,7 +194,7 @@ def table_row(num, titre, url, pdf_url=None):
         parts.append(f'<a class="pill pill-pdf" href="{esc(pdf_url)}" target="_blank" rel="noopener">📕 PDF</a>')
     link_html = "".join(parts) if parts else '<span class="pill pill-off">—</span>'
     return (f'<tr><td class="col-n">{n_html}</td><td class="col-titre">{esc(titre)}</td>'
-            f'<td class="col-link">{link_html}</td></tr>')
+            f'<td class="col-link col-link-wide">{link_html}</td></tr>')
 
 
 def section_row(title, chip_html=""):
@@ -209,7 +209,7 @@ def empty_row():
 def table_open():
     return ('<table><thead><tr>'
             '<th class="col-n">N°</th><th class="col-titre">Intitulé</th>'
-            '<th class="col-link">Lien</th></tr></thead><tbody>')
+            '<th class="col-link col-link-wide">Lien</th></tr></thead><tbody>')
 
 
 def table_close():
@@ -415,7 +415,7 @@ def main():
         "     travaille en parallèle sur ce dépôt et pousse régulièrement sur cette branche.\n"
         "     Les sections Exercices et DS de ce même fichier sont tenues à la main et\n"
         "     préservées telles quelles par ce script — seule la section Cours est réécrite.\n"
-        "     Convention de libellé (Exercices ET DS) : utiliser \"Sujet\"/\"Corrigés\", jamais\n"
+        "     Convention de libellé (Exercices ET DS) : utiliser \"Sujet\"/\"Corrigé\", jamais\n"
         "     \"Énoncé\"/\"Indications\" — a été renommé plusieurs fois, merci de garder ces mots. -->\n"
     )
     placeholder = (
