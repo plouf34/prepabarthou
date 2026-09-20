@@ -185,7 +185,7 @@ def manual_line_html(folder):
     return f'<div class="manual-line">{chips}</div>'
 
 
-def table_row(num, titre, url, pdf_url=None):
+def table_row(num, titre, url, pdf_url=None, wide=False):
     n_html = esc(num) if num else "—"
     parts = []
     if url:
@@ -193,8 +193,9 @@ def table_row(num, titre, url, pdf_url=None):
     if pdf_url:
         parts.append(f'<a class="pill pill-pdf" href="{esc(pdf_url)}" target="_blank" rel="noopener">📕 PDF</a>')
     link_html = "".join(parts) if parts else '<span class="pill pill-off">—</span>'
+    link_cls = "col-link col-link-wide" if wide else "col-link"
     return (f'<tr><td class="col-n">{n_html}</td><td class="col-titre">{esc(titre)}</td>'
-            f'<td class="col-link col-link-wide">{link_html}</td></tr>')
+            f'<td class="{link_cls}">{link_html}</td></tr>')
 
 
 def section_row(title, chip_html=""):
@@ -206,10 +207,11 @@ def empty_row():
     return '<tr><td colspan="3" class="empty-cell">Aucun fichier pour l\'instant.</td></tr>'
 
 
-def table_open():
+def table_open(wide=False):
+    link_cls = "col-link col-link-wide" if wide else "col-link"
     return ('<table><thead><tr>'
             '<th class="col-n">N°</th><th class="col-titre">Intitulé</th>'
-            '<th class="col-link col-link-wide">Lien</th></tr></thead><tbody>')
+            f'<th class="{link_cls}">Lien</th></tr></thead><tbody>')
 
 
 def table_close():
@@ -254,6 +256,12 @@ def build_subject_body(repo_root, folder):
     dir_path = os.path.join(repo_root, "Prepa_barthou", "1ere_annee", folder)
     entries = list_entries(dir_path, folder)
 
+    # La colonne "Lien" ne s'élargit (pour caser HTML + PDF côte à côte) que
+    # si la matière a réellement au moins un fichier disposant des deux —
+    # sinon elle reste étroite pour laisser plus de place aux intitulés
+    # (cas de Physique/Chimie, où seuls des PDF existent).
+    wide = any(url and pdf_url for _f, url, pdf_url in entries)
+
     clarisse_entries = [e for e in entries if is_clarisse(e[0])]
     # Chaque entrée "Cours Profs" devient (source_tag, numero, titre, url_html,
     # url_pdf) : fichiers réellement présents dans le dépôt (source_tag=None,
@@ -272,12 +280,12 @@ def build_subject_body(repo_root, folder):
     for source_name, num, titre, pdf_url in SUBJECT_EXTERNAL_PROFS.get(folder, []):
         profs_entries.append((source_name, num, titre, None, pdf_url))
 
-    body = table_open()
+    body = table_open(wide=wide)
     body += section_row("1. Cours de Clarisse")
     if clarisse_entries:
         for f, url, pdf_url in clarisse_entries:
             num, titre = parse_number_and_title(f)
-            body += table_row(num, titre, url, pdf_url)
+            body += table_row(num, titre, url, pdf_url, wide=wide)
     else:
         body += empty_row()
 
@@ -293,7 +301,7 @@ def build_subject_body(repo_root, folder):
         body += section_row("2. Cours Profs", chip)
         if profs_entries:
             for _tag, num, titre, url, pdf_url in profs_entries:
-                body += table_row(num, titre, url, pdf_url)
+                body += table_row(num, titre, url, pdf_url, wide=wide)
         else:
             body += empty_row()
     else:
@@ -320,14 +328,14 @@ def build_subject_body(repo_root, folder):
                     assigned_idx.add(i)
             if matched:
                 for num, titre, url, pdf_url in matched:
-                    body += table_row(num, titre, url, pdf_url)
+                    body += table_row(num, titre, url, pdf_url, wide=wide)
             else:
                 body += empty_row()
         leftover = [(num, titre, url, pdf_url) for i, (_tag, num, titre, url, pdf_url) in enumerate(profs_entries) if i not in assigned_idx]
         if leftover:
             body += section_row(f"{section_idx}. Cours Profs — autres")
             for num, titre, url, pdf_url in leftover:
-                body += table_row(num, titre, url, pdf_url)
+                body += table_row(num, titre, url, pdf_url, wide=wide)
     body += table_close()
 
     return manual_line_html(folder) + body
