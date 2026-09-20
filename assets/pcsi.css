@@ -156,7 +156,7 @@ td { padding: 7px 6px; vertical-align: middle; }
 }
 .col-n { width: 34px; color: var(--sub); font-size: 11.5px; overflow-wrap: anywhere; }
 .col-titre { overflow-wrap: anywhere; word-break: break-word; }
-.col-link { width: 70px; white-space: normal; text-align: center; overflow-wrap: anywhere; }
+.col-link { width: 70px; white-space: normal; text-align: right; padding-right: 8px; overflow-wrap: anywhere; }
 .col-link.col-link-wide { width: 152px; }
 .empty-cell { color: var(--sub); font-size: 12.5px; font-style: italic; text-align: center; }
 
