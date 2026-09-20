@@ -83,15 +83,16 @@ YOUTUBE_ICON = "https://www.google.com/s2/favicons?domain=youtube.com&sz=32"
 
 # Documents "Cours Profs" externes : PDF hébergés directement sur le site de
 # la source (jamais téléchargés dans ce dépôt), utilisés quand aucun fichier
-# local n'existe pour ce cours. Liste de (numero, titre, url_pdf) par matière ;
-# le numero doit tomber dans le num_range attribué à la source correspondante
-# dans SUBJECT_SOURCES.
+# local n'existe pour ce cours. Liste de (nom_source, numero, titre, url_pdf)
+# par matière ; nom_source doit correspondre exactement au nom déclaré dans
+# SUBJECT_SOURCES pour cette matière (la numérotation repart donc à 01 pour
+# chaque source, indépendamment des fichiers réels d'une autre source).
 SUBJECT_EXTERNAL_PROFS = {
     "01_MATHS": [
-        ("02", "Rudiments de logique, généralités et révisions sur les suites et les fonctions", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch1_LogiqueFonctions.pdf"),
-        ("03", "Étude de fonctions, fonctions logarithme, exponentielle et puissances", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch2_LnExp.pdf"),
-        ("04", "Arithmétique", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch3_Arithmetique.pdf"),
-        ("05", "Arithmétique — exemples", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/exe3_Arithmetique.pdf"),
+        ("Lycée Saint-Louis", "01", "Rudiments de logique, généralités et révisions sur les suites et les fonctions", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch1_LogiqueFonctions.pdf"),
+        ("Lycée Saint-Louis", "02", "Étude de fonctions, fonctions logarithme, exponentielle et puissances", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch2_LnExp.pdf"),
+        ("Lycée Saint-Louis", "03", "Arithmétique", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch3_Arithmetique.pdf"),
+        ("Lycée Saint-Louis", "04", "Arithmétique — exemples", "https://pcsi1-saint-louis.ovh/site/images/Doc2627/exe3_Arithmetique.pdf"),
     ],
 }
 
@@ -226,19 +227,20 @@ def build_subject_block(repo_root, folder, emoji, label, anchor):
     entries = list_entries(dir_path, folder)
 
     clarisse_entries = [e for e in entries if is_clarisse(e[0])]
-    # Chaque entrée "Cours Profs" devient (numero, titre, url_html, url_pdf) :
-    # fichiers réellement présents dans le dépôt (parsés depuis leur nom),
-    # complétés par les documents externes déclarés dans SUBJECT_EXTERNAL_PROFS
-    # (PDF hébergés directement chez la source, jamais téléchargés ici).
+    # Chaque entrée "Cours Profs" devient (source_tag, numero, titre, url_html,
+    # url_pdf) : fichiers réellement présents dans le dépôt (source_tag=None,
+    # attribués par num_range ci-dessous), complétés par les documents externes
+    # déclarés dans SUBJECT_EXTERNAL_PROFS (source_tag = nom exact de la
+    # source, PDF hébergés directement chez elle, jamais téléchargés ici — leur
+    # numérotation repart donc à 01 indépendamment des fichiers réels).
     profs_entries = []
     for f, url, pdf_url in entries:
         if is_clarisse(f):
             continue
         num, titre = parse_number_and_title(f)
-        profs_entries.append((num, titre, url, pdf_url))
-    for num, titre, pdf_url in SUBJECT_EXTERNAL_PROFS.get(folder, []):
-        profs_entries.append((num, titre, None, pdf_url))
-    profs_entries.sort(key=lambda e: e[0].zfill(4) if e[0].isdigit() else e[0])
+        profs_entries.append((None, num, titre, url, pdf_url))
+    for source_name, num, titre, pdf_url in SUBJECT_EXTERNAL_PROFS.get(folder, []):
+        profs_entries.append((source_name, num, titre, None, pdf_url))
 
     body = table_open()
     body += section_row("1. Cours de Clarisse")
@@ -260,14 +262,16 @@ def build_subject_block(repo_root, folder, emoji, label, anchor):
             chip = ""
         body += section_row("2. Cours Profs", chip)
         if profs_entries:
-            for num, titre, url, pdf_url in profs_entries:
+            for _tag, num, titre, url, pdf_url in profs_entries:
                 body += table_row(num, titre, url, pdf_url)
         else:
             body += empty_row()
     else:
-        # Plusieurs sources : un pavé "Cours Profs — <source>" par source,
-        # avec la puce source dans l'en-tête, les fichiers étant attribués
-        # selon leur numéro (num_range).
+        # Plusieurs sources : un pavé "Cours Profs — <source>" par source.
+        # Un fichier réel (tag=None) est attribué selon son numéro (num_range) ;
+        # un document externe (tag=nom de la source) est attribué directement
+        # par correspondance de nom, sans jouer avec les plages numériques des
+        # autres sources.
         assigned_idx = set()
         section_idx = 2
         for name, ville, url, icon, num_range, password in sources:
@@ -275,8 +279,13 @@ def build_subject_block(repo_root, folder, emoji, label, anchor):
             body += section_row(f"{section_idx}. Cours Profs", chip)
             section_idx += 1
             matched = []
-            for i, (num, titre, e_url, e_pdf_url) in enumerate(profs_entries):
-                if num_range and num.isdigit() and num_range[0] <= int(num) <= num_range[1]:
+            for i, (tag, num, titre, e_url, e_pdf_url) in enumerate(profs_entries):
+                if i in assigned_idx:
+                    continue
+                belongs = tag == name or (
+                    tag is None and num_range and num.isdigit() and num_range[0] <= int(num) <= num_range[1]
+                )
+                if belongs:
                     matched.append((num, titre, e_url, e_pdf_url))
                     assigned_idx.add(i)
             if matched:
@@ -284,7 +293,7 @@ def build_subject_block(repo_root, folder, emoji, label, anchor):
                     body += table_row(num, titre, url, pdf_url)
             else:
                 body += empty_row()
-        leftover = [e for i, e in enumerate(profs_entries) if i not in assigned_idx]
+        leftover = [(num, titre, url, pdf_url) for i, (_tag, num, titre, url, pdf_url) in enumerate(profs_entries) if i not in assigned_idx]
         if leftover:
             body += section_row(f"{section_idx}. Cours Profs — autres")
             for num, titre, url, pdf_url in leftover:
