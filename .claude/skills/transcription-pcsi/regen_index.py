@@ -3,28 +3,28 @@
 SI.html, à la racine du dépôt) en scannant les 4 dossiers de cours.
 Usage: python3 regen_index.py <repo_root>
 
-Chaque page matière a 3 onglets (Cours / DS / Exercices) matérialisés par de
-vraies pages séparées partageant un même gabarit (page_shell) :
-  - <Matière>.html            → onglet Cours, ENTIÈREMENT généré par ce script.
-  - <Matière>_DS.html         → onglet DS, tenu à la main (jamais régénéré ici).
-  - <Matière>_Exercices.html  → onglet Exercices, tenu à la main (placeholder).
-Le sélecteur de matière (Maths/Physique/Chimie/SI) et la barre d'onglets sont
-produits par les fonctions tab_bar_html()/subject_switch_html() ci-dessous,
-utilisées à la fois par ce générateur et par toute page DS/Exercices éditée
-à la main (le gabarit ne change qu'ici, pour les 12 pages à la fois).
+Chaque page matière est une SEULE page qui défile de haut en bas à travers 3
+sections (Cours puis Exercices puis DS), avec une barre d'onglets sticky en
+haut qui ne fait que sauter à l'ancre correspondante (#cours/#exercices/#ds)
+dans la même page — ce n'est plus une navigation entre fichiers séparés.
+Seule la section <section id="cours"> est ENTIÈREMENT générée par ce script ;
+les sections <section id="exercices"> et <section id="ds"> sont tenues à la
+main (comme l'était Kit_Revision_PCSI.html) et PRÉSERVÉES telles quelles à
+chaque régénération : main() relit le fichier existant, extrait ces deux
+sections verbatim, et ne remplace que la section Cours.
 
 ⚠️ AVANT DE LANCER CE SCRIPT : faire un `git fetch` + `git merge` (ou pull)
 sur la branche courante. Une autre session travaille en parallèle sur ce
 dépôt et pousse régulièrement sur cette même branche ; lancer ce script
-depuis un checkout périmé régénère les pages Cours en écrasant silencieusement
+depuis un checkout périmé régénère la section Cours en écrasant silencieusement
 les correctifs poussés entre-temps (libellés, favicons, liens...).
-Les 4 fichiers <Matière>.html sont ENTIÈREMENT générés — ne jamais les éditer
-à la main. Toute modification de leur contenu (libellés, sources, manuels,
-liens complémentaires) doit passer par les constantes ci-dessous
+Toute modification du contenu de la section Cours (libellés, sources,
+manuels, liens complémentaires) doit passer par les constantes ci-dessous
 (SUBJECT_SOURCES / SUBJECT_MANUALS / SUBJECT_EXTRA_LINKS / SUBJECT_EXTERNAL_PROFS)
-ou par les fonctions de rendu, puis relancer ce script. Les fichiers
-<Matière>_DS.html et <Matière>_Exercices.html, eux, sont tenus à la main
-(comme l'était Kit_Revision_PCSI.html) : ce script ne les touche jamais.
+ou par les fonctions de rendu, puis relancer ce script. Les sections
+Exercices et DS, elles, s'éditent directement dans le fichier <Matière>.html
+(ce script ne les touche jamais, il se contente de les recopier telles
+qu'elles étaient avant de régénérer la section Cours).
 """
 import sys
 import os
@@ -38,11 +38,12 @@ SUBJECTS = [
     ("04_SI", "⚙️", "SI"),
 ]
 
-# (suffixe de fichier, clé d'onglet, emoji, libellé affiché)
+# (clé d'ancre, emoji, libellé affiché) — ordre = ordre d'apparition en
+# défilant la page (barre d'onglets sticky en haut = simples ancres #<clé>).
 TABS = [
-    ("", "cours", "📘", "Cours"),
-    ("_Exercices", "exercices", "📝", "Exercices"),
-    ("_DS", "ds", "🎯", "DS"),
+    ("cours", "📘", "Cours"),
+    ("exercices", "📝", "Exercices"),
+    ("ds", "🎯", "DS"),
 ]
 
 BASE_URL = "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee"
@@ -70,9 +71,9 @@ SUBJECT_SOURCES = {
 # Manuel de référence (PDF perso, hébergé localement dans manuels/ à la racine
 # du dépôt) affiché sous le titre de chaque matière, quand disponible.
 SUBJECT_MANUALS = {
-    "01_MATHS": ("Mathématiques PCSI — Ellipses 2021", "manuels/Maths_PCSI_Ellipses_2021.pdf"),
-    "02_PHYSIQUE": ("Physique PCSI — Ellipses 2021", "manuels/Physique_PCSI_Ellipses_2021.pdf"),
-    "04_SI": ("Sciences industrielles de l'ingénieur — Vuibert", "manuels/SI_Vuibert.pdf"),
+    "01_MATHS": ("Maths — Ellipses", "manuels/Maths_PCSI_Ellipses_2021.pdf"),
+    "02_PHYSIQUE": ("Physique — Ellipses", "manuels/Physique_PCSI_Ellipses_2021.pdf"),
+    "04_SI": ("SI — Vuibert", "manuels/SI_Vuibert.pdf"),
 }
 
 # Ressources complémentaires libres (chaînes vidéo, sites tiers...) affichées
@@ -323,35 +324,35 @@ def build_subject_body(repo_root, folder):
     return manual_line_html(folder) + body
 
 
-def tab_bar_html(label, active_key):
-    links = []
-    for suffix, key, emoji, name in TABS:
-        cls = ' class="active"' if key == active_key else ""
-        links.append(f'<a href="{esc(label)}{suffix}.html"{cls}>{emoji} {esc(name)}</a>')
+def tab_bar_html():
+    links = [f'<a href="#{key}">{emoji} {esc(name)}</a>' for key, emoji, name in TABS]
     return f'<nav class="tab-bar">{"".join(links)}</nav>'
 
 
-def subject_switch_html(current_folder, active_key):
-    suffix = next(s for s, k, _e, _n in TABS if k == active_key)
+def subject_switch_html(current_folder):
     links = []
     for folder, emoji, label in SUBJECTS:
         cls = ' class="active"' if folder == current_folder else ""
-        links.append(f'<a href="{esc(label)}{suffix}.html"{cls}>{emoji} {esc(label)}</a>')
+        links.append(f'<a href="{esc(label)}.html"{cls}>{emoji} {esc(label)}</a>')
     return f'<nav class="subject-switch">{"".join(links)}</nav>'
 
 
-def page_shell(folder, emoji, label, active_key, subtitle, body_html, banner=""):
-    """Gabarit commun aux 12 pages matière (4 matières x 3 onglets) : en-tête,
-    barre d'onglets Cours/DS/Exercices, sélecteur de matière, contenu, pied de
-    page. Utilisé par ce générateur pour l'onglet Cours, et repris à la main
-    (même structure) pour les pages DS et Exercices."""
-    tab_name = next(n for _s, k, _e, n in TABS if k == active_key)
+def section_title_html(key):
+    emoji, name = next((e, n) for k, e, n in TABS if k == key)
+    return f'<h2 class="section-title">{emoji} {esc(name)}</h2>'
+
+
+def page_shell(folder, emoji, label, sections_html, banner=""):
+    """Gabarit commun aux 4 pages matière : en-tête, barre d'onglets sticky
+    Cours/Exercices/DS (simples ancres #cours/#exercices/#ds dans CETTE même
+    page — on ne change plus de fichier), sélecteur de matière, les 3
+    sections empilées, script de mise en surbrillance de l'onglet visible."""
     return f"""{banner}<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>{esc(label)} — {esc(tab_name)} — Prépa PCSI</title>
+<title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="assets/pcsi.css">
@@ -364,39 +365,59 @@ def page_shell(folder, emoji, label, active_key, subtitle, body_html, banner="")
     <a href="Ressources_MP.html">🔗 Liens</a>
   </div>
   <h1>{emoji} {esc(label)}</h1>
-  <p>{esc(subtitle)}</p>
+  <p>Cours, exercices et DS — mis à jour au fil de l'année</p>
 </header>
 
-{tab_bar_html(label, active_key)}
-{subject_switch_html(folder, active_key)}
+{tab_bar_html()}
+{subject_switch_html(folder)}
 
 <main>
-{body_html}
+{sections_html}
 </main>
 
+<script src="assets/pcsi.js" defer></script>
 </body>
 </html>
 """
 
 
+def existing_section(repo_root, label, section_id, fallback_inner_html):
+    """Relit le fichier <Matière>.html déjà présent (s'il existe) et renvoie
+    sa section #<section_id> telle quelle, pour ne jamais écraser un contenu
+    tenu à la main (Exercices/DS) en régénérant la section Cours."""
+    path = os.path.join(repo_root, f"{label}.html")
+    if os.path.isfile(path):
+        data = open(path, encoding="utf-8").read()
+        m = re.search(rf'<section id="{section_id}">.*?</section>', data, re.S)
+        if m:
+            return m.group(0)
+    return f'<section id="{section_id}">{section_title_html(section_id)}{fallback_inner_html}</section>'
+
+
 def main():
     repo_root = sys.argv[1] if len(sys.argv) > 1 else "."
     banner = (
-        "<!-- FICHIER GÉNÉRÉ AUTOMATIQUEMENT — NE PAS ÉDITER À LA MAIN.\n"
+        "<!-- Section Cours GÉNÉRÉE AUTOMATIQUEMENT — ne pas l'éditer à la main.\n"
         "     Toute modification doit passer par .claude/skills/transcription-pcsi/regen_index.py\n"
         "     (constantes SUBJECT_SOURCES / SUBJECT_MANUALS / SUBJECT_EXTRA_LINKS / SUBJECT_EXTERNAL_PROFS,\n"
         "     ou fonctions de rendu), puis relancer :\n"
         "     python3 .claude/skills/transcription-pcsi/regen_index.py <repo_root>\n"
         "     Faire un git fetch + merge AVANT de relancer ce script : une autre session\n"
-        "     travaille en parallèle sur ce dépôt et pousse régulièrement sur cette branche. -->\n"
+        "     travaille en parallèle sur ce dépôt et pousse régulièrement sur cette branche.\n"
+        "     Les sections Exercices et DS de ce même fichier sont tenues à la main et\n"
+        "     préservées telles quelles par ce script — seule la section Cours est réécrite. -->\n"
+    )
+    placeholder = (
+        '<div class="placeholder"><div class="placeholder-icon">📝</div>'
+        '<div class="placeholder-title">Bientôt disponible</div>'
+        '<div class="placeholder-sub">Le contenu arrivera ici au fil de l\'année.</div></div>'
     )
     for folder, emoji, label in SUBJECTS:
-        body = build_subject_body(repo_root, folder)
-        out = page_shell(
-            folder, emoji, label, "cours",
-            "Cours, TD et exercices — mis à jour au fil de l'année",
-            body, banner=banner,
-        )
+        cours_section = f'<section id="cours">{section_title_html("cours")}{build_subject_body(repo_root, folder)}</section>'
+        exercices_section = existing_section(repo_root, label, "exercices", placeholder)
+        ds_section = existing_section(repo_root, label, "ds", placeholder)
+        sections_html = cours_section + exercices_section + ds_section
+        out = page_shell(folder, emoji, label, sections_html, banner=banner)
         out_path = os.path.join(repo_root, f"{label}.html")
         with open(out_path, "w", encoding="utf-8") as fh:
             fh.write(out)

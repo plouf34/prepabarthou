@@ -38,25 +38,31 @@ nommage des fichiers, et le workflow de publication.
    `git merge` avec `--strategy=ours`/`theirs` sur un fichier généré sans
    avoir lu le contenu des deux côtés.
 4. Le site est organisé par matière, à la racine du dépôt : `Maths.html`,
-   `Physique.html`, `Chimie.html`, `SI.html`, chacune avec 3 onglets (Cours /
-   DS / Exercices) matérialisés par des pages séparées (`<Matière>.html` =
-   Cours, `<Matière>_DS.html`, `<Matière>_Exercices.html`). Seules les 4 pages
-   Cours (`Maths.html`/`Physique.html`/`Chimie.html`/`SI.html`) sont
-   **entièrement générées** — ne jamais les éditer à la main (ni par un patch
-   direct, ni en copiant un ancien contenu). Toute modification de leur
-   contenu (libellés, sources, manuels, liens complémentaires) doit passer
-   par `.claude/skills/transcription-pcsi/regen_index.py` : éditer les
-   constantes `SUBJECT_SOURCES` / `SUBJECT_MANUALS` / `SUBJECT_EXTRA_LINKS` /
-   `SUBJECT_EXTERNAL_PROFS` ou les fonctions de rendu en tête de fichier, puis
-   relancer `python3 .claude/skills/transcription-pcsi/regen_index.py <repo_root>`.
+   `Physique.html`, `Chimie.html`, `SI.html`. Chacune est une SEULE page qui
+   défile de haut en bas à travers 3 sections dans l'ordre `<section
+   id="cours">` / `<section id="exercices">` / `<section id="ds">` ; la barre
+   d'onglets sticky en haut (Cours/Exercices/DS) ne fait que sauter à l'ancre
+   correspondante dans la même page (pas de changement de fichier). Seule la
+   section Cours est **entièrement générée** — ne jamais l'éditer à la main
+   (ni par un patch direct, ni en copiant un ancien contenu). Toute
+   modification de son contenu (libellés, sources, manuels, liens
+   complémentaires) doit passer par `.claude/skills/transcription-pcsi/regen_index.py` :
+   éditer les constantes `SUBJECT_SOURCES` / `SUBJECT_MANUALS` /
+   `SUBJECT_EXTRA_LINKS` / `SUBJECT_EXTERNAL_PROFS` ou les fonctions de rendu
+   en tête de fichier, puis relancer
+   `python3 .claude/skills/transcription-pcsi/regen_index.py <repo_root>`.
    Le script scanne le contenu réel des 4 sous-dossiers et répartit chaque
    matière en 2 sous-parties « Cours Clarisse » / « Cours Profs » — ne pas
    se fier à une liste mémorisée, d'autres sessions peuvent avoir ajouté ou
-   supprimé des fichiers entre-temps. Les pages `_DS.html` et `_Exercices.html`
-   sont, elles, tenues à la main (le script ne les touche jamais) ; le
+   supprimé des fichiers entre-temps. Le script relit le fichier existant et
+   RECOPIE TELLES QUELLES les sections Exercices et DS avant de réécrire :
+   il ne les régénère jamais, donc les éditer directement dans
+   `<Matière>.html` est sûr, mais toujours après un `git fetch`+`merge`. Le
    gabarit commun (en-tête, barre d'onglets, sélecteur de matière) vit dans
-   `page_shell()`/`tab_bar_html()`/`subject_switch_html()` du même script —
-   à réutiliser si le gabarit doit changer sur les 12 pages à la fois.
+   `page_shell()`/`tab_bar_html()`/`subject_switch_html()`/`section_title_html()`
+   du même script — à réutiliser si le gabarit doit changer sur les 4 pages à
+   la fois. Le CSS partagé est dans `assets/pcsi.css`, le script de
+   surbrillance de l'onglet visible au défilement dans `assets/pcsi.js`.
 5. Commit puis push sur la branche ci-dessus (avec un `git fetch`+`merge`
    juste avant le push, pour la même raison qu'à l'étape 3).
 6. Fournir une copie du fichier à l'utilisateur (pièce jointe/téléchargement)

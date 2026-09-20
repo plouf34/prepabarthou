@@ -50,10 +50,15 @@ header { padding: max(env(safe-area-inset-top, 14px), 14px) 16px 6px 16px; text-
 header h1 { font-size: 20px; margin: 4px 0 2px 0; font-weight: 800; }
 header p { margin: 0; color: var(--sub); font-size: 12.5px; }
 
-/* Barre d'onglets Cours / DS / Exercices : navigation principale d'une page matière. */
+:root { --tabbar-h: 52px; --switch-h: 38px; }
+
+/* Barre d'onglets Cours / Exercices / DS : ancres de défilement dans la même
+   page (voir assets/pcsi.js pour la mise en surbrillance de l'onglet visible),
+   restent visibles en haut pendant tout le défilement de la page matière. */
 nav.tab-bar {
-  position: sticky; top: 0; z-index: 20;
-  display: flex; gap: 6px;
+  position: sticky; top: 0; z-index: 21;
+  display: flex; gap: 6px; align-items: center;
+  height: var(--tabbar-h); box-sizing: border-box;
   max-width: 760px; margin: 10px auto 0;
   padding: 6px 8px;
   background: var(--bg);
@@ -67,11 +72,14 @@ nav.tab-bar a {
 }
 nav.tab-bar a.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-/* Sélecteur de matière : navigation secondaire, conserve l'onglet courant. */
+/* Sélecteur de matière : navigation secondaire, reste sticky juste sous la
+   barre d'onglets pendant le défilement. */
 nav.subject-switch {
-  display: flex; gap: 4px; overflow-x: auto;
-  max-width: 760px; margin: 6px auto 0;
-  padding: 0 8px 6px 8px;
+  position: sticky; top: var(--tabbar-h); z-index: 20;
+  display: flex; gap: 4px; overflow-x: auto; align-items: center;
+  height: var(--switch-h); box-sizing: border-box;
+  max-width: 760px; margin: 0 auto;
+  padding: 0 8px; background: var(--bg);
   -webkit-overflow-scrolling: touch;
 }
 nav.subject-switch a {
@@ -84,6 +92,13 @@ nav.subject-switch a {
 nav.subject-switch a.active { color: var(--accent); border-color: var(--border); background: var(--card-bg); }
 
 main { padding: 10px 8px 40px 8px; max-width: 760px; margin: 0 auto; }
+
+main > section { scroll-margin-top: calc(var(--tabbar-h) + var(--switch-h) + 8px); }
+.section-title {
+  font-size: 18px; font-weight: 800; margin: 22px 4px 10px 4px;
+  padding-top: 14px; border-top: 1px solid var(--border);
+}
+main > section:first-child .section-title { border-top: none; margin-top: 6px; padding-top: 0; }
 
 .manual-line { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 4px 12px 4px; }
 .manual-chip {
@@ -148,6 +163,7 @@ td { padding: 7px 6px; vertical-align: middle; }
 .pill-sujet { background: rgba(10,99,211,0.12); color: var(--accent); }
 .pill-corrige { background: rgba(10,138,74,0.12); color: var(--accent-2); }
 .pill-pdf { background: rgba(214,40,40,0.12); color:#d62828; }
+.pill-indication { background: rgba(217,130,43,0.14); color:#d9822b; }
 .pill-off { color: var(--sub); font-size: 12px; }
 
 .empty-sub { color: var(--sub); font-size: 12.5px; line-height: 1.5; }
