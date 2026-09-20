@@ -8,47 +8,119 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
   :root {
-    --bg: #f2f2f7; --card-bg: #ffffff; --text: #1c1c1e; --sub: #6e6e73;
-    --accent: #0a63d3; --border: #e2e2e7;
+    --bg-1: #eef1f8; --bg-2: #f7f3ef;
+    --card-bg: #ffffff; --text: #1c1c1e; --sub: #6b6b70; --border: #e6e6ec;
+    --shadow: 0 1px 2px rgba(20,20,43,0.04), 0 8px 20px -6px rgba(20,20,43,0.10);
+    --cours-a: #0a63d3; --cours-b: rgba(10,99,211,0.10);
+    --ds-a: #d62828; --ds-b: rgba(214,40,40,0.10);
+    --liens-a: #0a8a4a; --liens-b: rgba(10,138,74,0.10);
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg:#000; --card-bg:#1c1c1e; --text:#f5f5f7; --sub:#9a9a9e; --accent:#4da3ff; --border:#2c2c2e; }
+    :root {
+      --bg-1:#0b0b10; --bg-2:#16141c;
+      --card-bg:#1c1c1f; --text:#f5f5f7; --sub:#9a9aa2; --border:#2c2c31;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 24px -8px rgba(0,0,0,0.55);
+      --cours-a:#5da8ff; --cours-b:rgba(93,168,255,0.14);
+      --ds-a:#ff6b6b; --ds-b:rgba(255,107,107,0.14);
+      --liens-a:#4fd97a; --liens-b:rgba(79,217,122,0.14);
+    }
   }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--text);
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; min-height:100%; }
+  body {
+    background: radial-gradient(120% 100% at 50% 0%, var(--bg-2) 0%, var(--bg-1) 55%);
+    color:var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-    display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
+    display:flex; align-items:center; justify-content:center; min-height:100vh;
+    padding:32px 20px; -webkit-font-smoothing:antialiased;
+  }
   main { max-width: 420px; width:100%; }
-  h1 { font-size:22px; text-align:center; margin-bottom: 24px;
-    display:flex; align-items:center; justify-content:center; gap:8px; }
-  h1 img { height:30px; width:auto; vertical-align:middle; }
-  a.card { display:block; background:var(--card-bg); border:1px solid var(--border);
-    border-radius:16px; padding:20px; margin-bottom:14px; text-decoration:none; color:var(--text); text-align:center; }
-  a.card .emoji { font-size:28px; display:flex; align-items:center; justify-content:center; gap:10px; }
-  a.card .emoji img { height:28px; width:auto; vertical-align:middle; }
-  a.card .card-label { font-size:24px; font-weight:800; letter-spacing:0.04em; color:var(--text); }
-  a.card .title { font-size:17px; font-weight:700; margin-top:8px; }
-  a.card .sub { font-size:13px; color:var(--sub); margin-top:2px; }
+
+  header { text-align:center; margin-bottom:32px; }
+  .app-icon {
+    width:64px; height:64px; margin:0 auto 14px; border-radius:18px;
+    background: var(--card-bg); border:1px solid var(--border); box-shadow: var(--shadow);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .app-icon img { height:34px; width:auto; }
+  h1 { font-size:23px; font-weight:800; letter-spacing:-0.01em; margin:0 0 4px 0; }
+  header p { margin:0; color:var(--sub); font-size:13px; }
+
+  nav.cards { display:flex; flex-direction:column; gap:12px; }
+  a.card {
+    display:flex; align-items:center; gap:14px;
+    background:var(--card-bg); border:1px solid var(--border); box-shadow: var(--shadow);
+    border-radius:18px; padding:14px 16px; text-decoration:none; color:var(--text);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  a.card:active { transform: scale(0.98); }
+
+  .icon-badge {
+    flex:0 0 auto; width:50px; height:50px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px;
+  }
+  .icon-badge img { height:26px; width:auto; vertical-align:middle; }
+  .card.cours .icon-badge { background: var(--cours-b); }
+  .card.ds .icon-badge { background: var(--ds-b); }
+  .card.liens .icon-badge { background: var(--liens-b); }
+
+  .card-body { flex:1 1 auto; min-width:0; }
+  .kicker {
+    font-size:10.5px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom:2px;
+  }
+  .card.cours .kicker { color: var(--cours-a); }
+  .card.ds .kicker { color: var(--ds-a); }
+  .card.liens .kicker { color: var(--liens-a); }
+  .card-body .title { font-size:16px; font-weight:700; line-height:1.25; }
+  .card-body .sub { font-size:12.5px; color:var(--sub); margin-top:2px; line-height:1.35; }
+
+  .chevron { flex:0 0 auto; color:var(--border); font-size:18px; }
+  @media (prefers-color-scheme: dark) { .chevron { color:#3a3a40; } }
+
+  footer { text-align:center; margin-top:26px; color:var(--sub); font-size:11px; }
 </style>
 </head>
 <body>
 <main>
-  <h1><img src="icon-pcsi-title.png" alt="">Prépa PCSI</h1>
-  <a class="card" href="Prepa_barthou/1ere_annee/index.html">
-    <div class="emoji"><img src="logo-barthou.png" alt=""><span class="card-label">COURS</span></div>
-    <div class="title">Prépa Barthou — 1ère année</div>
-    <div class="sub">Cours, TD et exercices donnés en classe</div>
-  </a>
-  <a class="card" href="Kit_Revision_PCSI.html">
-    <div class="emoji">🎯<span class="card-label">DS</span></div>
-    <div class="title">Kit de révision PCSI</div>
-    <div class="sub">DS des meilleures prépas — Maths, Physique, Chimie, SI</div>
-  </a>
-  <a class="card" href="Ressources_MP.html">
-    <div class="emoji">🔗<span class="card-label">LIENS</span></div>
-    <div class="title">Ressources & liens utiles</div>
-    <div class="sub">Sites et dossiers partagés — pour les 2 années de prépa</div>
-  </a>
+  <header>
+    <div class="app-icon"><img src="icon-pcsi-title.png" alt=""></div>
+    <h1>Prépa PCSI</h1>
+    <p>Cours, DS et ressources — Clarisse</p>
+  </header>
+
+  <nav class="cards">
+    <a class="card cours" href="Prepa_barthou/1ere_annee/index.html">
+      <div class="icon-badge"><img src="logo-barthou.png" alt=""></div>
+      <div class="card-body">
+        <div class="kicker">Cours</div>
+        <div class="title">Prépa Barthou — 1ère année</div>
+        <div class="sub">Cours, TD et exercices donnés en classe</div>
+      </div>
+      <div class="chevron">›</div>
+    </a>
+    <a class="card ds" href="Kit_Revision_PCSI.html">
+      <div class="icon-badge">🎯</div>
+      <div class="card-body">
+        <div class="kicker">DS</div>
+        <div class="title">Kit de révision PCSI</div>
+        <div class="sub">DS des meilleures prépas — Maths, Physique, Chimie, SI</div>
+      </div>
+      <div class="chevron">›</div>
+    </a>
+    <a class="card liens" href="Ressources_MP.html">
+      <div class="icon-badge">🔗</div>
+      <div class="card-body">
+        <div class="kicker">Liens</div>
+        <div class="title">Ressources & liens utiles</div>
+        <div class="sub">Sites et dossiers partagés — pour les 2 années de prépa</div>
+      </div>
+      <div class="chevron">›</div>
+    </a>
+  </nav>
+
+  <footer>Lien fixe — recharge la page pour voir les derniers ajouts.</footer>
 </main>
 </body>
 </html>
