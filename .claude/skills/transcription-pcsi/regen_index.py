@@ -41,8 +41,8 @@ SUBJECTS = [
 # (suffixe de fichier, clé d'onglet, emoji, libellé affiché)
 TABS = [
     ("", "cours", "📘", "Cours"),
-    ("_DS", "ds", "🎯", "DS"),
     ("_Exercices", "exercices", "📝", "Exercices"),
+    ("_DS", "ds", "🎯", "DS"),
 ]
 
 BASE_URL = "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee"
