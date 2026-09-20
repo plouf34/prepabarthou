@@ -405,7 +405,9 @@ def main():
         "     Faire un git fetch + merge AVANT de relancer ce script : une autre session\n"
         "     travaille en parallèle sur ce dépôt et pousse régulièrement sur cette branche.\n"
         "     Les sections Exercices et DS de ce même fichier sont tenues à la main et\n"
-        "     préservées telles quelles par ce script — seule la section Cours est réécrite. -->\n"
+        "     préservées telles quelles par ce script — seule la section Cours est réécrite.\n"
+        "     Convention de libellé (Exercices ET DS) : utiliser \"Sujet\"/\"Corrigés\", jamais\n"
+        "     \"Énoncé\"/\"Indications\" — a été renommé plusieurs fois, merci de garder ces mots. -->\n"
     )
     placeholder = (
         '<div class="placeholder"><div class="placeholder-icon">📝</div>'

@@ -163,7 +163,6 @@ td { padding: 7px 6px; vertical-align: middle; }
 .pill-sujet { background: rgba(10,99,211,0.12); color: var(--accent); }
 .pill-corrige { background: rgba(10,138,74,0.12); color: var(--accent-2); }
 .pill-pdf { background: rgba(214,40,40,0.12); color:#d62828; }
-.pill-indication { background: rgba(217,130,43,0.14); color:#d9822b; }
 .pill-off { color: var(--sub); font-size: 12px; }
 
 .empty-sub { color: var(--sub); font-size: 12.5px; line-height: 1.5; }
