@@ -82,6 +82,7 @@ SUBJECT_MANUALS = {
 SUBJECT_EXTRA_LINKS = {
     "01_MATHS": [
         ("Lycée du Parc", "https://www.youtube.com/@Giraud-Laignel-hy9hb"),
+        ("Bibmath", "https://www.youtube.com/@bibmath001/featured"),
     ],
     "02_PHYSIQUE": [
         ("Physique Chimie Prépa", "https://www.youtube.com/@physiquechimieprepa/featured"),
