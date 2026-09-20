@@ -262,7 +262,13 @@ def build_subject_body(repo_root, folder):
     # (cas de Physique/Chimie, où seuls des PDF existent).
     wide = any(url and pdf_url for _f, url, pdf_url in entries)
 
-    clarisse_entries = [e for e in entries if is_clarisse(e[0])]
+    # Un fichier "Clarisse" nommé TD/Exercice (et non Cours) est lui aussi
+    # exclu du pavé Cours : il doit être placé à la main dans la section
+    # Exercices, comme pour les fichiers Profs de même type.
+    clarisse_entries = [
+        e for e in entries
+        if is_clarisse(e[0]) and not is_td_or_exercice(parse_number_and_title(e[0])[1])
+    ]
     # Chaque entrée "Cours Profs" devient (source_tag, numero, titre, url_html,
     # url_pdf) : fichiers réellement présents dans le dépôt (source_tag=None,
     # attribués par num_range ci-dessous), complétés par les documents externes
@@ -372,7 +378,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 <title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/pcsi.css?v=7">
+<link rel="stylesheet" href="assets/pcsi.css?v=8">
 </head>
 <body>
 

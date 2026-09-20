@@ -71,10 +71,39 @@ Respecte le gabarit `ch01-bases-optique-geometrique.html` : typographies Spectra
 
 Langue : français, niveau de rigueur et vocabulaire CPGE.
 
+### Architecture actuelle du site (à connaître avant de publier)
+
+Le site public (`https://plouf34.github.io/prepabarthou/`) est organisé par
+matière à la racine du dépôt : `Maths.html`, `Physique.html`,
+`Chimie.html`, `SI.html`. Chacune est une SEULE page qui défile de haut en
+bas à travers 3 sections ancrées `<section id="cours">` / `<section
+id="exercices">` / `<section id="ds">` ; une barre d'onglets sticky
+(Cours/Exercices/DS) et un sélecteur de matière sticky (au-dessus de la
+barre d'onglets) permettent de naviguer sans changer de fichier. Le CSS
+commun vit dans `assets/pcsi.css`, la mise en surbrillance de l'onglet
+visible dans `assets/pcsi.js`.
+
+Seule la section Cours de chaque page est **entièrement générée** par
+`.claude/skills/transcription-pcsi/regen_index.py`, à partir du contenu réel
+des 4 sous-dossiers `Prepa_barthou/1ere_annee/<01_MATHS|02_PHYSIQUE|03_CHIMIE|04_SI>/` —
+jamais à la main. Les sections Exercices et DS, elles, sont maintenues à la
+main directement dans le HTML et systématiquement recopiées telles quelles
+par le script (il ne les régénère jamais).
+
 ### À la fin :
 - Copie ce code / ou fichier dans un fichier « [chiffre type « 01 » par ordre de fichier créé dans le répertoire associé]-[Date]_[Matière]_[Cours, ou TD, Exercice]_[nom du lien strict récupéré sous prepabarthou.fr sans les accents, espaces remplacés par _].html »
+  Si c'est une prise de notes manuscrite de Clarisse (pas un document du
+  professeur), inclure en plus le mot `Clarisse` dans le nom de fichier
+  (ex. `..._Cours_Clarisse_...`) — l'index le classe alors dans « 1. Cours
+  de Clarisse » plutôt que « 2. Cours Profs ».
 - Mets ce fichier directement dans l'arborescence GitHub : `https://github.com/plouf34/prepabarthou` (branche `claude/pcsi-henri-iv-math-exercises-pubkis`), dans le sous-répertoire `Prepa_barthou/1ere_annee/` correspondant à la matière (01_MATHS, 02_PHYSIQUE, 03_CHIMIE, 04_SI), commit puis push.
 - Régénère ensuite automatiquement les 4 pages Cours à la racine du dépôt (`Maths.html` / `Physique.html` / `Chimie.html` / `SI.html`, via `.claude/skills/transcription-pcsi/regen_index.py`) en te basant sur le contenu réel des 4 dossiers, pas sur une liste mémorisée.
+  - Important : un fichier dont le type est `TD` ou `Exercice` (repéré dans
+    le titre, que ce soit un document prof ou un fichier `Clarisse`) est
+    automatiquement exclu du tableau Cours généré — il n'a alors pas sa
+    place là, et doit être ajouté à la main dans la section Exercices de la
+    page matière correspondante plutôt que d'attendre qu'il apparaisse dans
+    Cours.
 - Envoie aussi une copie locale du fichier (en pièce jointe / téléchargement) pour récupération sur le Bureau du Mac utilisé à ce moment-là.
 
 ## STYLE
