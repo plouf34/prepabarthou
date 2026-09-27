@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mathématiques — Ch.2 : Nombres complexes</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$','$'],['\\(','\\)']],
+    displayMath: [['$$','$$'],['\\[','\\]']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js"></script>
+<style>
+:root{
+  --font-title:'Spectral',Georgia,'Times New Roman',serif;
+  --font-body:'IBM Plex Sans','Segoe UI',Arial,sans-serif;
+  --font-mono:'IBM Plex Mono','Consolas',monospace;
+  --ink:#1c2430;
+  --paper:#fbfaf7;
+  --panel:#ffffff;
+  --line:#e2e0da;
+  --accent:#0f2b4c;
+  --blue-bg:#e9f1fd; --blue-bd:#3b6fd8;
+  --violet-bg:#f2ecfd; --violet-bd:#7c4fd6;
+  --green-bg:#e9f8ee; --green-bd:#2fa365;
+  --gray-bg:#f1f1ef; --gray-bd:#8b8b85;
+  --amber-bg:#fdf3dd; --amber-bd:#c98a12;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--font-body); line-height:1.55; font-size:16px;
+  text-align:left; word-wrap:break-word;
+}
+h1,h2,h3,h4,h5{font-family:var(--font-title); color:var(--accent); font-weight:600;}
+h1{font-size:1.95rem; margin:0 0 .25rem 0;}
+h2{font-size:1.38rem; border-bottom:2px solid var(--line); padding-bottom:.35rem; margin-top:2.3rem;}
+h3{font-size:1.15rem; margin-top:1.7rem;}
+h4{font-size:1.02rem; margin-top:1.25rem;}
+h5{font-size:.95rem; margin-top:1rem; font-style:italic;}
+code, .mono{font-family:var(--font-mono);}
+.layout{display:flex; max-width:1260px; margin:0 auto;}
+nav.toc{
+  width:265px; flex-shrink:0; position:sticky; top:0; align-self:flex-start;
+  height:100vh; overflow-y:auto; padding:1.6rem 1rem 2rem 1.4rem;
+  border-right:1px solid var(--line); font-size:.86rem;
+}
+nav.toc h4{margin-top:0; color:#7a7a72; font-family:var(--font-body); font-weight:700; letter-spacing:.03em; text-transform:uppercase; font-size:.75rem;}
+nav.toc ol{list-style:none; padding-left:0; margin:.3rem 0 1.1rem 0; counter-reset:sec;}
+nav.toc ol.roman{counter-reset:roman;}
+nav.toc ol.roman > li{counter-increment:roman;}
+nav.toc ol.roman > li > a::before{content: counter(roman, upper-roman) " — "; color:var(--blue-bd); font-weight:600;}
+nav.toc ol ol{margin:.15rem 0 .4rem 1rem;}
+nav.toc a{color:var(--ink); text-decoration:none; display:block; padding:.18rem 0;}
+nav.toc a:hover{color:var(--blue-bd);}
+main{flex:1; min-width:0; padding:2.2rem 3rem 4rem 3rem;}
+header.title{margin-bottom:1.8rem;}
+.meta{color:#7a7a72; font-size:.85rem; font-family:var(--font-mono);}
+section{margin-bottom:1.5rem;}
+p{margin:.65rem 0;}
+.block{border-left:4px solid; border-radius:6px; padding:.85rem 1.15rem; margin:1.1rem 0; background:#fff;}
+.block > .label{font-weight:700; font-family:var(--font-body); font-size:.82rem; letter-spacing:.03em; text-transform:uppercase; margin-bottom:.4rem; display:block;}
+.def{background:var(--blue-bg); border-color:var(--blue-bd);} .def>.label{color:var(--blue-bd);}
+.theorem{background:var(--violet-bg); border-color:var(--violet-bd);} .theorem>.label{color:var(--violet-bd);}
+.demo{background:var(--green-bg); border-color:var(--green-bd);} .demo>.label{color:var(--green-bd);}
+.remark{background:var(--gray-bg); border-color:var(--gray-bd);} .remark>.label{color:#5c5c56;}
+.correction{background:var(--amber-bg); border-color:var(--amber-bd);} .correction>.label{color:var(--amber-bd);}
+.retenir{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:1.1rem 1.3rem; margin:1.3rem 0;}
+.retenir>.label{color:#cfe0f5;}
+.chain{margin:.75rem 0; padding-left:.3rem;}
+.chain .step{display:flex; align-items:baseline; gap:.6rem; margin:.3rem 0; flex-wrap:wrap;}
+.chain .step .why{color:#7a7a72; font-size:.84rem; font-style:italic;}
+figure{margin:1.3rem 0; text-align:center;}
+figure svg{max-width:100%; height:auto; background:#fff; border:1px solid var(--line); border-radius:8px;}
+figcaption{font-size:.82rem; color:#7a7a72; margin-top:.45rem;}
+.quiz-item{border:1px solid var(--line); border-radius:8px; padding:1rem 1.2rem; margin:1rem 0; background:#fff;}
+.quiz-q{font-weight:700;}
+.quiz-a{margin-top:.6rem; padding-top:.6rem; border-top:1px dashed var(--line); color:#333;}
+.quiz-a .tag{font-weight:700; color:var(--green-bd); font-size:.82rem; text-transform:uppercase;}
+.sources li{margin:.35rem 0; font-size:.92rem;}
+.sources a{color:var(--blue-bd); text-decoration:none;}
+.sources a:hover{text-decoration:underline;}
+
+mjx-container[jax="SVG"]{max-width:100%;}
+mjx-container[jax="SVG"] > svg{max-width:100%; height:auto;}
+mjx-container[jax="SVG"][display="true"]{
+  overflow-x:auto;
+  overflow-y:hidden;
+  max-width:100%;
+  padding:0.2em 0;
+  -webkit-overflow-scrolling:touch;
+}
+
+@media (max-width:900px){
+  nav.toc{display:none;}
+  main{padding:1.5rem 1.2rem;}
+}
+@media (max-width:480px){
+  main{padding:1.2rem .8rem;}
+  .chain .step{gap:.35rem;}
+  .block{padding:.75rem .9rem;}
+}
+.crosslinks-course{text-align:center; padding:0 0 .6rem 0; font-size:.82rem;}.crosslinks-course a{color:var(--blue-bd); text-decoration:none; font-weight:600; margin:0 .6rem;}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc">
+<h4>Sommaire</h4>
+<ol class="roman">
+  <li><a href="#s1">Construction de l'ensemble ℂ</a></li>
+  <li><a href="#s2">Résolution des équations du 2<sup>nd</sup> degré</a>
+    <ol>
+      <li><a href="#s2-1">Racines carrées d'un complexe</a></li>
+      <li><a href="#s2-2">Équation générale du 2<sup>nd</sup> degré</a></li>
+    </ol>
+  </li>
+  <li><a href="#s3">Récurrences linéaires d'ordre 2</a></li>
+  <li><a href="#s4">Écriture exponentielle</a>
+    <ol>
+      <li><a href="#s4-1">Définition et propriétés</a></li>
+      <li><a href="#s4-2">Module</a></li>
+      <li><a href="#s4-3">Conjugué</a></li>
+      <li><a href="#s4-4">Argument, forme exponentielle</a></li>
+      <li><a href="#s4-5">Exemples</a></li>
+      <li><a href="#s4-6">Angle moitié</a></li>
+    </ol>
+  </li>
+  <li><a href="#s5">Plan complexe</a></li>
+  <li><a href="#quiz">Quiz de fin de chapitre</a></li>
+  <li><a href="#sources">Sources &amp; Références</a></li>
+</ol>
+</nav>
+
+<main>
+<div class="crosslinks-course"><a href="../../../index.html">🏠 Accueil</a><a href="../index.html">🏫 Cours</a></div>
+
+<header class="title">
+<h1>Chapitre 2 : Nombres complexes</h1>
+<div class="meta">Mathématiques · CPGE PCSI (Lycée Louis Barthou, Pau) · Transcription rigoureuse du cours manuscrit</div>
+</header>
+
+<section id="s1">
+<h2>I. Construction de l'ensemble ℂ</h2>
+
+<div class="block remark">
+<span class="label">Situation</span>
+On cherche à résoudre, pour une équation de degré 2 à coefficients réels $ax^2+bx+c=0$ (avec $a\neq 0$), le cas où le discriminant est strictement négatif — cas pour lequel aucune solution réelle n'existe.
+</div>
+
+<p><strong>Procédé :</strong> on invente une solution $i$, telle que $i=\sqrt{-1}$, à l'équation $x^2+1=0$.</p>
+
+<div class="block def">
+<span class="label">Définition — Nombre complexe</span>
+On appelle <strong>nombres complexes</strong> les expressions de la forme $a+b i$ avec $a$ et $b$ réels, soumises aux règles de calcul suivantes :
+<ol>
+<li><strong>Addition :</strong> $$(a_1+b_1i)+(a_2+b_2i) = (a_1+a_2)+(b_1+b_2)i$$</li>
+<li><strong>Multiplication :</strong> $$(a_1+b_1i)\times(a_2+b_2i) = a_1a_2-b_1b_2+(a_1b_2+b_1a_2)i$$</li>
+</ol>
+<strong>Égalité :</strong> pour $a_1,a_2,b_1,b_2$ réels, $$a_1+b_1i = a_2+b_2i \iff \begin{cases}a_1=a_2\\b_1=b_2\end{cases}$$
+C'est ce qu'on appelle une <strong>identification des parties réelles et imaginaires</strong>.
+</div>
+
+<div class="block theorem">
+<span class="label">Propriétés — L'addition</span>
+<ul>
+<li>est <strong>associative</strong> : $(z_1+z_2)+z_3=z_1+(z_2+z_3)$ ;</li>
+<li>est <strong>commutative</strong> : $z_1+z_2=z_2+z_1$ ;</li>
+<li>admet un <strong>élément neutre</strong> : le nombre $0_{\mathbb{C}}=0_{\mathbb{R}}+0_{\mathbb{R}}i$ vérifie $z+0_{\mathbb{C}}=z$ pour tout $z$ ;</li>
+<li>est telle que <strong>chaque nombre complexe admet un opposé</strong> : si $z=a+bi$ avec $a,b$ réels, alors $z+(-a+(-b)i)=0_{\mathbb{C}}$, ce nombre étant noté $-z$.</li>
+</ul>
+On définit alors $z_1-z_2 = z_1+(-z_2)$.
+</div>
+
+<div class="block theorem">
+<span class="label">Propriétés — La multiplication</span>
+<ul>
+<li>est <strong>associative</strong> ;</li>
+<li>est <strong>commutative</strong> ;</li>
+<li>admet pour <strong>élément neutre</strong> le nombre $1_{\mathbb{C}}=1_{\mathbb{R}}+0_{\mathbb{R}}i$ ;</li>
+<li>est telle que <strong>chaque $z\in\mathbb{C}$ non nul admet un inverse</strong>.</li>
+</ul>
+</div>
+
+<div class="block demo">
+<span class="label">Formule de l'inverse</span>
+Si $z=a+bi$ avec $a,b$ réels et $z\neq 0$, alors $$z^{-1}=\frac{1}{z}=\frac{a}{a^2+b^2}-\frac{b}{a^2+b^2}i.$$
+<div class="chain">
+<div class="step"><span>$(a+bi)\times\left(\dfrac{a}{a^2+b^2}-\dfrac{b}{a^2+b^2}i\right)$</span></div>
+<div class="step"><span>$=\dfrac{a^2}{a^2+b^2}+\dfrac{b^2}{a^2+b^2}+\left(-\dfrac{ab}{a^2+b^2}+\dfrac{ba}{a^2+b^2}\right)i$</span></div>
+<div class="step"><span>$=\dfrac{a^2+b^2}{a^2+b^2}=1$</span><span class="why">l'inverse est donc bien vérifié</span></div>
+</div>
+</div>
+
+<div class="block def">
+<span class="label">Vocabulaire</span>
+Si $z=a+bi$ avec $a$ et $b$ réels, on dit que $a$ est la <strong>partie réelle</strong> de $z$ et $b$ la <strong>partie imaginaire</strong> de $z$. On note $\begin{cases}a=\mathrm{Re}(z)\\b=\mathrm{Im}(z)\end{cases}$.
+</div>
+
+<div class="block remark">
+<span class="label">Notation</span>
+$\mathbb{C}$ désigne l'ensemble des nombres complexes. On dispose d'une <strong>inclusion canonique</strong> $\mathbb{R}\subset\mathbb{C}$ : si $x\in\mathbb{R}$, on le voit comme le complexe $x=x+0i$.
+</div>
+</section>
+
+<section id="s2">
+<h2>II. Résolution des équations du second degré dans ℂ</h2>
+
+<h3 id="s2-1">1) Racines carrées d'un nombre complexe</h3>
+
+<div class="block theorem">
+<span class="label">Propriété</span>
+Tout nombre complexe non nul admet deux racines carrées, opposées l'une à l'autre.
+</div>
+
+<div class="block demo">
+<span class="label">Démonstration</span>
+Soit $Z=A+Bi$ (non nul). Cherchons les nombres $z=a+bi$ tels que $z^2=Z$ (c.-à-d. $z$ est une racine carrée de $Z$) :
+$$z^2=Z \iff (a+bi)^2=A+Bi \iff a^2-b^2+2abi=A+Bi \iff \begin{cases}a^2-b^2=A\\2ab=B\end{cases}$$
+
+<p><strong>Cas $B=0$ (c.-à-d. $Z\in\mathbb{R}$) :</strong> la 2<sup>e</sup> équation devient $2ab=0$, donc $a=0$ ou $b=0$.</p>
+<ul>
+<li>si $a=0$ : la 1<sup>re</sup> équation devient $A=-b^2$, qui impose $A\leqslant 0$ et $b=\pm\sqrt{-A}$ ;</li>
+<li>si $b=0$ : la 1<sup>re</sup> équation devient $A=a^2$, qui impose $A\geqslant 0$ et $a=\pm\sqrt{A}$.</li>
+</ul>
+<p><strong>Bilan du cas $B=0$ :</strong> un nombre réel $Z=A$ admet deux racines carrées complexes, opposées, qui sont : $$\begin{cases}\pm\sqrt{A} &\text{si } A\geqslant 0\\ \pm i\sqrt{-A} &\text{si } A\leqslant 0\end{cases}$$</p>
+
+<p><strong>Cas $B\neq 0$ :</strong> la 2<sup>e</sup> équation $2ab=B\neq 0$ impose $a\neq 0$ et $b\neq 0$. On pose le changement d'inconnue $\alpha=a^2\geqslant 0$. En substituant $b=\dfrac{B}{2a}$ dans la 1<sup>re</sup> équation, on obtient (après réduction au même dénominateur puis multiplication par $4a^2$) :
+$$4\alpha^2-4A\alpha-B^2=0$$
+dont on cherche les solutions réelles <em>positives</em>. Discriminant réduit : $16A^2+16B^2>0$ (strictement, car $Z\neq 0$). Les solutions sont $$\alpha=\frac{4A\pm4\sqrt{A^2+B^2}}{8}=\frac{1}{2}\left(A\pm\sqrt{A^2+B^2}\right)$$
+Comme $\sqrt{A^2+B^2}\geqslant |A|$, seule la racine avec le signe $+$ est positive (donc recevable pour $\alpha=a^2$) : $$\alpha=\frac{1}{2}\left(A+\sqrt{A^2+B^2}\right)\geqslant 0$$</p>
+
+<p><strong>Bilan du cas $B\neq 0$ :</strong> le nombre $Z=A+iB$ admet deux racines carrées, opposées, qui sont :
+$$\pm\left(\sqrt{\tfrac{1}{2}\left(A+\sqrt{A^2+B^2}\right)} \;+\; i\,\frac{B}{2\sqrt{\tfrac{1}{2}\left(A+\sqrt{A^2+B^2}\right)}}\right) = \pm\frac{1}{\sqrt2}\left(\sqrt{A+\sqrt{A^2+B^2}} \;+\; i\,\frac{B}{\sqrt{A+\sqrt{A^2+B^2}}}\right)$$</p>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque — Équation bicarrée</span>
+Une équation de la forme $ax^4+bx^2+c=0$ (où $a,b,c$ sont des nombres réels ou complexes) est appelée <strong>équation bicarrée</strong> (ou <em>biquadratique</em>). Technique : poser le changement d'inconnue $X=x^2$, pour se ramener à une équation de degré 2 : $aX^2+bX+c=0$.
+</div>
+
+<h3 id="s2-2">2) Équation générale du second degré</h3>
+
+<p>Soit $a,b,c$ des nombres réels ou complexes avec $a\neq 0$. On cherche à résoudre l'équation $(E) : az^2+bz+c=0$, où $z$ est l'inconnue. Posons $P(z)=az^2+bz+c$ (polynôme du second degré).</p>
+
+<div class="block demo">
+<span class="label">Mise sous forme canonique</span>
+$$P(z)=a\left(z^2+\frac{b}{a}z+\frac{c}{a}\right) = a\left[\left(z+\frac{b}{2a}\right)^2-\frac{b^2}{4a^2}+\frac{c}{a}\right] = a\left[\left(z+\frac{b}{2a}\right)^2+\frac{4ac-b^2}{4a^2}\right]$$
+D'où l'équivalence, puisque $a\neq 0$ :
+$$P(z)=0 \iff \left(z+\frac{b}{2a}\right)^2 = \frac{b^2-4ac}{4a^2} = \frac{b^2-4ac}{(2a)^2}$$
+</div>
+
+<div class="block theorem">
+<span class="label">Théorème</span>
+Soit $az^2+bz+c=0 \; (E)$ une équation de degré 2 avec $a\neq 0$ ($a,b,c\in\mathbb{C}$). On appelle <strong>discriminant</strong> le nombre $\Delta=b^2-4ac$. Soit $\pm\delta$ les racines carrées de $\Delta$. Alors les solutions de $(E)$ sont : $$z=\frac{-b\pm\delta}{2a}$$
+</div>
+
+<div class="block demo">
+<span class="label">Démonstration</span>
+D'après la forme canonique, $P(z)=0 \iff \left(z+\dfrac{b}{2a}\right)^2 = \left(\dfrac{\delta}{2a}\right)^2 \iff \left(z+\dfrac{b}{2a}\right)^2-\left(\dfrac{\delta}{2a}\right)^2=0$.
+On factorise par différence de carrés, puis on utilise le fait que dans $\mathbb{C}$ (comme dans $\mathbb{R}$), un produit de deux facteurs est nul si et seulement si l'un des deux facteurs est nul :
+$$\left(z+\frac{b}{2a}-\frac{\delta}{2a}\right)\left(z+\frac{b}{2a}+\frac{\delta}{2a}\right)=0 \iff z=\frac{-b+\delta}{2a} \text{ ou } z=\frac{-b-\delta}{2a}$$
+</div>
+
+<div class="block remark">
+<span class="label">Remarque — Cas $a,b,c$ réels</span>
+<ul>
+<li>si $\Delta\geqslant 0$ : on retrouve le résultat vu en cours de 1<sup>re</sup> (racines réelles) ;</li>
+<li>si $\Delta<0$ : alors $\delta$ est un imaginaire pur, de la forme $\delta=i\sqrt{-\Delta}$.</li>
+</ul>
+</div>
+
+<div class="block demo">
+<span class="label">Exemples</span>
+<ol>
+<li>$z^2+z+1=0$ : $\Delta=1-4=-3$. Ses racines carrées sont $\pm i\sqrt3$. Les solutions sont $z=\dfrac{-1\pm i\sqrt3}{2}$.</li>
+<li>$z^2-z+1=0$ : $\Delta=1-4=-3$. Ses racines carrées sont $\pm i\sqrt3$. Les solutions sont $z=\dfrac{1\pm i\sqrt3}{2}$.</li>
+<li>$z^2+2z+i=0$ : $\Delta=2^2-4\times 1\times i=4-4i=4(1-i)$.<br>
+On cherche $\delta=a+bi$ tel que $\delta^2=4(1-i)$, c.-à-d. $a^2-b^2=4$ et $2ab=-4$. On trouve $a^2+b^2=\sqrt{4^2+4^2}=4\sqrt2$ (module de $4(1-i)$), d'où $a^2=2+2\sqrt2$ et $b^2=2\sqrt2-2$, soit $\delta=\sqrt2\left(\sqrt{1+\sqrt2}-\dfrac{i}{\sqrt{1+\sqrt2}}\right)$.<br>
+Les solutions de $(E)$ sont donc $$z=-1\pm\left[\frac{\sqrt2}{2}\sqrt{1+\sqrt2}\;-\;i\,\frac{\sqrt2}{2\sqrt{1+\sqrt2}}\right]$$
+<em>(le signe $\pm$ porte sur le crochet entier, pas sur la seule partie réelle).</em></li>
+</ol>
+</div>
+</section>
+
+<section id="s3">
+<h2>III. Application : suites récurrentes linéaires d'ordre 2</h2>
+<p><strong>Objectif :</strong> résoudre les équations de récurrence linéaires d'ordre 2, homogènes, à coefficients constants (EDL2 à coefficients constants).</p>
+
+<div class="block theorem">
+<span class="label">Théorème</span>
+Soit $a,b,c$ des nombres réels ou complexes avec $a\neq 0$. On considère l'équation de récurrence
+$$(E) : \forall n\in\mathbb{N}, \quad a\,u_{n+2}+b\,u_{n+1}+c\,u_n=0$$
+On lui associe l'<strong>équation caractéristique</strong> $az^2+bz+c=0$. Notons $r_1,r_2\in\mathbb{C}$ ses racines.
+<ul>
+<li>Si $r_1\neq r_2$ : les solutions de $(E)$ sont les suites $(\lambda\, r_1^n+\mu\, r_2^n)_{n\in\mathbb{N}}$ où $(\lambda,\mu)\in\mathbb{R}^2$ ou $\mathbb{C}^2$ (selon que l'on cherche les suites réelles ou complexes).</li>
+<li>Si $r_1=r_2$ (discriminant de l'équation caractéristique nul) : les solutions de $(E)$ sont les suites $\big[(\lambda n+\mu)\,r_1^n\big]_{n\in\mathbb{N}}$ où $(\lambda,\mu)\in\mathbb{R}^2$ ou $\mathbb{C}^2$.</li>
+</ul>
+</div>
+
+<div class="block demo">
+<span class="label">Exemples d'application</span>
+<ol>
+<li>$u_{n+2}-3u_{n+1}+2u_n=0$ : équation caractéristique $z^2-3z+2=0$, $\Delta=9-8=1>0$, racines $z_1=\dfrac{3-1}{2}=1$, $z_2=\dfrac{3+1}{2}=2$.<br>
+Solutions de $(E)$ : $(\lambda+\mu\,2^n)_{n\in\mathbb{N}}$, $(\lambda,\mu)\in\mathbb{R}^2$ ou $\mathbb{C}^2$.</li>
+<li>$u_{n+2}+u_{n+1}+u_n=0$ : équation caractéristique $z^2+z+1=0$, $\Delta=1-4=-3<0$, ses racines carrées sont $\pm i\sqrt3$, donc les racines caractéristiques sont $\dfrac{-1\pm i\sqrt3}{2}$.<br>
+Solutions de $(E)$ : $\left(\lambda\left(\dfrac{-1-i\sqrt3}{2}\right)^n+\mu\left(\dfrac{-1+i\sqrt3}{2}\right)^n\right)_{n\in\mathbb{N}}$, $(\lambda,\mu)\in\mathbb{R}^2$ ou $\mathbb{C}^2$.</li>
+</ol>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque — Version « équation différentielle »</span>
+Le même théorème s'applique, avec la même équation caractéristique, aux équations différentielles linéaires d'ordre 2 à coefficients constants $ay''+by'+cy=0$, en remplaçant $r_i^n$ par $t\mapsto \mathrm{e}^{r_it}$.<br>
+<em>Exemple :</em> $y''+3y'+2y=0$ : équation caractéristique $z^2+3z+2=0$, $\Delta=9-8=1>0$, racines $r_1=-1$, $r_2=-2$. Les solutions sont $t\mapsto \lambda\mathrm{e}^{-t}+\mu\mathrm{e}^{-2t}$ ($\lambda,\mu$ constantes).
+</div>
+
+<div class="block demo">
+<span class="label">Démonstration du théorème (cas $r_1\neq r_2$)</span>
+<p><strong>1. Par double inclusion — sens direct.</strong> Prenons $u_n=r_i^n$ où $i\in\{1,2\}$. Alors :
+$$a\,u_{n+2}+b\,u_{n+1}+c\,u_n = a\,r_i^{n+2}+b\,r_i^{n+1}+c\,r_i^n = r_i^n\underbrace{\left(a\,r_i^2+b\,r_i+c\right)}_{=0} = 0$$
+donc $(r_i^n)_{n\in\mathbb{N}}$ est solution de $(E)$, pour $i\in\{1,2\}$. Comme $(E)$ est linéaire et homogène, toute combinaison linéaire $(\lambda r_1^n+\mu r_2^n)_{n\in\mathbb{N}}$ est encore solution.</p>
+
+<p><strong>2. Réciproquement.</strong> Soit $(u_n)_n$ une suite solution de $(E)$. Puisque $r_1\neq r_2$, l'un des deux (au moins) est non nul ; quitte à les intervertir, on suppose $r_1\neq 0$, et on pose $v_n=u_n\,r_1^{-n}$.</p>
+<div class="chain">
+<div class="step"><span>$a\,v_{n+2}=a\,u_{n+2}\,r_1^{-(n+2)}=(-b\,u_{n+1}-c\,u_n)\,r_1^{-(n+2)}$</span><span class="why">car $a\,u_{n+2}=-b\,u_{n+1}-c\,u_n$ d'après $(E)$</span></div>
+<div class="step"><span>$=-\dfrac{b}{r_1}v_{n+1}-\dfrac{c}{r_1^2}v_n$</span></div>
+</div>
+<p>En multipliant par $r_1^2$ : $a\,r_1^2\,v_{n+2}+b\,r_1\,v_{n+1}+c\,v_n=0$. Or, $r_1$ et $r_2$ étant racines de $az^2+bz+c=0$, les relations coefficients–racines donnent $b=-a(r_1+r_2)$ et $c=a\,r_1r_2$. En substituant puis en divisant par $a\,r_1\neq 0$ :
+$$r_1\,v_{n+2}-(r_1+r_2)\,v_{n+1}+r_2\,v_n=0 \iff r_1(v_{n+2}-v_{n+1})=r_2(v_{n+1}-v_n)$$
+c.-à-d. $$v_{n+2}-v_{n+1}=\frac{r_2}{r_1}(v_{n+1}-v_n)$$
+La suite $(v_{n+1}-v_n)_n$ est donc <strong>géométrique</strong> de raison $\dfrac{r_2}{r_1}$. En notant $\alpha=v_1-v_0$ :
+$$v_{n+1}-v_n=\alpha\left(\frac{r_2}{r_1}\right)^n$$</p>
+
+<p><strong>Télescopage.</strong> En sommant ces égalités pour $k=0,\dots,n-1$ (rappel : somme des termes d'une suite géométrique de raison $q\neq 1$, $\displaystyle\sum_{k=0}^{n-1}q^k=\frac{1-q^n}{1-q}$) :
+$$v_n-v_0=\sum_{k=0}^{n-1}\alpha\left(\frac{r_2}{r_1}\right)^k = \alpha\,\frac{1-\left(\frac{r_2}{r_1}\right)^n}{1-\frac{r_2}{r_1}}$$
+D'où, en revenant à $u_n=v_n\,r_1^n$ et en regroupant les constantes :
+$$u_n = v_0\,r_1^n+\frac{\alpha}{1-\frac{r_2}{r_1}}\left(r_1^n-r_2^n\right) = \beta\,r_1^n+\gamma\,r_2^n$$
+avec $\beta,\gamma$ constantes. Ceci achève la preuve dans le cas $r_1\neq r_2$.</p>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+Le cas $r_1=r_2$ se traite de façon analogue (non détaillé ici, laissé en exercice).
+</div>
+
+<div class="block demo">
+<span class="label">Exemple — recherche des constantes à partir de conditions initiales</span>
+On reprend l'équation $u_{n+2}+2u_{n+1}+10u_n=0$ (équation caractéristique $z^2+2z+10=0$, de racines $-1+3i$ et $-1-3i$), assortie des conditions initiales $u_0=0$, $u_1=1$.<br>
+On sait que $u_n=\alpha(-1+3i)^n+\beta(-1-3i)^n$ pour deux constantes $\alpha,\beta$. Les conditions initiales donnent :
+$$\begin{cases}0=u_0=\alpha+\beta\\1=u_1=\alpha(-1+3i)+\beta(-1-3i)\end{cases} \iff \begin{cases}\beta=-\alpha\\1=\alpha\big[(-1+3i)-(-1-3i)\big]=6i\alpha\end{cases}$$
+d'où $\alpha=\dfrac{1}{6i}=-\dfrac{i}{6}$ et $\beta=\dfrac{i}{6}$.<br>
+<strong>Bilan :</strong> l'unique suite satisfaisant la relation de récurrence et les conditions initiales est
+$$\left(-\frac{i}{6}(-1+3i)^n+\frac{i}{6}(-1-3i)^n\right)_{n\in\mathbb{N}}$$
+</div>
+</section>
+
+<section id="s4">
+<h2>IV. Écriture exponentielle d'un nombre complexe</h2>
+
+<h3 id="s4-1">1) Définition et propriétés algébriques</h3>
+
+<div class="block def">
+<span class="label">Définition</span>
+Soit $t\in\mathbb{R}$. On note $$\mathrm{e}^{it}=\cos(t)+i\sin(t)$$
+</div>
+
+<div class="block remark">
+<span class="label">Vocabulaire</span>
+Un nombre de la forme $ix\,t$ où $t\in\mathbb{R}$ est appelé <strong>imaginaire pur</strong>. Pour $z=x+iy$, on note $\begin{cases}x=\mathrm{Re}(z)\\y=\mathrm{Im}(z)\end{cases}$.
+</div>
+
+<p>Pour $z=x+iy$ ($x,y\in\mathbb{R}$), on pose $\mathrm{e}^z=\mathrm{e}^x\times\mathrm{e}^{iy}=\mathrm{e}^x\cos(y)+i\,\mathrm{e}^x\sin(y)$.</p>
+
+<div class="block theorem">
+<span class="label">Propriété</span>
+$$\mathrm{e}^{z_1+z_2}=\mathrm{e}^{z_1}\times \mathrm{e}^{z_2} \qquad\text{et}\qquad \mathrm{e}^z\neq 0,\ \ \frac{1}{\mathrm{e}^z}=\mathrm{e}^{-z}$$
+</div>
+
+<div class="block demo">
+<span class="label">Démonstration de $\mathrm{e}^{z_1+z_2}=\mathrm{e}^{z_1}\mathrm{e}^{z_2}$</span>
+Soit $z_1=x_1+iy_1$, $z_2=x_2+iy_2$.
+$$\mathrm{e}^{z_1}\times\mathrm{e}^{z_2}=\mathrm{e}^{x_1}\mathrm{e}^{iy_1}\times\mathrm{e}^{x_2}\mathrm{e}^{iy_2}=\mathrm{e}^{x_1+x_2}\big(\cos y_1+i\sin y_1\big)\big(\cos y_2+i\sin y_2\big)$$
+$$=\mathrm{e}^{x_1+x_2}\Big[\big(\cos y_1\cos y_2-\sin y_1\sin y_2\big)+i\big(\cos y_1\sin y_2+\cos y_2\sin y_1\big)\Big]$$
+$$=\mathrm{e}^{x_1+x_2}\big[\cos(y_1+y_2)+i\sin(y_1+y_2)\big]=\mathrm{e}^{(x_1+x_2)+i(y_1+y_2)}=\mathrm{e}^{z_1+z_2}$$
+<em>(formules trigonométriques utilisées : $\cos(a+b)=\cos a\cos b-\sin a\sin b$ et $\sin(a+b)=\sin a\cos b+\cos a\sin b$.)</em>
+</div>
+
+<div class="block demo">
+<span class="label">Exercice</span>
+Montrer que $\mathrm{e}^z\neq 0$ et $\dfrac{1}{\mathrm{e}^z}=\mathrm{e}^{-z}$, puis calculer $\mathrm{e}^z\times\mathrm{e}^{-z}$.<br>
+<span class="tag" style="color:var(--green-bd); font-weight:700;">Réponse</span> — $\mathrm{e}^z\times\mathrm{e}^{-z}=\mathrm{e}^{z+(-z)}=\mathrm{e}^0=1$. Donc $\mathrm{e}^z\neq 0$ et $\dfrac{1}{\mathrm{e}^z}=\mathrm{e}^{-z}$.
+</div>
+
+<h3 id="s4-2">2) Module d'un nombre complexe</h3>
+
+<div class="block def">
+<span class="label">Définition</span>
+Soit $z=x+iy\in\mathbb{C}$ écrit sous forme cartésienne. On appelle <strong>module</strong> de $z$, noté $|z|$, le nombre réel positif $$|z|=\sqrt{x^2+y^2}$$
+</div>
+
+<p><em>Exemples :</em> $|2+i|=\sqrt{2^2+1^2}=\sqrt5$ ; $\;|3+4i|=\sqrt{3^2+4^2}=\sqrt{25}=5$.</p>
+
+<div class="block theorem">
+<span class="label">Propriétés — pour $z_1,z_2\in\mathbb{C}$</span>
+<ol>
+<li>$|z_1\times z_2|=|z_1|\times|z_2|$</li>
+<li>$|z|=0 \iff z=0$</li>
+<li>si $z\neq 0$, $\left|\dfrac{1}{z}\right|=\dfrac{1}{|z|}$</li>
+<li>(inégalité triangulaire) $|z_1+z_2|\leqslant|z_1|+|z_2|$</li>
+</ol>
+</div>
+
+<div class="block demo">
+<span class="label">Démonstration de la propriété 1</span>
+Notons $z_1,z_2$ sous forme cartésienne : $z_1=x_1+iy_1$, $z_2=x_2+iy_2$, de sorte que $z_1z_2=(x_1x_2-y_1y_2)+i(x_1y_2+x_2y_1)$. D'où :
+$$|z_1z_2|^2=(x_1x_2-y_1y_2)^2+(x_1y_2+x_2y_1)^2 = x_1^2x_2^2+y_1^2y_2^2+x_1^2y_2^2+x_2^2y_1^2$$
+et $$\big(|z_1|\times|z_2|\big)^2=|z_1|^2\times|z_2|^2=(x_1^2+y_1^2)(x_2^2+y_2^2)=x_1^2x_2^2+y_1^2x_2^2+x_1^2y_2^2+y_1^2y_2^2$$
+Les deux expressions coïncident. Or deux réels positifs de même carré sont égaux, donc $|z_1z_2|=|z_1|\times|z_2|$.
+</div>
+
+<h3 id="s4-3">3) Conjugué d'un nombre complexe</h3>
+
+<div class="block def">
+<span class="label">Définition</span>
+Soit $z=x+iy$ écrit sous forme canonique. On appelle <strong>conjugué</strong> de $z$, noté $\bar z$, le nombre $\bar z = x-iy$.
+</div>
+
+<div class="block theorem">
+<span class="label">Propriétés</span>
+<ol>
+<li>pour $z\neq 0$ : $\dfrac{1}{z}=\dfrac{\bar z}{|z|^2}$ (car $|z|^2=z\bar z$) ;</li>
+<li>$\overline{z_1+z_2}=\bar z_1+\bar z_2$, $\;\overline{z_1\times z_2}=\bar z_1\times\bar z_2$, $\;\overline{-z}=-\bar z$, $\;\overline{\left(\dfrac1z\right)}=\dfrac1{\bar z}$ ;</li>
+<li>$|\bar z|=|z|$ ;</li>
+<li>$z\in\mathbb{R}\iff \bar z=z$, et $z\in i\mathbb{R}\iff\bar z=-z$ ;</li>
+<li>$\overline{\mathrm{e}^z}=\mathrm{e}^{\bar z}$ (démonstration ci-dessous).</li>
+</ol>
+</div>
+
+<div class="block demo">
+<span class="label">Démonstration : $\overline{\mathrm{e}^z}=\mathrm{e}^{\bar z}$</span>
+Pour $z=x+iy$ sous forme cartésienne : $$\overline{\mathrm{e}^z}=\overline{\mathrm{e}^{x+iy}}=\overline{\mathrm{e}^x\cos y+i\,\mathrm{e}^x\sin y}=\mathrm{e}^x\cos(y)-\mathrm{e}^x\sin(y)i=\mathrm{e}^x\cos(-y)+i\,\mathrm{e}^x\sin(-y)=\mathrm{e}^{x-iy}=\mathrm{e}^{\bar z}$$
+<em>(rappel : cosinus est paire, $\cos(-a)=\cos(a)$ ; sinus est impaire, $\sin(-a)=-\sin(a)$.)</em>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque — deux usages du symbole $\iff$</span>
+Le symbole $\iff$ intervient dans deux contextes distincts : (1) la résolution d'une équation (ensemble des solutions préservé à chaque étape) ; (2) la démonstration d'une équivalence logique entre deux propriétés.
+</div>
+
+<h3 id="s4-4">4) Argument et forme exponentielle générale</h3>
+
+<div class="block theorem">
+<span class="label">Théorème</span>
+Soit $z\in\mathbb{C}$. Alors il existe un couple $(\rho,\theta)$ avec $\rho\in\mathbb{R}_+^*$, $\theta\in\mathbb{R}$, tel que $z=\rho\,\mathrm{e}^{i\theta}$. De plus, $\rho$ est unique et $\rho=|z|$ ; $\theta$ n'est défini qu'à un multiple de $2\pi$ près.<br>
+Autrement dit : si $\rho_1\mathrm{e}^{i\theta_1}=z=\rho_2\mathrm{e}^{i\theta_2}$ avec $\rho_1,\rho_2>0$ et $\theta_1,\theta_2$ réels, alors $\rho_1=\rho_2$ et il existe $k\in\mathbb{Z}$ tel que $\theta_1-\theta_2=2k\pi$.
+</div>
+
+<div class="block def">
+<span class="label">Définition — Écriture exponentielle, argument</span>
+L'écriture $z=\rho\,\mathrm{e}^{i\theta}$ est appelée <strong>écriture exponentielle</strong> d'un nombre complexe, et les $\theta$ qui conviennent sont appelés les <strong>arguments</strong> de $z$ (notés $\arg(z)$). On parle d'<strong>argument principal</strong> lorsqu'on impose l'unicité de l'argument, l'intervalle étant fixé (en général $]-\pi,\pi]$).
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+Le nombre $0$ admet aussi une écriture exponentielle : $0=\rho\,\mathrm{e}^{i\theta}$ avec $\rho=0$ et $\theta\in\mathbb{R}$ quelconque.
+</div>
+
+<div class="block theorem">
+<span class="label">Propriété</span>
+Les nombres de la forme $\mathrm{e}^{i\theta}$, où $\theta\in\mathbb{R}$, sont exactement les <strong>nombres complexes de module 1</strong> : $|\mathrm{e}^{i\theta}|=1$ si $\theta\in\mathbb{R}$, et réciproquement si $|z|=1$ alors il existe $\theta\in\mathbb{R}$ tel que $z=\mathrm{e}^{i\theta}$.
+</div>
+
+<h3 id="s4-5">5) Exemples de mise sous forme exponentielle</h3>
+
+<div class="block demo">
+<span class="label">Exemples</span>
+<ol>
+<li>$z=-1+i$ : $|z|=\sqrt2$, $\dfrac{z}{|z|}=\dfrac{-1}{\sqrt2}+\dfrac{1}{\sqrt2}i=\cos\!\left(\dfrac{3\pi}{4}\right)+i\sin\!\left(\dfrac{3\pi}{4}\right)$, donc $z=\sqrt2\,\mathrm{e}^{i\,3\pi/4}$.</li>
+<li>$z=\dfrac{1}{1+i}$ : $1+i=\sqrt2\,\mathrm{e}^{i\pi/4}$, donc $z=\dfrac{1}{\sqrt2}\,\mathrm{e}^{-i\pi/4}$. On vérifie par une autre méthode : $z=\dfrac{1-i}{(1+i)(1-i)}=\dfrac{1-i}{2}$, d'où $|z|=\sqrt{\tfrac14+\tfrac14}=\dfrac{1}{\sqrt2}$ et $\dfrac{z}{|z|}=\dfrac{\sqrt2}{2}-i\dfrac{\sqrt2}{2}=\mathrm{e}^{-i\pi/4}$.</li>
+<li>$z=\sqrt3+i$ : $|z|=\sqrt{3+1}=2$, $\dfrac{z}{|z|}=\dfrac{\sqrt3}{2}+\dfrac12 i=\cos\!\left(\dfrac{\pi}{6}\right)+i\sin\!\left(\dfrac{\pi}{6}\right)$, d'où $z=2\,\mathrm{e}^{i\pi/6}$.</li>
+<li>$z=1+2i$ : $|z|=\sqrt5$, $\dfrac{z}{|z|}=\dfrac{1}{\sqrt5}+\dfrac{2}{\sqrt5}i$, soit $z=\sqrt5\,\mathrm{e}^{i\arccos(1/\sqrt5)}=\sqrt5\,\mathrm{e}^{i\arcsin(2/\sqrt5)}$, avec $\theta=\arctan(2)$ (car $\tan\theta=\dfrac{\sin\theta}{\cos\theta}=\dfrac{2/\sqrt5}{1/\sqrt5}=2$).</li>
+</ol>
+</div>
+
+<h3 id="s4-6">6) Transformation de l'angle moitié</h3>
+
+<div class="block demo">
+<span class="label">Écrire $1+\mathrm{e}^{i\theta}$ sous forme exponentielle</span>
+Notons $z=1+\mathrm{e}^{i\theta}$. Calculons $|z|^2=z\bar z$ :
+$$|z|^2=(1+\mathrm{e}^{i\theta})(1+\mathrm{e}^{-i\theta})=1+\mathrm{e}^{i\theta}+\mathrm{e}^{-i\theta}+\underbrace{\mathrm{e}^{i\theta}\mathrm{e}^{-i\theta}}_{=1}=2+2\cos\theta$$
+</div>
+
+<div class="block remark">
+<span class="label">Formules d'Euler</span>
+$$\cos(\theta)=\frac{\mathrm{e}^{i\theta}+\mathrm{e}^{-i\theta}}{2} \qquad\qquad \sin(\theta)=\frac{\mathrm{e}^{i\theta}-\mathrm{e}^{-i\theta}}{2i}$$
+</div>
+
+<div class="block remark">
+<span class="label">Formules de trigonométrie — angle double</span>
+$$\cos(2a)=2\cos^2(a)-1=1-2\sin^2(a) \qquad\qquad \sin(2a)=2\cos(a)\sin(a)$$
+D'où $1+\cos(2a)=2\cos^2(a)$ et $1-\cos(2a)=2\sin^2(a)$.
+</div>
+
+<div class="block demo">
+<span class="label">Suite du calcul</span>
+En posant $2a=\theta$ dans $1+\cos(2a)=2\cos^2(a)$ : $$|z|^2=2+2\cos\theta = 4\cos^2\!\left(\frac{\theta}{2}\right) \implies |z|=2\left|\cos\!\left(\frac\theta2\right)\right|$$
+<em>Idée :</em> dans $z=1+\mathrm{e}^{i\theta}$, on factorise par $\mathrm{e}^{i\theta/2}$ :
+$$z=\mathrm{e}^{i\theta/2}\left(\mathrm{e}^{-i\theta/2}+\mathrm{e}^{i\theta/2}\right) = 2\cos\!\left(\frac\theta2\right)\mathrm{e}^{i\theta/2}$$
+Si $\cos\!\left(\dfrac\theta2\right)\geqslant 0$, ceci est directement la forme exponentielle recherchée. Si $\cos\!\left(\dfrac\theta2\right)<0$, on utilise $\mathrm{e}^{i\pi}=-1$ pour écrire $$z=2\left|\cos\!\left(\frac\theta2\right)\right|\,\mathrm{e}^{i\left(\frac\theta2+\pi\right)}$$
+</div>
+</section>
+
+<section id="s5">
+<h2>V. Plan complexe</h2>
+
+<p>On rapporte le plan euclidien usuel à un repère orthonormé $(O,\vec\imath,\vec\jmath)$. À un nombre complexe $z$, on associe son <strong>image</strong> $M$ dans le plan, qui est le point de coordonnées $\big(\mathrm{Re}(z),\mathrm{Im}(z)\big)$.</p>
+
+<div class="block def">
+<span class="label">Définition — Affixe</span>
+Tout point $M$ est alors l'image d'un unique nombre $z\in\mathbb{C}$, qu'on appelle l'<strong>affixe</strong> de $M$. On note $M(z)$.
+</div>
+
+<p>Alors, pour $z$ d'image $M$ :</p>
+<ul>
+<li>$|z|=OM$ ;</li>
+<li>$\arg(z)=(\vec\imath,\overrightarrow{OM})$ ;</li>
+<li>le point $M'(\bar z)$ est le symétrique de $M(z)$ par rapport à l'axe des réels $(O,\vec\imath)$.</li>
+</ul>
+
+<figure>
+<svg viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+  <defs>
+    <marker id="arrow-cplx" markerWidth="8" markerHeight="8" refX="6" refY="2" orient="auto">
+      <path d="M0,0 L6,2 L0,4 Z" fill="#1c2430"></path>
+    </marker>
+  </defs>
+  <!-- Axes -->
+  <line x1="30" y1="150" x2="430" y2="150" stroke="#1c2430" stroke-width="1.5" marker-end="url(#arrow-cplx)"></line>
+  <line x1="230" y1="280" x2="230" y2="20" stroke="#1c2430" stroke-width="1.5" marker-end="url(#arrow-cplx)"></line>
+  <text x="435" y="154" font-size="13" fill="#1c2430">Re(z)</text>
+  <text x="236" y="26" font-size="13" fill="#1c2430">Im(z)</text>
+  <!-- Cercle de rayon rho -->
+  <circle cx="230" cy="150" r="90" fill="none" stroke="#3b6fd8" stroke-width="1.3" stroke-dasharray="3,3"></circle>
+  <!-- Point M(z) sur le cercle a theta = 40deg -->
+  <line x1="230" y1="150" x2="299" y2="92" stroke="#0f2b4c" stroke-width="2"></line>
+  <circle cx="299" cy="92" r="4" fill="#0f2b4c"></circle>
+  <text x="305" y="88" font-size="13" font-weight="600" fill="#0f2b4c">M(z)</text>
+  <text x="255" y="128" font-size="12" fill="#0f2b4c">ρ</text>
+  <!-- Arc pour theta -->
+  <path d="M 270 150 A 40 40 0 0 0 260 118" fill="none" stroke="#7c4fd6" stroke-width="1.5"></path>
+  <text x="272" y="130" font-size="12" fill="#7c4fd6">θ</text>
+  <!-- Symetrique M'(z-bar) -->
+  <line x1="230" y1="150" x2="299" y2="208" stroke="#8b8b85" stroke-width="2" stroke-dasharray="4,3"></line>
+  <circle cx="299" cy="208" r="4" fill="#8b8b85"></circle>
+  <text x="305" y="216" font-size="13" font-weight="600" fill="#5c5c56">M'(z̄)</text>
+  <text x="215" y="164" font-size="12" fill="#1c2430">O</text>
+</svg>
+<figcaption>Fig. 1 — Point image $M(z)=\rho\mathrm{e}^{i\theta}$ : $\rho=OM=|z|$, $\theta=\arg(z)$ ; $M'(\bar z)$ est le symétrique de $M(z)$ par rapport à l'axe des réels.</figcaption>
+</figure>
+
+<div class="block demo">
+<span class="label">Exercice — Placer les images des points</span>
+$z_1=2+i$, $\;\mathrm{e}^{i\pi/4}$, $\;1+\mathrm{e}^{i\pi/3}$, $\;\sqrt3+i$, $\;1-i\sqrt3$.
+</div>
+
+<figure>
+<svg viewBox="0 0 460 380" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+  <defs>
+    <marker id="arrow-cplx2" markerWidth="8" markerHeight="8" refX="6" refY="2" orient="auto">
+      <path d="M0,0 L6,2 L0,4 Z" fill="#1c2430"></path>
+    </marker>
+  </defs>
+  <!-- origine (120,150) ; échelle : 70px = 1 unité -->
+  <line x1="20" y1="150" x2="430" y2="150" stroke="#1c2430" stroke-width="1.5" marker-end="url(#arrow-cplx2)"></line>
+  <line x1="120" y1="365" x2="120" y2="20" stroke="#1c2430" stroke-width="1.5" marker-end="url(#arrow-cplx2)"></line>
+  <text x="433" y="154" font-size="12">Re</text>
+  <text x="126" y="26" font-size="12">Im</text>
+  <!-- cercle unité -->
+  <circle cx="120" cy="150" r="70" fill="none" stroke="#e2e0da" stroke-width="1.2"></circle>
+  <text x="188" y="165" font-size="10" fill="#7a7a72">1</text>
+  <text x="105" y="85" font-size="10" fill="#7a7a72">1</text>
+  <!-- z1 = 2+i -> (120+140, 150-70) -->
+  <circle cx="260" cy="80" r="4" fill="#0f2b4c"></circle>
+  <text x="266" y="78" font-size="12" fill="#0f2b4c">2+i</text>
+  <!-- e^(i pi/4) -> (cos45,sin45)*70 = (49.5,49.5) -->
+  <circle cx="169.5" cy="100.5" r="4" fill="#3b6fd8"></circle>
+  <text x="176" y="98" font-size="12" fill="#3b6fd8">e^(iπ/4)</text>
+  <!-- 1+e^(i pi/3) -> (1+cos60, sin60)=(1.5,0.866) -> (120+105, 150-60.6) -->
+  <circle cx="225" cy="89.4" r="4" fill="#7c4fd6"></circle>
+  <text x="231" y="87" font-size="12" fill="#7c4fd6">1+e^(iπ/3)</text>
+  <!-- sqrt3+i -> (1.732,1) -> (120+121.2, 150-70) -->
+  <circle cx="241.2" cy="80" r="4" fill="#2fa365"></circle>
+  <text x="247" y="78" font-size="12" fill="#2fa365">√3+i</text>
+  <!-- 1-i sqrt3 -> (1,-1.732) -> (120+70, 150+121.2) -->
+  <circle cx="190" cy="271.2" r="4" fill="#c98a12"></circle>
+  <text x="196" y="275" font-size="12" fill="#c98a12">1-i√3</text>
+</svg>
+<figcaption>Fig. 2 — Placement des images de $z_1=2+i$, $\mathrm{e}^{i\pi/4}$, $1+\mathrm{e}^{i\pi/3}$, $\sqrt3+i$ et $1-i\sqrt3$ (échelle : le cercle tracé est le cercle unité).</figcaption>
+</figure>
+</section>
+
+<section id="quiz">
+<h2>Quiz de fin de chapitre</h2>
+
+<div class="quiz-item">
+<div class="quiz-q">1. [Définition] Pourquoi ne peut-on pas trouver, dans $\mathbb{R}$, de solution à $x^2+1=0$, et que fait-on pour y remédier ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Pour tout réel $x$, $x^2\geqslant 0$, donc $x^2+1\geqslant 1>0$ : l'équation n'a aucune solution réelle. On <strong>invente</strong> alors un nombre $i$ (non réel) vérifiant $i^2=-1$, ce qui donne naissance à l'ensemble $\mathbb{C}$ des nombres $a+bi$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">2. [Définition] Que vaut l'élément neutre de la multiplication dans $\mathbb{C}$, et pourquoi tout complexe non nul y admet-il un inverse ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Le neutre est $1_{\mathbb{C}}=1_{\mathbb{R}}+0_{\mathbb{R}}i$. Si $z=a+bi\neq 0$, alors $a^2+b^2\neq 0$, ce qui permet de définir $z^{-1}=\dfrac{a}{a^2+b^2}-\dfrac{b}{a^2+b^2}i$, et l'on vérifie que $z\times z^{-1}=1$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">3. [Application directe] Résoudre dans $\mathbb{C}$ l'équation $z^2-4z+13=0$.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+$\Delta=16-52=-36<0$. Ses racines carrées sont $\pm 6i$. Les solutions sont $z=\dfrac{4\pm 6i}{2}=2\pm 3i$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">4. [Application directe] Calculer les racines carrées complexes de $-9$.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Ici $A=-9\leqslant 0$ (cas $B=0$), donc les racines carrées sont $\pm i\sqrt{9}=\pm 3i$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">5. [Conceptuel] Pourquoi, lorsque $a,b,c$ sont réels et $\Delta<0$, les deux solutions de $az^2+bz+c=0$ sont-elles nécessairement conjuguées l'une de l'autre ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Si $\Delta<0$, sa racine carrée $\delta=i\sqrt{-\Delta}$ est un imaginaire pur. Les solutions $z=\dfrac{-b\pm\delta}{2a}$ ont donc la même partie réelle $-\dfrac{b}{2a}$ (réelle, car $a,b$ réels) et des parties imaginaires opposées : elles sont bien conjuguées.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">6. [Conceptuel] Que change, dans la forme des solutions d'une récurrence $au_{n+2}+bu_{n+1}+cu_n=0$, le fait que le discriminant de l'équation caractéristique soit nul ($r_1=r_2$) ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+On ne dispose plus que d'une seule racine caractéristique $r_1$, donc d'une seule famille de solutions $r_1^n$ : il en manque une seconde, indépendante, pour engendrer tout l'espace des solutions. On introduit alors le facteur $n$ : les solutions deviennent $\big[(\lambda n+\mu)r_1^n\big]_{n\in\mathbb{N}}$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">7. [Piège classique] Peut-on écrire directement « $\sqrt{-3}$ » pour désigner une racine carrée complexe de $-3$ ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Non : le symbole $\sqrt{\phantom{x}}$ n'est défini que pour les réels <strong>positifs</strong>. Pour un réel négatif $A$, ses deux racines carrées complexes s'écrivent $\pm i\sqrt{-A}$ (ici $\pm i\sqrt3$), jamais « $\sqrt A$ » au sens usuel — c'est une confusion classique et pénalisée.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">8. [Piège classique] Est-il vrai que $\dfrac{1}{z}=\bar z$ pour tout complexe non nul $z$ ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Non, en général $\dfrac1z=\dfrac{\bar z}{|z|^2}$ : l'égalité $\dfrac1z=\bar z$ n'est vraie que dans le cas particulier où $|z|=1$ (module 1), par exemple pour $z=\mathrm{e}^{i\theta}$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">9. [Synthèse] Quel est le lien entre l'écriture exponentielle $z=\rho\,\mathrm{e}^{i\theta}$ et la représentation géométrique de $z$ dans le plan complexe ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Si $M$ est l'image de $z$, alors $\rho=OM=|z|$ (la distance de $M$ à l'origine) et $\theta=\arg(z)=(\vec\imath,\overrightarrow{OM})$ (l'angle orienté entre l'axe des réels et $\overrightarrow{OM}$). L'écriture exponentielle est donc l'exacte traduction algébrique des coordonnées polaires de $M$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">10. [Synthèse] Pourquoi la résolution des suites récurrentes linéaires d'ordre 2 à coefficients réels ($au_{n+2}+bu_{n+1}+cu_n=0$) passe-t-elle nécessairement par $\mathbb{C}$, même si la suite $(u_n)$ recherchée est réelle ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+L'équation caractéristique $az^2+bz+c=0$ peut avoir un discriminant négatif, auquel cas ses racines $r_1,r_2$ sont complexes (conjuguées) même si $a,b,c$ sont réels. La base de solutions $(r_1^n,r_2^n)$ vit alors dans $\mathbb{C}$ ; ce n'est qu'en choisissant des constantes $\lambda,\mu$ complexes conjuguées adaptées aux conditions initiales que la combinaison $\lambda r_1^n+\mu r_2^n$ redevient réelle.</div>
+</div>
+
+</section>
+
+<section id="sources">
+<h2>Sources &amp; Références</h2>
+<ul class="sources">
+  <li>Programme officiel de Mathématiques en CPGE PCSI — Ministère de l'Enseignement Supérieur et de la Recherche.</li>
+  <li>Notes manuscrites de cours de Clarisse — Chapitre 2 : Nombres complexes.</li>
+  <li>Ouvrages de référence : <em>H-Prépa Mathématiques PCSI (Analyse 1ère année)</em>, <em>Tout-en-un Mathématiques PCSI (Dunod)</em>.</li>
+</ul>
+</section>
+
+</main>
+</div>
+</body>
+</html>
