@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mathématiques — Ch.2 : Problèmes algébriques de degré 2 (cours du professeur)</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$','$'],['\\(','\\)']],
+    displayMath: [['$$','$$'],['\\[','\\]']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js"></script>
+<style>
+:root{
+  --font-title:'Spectral',Georgia,'Times New Roman',serif;
+  --font-body:'IBM Plex Sans','Segoe UI',Arial,sans-serif;
+  --font-mono:'IBM Plex Mono','Consolas',monospace;
+  --ink:#1c2430;
+  --paper:#fbfaf7;
+  --panel:#ffffff;
+  --line:#e2e0da;
+  --accent:#0f2b4c;
+  --blue-bg:#e9f1fd; --blue-bd:#3b6fd8;
+  --violet-bg:#f2ecfd; --violet-bd:#7c4fd6;
+  --green-bg:#e9f8ee; --green-bd:#2fa365;
+  --gray-bg:#f1f1ef; --gray-bd:#8b8b85;
+  --amber-bg:#fdf3dd; --amber-bd:#c98a12;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--font-body); line-height:1.55; font-size:16px;
+  text-align:left; word-wrap:break-word;
+}
+h1,h2,h3,h4,h5{font-family:var(--font-title); color:var(--accent); font-weight:600;}
+h1{font-size:1.95rem; margin:0 0 .25rem 0;}
+h2{font-size:1.38rem; border-bottom:2px solid var(--line); padding-bottom:.35rem; margin-top:2.3rem;}
+h3{font-size:1.15rem; margin-top:1.7rem;}
+h4{font-size:1.02rem; margin-top:1.25rem;}
+h5{font-size:.95rem; margin-top:1rem; font-style:italic;}
+code, .mono{font-family:var(--font-mono);}
+.layout{display:flex; max-width:1260px; margin:0 auto;}
+nav.toc{
+  width:265px; flex-shrink:0; position:sticky; top:0; align-self:flex-start;
+  height:100vh; overflow-y:auto; padding:1.6rem 1rem 2rem 1.4rem;
+  border-right:1px solid var(--line); font-size:.86rem;
+}
+nav.toc h4{margin-top:0; color:#7a7a72; font-family:var(--font-body); font-weight:700; letter-spacing:.03em; text-transform:uppercase; font-size:.75rem;}
+nav.toc ol{list-style:none; padding-left:0; margin:.3rem 0 1.1rem 0; counter-reset:sec;}
+nav.toc ol.roman{counter-reset:roman;}
+nav.toc ol.roman > li{counter-increment:roman;}
+nav.toc ol.roman > li > a::before{content: counter(roman, upper-roman) " — "; color:var(--blue-bd); font-weight:600;}
+nav.toc ol ol{margin:.15rem 0 .4rem 1rem;}
+nav.toc a{color:var(--ink); text-decoration:none; display:block; padding:.18rem 0;}
+nav.toc a:hover{color:var(--blue-bd);}
+main{flex:1; min-width:0; padding:2.2rem 3rem 4rem 3rem;}
+header.title{margin-bottom:1.8rem;}
+.meta{color:#7a7a72; font-size:.85rem; font-family:var(--font-mono);}
+section{margin-bottom:1.5rem;}
+p{margin:.65rem 0;}
+.block{border-left:4px solid; border-radius:6px; padding:.85rem 1.15rem; margin:1.1rem 0; background:#fff;}
+.block > .label{font-weight:700; font-family:var(--font-body); font-size:.82rem; letter-spacing:.03em; text-transform:uppercase; margin-bottom:.4rem; display:block;}
+.def{background:var(--blue-bg); border-color:var(--blue-bd);} .def>.label{color:var(--blue-bd);}
+.theorem{background:var(--violet-bg); border-color:var(--violet-bd);} .theorem>.label{color:var(--violet-bd);}
+.demo{background:var(--green-bg); border-color:var(--green-bd);} .demo>.label{color:var(--green-bd);}
+.remark{background:var(--gray-bg); border-color:var(--gray-bd);} .remark>.label{color:#5c5c56;}
+.correction{background:var(--amber-bg); border-color:var(--amber-bd);} .correction>.label{color:var(--amber-bd);}
+.retenir{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:1.1rem 1.3rem; margin:1.3rem 0;}
+.retenir>.label{color:#cfe0f5;}
+.chain{margin:.75rem 0; padding-left:.3rem;}
+.chain .step{display:flex; align-items:baseline; gap:.6rem; margin:.3rem 0; flex-wrap:wrap;}
+.chain .step .why{color:#7a7a72; font-size:.84rem; font-style:italic;}
+figure{margin:1.3rem 0; text-align:center;}
+figure svg{max-width:100%; height:auto; background:#fff; border:1px solid var(--line); border-radius:8px;}
+figcaption{font-size:.82rem; color:#7a7a72; margin-top:.45rem;}
+.quiz-item{border:1px solid var(--line); border-radius:8px; padding:1rem 1.2rem; margin:1rem 0; background:#fff;}
+.quiz-q{font-weight:700;}
+.quiz-a{margin-top:.6rem; padding-top:.6rem; border-top:1px dashed var(--line); color:#333;}
+.quiz-a .tag{font-weight:700; color:var(--green-bd); font-size:.82rem; text-transform:uppercase;}
+.sources li{margin:.35rem 0; font-size:.92rem;}
+.sources a{color:var(--blue-bd); text-decoration:none;}
+.sources a:hover{text-decoration:underline;}
+
+mjx-container[jax="SVG"]{max-width:100%;}
+mjx-container[jax="SVG"] > svg{max-width:100%; height:auto;}
+mjx-container[jax="SVG"][display="true"]{
+  overflow-x:auto;
+  overflow-y:hidden;
+  max-width:100%;
+  padding:0.2em 0;
+  -webkit-overflow-scrolling:touch;
+}
+
+@media (max-width:900px){
+  nav.toc{display:none;}
+  main{padding:1.5rem 1.2rem;}
+}
+@media (max-width:480px){
+  main{padding:1.2rem .8rem;}
+  .chain .step{gap:.35rem;}
+  .block{padding:.75rem .9rem;}
+}
+.crosslinks-course{text-align:center; padding:0 0 .6rem 0; font-size:.82rem;}.crosslinks-course a{color:var(--blue-bd); text-decoration:none; font-weight:600; margin:0 .6rem;}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc">
+<h4>Sommaire</h4>
+<ol>
+  <li><a href="#s1">2.1 Rappels du lycée et équations biquadratiques</a>
+    <ol>
+      <li><a href="#s1-1">2.1.1 Racines carrées réelles</a></li>
+      <li><a href="#s1-2">2.1.2 Forme canonique</a></li>
+      <li><a href="#s1-3">2.1.3 Polynômes biquadratiques</a></li>
+    </ol>
+  </li>
+  <li><a href="#s2">2.2 Nombres complexes</a>
+    <ol>
+      <li><a href="#s2-1">2.2.1 Définition</a></li>
+      <li><a href="#s2-2">2.2.2 Racines carrées</a></li>
+      <li><a href="#s2-3">2.2.3 Retour aux équations de degré 2</a></li>
+    </ol>
+  </li>
+  <li><a href="#s3">2.3 Écriture polaire</a>
+    <ol>
+      <li><a href="#s3-1">2.3.1 Cercle trigonométrique</a></li>
+      <li><a href="#s3-2">2.3.2 Complexes de module 1</a></li>
+      <li><a href="#s3-3">2.3.3 Écriture polaire</a></li>
+      <li><a href="#s3-4">2.3.4 Retour aux racines carrées</a></li>
+      <li><a href="#s3-5">2.3.5 Exponentielle complexe</a></li>
+      <li><a href="#s3-6">2.3.6 Formulaire</a></li>
+    </ol>
+  </li>
+  <li><a href="#quiz">Quiz de fin de chapitre</a></li>
+  <li><a href="#sources">Sources &amp; Références</a></li>
+</ol>
+</nav>
+
+<main>
+<div class="crosslinks-course"><a href="../../../index.html">🏠 Accueil</a><a href="../index.html">🏫 Cours</a></div>
+
+<header class="title">
+<h1>Chapitre 2 : Problèmes algébriques de degré 2</h1>
+<div class="meta">Mathématiques · CPGE PCSI (Lycée Louis Barthou, Pau) · Cours du professeur — transcription fidèle du PDF</div>
+</header>
+
+<p>On s'intéresse aux équations de degré 2, de la forme $ax^2+bx+c=0$, où $a$, $b$ et $c$ sont trois nombres fixés (avec $a$ non nul), appelés les <strong>coefficients</strong> de l'équation, et $x$ est l'inconnue.</p>
+<p>En classe de première (générale, spécialité mathématiques) a été étudiée la résolution de ces équations lorsque les coefficients et l'inconnue sont des nombres réels. On va introduire dans ce chapitre la notion de nombre complexe afin de résoudre ces équations dans des cas plus généraux.</p>
+
+<div class="block remark">
+<span class="label">Note de transcription</span>
+Les numéros de définitions, propositions et théorèmes sont ceux du professeur. Quelques coquilles typographiques évidentes du PDF (accords, mots répétés) ont été corrigées silencieusement ; toute erreur mathématique est signalée dans un encart ⚠️.
+</div>
+
+<section id="s1">
+<h2>2.1 Rappels du lycée et équations biquadratiques</h2>
+
+<h3 id="s1-1">2.1.1 Racines carrées réelles</h3>
+
+<div class="block def">
+<span class="label">Définition 2.1</span>
+Soit $x$ un nombre. On appelle <strong>racine carrée</strong> de $x$ tout nombre $r$ dont le carré vaut $x$, autrement dit tel que $r^2=x$.
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 2.2</span>
+Le carré d'un nombre réel est un nombre réel positif. Un nombre réel strictement négatif n'admet aucune racine carrée réelle.
+</div>
+
+<div class="block def">
+<span class="label">Proposition/Définition 2.3</span>
+Soit $x$ un nombre réel positif. Alors $x$ admet une unique racine carrée dans $\mathbb{R}^+$, qu'on note $\sqrt{x}$. On dit alors qu'il s'agit de <em>la</em> racine carrée de $x$.<br>
+Si $x>0$, il admet exactement deux racines carrées dans $\mathbb{R}$, qui sont $\pm\sqrt{x}$.<br>
+Si $x=0$, il admet une unique racine carrée dans $\mathbb{R}$, qui est $0$.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 2.4</span>
+La terminologie « racine carrée » est polysémique : elle désigne tantôt l'unique racine carrée positive d'un nombre réel positif (« <em>la</em> » racine carrée), tantôt n'importe quel nombre dont le carré vaut le nombre considéré (« <em>une</em> » racine carrée). Le jeu sur la nature de l'article (défini dans un cas, indéfini dans l'autre) permet de savoir de quoi on parle. Il convient d'être attentif, en tant que lecteur et en tant que locuteur, pour bien distinguer ces deux usages.
+</div>
+
+<h3 id="s1-2">2.1.2 Mise sous forme canonique et conséquences</h3>
+
+<p>Soit $a$, $b$ et $c$ trois nombres avec $a\neq 0$. On introduit le vocabulaire des polynômes et des racines, plus confortable que celui des équations en pratique. Notons $P(x)=ax^2+bx+c$ : la lettre $x$ utilisée pour noter le polynôme est appelée <strong>indéterminée</strong><sup>1</sup>. Cette expression, qui dépend du paramètre $x$, est appelée un polynôme de degré 2. Résoudre l'équation $ax^2+bx+c=0$ revient à résoudre l'équation $P(x)=0$, donc à chercher ce qu'on appelle les racines du polynôme $P$.</p>
+
+<div class="block def">
+<span class="label">Définition 2.5</span>
+On appelle <strong>polynôme du second degré</strong> toute expression $P(x)=ax^2+bx+c$, où $a$, $b$ et $c$ sont trois nombres fixés, avec $a$ non nul.<br>
+On appelle <strong>racine</strong> du polynôme $P$ tout nombre $x$ tel que $P(x)=0$.
+</div>
+
+<div class="block demo">
+<span class="label">Mise sous forme canonique (rappel)</span>
+$$P(x)=ax^2+bx+c=a\left(x^2+\frac{b}{a}x\right)+c=a\left(x+\frac{b}{2a}\right)^2-\frac{b^2}{4a}+c=a\left(x+\frac{b}{2a}\right)^2-\frac{b^2-4ac}{4a}$$
+de sorte que :
+$$P(x)=0\iff\left(x+\frac{b}{2a}\right)^2=\frac{b^2-4ac}{4a^2}$$
+On peut encore écrire cela en utilisant le changement de variable $y=x+\frac{b}{2a}$, qui donne :
+$$P\left(y-\frac{b}{2a}\right)=a\left[y^2-\frac{b^2-4ac}{4a^2}\right]$$
+Ainsi, la recherche des racines d'un polynôme du second degré se ramène à la recherche des racines carrées du quotient $\dfrac{b^2-4ac}{4a^2}$. Les règles de compatibilité entre racine carrée et produit ou quotient permettent de se ramener à la recherche des racines carrées du discriminant $b^2-4ac$.
+</div>
+
+<div class="block theorem">
+<span class="label">Théorème 2.6</span>
+Soit $P(x)=ax^2+bx+c$ un polynôme du second degré (ainsi $a\neq0$). Soit $\Delta=b^2-4ac$ son <strong>discriminant</strong>. Les racines de $P$ sont les nombres :
+$$-\frac{b}{2a}+\frac{\delta}{2a}$$
+où $\delta$ parcourt l'ensemble des racines carrées du nombre $\Delta$.
+</div>
+
+<div class="block correction">
+<span class="label">⚠️ Correction — signe manquant dans l'énoncé du Théorème 2.6</span>
+Le PDF écrit « $\dfrac{b}{2a}+\dfrac{\delta}{2a}$ » : le signe moins devant $\dfrac{b}{2a}$ est absent. La forme canonique ci-dessus donne $\left(x+\frac{b}{2a}\right)^2=\left(\frac{\delta}{2a}\right)^2$, donc $x=-\frac{b}{2a}\pm\frac{\delta}{2a}$, ce que confirme le Théorème 2.19 du même chapitre (« $\frac{-b\pm\delta}{2a}$ »). Source : cohérence interne du document et calcul direct à partir de la forme canonique (aucune source externe nécessaire).
+</div>
+
+<p style="font-size:.85rem;color:#7a7a72;"><sup>1</sup> On peut considérer en première approximation que ce mot est interchangeable avec le mot plus courant de <em>variable</em>. La réalité est plus nuancée : quand on parle de variable, on met l'accent sur l'aspect fonctionnel (dépendance de $P(x)$ lorsque $x$ varie) ; lorsqu'on parle d'indéterminée, on s'intéresse surtout à l'expression pour elle-même, sans nécessairement considérer des variations.</p>
+
+<div class="block remark">
+<span class="label">Remarque 2.7</span>
+En combinant ce théorème avec les rappels sur les racines carrées dans $\mathbb{R}$, on retrouve la description des solutions des équations de degré 2 telle qu'étudiée en classe de première.
+</div>
+
+<h3 id="s1-3">2.1.3 Polynômes biquadratiques</h3>
+
+<div class="block def">
+<span class="label">Définition 2.8</span>
+On appelle <strong>polynôme biquadratique</strong> tout polynôme de la forme $P(x)=ax^4+bx^2+c$, pour $a$, $b$ et $c$ des nombres.<br>
+On appelle <strong>polynôme quadratique</strong> (ou de degré 2) <strong>sous-jacent</strong> le polynôme $Q$ obtenu en procédant au changement d'indéterminée $X=x^2$, à savoir $Q(X)=aX^2+bX+c$.<br>
+On appelle <strong>discriminant</strong> du polynôme biquadratique $P$ le discriminant du polynôme $Q$ de degré 2 associé.
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 2.9</span>
+Les racines d'un polynôme biquadratique $P$ sont les racines carrées des racines du polynôme quadratique $Q$ associé.
+</div>
+
+<div class="block correction">
+<span class="label">⚠️ Correction — formulation de la Proposition 2.9 et de la Définition 2.8</span>
+Le PDF écrit « Les <em>racines carrées</em> d'un polynôme biquadratique $P$ sont les racines carrées des racines de $Q$ » et « $P(x)=ax^4+bx^2+c=0$ » dans la définition. Un polynôme n'a pas de « racines carrées » : ce sont ses <em>racines</em> qui sont concernées (si $X_0$ est racine de $Q$, alors $x^2=X_0$ donne $P(x)=Q(x^2)=0$). Par ailleurs, « $=0$ » n'a pas sa place dans la définition d'un polynôme (c'est l'équation $P(x)=0$ qui est l'équation biquadratique). Énoncés rectifiés ci-dessus ; vérifiable par la substitution $X=x^2$.
+</div>
+</section>
+
+<section id="s2">
+<h2>2.2 Nombres complexes</h2>
+
+<p>La notion de nombre complexe émerge du manque de racines carrées réelles des nombres strictement négatifs. La construction consiste à considérer une racine carrée du nombre $-1$, qu'on a notée historiquement $\sqrt{-1}$, avant d'abandonner cette notation, et qu'on note désormais $i$<sup>2</sup>. On constate ensuite qu'en manipulant les expressions de la forme $a+bi$, où $a$ et $b$ sont des nombres réels, on parvient à obtenir un cadre calculatoire d'une part cohérent en lui-même, et d'autre part dans lequel tous les nombres, réels ou complexes, admettent des racines carrées — et bien plus encore.</p>
+
+<p style="font-size:.85rem;color:#7a7a72;"><sup>2</sup> La notation $i$ est canonique, mais n'est pas réservée : on s'autorise en mathématiques à utiliser aussi la lettre $i$ pour désigner d'autres objets, en particulier des indices entiers. Le contexte permet en général de ne pas se tromper sur le sens du symbole. Attention à l'usage des physiciens, qui utilisent la lettre $i$ pour certaines grandeurs physiques, et notent $j$ une racine carrée de $-1$.</p>
+
+<h3 id="s2-1">2.2.1 Définition</h3>
+
+<div class="block def">
+<span class="label">Définition 2.10</span>
+On appelle <strong>nombres complexes</strong> les expressions de la forme $z=a+bi$, où $a$ et $b$ sont des nombres réels, appelés respectivement la <strong>partie réelle</strong> et la <strong>partie imaginaire</strong> de $z$, qu'on note $a=\mathrm{Re}(z)$ et $b=\mathrm{Im}(z)$. De plus, l'ensemble des nombres complexes est muni des opérations arithmétiques suivantes (les notations $a_1,a_2,b_1,b_2$ désignent des nombres réels) :
+<ul>
+<li><strong>l'égalité :</strong> $$a_1+b_1i=a_2+b_2i\iff\begin{cases}a_1=a_2\\b_1=b_2\end{cases}$$</li>
+<li><strong>la somme :</strong> $$(a_1+b_1i)+(a_2+b_2i)=(a_1+a_2)+(b_1+b_2)i$$</li>
+<li><strong>le produit :</strong> $$(a_1+b_1i)\cdot(a_2+b_2i)=a_1a_2-b_1b_2+(a_1b_2+b_1a_2)i$$
+ce produit étant défini par double distributivité avec la règle supplémentaire $i^2=-1$ pour traiter le terme $(b_1i)\cdot(b_2i)$.</li>
+</ul>
+</div>
+
+<div class="block remark">
+<span class="label">Vocabulaire 2.11</span>
+L'ensemble des nombres complexes de partie imaginaire nulle est identifié à l'ensemble des nombres réels.<br>
+Les nombres complexes de partie réelle nulle (donc de la forme $bi$ avec $b$ réel) sont appelés des <strong>nombres imaginaires purs</strong>.
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 2.12</span>
+Soit $\mathbb{C}$ l'ensemble des nombres complexes, muni de l'addition et de la multiplication définies ci-dessus.
+<ul>
+<li><strong>L'addition</strong> est associative ($(z_1+z_2)+z_3=z_1+(z_2+z_3)$ pour tous $z_1,z_2,z_3$), commutative ($z_1+z_2=z_2+z_1$ pour tous $z_1,z_2$), admet un élément neutre qui est $0$ ($z+0=z$ pour tout $z$). Tout nombre complexe $z$ admet un <strong>symétrique</strong> pour l'addition (un nombre $-z$ tel que $z+(-z)=0$), qui vérifie $\mathrm{Re}(-z)=-\mathrm{Re}(z)$ et $\mathrm{Im}(-z)=-\mathrm{Im}(z)$.</li>
+<li><strong>La multiplication</strong> est associative, commutative, admet un élément neutre qui est le nombre réel $1$. Tout nombre complexe non nul admet un symétrique pour la multiplication, qui est :
+$$z^{-1}=\frac1z=\frac{\mathrm{Re}(z)}{\mathrm{Re}(z)^2+\mathrm{Im}(z)^2}-\frac{\mathrm{Im}(z)}{\mathrm{Re}(z)^2+\mathrm{Im}(z)^2}\cdot i$$</li>
+<li><strong>La multiplication est distributive</strong> par rapport à l'addition : $z_1\cdot(z_2+z_3)=z_1\cdot z_2+z_1\cdot z_3$.</li>
+</ul>
+</div>
+
+<div class="block correction">
+<span class="label">⚠️ Correction — commutativité de l'addition</span>
+Le PDF écrit, pour la commutativité de l'<em>addition</em>, « $z_1\cdot z_2=z_2\cdot z_1$ » (produit). La propriété demandée est $z_1+z_2=z_2+z_1$ ; l'énoncé ci-dessus est rectifié. (Coquille manifeste : la commutativité du produit est énoncée séparément, juste après.)
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 2.13</span>
+Un produit de deux nombres complexes est nul si et seulement si (au moins) un des deux facteurs est nul.
+</div>
+
+<p>On a vu apparaître dans l'expression de l'inverse du nombre complexe $z$ l'expression $\mathrm{Re}(z)^2+\mathrm{Im}(z)^2$. Cette expression est importante en elle-même et apparaît dans de nombreux calculs. On pose :</p>
+
+<div class="block def">
+<span class="label">Définition 2.14 — Module</span>
+On appelle <strong>module</strong> d'un nombre complexe $z=a+bi$ où $(a,b)\in\mathbb{R}^2$ le nombre réel positif : $$|z|=\sqrt{a^2+b^2}.$$
+Si on associe à tout nombre complexe $z$ le point $M$ de coordonnées $(a,b)$ dans le plan euclidien usuel rapporté à un repère orthonormé d'origine $O$ (« point d'affixe $z$ »), alors le module de $z$ est égal à la distance $OM$ : $|z|=OM$.
+</div>
+
+<div class="block def">
+<span class="label">Définition 2.15 — Conjugué</span>
+On appelle <strong>conjugué</strong> d'un nombre complexe $z=a+bi$ où $(a,b)\in\mathbb{R}^2$ le nombre complexe $\overline{z}=a-bi$.
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 2.16</span>
+Pour tout nombre complexe $z$, $z\times\overline{z}=|z|^2$. En particulier, pour obtenir la forme cartésienne d'un quotient de nombres complexes $\dfrac{z_1}{z_2}$, on multiplie numérateur et dénominateur par le conjugué du dénominateur :
+$$\frac{z_1}{z_2}=\frac{z_1\times\overline{z_2}}{|z_2|^2}.$$
+</div>
+
+<h3 id="s2-2">2.2.2 Racines carrées</h3>
+
+<p>Soit $z=a+bi$ un nombre complexe, où $a$ et $b$ sont des nombres réels. On cherche les racines carrées $r=x+yi$ de $z$, c'est-à-dire les nombres $r$ tels que $r^2=z$. Or :
+$$r^2=z\iff\begin{cases}x^2-y^2=a\\2xy=b\end{cases}$$</p>
+
+<p><strong>Cas $b=0$</strong> (c'est-à-dire $z$ est un nombre réel) : la deuxième équation est une équation produit nul, et elle impose $x=0$ ($r$ imaginaire pur) ou $y=0$ ($r$ réel). On obtient par substitution dans la première équation que tout nombre réel $a$ non nul admet exactement deux racines carrées dans $\mathbb{C}$, opposées l'une de l'autre, réelles dans le cas $a>0$, et imaginaires pures dans le cas $a<0$.</p>
+
+<p><strong>Cas $b\neq0$ :</strong> la deuxième équation impose alors que $x$ et $y$ sont non nuls. On transforme le système :
+$$r^2=z\iff\begin{cases}x^2-\dfrac{b^2}{4x^2}=a\\[4pt] y=\dfrac{b}{2x}\end{cases}\iff\begin{cases}4x^4-4ax^2-b^2=0\\[2pt] y=\dfrac{b}{2x}\end{cases}$$
+La première équation est une équation biquadratique, de discriminant $16(a^2+b^2)=16|z|^2$, de racines réelles<sup>3</sup> $\pm\sqrt{\dfrac{4a+4|z|}{8}}=\pm\dfrac{\sqrt2}{2}\sqrt{\mathrm{Re}(z)+|z|}$. On peut ensuite terminer la résolution du système en obtenant l'expression de $y$ par substitution dans la deuxième équation, mais même sans effectuer ce calcul, on a obtenu :</p>
+
+<div class="block theorem">
+<span class="label">Proposition 2.17</span>
+Tout nombre complexe non nul admet exactement deux racines carrées opposées l'une de l'autre dans $\mathbb{C}$.<br>
+Le nombre complexe $0$ admet une unique racine carrée dans $\mathbb{C}$, le nombre $0$ lui-même.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 2.18</span>
+Les racines carrées du nombre complexe $z$ obtenues à l'issue de ce calcul sont en fait :
+$$\pm\frac{\sqrt2}{2}\left[\sqrt{\mathrm{Re}(z)+|z|}+\Big(\mathrm{sgn}(y)\sqrt{|z|-x}\Big)\cdot i\right].$$
+Cette formule ne figure pas au programme et n'est pas utilisée en pratique. Voir ci-dessous l'écriture polaire d'un nombre complexe pour une approche plus efficace.
+</div>
+
+<div class="block correction">
+<span class="label">⚠️ Correction — notations de la Remarque 2.18</span>
+Dans la formule, $x$ et $y$ désignent (comme dans tout le paragraphe) les parties réelle et imaginaire de la <em>racine</em> $r$ recherchée, ce qui la rendrait circulaire. Avec les notations $z=a+bi$ du début du paragraphe, la formule voulue est :
+$$\pm\frac{\sqrt2}{2}\left[\sqrt{|z|+a}+i\,\mathrm{sgn}(b)\sqrt{|z|-a}\right].$$
+<em>Vérification :</em> pour $z=i$ ($a=0$, $b=1$, $|z|=1$) on obtient $\pm\frac{\sqrt2}{2}(1+i)=\pm\mathrm{e}^{i\pi/4}$, dont le carré vaut bien $i$. Vérifie toutefois cette lecture avec ton professeur : il s'agit d'une reconstitution du sens voulu, pas d'une correction citée d'une source externe.
+</div>
+
+<p style="font-size:.85rem;color:#7a7a72;"><sup>3</sup> Le nombre $\frac12(a-|z|)$ est une racine du polynôme du second degré sous-jacent à l'équation biquadratique, mais il est strictement négatif (car $b\neq0$) donc n'admet pas de racine carrée dans $\mathbb{R}$.</p>
+
+<h3 id="s2-3">2.2.3 Retour aux équations de degré 2</h3>
+
+<div class="block theorem">
+<span class="label">Théorème 2.19</span>
+Tout polynôme $P(x)=ax^2+bx+c$ de degré 2 (ainsi $a\neq0$) à coefficients réels ou complexes admet une ou deux racines dans $\mathbb{C}$, selon que son discriminant est nul ou non. Ces racines sont $\dfrac{-b\pm\delta}{2a}$ où $\pm\delta$ sont les deux racines carrées dans $\mathbb{C}$ du discriminant de $P$.<br>
+En particulier, si $a$, $b$ et $c$ sont réels et le discriminant $\Delta$ est strictement négatif, alors les deux racines du polynôme sont :
+$$\frac{-b\pm i\sqrt{|\Delta|}}{2a}.$$
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 2.20</span>
+On étudiera en fin de semestre une vaste généralisation de ce théorème aux polynômes de degré quelconque : le <strong>théorème fondamental de l'algèbre</strong> ou théorème de d'Alembert–Gauss (le résultat en degré quelconque sera toutefois admis).
+</div>
+</section>
+
+<section id="s3">
+<h2>2.3 Écriture polaire des nombres complexes</h2>
+
+<p>On a vu que le module d'un nombre complexe s'interprète comme la distance à l'origine d'un point associé à ce nombre complexe dans un certain plan muni d'un repère orthonormé. Or, dans le plan, pour repérer un point $M$ connaissant sa distance à l'origine $O$, il suffit d'une donnée angulaire : l'angle entre l'axe orienté des abscisses et la demi-droite $[OM)$. On examine ici la conséquence algébrique, sur les nombres complexes, de cette remarque géométrique.</p>
+
+<h3 id="s3-1">2.3.1 Cercle trigonométrique</h3>
+
+<p>On rappelle que le cosinus et le sinus d'un angle ont été étudiés au collège d'abord dans le cadre de la géométrie du triangle, comme des rapports de longueurs des côtés d'un triangle rectangle : cela définit le sinus et le cosinus d'un nombre réel compris entre $0$ et $\pi/2$ (les angles étant mesurés en radians). La définition a ensuite été étendue pour définir le cosinus et le sinus d'un nombre réel quelconque : les relations sur ces deux fonctions sont résumées dans le formulaire trigonométrique.</p>
+<p>La relation fondamentale de la trigonométrie assure, pour tout réel $t$ : $$\cos^2(t)+\sin^2(t)=1.$$
+Cette formule admet l'interprétation géométrique suivante : si on fixe un réel $t$ quelconque et qu'on considère le point $M(t)$ de coordonnées $(\cos t,\sin t)$ dans le plan muni d'un repère orthonormé, on obtient un point à distance $1$ de l'origine, donc situé sur le <strong>cercle unité</strong> (cercle centré en l'origine de rayon 1), puisque ce cercle admet pour équation $x^2+y^2=1$. La proposition suivante traite la réciproque :</p>
+
+<div class="block theorem">
+<span class="label">Proposition 2.21</span>
+Soit $x$ et $y$ deux nombres réels tels que $x^2+y^2=1$. Alors, il existe un nombre réel $\theta$ tel que $\begin{cases}x=\cos\theta\\y=\sin\theta\end{cases}$.<br>
+De plus, ce nombre réel n'est pas unique, mais est « unique à un multiple entier de $2\pi$ près » : si $\theta_1$ et $\theta_2$ sont deux réels tels que $\begin{cases}\cos\theta_1=\cos\theta_2\\\sin\theta_1=\sin\theta_2\end{cases}$, alors il existe un entier relatif $k$ tel que $\theta_2=\theta_1+2k\pi$.<br>
+Enfin, parmi les réels $\theta$ tels que $\begin{cases}x=\cos\theta\\y=\sin\theta\end{cases}$, il en existe un unique dans l'intervalle $[0,2\pi[$ : on parle de la <strong>détermination principale</strong> de l'angle polaire dans $[0,2\pi[$.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 2.22</span>
+On a présenté ci-dessus la détermination principale dans $[0,2\pi[$. C'est un choix ; on rencontre tout aussi souvent la détermination principale dans $]-\pi,\pi]$ (intervalle qui présente l'avantage d'être centré en $0$). Plus généralement, dès qu'on fixe un intervalle de référence semi-ouvert et de longueur $2\pi$, on peut choisir une détermination principale de l'argument dans cet intervalle.
+</div>
+
+<div class="block theorem">
+<span class="label">Scolie 2.23</span>
+L'ensemble des solutions de l'équation $x^2+y^2=1$ (où $(x,y)$ est un couple d'inconnues) est l'ensemble des couples $(\cos t,\sin t)$ pour $t\in\mathbb{R}$, ou même pour $t\in[0,2\pi[$ :
+$$\{(x,y)\in\mathbb{R}^2\mid x^2+y^2=1\}=\{(\cos t,\sin t)\mid t\in\mathbb{R}\}=\{(\cos t,\sin t)\mid t\in[0,2\pi[\}.$$
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 2.24</span>
+On introduit les notions d'ensemble défini par une équation (ou par compréhension) et d'ensemble défini par un paramétrage (ou par extension).
+</div>
+
+<h3 id="s3-2">2.3.2 Nombres complexes de module 1</h3>
+
+<div class="block def">
+<span class="label">Proposition/Définition 2.25</span>
+Si $z$ est un nombre complexe de module $1$, alors il existe un réel $t$ tel que $z=\cos t+i\sin t$.<br>
+Tout réel $t$ tel que cette égalité est satisfaite est appelé <strong>argument</strong> du nombre complexe $z$. L'unique réel $t$ dans l'intervalle $[0,2\pi[$ tel que $z=\cos t+i\sin t$ est appelé l'<strong>argument principal</strong> dans $[0,2\pi[$ (et là encore, on peut préférer considérer l'argument principal dans $]-\pi,\pi]$).
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 2.26</span>
+Ici comme ailleurs, il convient d'être attentif à la distinction entre article indéfini (« <em>un</em> » argument) et article défini (« <em>l'</em> » argument principal) : le choix de l'un ou l'autre provient de la présence ou non d'une propriété d'unicité de l'objet introduit.
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 2.27</span>
+Si $z_1$ et $z_2$ sont deux nombres complexes de module $1$ d'arguments respectifs $\theta_1$ et $\theta_2$, alors $z_1z_2$ est encore de module égal à $1$ et admet pour argument $\theta_1+\theta_2$.
+</div>
+
+<p>Cette proposition (qu'on peut résumer de manière informelle : « l'argument se comporte comme un logarithme ») motive de poser la notation :</p>
+
+<div class="block def">
+<span class="label">Notation 2.28</span>
+Pour $z$ un nombre complexe de module $1$ et d'argument $\theta$, on note $z=\mathrm{e}^{i\theta}$ ; autrement dit :
+$$\mathrm{e}^{i\theta}=\cos\theta+i\sin\theta.$$
+La proposition précédente donne la relation : $$\mathrm{e}^{i\theta_1}\mathrm{e}^{i\theta_2}=\mathrm{e}^{i(\theta_1+\theta_2)}.$$
+</div>
+
+<div class="block retenir">
+<span class="label">Exemple 2.29 — Doivent être connues</span>
+$$\mathrm{e}^{i\pi/2}=i,\qquad \mathrm{e}^{i\pi/3}=\frac12+\frac{\sqrt3}{2}i,\qquad \mathrm{e}^{i\pi/4}=\frac{\sqrt2}{2}(1+i),\qquad \mathrm{e}^{i\pi/6}=\frac{\sqrt3}{2}+\frac{i}{2}.$$
+Ces relations sont une réécriture de relations apprises au lycée sous le nom « valeurs remarquables des fonctions cosinus et sinus ». Vous devez savoir les mobiliser dans un sens comme dans l'autre.
+</div>
+
+<h3 id="s3-3">2.3.3 Écriture polaire (ou exponentielle)</h3>
+
+<div class="block def">
+<span class="label">Proposition/Définition 2.30</span>
+Soit $z$ un nombre complexe non nul. Le nombre complexe $\dfrac{z}{|z|}$ est de module $1$, donc admet une écriture sous la forme $\mathrm{e}^{i\theta}$, de telle sorte que $z=|z|\mathrm{e}^{i\theta}$. On appelle alors $\theta$ un <strong>argument</strong> du nombre complexe $z$, et <strong>argument principal</strong> l'unique argument appartenant à $[0,2\pi[$.<br>
+On appelle <strong>écriture polaire</strong> (ou <strong>écriture exponentielle</strong>) du nombre complexe non nul $z$ toute écriture sous la forme $z=\rho\,\mathrm{e}^{i\theta}$ où $\rho$ est un réel strictement positif et $\theta$ un nombre réel.<br>
+Tout nombre complexe non nul admet une écriture polaire $z=\rho\,\mathrm{e}^{i\theta}$ où $\rho=|z|$ est unique, et où l'argument $\theta$ n'est unique qu'à $2\pi$ près.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 2.31</span>
+On peut considérer que toute écriture de la forme $0=0\times\mathrm{e}^{i\theta}$ est une écriture polaire du nombre $0$ : le module est nul, et le réel $\theta$ qui joue le rôle d'argument est quelconque. On peut dire que $0$ admet pour argument n'importe quel nombre réel, ou que $0$ n'a pas d'argument<sup>4</sup>.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 2.32</span>
+L'écriture $z=a+bi$ pour $(a,b)\in\mathbb{R}^2$ d'un nombre complexe est désormais appelée « écriture cartésienne », ou « écriture algébrique ».
+</div>
+
+<p style="font-size:.85rem;color:#7a7a72;"><sup>4</sup> Pour ma part, je préfère ce point de vue. <em>(note du professeur)</em></p>
+
+<h3 id="s3-4">2.3.4 Retour aux racines carrées</h3>
+
+<div class="block theorem">
+<span class="label">Proposition 2.33</span>
+Soit $Z=\rho\,\mathrm{e}^{i\theta}$ un nombre complexe sous forme polaire (ainsi $\rho>0$ et $\theta\in\mathbb{R}$). Alors, les racines carrées de $Z$ sont les deux nombres $\pm\sqrt{\rho}\,\mathrm{e}^{i\theta/2}$.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 2.34</span>
+C'est bien entendu plus efficace que l'approche algébrique. Encore faut-il, pour la mettre en œuvre sur un exemple, être capable d'exprimer le module et un argument du nombre considéré. Les exercices qu'on vise pourront consister notamment à mettre en œuvre les deux méthodes de recherche de racines carrées, et à comparer les résultats. On adaptera plus tard dans le semestre ce qui précède aux racines $n$-èmes, pour $n$ entier naturel supérieur ou égal à 3.
+</div>
+
+<h3 id="s3-5">2.3.5 Exponentielle complexe</h3>
+
+<div class="block def">
+<span class="label">Définition 2.35</span>
+Soit $z=x+yi$ un nombre complexe de partie réelle $x$, de partie imaginaire $y$. On note :
+$$\mathrm{e}^{z}=\mathrm{e}^{x}\mathrm{e}^{iy}=\mathrm{e}^{x}\big(\cos y+i\sin y\big).$$
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 2.36</span>
+<ol>
+<li>Pour tout $z\in\mathbb{C}$, $\mathrm{e}^z\neq0$.</li>
+<li>Pour $z_1$ et $z_2$ deux nombres complexes, $\mathrm{e}^{z_1+z_2}=\mathrm{e}^{z_1}\mathrm{e}^{z_2}$.</li>
+<li>L'inverse du nombre $\mathrm{e}^z$ est $\mathrm{e}^{-z}$. Le conjugué de $\mathrm{e}^z$ est $\mathrm{e}^{\overline{z}}$.</li>
+</ol>
+</div>
+
+<div class="block correction">
+<span class="label">⚠️ Correction — quantificateur de la Proposition 2.36.1</span>
+Le PDF écrit « Pour tout $z\in\mathbb{Z}$, $\mathrm{e}^z\neq0$ ». Il faut lire $z\in\mathbb{C}$ : la propriété concerne les nombres complexes (le point 3 en donne d'ailleurs la preuve pour tout complexe, via $\mathrm{e}^z\mathrm{e}^{-z}=\mathrm{e}^0=1$). Coquille manifeste ($\mathbb{Z}$ au lieu de $\mathbb{C}$).
+</div>
+
+<h3 id="s3-6">2.3.6 Formulaire</h3>
+
+<div class="block theorem">
+<span class="label">Proposition 2.37 — la lettre $z$ et les $z_i$ désignent des nombres complexes</span>
+<ol>
+<li><strong>La conjugaison</strong> est compatible avec les principales opérations sur les nombres complexes :
+$$\overline{z_1+z_2}=\overline{z_1}+\overline{z_2}\qquad \overline{z_1z_2}=\overline{z_1}\times\overline{z_2}\qquad \overline{-z}=-\overline{z}\qquad \overline{\left(\frac1z\right)}\overset{z\neq0}{=}\frac1{\overline{z}}.$$</li>
+<li><strong>Le module</strong> est compatible avec le produit et le passage à l'inverse :
+$$|z_1z_2|=|z_1|\times|z_2|\quad\text{et}\quad\left|\frac1z\right|=\frac1{|z|}.$$</li>
+<li>$$z\times\overline{z}=|z|^2\quad\text{ou encore}\quad\frac1z=\frac{\overline{z}}{|z|^2}.$$</li>
+<li><strong>Le conjugué permet de tester</strong> le caractère réel ou imaginaire pur d'un complexe :
+$$z\in\mathbb{R}\iff z=\overline{z}\qquad\qquad z\in i\mathbb{R}\iff z+\overline{z}=0.$$</li>
+<li>Les nombres complexes de module $1$ ont aussi une caractérisation qui concerne le conjugué :
+$$|z|=1\iff\frac1z=\overline{z}.$$</li>
+</ol>
+</div>
+
+<div class="block correction">
+<span class="label">⚠️ Correction (à vérifier sur le PDF) — Proposition 2.37.1</span>
+Dans le PDF, la première égalité semble s'écrire « $\overline{z_1+z_2}=\overline{z_1}+\overline{z_1}$ » (second terme en $z_1$). La formule correcte est $\overline{z_1+z_2}=\overline{z_1}+\overline{z_2}$, seule cohérente avec la définition du conjugué ($\overline{(a_1+a_2)+(b_1+b_2)i}=(a_1+a_2)-(b_1+b_2)i$). Je ne suis pas certain qu'il s'agisse d'une vraie erreur du document ou d'un défaut d'extraction du texte : vérifie sur le PDF avant d'en tenir compte.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 2.38</span>
+Ce formulaire ne dit rien sur le module d'une somme. Ce qu'on obtient est l'<strong>inégalité triangulaire</strong>, sur laquelle on reviendra :
+$$|z_1+z_2|\leqslant|z_1|+|z_2|.$$
+On étudiera aussi le cas d'égalité de cette inégalité, et une deuxième inégalité triangulaire :
+$$\big||z_1|-|z_2|\big|\leqslant|z_1+z_2|.$$
+</div>
+</section>
+
+<section id="quiz">
+<h2>Quiz de fin de chapitre</h2>
+
+<div class="quiz-item">
+<div class="quiz-q">1. [Définition / Hypothèse clé] Qu'appelle-t-on « racine carrée » d'un nombre, et pourquoi le professeur insiste-t-il sur la différence entre « <em>la</em> racine carrée » et « <em>une</em> racine carrée » ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Une racine carrée de $x$ est tout nombre $r$ tel que $r^2=x$ ; « <em>la</em> » racine carrée n'a de sens que pour un réel positif, où elle désigne l'unique racine positive $\sqrt x$. Un réel $x>0$ a deux racines carrées $\pm\sqrt x$, et un complexe non nul deux racines opposées : l'article défini suppose une propriété d'unicité qui n'existe pas en général.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">2. [Définition / Hypothèse clé] Pourquoi l'hypothèse $a\neq0$ est-elle indispensable dans l'étude de $ax^2+bx+c=0$ ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+La mise sous forme canonique divise par $a$ ($x^2+\frac{b}{a}x$) et la formule des racines contient $\frac{1}{2a}$. Si $a=0$, l'équation n'est plus de degré 2 (elle devient $bx+c=0$, de degré au plus 1) et la méthode ne s'applique plus.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">3. [Application directe] Donner la forme cartésienne de $\dfrac{2+i}{1-i}$.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+On multiplie par le conjugué du dénominateur : $\dfrac{(2+i)(1+i)}{|1-i|^2}=\dfrac{2+2i+i+i^2}{2}=\dfrac{1+3i}{2}=\dfrac12+\dfrac32 i$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">4. [Application directe] Résoudre dans $\mathbb{C}$ : $z^2+2z+5=0$.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+$\Delta=4-20=-16$, de racines carrées $\pm4i$. Donc $z=\dfrac{-2\pm4i}{2}=-1\pm2i$ (deux racines conjuguées, comme attendu pour des coefficients réels et $\Delta<0$).</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">5. [Compréhension conceptuelle] Pourquoi la recherche des racines carrées d'un complexe non réel conduit-elle à une équation <em>biquadratique</em> ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Le système $x^2-y^2=a$, $2xy=b$ donne, en substituant $y=\frac{b}{2x}$ (possible car $x\neq0$ quand $b\neq0$), l'équation $x^2-\frac{b^2}{4x^2}=a$, soit $4x^4-4ax^2-b^2=0$ : une équation en $x^4$ et $x^2$, donc biquadratique, qu'on résout par le changement d'inconnue $X=x^2$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">6. [Compréhension conceptuelle] Que se passe-t-il si l'on écrit $Z=\rho\,\mathrm{e}^{i\theta}$ avec un autre argument $\theta+2\pi$ ? Les racines carrées $\pm\sqrt\rho\,\mathrm{e}^{i\theta/2}$ changent-elles ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Avec $\theta+2\pi$, on obtient $\pm\sqrt\rho\,\mathrm{e}^{i(\theta/2+\pi)}=\mp\sqrt\rho\,\mathrm{e}^{i\theta/2}$ : on retrouve la même paire de nombres, seulement échangés. L'ensemble des deux racines carrées ne dépend donc pas du choix de l'argument, ce qui est cohérent avec l'unicité d'une paire opposée.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">7. [Piège classique] Est-il correct d'écrire « $\sqrt{-4}=2i$ » ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Non : le symbole $\sqrt{\ }$ désigne « la » racine carrée d'un réel positif. $-4$ admet <em>deux</em> racines carrées complexes, $2i$ et $-2i$, et aucune n'a de raison d'être privilégiée par le symbole radical. On écrit « les racines carrées de $-4$ sont $\pm2i$ ».</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">8. [Piège classique] Pour tout complexe non nul $z$, a-t-on $\dfrac1z=\overline z$ ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Non : en général $\dfrac1z=\dfrac{\overline z}{|z|^2}$. L'égalité $\frac1z=\overline z$ équivaut à $|z|^2=1$, c'est-à-dire $|z|=1$ (Proposition 2.37.5). Exemple : pour $z=2$, $\frac1z=\frac12\neq2=\overline z$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">9. [Synthèse] Relier le module, l'argument et les coordonnées d'un point dans le plan complexe.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Si $z=a+bi=\rho\,\mathrm{e}^{i\theta}$ a pour image $M(a,b)$, alors $\rho=|z|=\sqrt{a^2+b^2}=OM$ et $\theta$ est une mesure de l'angle entre l'axe des abscisses et $[OM)$, avec $a=\rho\cos\theta$ et $b=\rho\sin\theta$. L'écriture polaire est la traduction algébrique des coordonnées polaires de $M$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">10. [Synthèse] Résoudre $z^2=-3+4i$ par la méthode polaire d'une part et par la méthode algébrique d'autre part : quelle méthode est la plus commode ici et pourquoi ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Ici $|z^2|=5$ mais $\arg(-3+4i)$ n'est pas un angle remarquable : la méthode polaire est peu commode. En algébrique, $x^2-y^2=-3$, $2xy=4$ et $x^2+y^2=5$ donnent $x^2=1$, $y^2=4$, avec $xy>0$ : les racines carrées sont $\pm(1+2i)$ (on vérifie : $(1+2i)^2=1-4+4i=-3+4i$). La méthode polaire est plus efficace quand le module et l'argument sont faciles à lire (par exemple $z=1+i\sqrt3$).</div>
+</div>
+
+</section>
+
+<section id="sources">
+<h2>Sources &amp; Références</h2>
+<ul class="sources">
+  <li>Cours du professeur, Chapitre 2 « Problèmes algébriques de degré 2 » (PDF joint : <a href="02_Ch02_Cours_Profs_Problemes-algebriques-de-degre-2_2026-09-28.pdf">02_Ch02_Cours_Profs_Problemes-algebriques-de-degre-2_2026-09-28.pdf</a>).</li>
+  <li>Programme officiel de mathématiques CPGE 1<sup>re</sup> année (voie PCSI) : <a href="https://www.enseignementsup-recherche.gouv.fr/" target="_blank">enseignementsup-recherche.gouv.fr</a>, bloc « Nombres complexes et trigonométrie ».</li>
+  <li>Ouvrages de référence : <em>H-Prépa Mathématiques 1<sup>re</sup> année MPSI/PCSI</em> (Hachette Éducation), chapitre « Nombres complexes ».</li>
+  <li>Corrections signalées par ⚠️ (Th. 2.6, Déf. 2.8/Prop. 2.9, Prop. 2.12, Rem. 2.18, Prop. 2.36, Prop. 2.37) : établies par calcul direct et par cohérence interne du document, sans source externe précise.</li>
+</ul>
+</section>
+
+</main>
+
+</div>
+</body>
+</html>

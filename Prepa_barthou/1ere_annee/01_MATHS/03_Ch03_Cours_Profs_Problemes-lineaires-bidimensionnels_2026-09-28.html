@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mathématiques — Ch.3 : Exemples de problèmes linéaires bidimensionnels (cours du professeur)</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$','$'],['\\(','\\)']],
+    displayMath: [['$$','$$'],['\\[','\\]']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js"></script>
+<style>
+:root{
+  --font-title:'Spectral',Georgia,'Times New Roman',serif;
+  --font-body:'IBM Plex Sans','Segoe UI',Arial,sans-serif;
+  --font-mono:'IBM Plex Mono','Consolas',monospace;
+  --ink:#1c2430;
+  --paper:#fbfaf7;
+  --panel:#ffffff;
+  --line:#e2e0da;
+  --accent:#0f2b4c;
+  --blue-bg:#e9f1fd; --blue-bd:#3b6fd8;
+  --violet-bg:#f2ecfd; --violet-bd:#7c4fd6;
+  --green-bg:#e9f8ee; --green-bd:#2fa365;
+  --gray-bg:#f1f1ef; --gray-bd:#8b8b85;
+  --amber-bg:#fdf3dd; --amber-bd:#c98a12;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--font-body); line-height:1.55; font-size:16px;
+  text-align:left; word-wrap:break-word;
+}
+h1,h2,h3,h4,h5{font-family:var(--font-title); color:var(--accent); font-weight:600;}
+h1{font-size:1.95rem; margin:0 0 .25rem 0;}
+h2{font-size:1.38rem; border-bottom:2px solid var(--line); padding-bottom:.35rem; margin-top:2.3rem;}
+h3{font-size:1.15rem; margin-top:1.7rem;}
+h4{font-size:1.02rem; margin-top:1.25rem;}
+h5{font-size:.95rem; margin-top:1rem; font-style:italic;}
+code, .mono{font-family:var(--font-mono);}
+.layout{display:flex; max-width:1260px; margin:0 auto;}
+nav.toc{
+  width:265px; flex-shrink:0; position:sticky; top:0; align-self:flex-start;
+  height:100vh; overflow-y:auto; padding:1.6rem 1rem 2rem 1.4rem;
+  border-right:1px solid var(--line); font-size:.86rem;
+}
+nav.toc h4{margin-top:0; color:#7a7a72; font-family:var(--font-body); font-weight:700; letter-spacing:.03em; text-transform:uppercase; font-size:.75rem;}
+nav.toc ol{list-style:none; padding-left:0; margin:.3rem 0 1.1rem 0; counter-reset:sec;}
+nav.toc ol.roman{counter-reset:roman;}
+nav.toc ol.roman > li{counter-increment:roman;}
+nav.toc ol.roman > li > a::before{content: counter(roman, upper-roman) " — "; color:var(--blue-bd); font-weight:600;}
+nav.toc ol ol{margin:.15rem 0 .4rem 1rem;}
+nav.toc a{color:var(--ink); text-decoration:none; display:block; padding:.18rem 0;}
+nav.toc a:hover{color:var(--blue-bd);}
+main{flex:1; min-width:0; padding:2.2rem 3rem 4rem 3rem;}
+header.title{margin-bottom:1.8rem;}
+.meta{color:#7a7a72; font-size:.85rem; font-family:var(--font-mono);}
+section{margin-bottom:1.5rem;}
+p{margin:.65rem 0;}
+.block{border-left:4px solid; border-radius:6px; padding:.85rem 1.15rem; margin:1.1rem 0; background:#fff;}
+.block > .label{font-weight:700; font-family:var(--font-body); font-size:.82rem; letter-spacing:.03em; text-transform:uppercase; margin-bottom:.4rem; display:block;}
+.def{background:var(--blue-bg); border-color:var(--blue-bd);} .def>.label{color:var(--blue-bd);}
+.theorem{background:var(--violet-bg); border-color:var(--violet-bd);} .theorem>.label{color:var(--violet-bd);}
+.demo{background:var(--green-bg); border-color:var(--green-bd);} .demo>.label{color:var(--green-bd);}
+.remark{background:var(--gray-bg); border-color:var(--gray-bd);} .remark>.label{color:#5c5c56;}
+.correction{background:var(--amber-bg); border-color:var(--amber-bd);} .correction>.label{color:var(--amber-bd);}
+.retenir{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:1.1rem 1.3rem; margin:1.3rem 0;}
+.retenir>.label{color:#cfe0f5;}
+.chain{margin:.75rem 0; padding-left:.3rem;}
+.chain .step{display:flex; align-items:baseline; gap:.6rem; margin:.3rem 0; flex-wrap:wrap;}
+.chain .step .why{color:#7a7a72; font-size:.84rem; font-style:italic;}
+figure{margin:1.3rem 0; text-align:center;}
+figure svg{max-width:100%; height:auto; background:#fff; border:1px solid var(--line); border-radius:8px;}
+figcaption{font-size:.82rem; color:#7a7a72; margin-top:.45rem;}
+.quiz-item{border:1px solid var(--line); border-radius:8px; padding:1rem 1.2rem; margin:1rem 0; background:#fff;}
+.quiz-q{font-weight:700;}
+.quiz-a{margin-top:.6rem; padding-top:.6rem; border-top:1px dashed var(--line); color:#333;}
+.quiz-a .tag{font-weight:700; color:var(--green-bd); font-size:.82rem; text-transform:uppercase;}
+.sources li{margin:.35rem 0; font-size:.92rem;}
+.sources a{color:var(--blue-bd); text-decoration:none;}
+.sources a:hover{text-decoration:underline;}
+
+mjx-container[jax="SVG"]{max-width:100%;}
+mjx-container[jax="SVG"] > svg{max-width:100%; height:auto;}
+mjx-container[jax="SVG"][display="true"]{
+  overflow-x:auto;
+  overflow-y:hidden;
+  max-width:100%;
+  padding:0.2em 0;
+  -webkit-overflow-scrolling:touch;
+}
+
+@media (max-width:900px){
+  nav.toc{display:none;}
+  main{padding:1.5rem 1.2rem;}
+}
+@media (max-width:480px){
+  main{padding:1.2rem .8rem;}
+  .chain .step{gap:.35rem;}
+  .block{padding:.75rem .9rem;}
+}
+.crosslinks-course{text-align:center; padding:0 0 .6rem 0; font-size:.82rem;}.crosslinks-course a{color:var(--blue-bd); text-decoration:none; font-weight:600; margin:0 .6rem;}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc">
+<h4>Sommaire</h4>
+<ol>
+  <li><a href="#s1">3.1 Récurrences linéaires de pas 2</a>
+    <ol>
+      <li><a href="#s1-1">3.1.1 Étude détaillée</a></li>
+      <li><a href="#s1-2">3.1.2 Synthèse</a></li>
+    </ol>
+  </li>
+  <li><a href="#s2">3.2 Équations différentielles d'ordre 2</a>
+    <ol>
+      <li><a href="#s2-1">3.2.1 Résultats algébriques généraux</a></li>
+      <li><a href="#s2-2">3.2.2 Solutions de l'homogène</a></li>
+      <li><a href="#s2-3">3.2.3 Solution particulière</a></li>
+      <li><a href="#s2-4">3.2.4 Théorème de Cauchy</a></li>
+    </ol>
+  </li>
+  <li><a href="#quiz">Quiz de fin de chapitre</a></li>
+  <li><a href="#sources">Sources &amp; Références</a></li>
+</ol>
+</nav>
+
+<main>
+<div class="crosslinks-course"><a href="../../../index.html">🏠 Accueil</a><a href="../index.html">🏫 Cours</a></div>
+
+<header class="title">
+<h1>Chapitre 3 : Exemples de problèmes linéaires bidimensionnels</h1>
+<div class="meta">Mathématiques · CPGE PCSI (Lycée Louis Barthou, Pau) · Cours du professeur — transcription fidèle du PDF</div>
+</header>
+
+<p>On s'intéresse ici aux suites satisfaisant une relation de récurrence linéaire de pas 2 à coefficients constants, et aux équations différentielles linéaires d'ordre 2 à coefficients constants.</p>
+
+<div class="block remark">
+<span class="label">Note de transcription</span>
+Les numéros de définitions, lemmes, propositions et théorèmes sont ceux du professeur. Quelques coquilles typographiques évidentes du PDF ont été corrigées silencieusement ; toute erreur mathématique est signalée dans un encart ⚠️.
+</div>
+
+<section id="s1">
+<h2>3.1 Relations de récurrence linéaire de pas 2 à coefficients constants</h2>
+
+<p>On étudie dans cette section les suites $(u_n)_n$ de nombres réels ou complexes qui satisfont une relation de récurrence de la forme :
+$$\forall n\in\mathbb{N},\quad u_{n+2}=a\,u_{n+1}+b\,u_n,$$
+où $a$ et $b$ sont deux nombres réels ou complexes, indépendants de $n$ (on dit que la relation est à <strong>coefficients constants</strong>). L'équation est <strong>linéaire et homogène</strong> : la suite constante nulle est une solution évidente.</p>
+
+<div class="block def">
+<span class="label">Définition 3.1 — Polynôme caractéristique</span>
+Soit une relation de récurrence $u_{n+2}=a\,u_{n+1}+b\,u_n$. On appelle <strong>polynôme caractéristique</strong> associé le polynôme $X^2-aX-b$.
+</div>
+
+<h3 id="s1-1">3.1.1 Étude détaillée</h3>
+
+<p>Dans cette sous-section la relation de récurrence est étudiée à l'aide de trois lemmes consécutifs, chacun permettant d'élucider une partie de la structure de l'espace des solutions. Il convient de comprendre les deux choses suivantes :</p>
+<ul>
+<li>si vous voulez vous contenter de savoir donner les solutions d'une relation de récurrence linéaire de pas 2 à coefficients constants, un théorème dédié sera donné en synthèse : c'est celui-là qu'il faudra employer ;</li>
+<li>l'étude détaillée des trois lemmes donne des outils pour appliquer des résultats dans d'autres situations ; par exemple pour une relation de pas 2 mais non linéaire, ou à coefficients non constants, ou au contraire une relation linéaire et à coefficients constants mais de pas supérieur. Ces autres situations ne sont pas au programme : on n'exige pas de vous que vous sachiez les traiter en totale autonomie, mais on peut vous proposer des exercices guidés.</li>
+</ul>
+<p>On vérifie alors :</p>
+
+<div class="block theorem">
+<span class="label">Lemme 3.2</span>
+Soit $a$ et $b$ deux nombres réels ou complexes, soit la relation de récurrence $u_{n+2}\overset{\mathcal R}{=}a\,u_{n+1}+b\,u_n$, et soit $\chi(X)=X^2-aX-b$ le polynôme caractéristique associé. Soit $r$ une racine de ce polynôme. Alors toute suite géométrique de raison $r$ satisfait la relation de récurrence $\mathcal R$.<br>
+De plus, si $r$ est une racine double du polynôme $\chi$, alors la suite $(n\,r^n)_n$ satisfait elle aussi la relation $\mathcal R$.
+</div>
+
+<div class="block demo">
+<span class="label">Vérification (complément)</span>
+Si $\chi(r)=0$, alors $r^2=ar+b$, donc $r^{n+2}=r^n\cdot r^2=a\,r^{n+1}+b\,r^n$. Si $r$ est racine double, alors $\chi(X)=(X-r)^2$, donc $a=2r$ et $b=-r^2$, et l'on a $(n+2)r^{n+2}=2r(n+1)r^{n+1}-r^2\,n\,r^n$ car $(n+2)=2(n+1)-n$.
+</div>
+
+<p>En outre, la linéarité donne :</p>
+
+<div class="block theorem">
+<span class="label">Lemme 3.3</span>
+Si $(x_n)_n$ et $(y_n)_n$ sont deux suites qui satisfont la même relation de récurrence linéaire $u_{n+2}=a\,u_{n+1}+b\,u_n$, alors toute combinaison linéaire de ces deux suites, de terme général $\alpha x_n+\beta y_n$, satisfait encore cette relation.
+</div>
+
+<p>Enfin, le fait que la relation est de pas deux permet de démontrer :</p>
+
+<div class="block theorem">
+<span class="label">Lemme 3.4</span>
+Soit deux suites $(x_n)_n$ et $(y_n)_n$ qui satisfont la même relation de récurrence linéaire de pas 2 $u_{n+2}=a\,u_{n+1}+b\,u_n$. On suppose de plus que ces suites coïncident en leurs deux premiers termes (c'est-à-dire $x_0=y_0$ et $x_1=y_1$). Alors $x_n=y_n$ pour tout $n$.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 3.5 — Récurrence de pas 2</span>
+On introduit pour la démonstration de ce troisième lemme les raisonnements par récurrence de pas 2 : soit une assertion $P(n)$ dépendant d'un paramètre $n$ entier. On suppose que les assertions $P(0)$ et $P(1)$ sont vraies (initialisation aux deux premiers rangs) et que pour tout $n$, si les assertions $P(n)$ et $P(n+1)$ sont vraies, alors il en est de même de l'assertion $P(n+2)$ (propagation — ou hérédité — avec hypothèse de récurrence à deux rangs consécutifs). Alors, l'assertion $P(n)$ est vraie pour tout $n$.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 3.6</span>
+Ce lemme indique l'<strong>unicité</strong>, si existence, d'une suite satisfaisant une relation de récurrence linéaire de pas 2 (à coefficients constants) dont les deux premiers termes sont imposés. Le résultat d'existence est vrai aussi, mais on le donnera en conclusion.<br>
+Lors de l'étude d'une suite définie par une relation de récurrence, la donnée des premiers termes (en nombre égal au pas de la relation) s'appelle la donnée de <strong>conditions initiales</strong>.
+</div>
+
+<h3 id="s1-2">3.1.2 Synthèse</h3>
+
+<div class="block theorem">
+<span class="label">Théorème 3.7</span>
+Soit $K=\mathbb{R}$ ou $K=\mathbb{C}$. Soit $a$ et $b$ deux nombres réels ou complexes dans $K$. Soit la relation de récurrence $\forall n\in\mathbb{N},\ u_{n+2}=a\,u_{n+1}+b\,u_n$. Soit $\chi(X)=X^2-aX-b$ le polynôme caractéristique associé. Alors :
+<ol>
+<li>Si $\chi$ admet deux racines distinctes $r_1$ et $r_2$, alors les suites satisfaisant la relation $\mathcal R$ sont toutes les suites ayant un terme général de la forme $$\alpha_1r_1^n+\alpha_2r_2^n\quad\text{pour }(\alpha_1,\alpha_2)\in K^2.$$</li>
+<li>Si $\chi$ admet une seule racine double $r$, alors les suites satisfaisant la relation $\mathcal R$ sont toutes les suites ayant un terme général de la forme $$(\alpha+\beta n)\,r^n\quad\text{pour }(\alpha,\beta)\in K^2.$$</li>
+</ol>
+</div>
+
+<div class="block remark">
+<span class="label">Précision sur le Théorème 3.7</span>
+Si $K=\mathbb{R}$ et que $\chi$ a deux racines complexes non réelles, les racines $r_1,r_2$ n'appartiennent pas à $K$ : les suites $\alpha_1r_1^n+\alpha_2r_2^n$ décrivent alors les solutions <em>complexes</em> (avec $(\alpha_1,\alpha_2)\in\mathbb{C}^2$). Pour les solutions à valeurs réelles, voir la Remarque 3.11 ci-dessous.
+</div>
+
+<div class="block remark">
+<span class="label">Vocabulaire 3.8 — Plan vectoriel</span>
+On dit que l'ensemble des solutions forme un <strong>plan vectoriel</strong> : il est stable par combinaison linéaire, et il s'agit de l'ensemble des combinaisons linéaires de deux « vecteurs », qui sont dans un cas les deux suites géométriques $(r_1^n)_n$ et $(r_2^n)_n$, et dans l'autre les deux suites $(r^n)_n$ et $(n\,r^n)_n$.<br>
+Cela peut sembler inhabituel : s'habituer à transporter des éléments d'intuition et de vocabulaire géométrique sur des ensembles d'objets issus de l'analyse fait partie des objectifs de formation. Un cadre mathématique rigoureux pour cela sera étudié en cours d'année ; c'est la notion d'<strong>espace vectoriel</strong>.
+</div>
+
+<div class="block theorem">
+<span class="label">Corollaire 3.9</span>
+On reprend les notations du théorème. Quels que soient les nombres $u_0$ et $u_1$, il existe une unique suite $(u_n)_n$ satisfaisant la relation $\mathcal R$ et dont les premiers termes sont $u_0$ et $u_1$.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 3.10</span>
+En pratique, l'unique solution décrite dans le corollaire ci-dessus peut être obtenue en prenant l'expression générale des solutions de la relation de récurrence fournie par le théorème. Il reste alors deux paramètres libres : les deux conditions initiales fournissent un système linéaire de deux équations à deux inconnues qu'il suffit de résoudre pour conclure.
+</div>
+
+<div class="block retenir">
+<span class="label">Remarque 3.11 — Suites réelles, racines complexes conjuguées</span>
+Dans le cas où $a$ et $b$ sont des nombres réels, et $r_1$ et $r_2$ des racines complexes non réelles du polynôme caractéristique, alors ces racines sont conjuguées. L'expression des termes généraux des suites solutions est alors : $$u_n=\alpha_1r_1^n+\alpha_2\overline{r_1}^{\,n}.$$
+On obtient alors des solutions à valeurs réelles en imposant $\alpha_2=\overline{\alpha_1}$, ce qui donne : $$u_n=2\,\mathrm{Re}\left(\alpha_1r_1^n\right).$$
+Il convient de noter que $\alpha_1$ est alors un paramètre complexe, et il y a donc encore deux paramètres réels pour décrire l'ensemble des solutions à valeurs réelles.
+</div>
+</section>
+
+<section id="s2">
+<h2>3.2 Équations différentielles linéaires d'ordre 2 à coefficients constants</h2>
+
+<p>On s'intéresse ici aux fonctions $y$ satisfaisant une équation différentielle de la forme :
+$$\forall t\in I,\quad y''(t)+a\,y'(t)+b\,y(t)=f(t),$$
+où $I$ est un intervalle, $a$ et $b$ deux nombres (réels ou complexes), et $f$ une fonction continue sur l'intervalle $I$. La lettre $y$ désigne la fonction inconnue, qui doit être au moins deux fois dérivable sur $I$.</p>
+
+<div class="block remark">
+<span class="label">Vocabulaire 3.12</span>
+Pour une équation différentielle $y''(t)+a\,y'(t)+b\,y(t)=f(t)$, on dit que $f(t)$ est le <strong>second membre</strong> (il s'agit du terme ou de la somme des termes qui ne dépendent pas de l'inconnue $y$). Si ce second membre est nul, on dit que l'équation est <strong>homogène</strong>. À une équation avec second membre est associée une <strong>équation homogène</strong>, obtenue en remplaçant le second membre par $0$.
+</div>
+
+<h3 id="s2-1">3.2.1 Résultats algébriques généraux</h3>
+<p>La première proposition exploite la linéarité :</p>
+
+<div class="block theorem">
+<span class="label">Proposition 3.13</span>
+Soit une équation différentielle linéaire d'ordre 2 sur un intervalle $I$, de la forme $y''+a\,y'+b\,y=f$.
+<ol>
+<li>L'ensemble des solutions de l'équation homogène associée est stable par combinaison linéaire et contient la fonction constante nulle.</li>
+<li>La différence de deux solutions de l'équation avec second membre est une solution de l'équation homogène associée.</li>
+<li><strong>Principe de superposition.</strong> Si on considère deux seconds membres $f_1$ et $f_2$, avec $y_1$ solution de $y''+a\,y'+b\,y=f_1$ et $y_2$ solution de $y''+a\,y'+b\,y=f_2$, alors $y_1+y_2$ est solution de $y''+a\,y'+b\,y=f_1+f_2$.</li>
+</ol>
+Ces résultats restent vrais même si $a$ et $b$ ne sont pas constantes.
+</div>
+
+<div class="block correction">
+<span class="label">⚠️ Correction — équation de $y_2$ dans la Proposition 3.13.3</span>
+Le PDF écrit « $y_2$ solution de $yy''+a\,y'+b\,y=f_2$ » : le facteur $y$ devant $y''$ est une coquille (elle rendrait l'équation non linéaire, et le principe de superposition faux). L'équation correcte est $y''+a\,y'+b\,y=f_2$, comme rectifié ci-dessus ; la preuve est immédiate par linéarité de la dérivation.
+</div>
+
+<div class="block def">
+<span class="label">Définition 3.14 — Polynôme caractéristique</span>
+Soit $a$ et $b$ deux nombres réels ou complexes. Soit une équation différentielle linéaire d'ordre 2 sur un intervalle $I$, de la forme $y''+a\,y'+b\,y=f$. On appelle <strong>polynôme caractéristique</strong> associé le polynôme : $$\chi(X)=X^2+aX+b.$$
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 3.15</span>
+Soit $a$ et $b$ deux nombres réels ou complexes. Soit une équation différentielle linéaire homogène d'ordre 2, de la forme $y''+a\,y'+b\,y=0$. Soit $r$ une racine du polynôme caractéristique associé $\chi(X)=X^2+aX+b$. Alors, la fonction $t\mapsto\mathrm{e}^{rt}$ est une solution de l'équation différentielle homogène.<br>
+Si, de plus, $r$ est racine double du polynôme caractéristique $\chi$, alors la fonction $t\mapsto t\,\mathrm{e}^{rt}$ est aussi solution de cette équation.
+</div>
+
+<div class="block correction">
+<span class="label">⚠️ Correction — polynôme caractéristique de la Proposition 3.15</span>
+Le PDF écrit « $\chi(X)=aX^2+bX+c$ » dans l'énoncé de la Proposition 3.15, alors que l'équation étudiée est $y''+a\,y'+b\,y=0$ (pas de coefficient $c$, et $y''$ a pour coefficient 1) et que la Définition 3.14 donne $\chi(X)=X^2+aX+b$. La forme correcte est $X^2+aX+b$ ; on le vérifie directement : $y=\mathrm{e}^{rt}$ donne $y''+ay'+by=(r^2+ar+b)\mathrm{e}^{rt}=\chi(r)\,\mathrm{e}^{rt}$.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 3.16</span>
+On dispose ainsi d'une situation en partie analogue à celle des relations de récurrence linéaire de pas 2 : un résultat exploitant la linéarité de l'équation ; et un autre exploitant le fait que les coefficients sont constants pour exhiber des solutions particulières aux équations homogènes parmi les suites ou les fonctions de référence.<br>
+Les résultats donnant l'unicité et/ou l'existence d'une solution d'une équation différentielle assortie de conditions initiales n'admettent pas de démonstration accessible à ce stade. Nous allons donc procéder autrement.
+</div>
+
+<h3 id="s2-2">3.2.2 Forme des solutions d'une équation homogène</h3>
+
+<div class="block theorem">
+<span class="label">Théorème 3.17</span>
+Soit $a$ et $b$ deux nombres réels ou complexes (on note $K$ l'ensemble de nombres correspondant). Soit l'équation différentielle linéaire d'ordre 2 homogène à coefficients constants $y''+a\,y'+b\,y\overset{\mathcal E_0}{=}0$. Soit $\chi(X)=X^2+aX+b$ le polynôme caractéristique associé.
+<ol>
+<li>Si $\chi$ admet deux racines distinctes $r_1$ et $r_2$, alors les solutions de l'équation $\mathcal E_0$ sont les fonctions de la forme $t\mapsto\alpha_1\mathrm{e}^{r_1t}+\alpha_2\mathrm{e}^{r_2t}$ pour $(\alpha_1,\alpha_2)\in K^2$.</li>
+<li>Si $\chi$ admet une racine double $r$, alors les solutions de l'équation $\mathcal E_0$ sont les fonctions de la forme $t\mapsto(\alpha+\beta t)\mathrm{e}^{rt}$ pour $(\alpha,\beta)\in K^2$.</li>
+</ol>
+</div>
+
+<p>Comme dans le cas des relations de récurrence, le théorème précédent est un peu décevant dans le cas où $a$ et $b$ sont réels mais les racines $r_1$ et $r_2$ du polynôme caractéristique sont des nombres complexes conjugués (non réels) car il ne donne pas directement l'expression des solutions à valeurs réelles. La proposition suivante y remédie :</p>
+
+<div class="block retenir">
+<span class="label">Proposition 3.18</span>
+Soit $a$ et $b$ deux nombres réels, tels que le polynôme caractéristique $\chi(X)=X^2+aX+b$ admet deux racines complexes conjuguées $r=\rho+i\omega$ et $\overline r=\rho-i\omega$, avec $(\rho,\omega)\in\mathbb{R}\times\mathbb{R}^*$. Soit l'équation différentielle $y''+a\,y'+b\,y\overset{\mathcal E_0}{=}0$. Les solutions à valeurs réelles sont alors les fonctions :
+$$t\longmapsto\mathrm{e}^{\rho t}\big(A\cos(\omega t)+B\sin(\omega t)\big)\quad\text{pour }(A,B)\in\mathbb{R}^2.$$
+</div>
+
+<div class="block remark">
+<span class="label">Vocabulaire 3.19</span>
+Là encore, on parle de <strong>plan vectoriel</strong> des solutions d'une équation différentielle linéaire d'ordre 2 homogène à coefficients constants : cet ensemble de solutions est stable par combinaison linéaire, et toutes ces solutions sont des combinaisons linéaires de deux « vecteurs », les vecteurs étant ici des fonctions.
+</div>
+
+<h3 id="s2-3">3.2.3 Recherche d'une solution particulière de l'équation avec second membre</h3>
+
+<p>Le programme prévoit de se limiter aux cas suivants pour le second membre $f(t)$ :</p>
+<ul>
+<li>cas polynomial : $f(t)=\displaystyle\sum_{i=0}^{n}a_it^i$ ;</li>
+<li>cas d'une exponentielle : $f(t)=A\,\mathrm{e}^{\lambda t}$ ;</li>
+<li>cas circulaire : $f(t)=B\cos(\omega t)$ ou $f(t)=C\sin(\omega t)$.</li>
+</ul>
+<p>Par superposition, on peut traiter le cas où le second membre est une somme de tels termes. Les techniques seront étudiées en TD.</p>
+
+<h3 id="s2-4">3.2.4 Théorème de Cauchy</h3>
+
+<div class="block theorem">
+<span class="label">Théorème 3.20</span>
+Soit $a$ et $b$ deux nombres réels ou complexes. Soit $f$ une fonction continue sur un intervalle $I$. Soit $t_0\in I$. Soit $(y_0,y_1)$ un couple de nombres réels ou complexes. Alors, le problème suivant, dit <strong>problème de Cauchy</strong> (linéaire, d'ordre 2, à coefficients constants), constitué d'une équation différentielle et d'un couple de conditions initiales en $t_0$, admet une unique solution sur l'intervalle $I$ :
+$$\begin{cases}\forall t\in I,\ y''(t)+a\,y'(t)+b\,y(t)=f(t)\\ y(t_0)=y_0\\ y'(t_0)=y_1\end{cases}$$
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 3.21</span>
+Ce théorème est <strong>admis</strong>. Notons que le fait que $a$ et $b$ sont constantes ne joue aucun rôle ici : le théorème reste vrai pour $a$ et $b$ des fonctions continues sur $I$.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque 3.22</span>
+Comme dans le cas des suites récurrentes, l'unique solution d'un problème de Cauchy linéaire d'ordre 2 et à coefficients constants peut être obtenue en résolvant d'abord l'équation sous-jacente (ce qu'on sait faire dans le cas d'un second membre $f$ pris dans certaines familles de fonctions). Il reste alors deux paramètres libres, et les conditions initiales fournissent un système d'équations sur ces paramètres qu'on peut résoudre.
+</div>
+</section>
+
+<section id="quiz">
+<h2>Quiz de fin de chapitre</h2>
+
+<div class="quiz-item">
+<div class="quiz-q">1. [Définition / Hypothèse clé] Que signifie « relation de récurrence linéaire, homogène, de pas 2, à coefficients constants » ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Elle relie chaque terme aux <em>deux</em> précédents ($u_{n+2}=a\,u_{n+1}+b\,u_n$) : « pas 2 » ; « linéaire » car les $u_k$ apparaissent au premier degré ; « homogène » car il n'y a pas de terme indépendant des $u_k$ (la suite nulle est solution) ; « à coefficients constants » car $a$ et $b$ ne dépendent pas de $n$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">2. [Définition / Hypothèse clé] Quel est le polynôme caractéristique de $u_{n+2}=5u_{n+1}-6u_n$, et de $y''+5y'+6y=0$ ? Pourquoi ne sont-ils pas de la même forme ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Pour la suite : $X^2-5X+6$ (convention $\chi=X^2-aX-b$ avec $a=5$, $b=-6$). Pour l'équation différentielle : $X^2+5X+6$ (convention $X^2+aX+b$). Les conventions d'écriture diffèrent (la récurrence est mise sous la forme $u_{n+2}=\dots$, l'équation différentielle sous la forme $y''+\dots=0$), mais dans les deux cas c'est le polynôme obtenu en remplaçant $u_{n+k}$ (ou $y^{(k)}$) par $X^k$ dans l'équation écrite sous la forme « tout à gauche ».</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">3. [Application directe] Donner toutes les suites vérifiant $u_{n+2}=5u_{n+1}-6u_n$, puis celle de conditions initiales $u_0=1$, $u_1=0$.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+$\chi(X)=X^2-5X+6=(X-2)(X-3)$ : racines $2$ et $3$, donc $u_n=\alpha\,2^n+\beta\,3^n$. Conditions : $\alpha+\beta=1$ et $2\alpha+3\beta=0$, d'où $\beta=-2$, $\alpha=3$ : $u_n=3\cdot2^n-2\cdot3^n$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">4. [Application directe] Donner les solutions réelles de $y''+2y'+5y=0$.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+$\chi(X)=X^2+2X+5$, $\Delta=4-20=-16$, racines $-1\pm2i$, donc $\rho=-1$, $\omega=2$ : $y(t)=\mathrm{e}^{-t}\big(A\cos(2t)+B\sin(2t)\big)$, $(A,B)\in\mathbb{R}^2$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">5. [Compréhension conceptuelle] Pourquoi la suite $(n\,r^n)_n$ apparaît-elle quand $r$ est racine <em>double</em> ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Avec une seule racine $r$, la seule suite géométrique solution est $(r^n)$ : il manque une seconde solution indépendante pour obtenir un « plan » de solutions. La suite $(n\,r^n)$ convient (on le vérifie avec $a=2r$, $b=-r^2$), et le Lemme 3.4 puis le Théorème 3.7 montrent qu'aucune autre forme n'est nécessaire.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">6. [Compréhension conceptuelle] Que se passe-t-il si, dans le Lemme 3.4, on ne fixe que <em>un</em> seul terme initial ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+L'unicité est perdue : la relation étant de pas 2, il faut deux valeurs consécutives pour « lancer » la récurrence. Par exemple $(2^n)_n$ et $(3^n)_n$ vérifient $u_{n+2}=5u_{n+1}-6u_n$ et coïncident en $u_0=1$, sans être égales.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">7. [Piège classique] Pour $y''+a\,y'+b\,y=f$, la solution générale est-elle $\alpha_1\mathrm{e}^{r_1t}+\alpha_2\mathrm{e}^{r_2t}$ ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Non : cette expression décrit seulement les solutions de l'équation <em>homogène</em> ($f=0$). Avec un second membre, il faut lui ajouter une solution particulière (la différence de deux solutions de l'équation complète est solution de l'homogène : Prop. 3.13.2).</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">8. [Piège classique] Si $a,b$ sont réels et $\chi$ a des racines complexes conjuguées, peut-on dire que « les solutions réelles sont $\alpha_1r_1^n+\alpha_2\overline{r_1}^{\,n}$ avec $\alpha_1,\alpha_2$ réels quelconques » ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Non : avec $\alpha_1,\alpha_2$ réels quelconques, la suite n'est en général pas réelle. Il faut $\alpha_2=\overline{\alpha_1}$ (Remarque 3.11), soit $u_n=2\,\mathrm{Re}(\alpha_1r_1^n)$ avec $\alpha_1$ <em>complexe</em>, ce qui laisse bien deux paramètres réels.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">9. [Synthèse] Comparer, pour l'équation $X^2-3X+2=0$ comme polynôme caractéristique, la forme des solutions de la récurrence $u_{n+2}=3u_{n+1}-2u_n$ et celle de l'équation différentielle $y''-3y'+2y=0$.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Racines $1$ et $2$. Suite : $u_n=\alpha\cdot1^n+\beta\cdot2^n=\alpha+\beta\,2^n$. Équation différentielle : $y(t)=\alpha\,\mathrm{e}^{t}+\beta\,\mathrm{e}^{2t}$. Même polynôme, même structure de « plan vectoriel » : on remplace $r^n$ par $\mathrm{e}^{rt}$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">10. [Synthèse] Résoudre le problème de Cauchy $y''+y=0$, $y(0)=1$, $y'(0)=0$, en citant les résultats du cours utilisés.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+$\chi(X)=X^2+1$, racines $\pm i$ ($\rho=0$, $\omega=1$) : par la Prop. 3.18, $y(t)=A\cos t+B\sin t$. Alors $y(0)=A=1$ et $y'(0)=B=0$, donc $y(t)=\cos t$. Le Théorème de Cauchy (3.20) garantit que c'est l'unique solution.</div>
+</div>
+
+</section>
+
+<section id="sources">
+<h2>Sources &amp; Références</h2>
+<ul class="sources">
+  <li>Cours du professeur, Chapitre 3 « Exemples de problèmes linéaires bidimensionnels » (PDF joint : <a href="03_Ch03_Cours_Profs_Problemes-lineaires-bidimensionnels_2026-09-28.pdf">03_Ch03_Cours_Profs_Problemes-lineaires-bidimensionnels_2026-09-28.pdf</a>).</li>
+  <li>Programme officiel de mathématiques CPGE 1<sup>re</sup> année (voie PCSI) : <a href="https://www.enseignementsup-recherche.gouv.fr/" target="_blank">enseignementsup-recherche.gouv.fr</a>, bloc « Équations différentielles linéaires » et « Suites ».</li>
+  <li>Ouvrages de référence : <em>H-Prépa Mathématiques 1<sup>re</sup> année MPSI/PCSI</em> (Hachette Éducation), chapitres sur les suites récurrentes linéaires et les équations différentielles linéaires d'ordre 2.</li>
+  <li>Corrections signalées par ⚠️ (Prop. 3.13.3 et Prop. 3.15) : établies par calcul direct et par cohérence interne avec la Définition 3.14, sans source externe précise.</li>
+</ul>
+</section>
+
+</main>
+
+</div>
+</body>
+</html>
