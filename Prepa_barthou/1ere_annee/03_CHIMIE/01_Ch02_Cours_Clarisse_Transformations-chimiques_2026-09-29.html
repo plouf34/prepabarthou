@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chimie — Ch.2 : Transformations chimiques</title>
+<script>
+window.MathJax = {
+  tex: { 
+    inlineMath: [['$','$'],['\\(','\\)']], 
+    displayMath: [['$$','$$'],['\\[','\\]']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js"></script>
+<style>
+:root{
+  --font-title:'Spectral',Georgia,'Times New Roman',serif;
+  --font-body:'IBM Plex Sans','Segoe UI',Arial,sans-serif;
+  --font-mono:'IBM Plex Mono','Consolas',monospace;
+  --ink:#1c2430;
+  --paper:#fbfaf7;
+  --panel:#ffffff;
+  --line:#e2e0da;
+  --accent:#0f2b4c;
+  --blue-bg:#e9f1fd; --blue-bd:#3b6fd8;
+  --violet-bg:#f2ecfd; --violet-bd:#7c4fd6;
+  --green-bg:#e9f8ee; --green-bd:#2fa365;
+  --gray-bg:#f1f1ef; --gray-bd:#8b8b85;
+  --amber-bg:#fdf3dd; --amber-bd:#c98a12;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--font-body); line-height:1.55; font-size:16px;
+  text-align:left; word-wrap:break-word;
+}
+h1,h2,h3,h4,h5{font-family:var(--font-title); color:var(--accent); font-weight:600;}
+h1{font-size:1.95rem; margin:0 0 .25rem 0;}
+h2{font-size:1.38rem; border-bottom:2px solid var(--line); padding-bottom:.35rem; margin-top:2.3rem;}
+h3{font-size:1.15rem; margin-top:1.7rem;}
+h4{font-size:1.02rem; margin-top:1.25rem;}
+h5{font-size:.95rem; margin-top:1rem; font-style:italic;}
+code, .mono{font-family:var(--font-mono);}
+.layout{display:flex; max-width:1260px; margin:0 auto;}
+nav.toc{
+  width:265px; flex-shrink:0; position:sticky; top:0; align-self:flex-start;
+  height:100vh; overflow-y:auto; padding:1.6rem 1rem 2rem 1.4rem;
+  border-right:1px solid var(--line); font-size:.86rem;
+}
+nav.toc h4{margin-top:0; color:#7a7a72; font-family:var(--font-body); font-weight:700; letter-spacing:.03em; text-transform:uppercase; font-size:.75rem;}
+nav.toc ol{list-style:none; padding-left:0; margin:.3rem 0 1.1rem 0; counter-reset:sec;}
+nav.toc ol.roman{counter-reset:roman;}
+nav.toc ol.roman > li{counter-increment:roman;}
+nav.toc ol.roman > li > a::before{content: counter(roman, upper-roman) " — "; color:var(--blue-bd); font-weight:600;}
+nav.toc ol ol{margin:.15rem 0 .4rem 1rem;}
+nav.toc a{color:var(--ink); text-decoration:none; display:block; padding:.18rem 0;}
+nav.toc a:hover{color:var(--blue-bd);}
+main{flex:1; min-width:0; padding:2.2rem 3rem 4rem 3rem;}
+header.title{margin-bottom:1.8rem;}
+.meta{color:#7a7a72; font-size:.85rem; font-family:var(--font-mono);}
+section{margin-bottom:1.5rem;}
+p{margin:.65rem 0;}
+.block{border-left:4px solid; border-radius:6px; padding:.85rem 1.15rem; margin:1.1rem 0; background:#fff;}
+.block > .label{font-weight:700; font-family:var(--font-body); font-size:.82rem; letter-spacing:.03em; text-transform:uppercase; margin-bottom:.4rem; display:block;}
+.def{background:var(--blue-bg); border-color:var(--blue-bd);} .def>.label{color:var(--blue-bd);}
+.theorem{background:var(--violet-bg); border-color:var(--violet-bd);} .theorem>.label{color:var(--violet-bd);}
+.demo{background:var(--green-bg); border-color:var(--green-bd);} .demo>.label{color:var(--green-bd);}
+.remark{background:var(--gray-bg); border-color:var(--gray-bd);} .remark>.label{color:#5c5c56;}
+.correction{background:var(--amber-bg); border-color:var(--amber-bd);} .correction>.label{color:var(--amber-bd);}
+.retenir{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:1.1rem 1.3rem; margin:1.3rem 0;}
+.retenir>.label{color:#cfe0f5;}
+.chain{margin:.75rem 0; padding-left:.3rem;}
+.chain .step{display:flex; align-items:baseline; gap:.6rem; margin:.3rem 0; flex-wrap:wrap;}
+.chain .step .why{color:#7a7a72; font-size:.84rem; font-style:italic;}
+figure{margin:1.3rem 0; text-align:center;}
+figure svg{max-width:100%; height:auto; background:#fff; border:1px solid var(--line); border-radius:8px;}
+figcaption{font-size:.82rem; color:#7a7a72; margin-top:.45rem;}
+.quiz-item{border:1px solid var(--line); border-radius:8px; padding:1rem 1.2rem; margin:1rem 0; background:#fff;}
+.quiz-q{font-weight:700;}
+.quiz-a{margin-top:.6rem; padding-top:.6rem; border-top:1px dashed var(--line); color:#333;}
+.quiz-a .tag{font-weight:700; color:var(--green-bd); font-size:.82rem; text-transform:uppercase;}
+.sources li{margin:.35rem 0; font-size:.92rem;}
+.sources a{color:var(--blue-bd); text-decoration:none;}
+.sources a:hover{text-decoration:underline;}
+
+mjx-container[jax="SVG"]{max-width:100%;}
+mjx-container[jax="SVG"] > svg{max-width:100%; height:auto;}
+mjx-container[jax="SVG"][display="true"]{
+  overflow-x:auto; 
+  overflow-y:hidden; 
+  max-width:100%;
+  padding:0.2em 0;
+  -webkit-overflow-scrolling:touch;
+}
+
+@media (max-width:900px){
+  nav.toc{display:none;}
+  main{padding:1.5rem 1.2rem;}
+}
+@media (max-width:480px){
+  main{padding:1.2rem .8rem;}
+  .chain .step{gap:.35rem;}
+  .block{padding:.75rem .9rem;}
+}
+.crosslinks-course{text-align:center; padding:0 0 .6rem 0; font-size:.82rem;}.crosslinks-course a{color:var(--blue-bd); text-decoration:none; font-weight:600; margin:0 .6rem;}
+
+table.av{border-collapse:collapse;margin:.8rem auto;font-size:.92rem;background:#fff;}
+table.av th,table.av td{border:1px solid var(--line);padding:.35rem .7rem;text-align:center;}
+table.av thead th{background:#f6f5f1;}
+.tablewrap{overflow-x:auto;max-width:100%;}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc">
+<h4>Sommaire</h4>
+<ol class="roman">
+  <li><a href="#s1">Constante d'équilibre $K^\circ$</a>
+    <ol>
+      <li><a href="#s1-1">Loi d'action de masse</a></li>
+      <li><a href="#s1-2">Exemples</a></li>
+      <li><a href="#s1-3">Remarques</a></li>
+      <li><a href="#s1-4">Détermination de l'E.F avec Python</a></li>
+    </ol>
+  </li>
+  <li><a href="#s2">Quotient réactionnel</a>
+    <ol>
+      <li><a href="#s2-1">Définition de $Q_r$</a></li>
+      <li><a href="#s2-2">Prévision du sens d'évolution</a></li>
+      <li><a href="#s2-3">Déplacement d'équilibre</a></li>
+    </ol>
+  </li>
+  <li><a href="#s3">Coefficient de partage</a>
+    <ol>
+      <li><a href="#s3-1">Présentation</a></li>
+      <li><a href="#s3-2">Rendement de l'extraction</a></li>
+    </ol>
+  </li>
+  <li><a href="#s4">Rupture d'équilibre</a></li>
+  <li><a href="#quiz">Quiz de fin de chapitre</a></li>
+  <li><a href="#sources">Sources &amp; Références</a></li>
+</ol>
+</nav>
+
+<main>
+<div class="crosslinks-course"><a href="../../../index.html">🏠 Accueil</a><a href="../index.html">🏫 Cours</a></div>
+
+<header class="title">
+<h1>Chapitre 2 : Transformations chimiques</h1>
+<div class="meta">Chimie · CPGE PCSI (Lycée Louis Barthou, Pau) · Transcription du cours manuscrit · généré le 29/09/2026</div>
+</header>
+
+<div class="block remark">
+<span class="label">Notations et abréviations du manuscrit</span>
+$\prod$ : produit ; $\sum$ : somme. E.B : équation bilan ; E.I / E.F : état initial / final ; E.Q : état quelconque ; éq. : équilibre ; cste : constante ; l'indice « e » désigne l'état d'équilibre.<br>
+<em>Lecture des pressions :</em> sur le manuscrit, la pression partielle $p$ est écrite avec une lettre proche de « n » ; elle est lue ici comme $p$ (cohérent avec $p^\circ$ et avec la relation $p_i = x_iP$ notée par le professeur).
+</div>
+
+<section id="s1">
+<h2>I. Constante d'équilibre $K^\circ$</h2>
+
+<h3 id="s1-1">1) Loi d'action de masse (LAM)</h3>
+
+<div class="block def">
+<span class="label">Définition 2.1 — Loi d'action de masse</span>
+Soit l'E.B :
+$$\nu_1 A_1 + \nu_2 A_2 + \dots \rightleftharpoons \nu'_1 B_1 + \nu'_2 B_2 + \dots$$
+$$K^\circ(T) = \frac{\displaystyle\prod_i \left(a_{B_i}\right)_e^{\nu'_i}}{\displaystyle\prod_i \left(a_{A_i}\right)_e^{\nu_i}}$$
+$K^\circ(T)$ est la <strong>constante d'équilibre</strong> (activités prises à l'équilibre).
+</div>
+
+<h3 id="s1-2">2) Exemples</h3>
+
+<h4>a) Phase gazeuse</h4>
+<div class="block demo">
+<span class="label">$\mathrm{PCl_5(g) = PCl_3(g) + Cl_2(g)}$</span>
+$$K^\circ(T) = \frac{(a_{\mathrm{PCl_3}})_e^{1} \times (a_{\mathrm{Cl_2}})_e^{1}}{(a_{\mathrm{PCl_5}})_e^{1}} = \frac{\dfrac{(p_{\mathrm{PCl_3}})_e}{p^\circ} \times \dfrac{(p_{\mathrm{Cl_2}})_e}{p^\circ}}{\dfrac{(p_{\mathrm{PCl_5}})_e}{p^\circ}}$$
+</div>
+
+<h4>b) En solution aqueuse</h4>
+<div class="block demo">
+<span class="label">$\mathrm{CH_3CO_2H(aq) + H_2O(\ell) = H_3O^+(aq) + CH_3CO_2^-(aq)}$ &nbsp;(H<sub>2</sub>O : solvant)</span>
+$$K^\circ(T) = \frac{(a_{\mathrm{H_3O^+}})_e \times (a_{\mathrm{CH_3CO_2^-}})_e}{(a_{\mathrm{CH_3CO_2H}})_e \times (a_{\mathrm{H_2O}})_e} = \frac{[\mathrm{H_3O^+}]_e\,[\mathrm{CH_3CO_2^-}]_e}{[\mathrm{CH_3CO_2H}]_e \times c^\circ} \qquad (a_{\mathrm{H_2O}} = 1)$$
+</div>
+
+<h4>c) Cas d'un précipité</h4>
+<div class="block demo">
+<span class="label">$\mathrm{2\,Ag^+ + CrO_4^{2-} = Ag_2CrO_4(s)}$</span>
+$$K^\circ(T) = \frac{(a_{\mathrm{Ag_2CrO_4}})_e}{(a_{\mathrm{Ag^+}})_e^{2} \times (a_{\mathrm{CrO_4^{2-}}})_e} = \frac{1}{\dfrac{[\mathrm{Ag^+}]^2}{c^{\circ 2}} \times \dfrac{[\mathrm{CrO_4^{2-}}]}{c^\circ}} = \frac{c^{\circ 3}}{[\mathrm{Ag^+}]_e^2 \times [\mathrm{CrO_4^{2-}}]_e}$$
+</div>
+
+<h3 id="s1-3">3) Remarques</h3>
+
+<h4>a) $K^\circ$ dépend de $T$, du sens de l'E.B et des coefficients stœchiométriques</h4>
+<div class="block def">
+<span class="label">Exemple</span>
+$$(1)\ \mathrm{2\,SO_2(g) + O_2(g) = 2\,SO_3(g)} \qquad (2)\ \mathrm{2\,SO_3(g) = 2\,SO_2(g) + O_2(g)} \qquad (3)\ \mathrm{SO_2(g) + \tfrac{1}{2}O_2(g) = SO_3(g)}$$
+</div>
+<div class="block theorem">
+<span class="label">Propriétés 2.2 — Changement d'écriture de l'E.B</span>
+$$K^\circ_1 = \frac{1}{K^\circ_2} \qquad\qquad K^\circ_1 = \left(K^\circ_3\right)^2$$
+(l'équation (2) est l'inverse de (1) ; l'équation (1) est le double de (3)).
+</div>
+
+<h4>b) Valeurs de $K^\circ$</h4>
+<ul>
+  <li>si $K^\circ \geq 10^{3}$, la réaction est <strong>quasi totale</strong> ;</li>
+  <li>si $K^\circ \leq 10^{-3}$, la réaction ne se fait quasiment pas.</li>
+</ul>
+<div class="block correction">
+<span class="label">⚠️ Correction — seuil du cas « quasi nul » et nature de ces seuils</span>
+Sur le manuscrit, les deux seuils semblent écrits « $10^{3}$ » ; le second doit être $10^{-3}$ (signe « − » absent ou illisible), sinon les deux cas se recouvrent. Ces seuils sont une <strong>convention du cours</strong> : d'autres cours de PCSI/MPSI retiennent $10^{4}$ et $10^{-4}$, et le critère rigoureux est le taux d'avancement final $\tau = \xi_f/\xi_{max}$ (« quasi totale » si $\tau > 0{,}99$), qui dépend aussi de l'état initial (voir Sources). À confirmer avec le professeur.
+</div>
+
+<h4>c) Calcul d'une constante d'équilibre</h4>
+<div class="block demo">
+<span class="label">Calculer $K^\circ_3$ de : $\mathrm{AgCl(s) + 2\,NH_3(aq) \overset{(3)}{=} Ag(NH_3)_2^+(aq) + Cl^-(aq)}$</span>
+Sachant que :
+$$K^\circ_1 = 10^{-10}\ :\ \mathrm{AgCl(s) \overset{(1)}{=} Ag^+(aq) + Cl^-(aq)} \qquad K^\circ_2 = 10^{7{,}2}\ :\ \mathrm{Ag^+(aq) + 2\,NH_3(aq) \overset{(2)}{=} Ag(NH_3)_2^+(aq)}$$
+$$K^\circ_3 = \frac{[\mathrm{Ag(NH_3)_2^+}]_e\,[\mathrm{Cl^-}]_e}{[\mathrm{NH_3}]_e^2} \qquad K^\circ_1 = \frac{[\mathrm{Ag^+}]_e\,[\mathrm{Cl^-}]_e}{c^{\circ 2}} \qquad K^\circ_2 = \frac{[\mathrm{Ag(NH_3)_2^+}]\,c^{\circ 2}}{[\mathrm{Ag^+}]_e\,[\mathrm{NH_3}]_e^2}$$
+$$\boxed{K^\circ_3 = K^\circ_1 \times K^\circ_2} \quad\text{soit}\quad K^\circ_3 = 10^{-10} \times 10^{7{,}2} = 10^{-2{,}8} \approx 1{,}6\times 10^{-3}$$
+<em>(l'application numérique est ajoutée ici ; elle n'est pas écrite sur le manuscrit)</em>
+</div>
+<div class="block theorem">
+<span class="label">Propriété 2.3 — Combinaison linéaire d'équations</span>
+Si l'équation (3) est la somme des équations (1) et (2), alors $K^\circ_3 = K^\circ_1 \times K^\circ_2$.
+</div>
+
+<h3 id="s1-4">4) Détermination de l'E.F d'un système à l'aide de Python</h3>
+
+<div class="block demo">
+<span class="label">$\mathrm{C_2H_5OH(g) = C_2H_4(g) + H_2O(g)}$</span>
+<div class="tablewrap"><table class="av">
+<thead><tr><th></th><th>$\mathrm{C_2H_5OH}$</th><th>$\mathrm{C_2H_4}$</th><th>$\mathrm{H_2O}$</th></tr></thead>
+<tbody>
+<tr><th>E.I</th><td>1,0</td><td>1,0</td><td>1,0</td></tr>
+<tr><th>E.F</th><td>$1 - \xi_e$</td><td>$1 + \xi_e$</td><td>$1 + \xi_e$</td></tr>
+</tbody></table></div>
+<strong>Données :</strong> $K^\circ_{573\,\mathrm{K}} = 250$ ; $P = \text{cste} = 70$ bars.
+$$K^\circ = \frac{(p_{\mathrm{C_2H_4}})_e\,(p_{\mathrm{H_2O}})_e}{(p_{\mathrm{C_2H_5OH}})_e \times p^\circ} \quad\text{or}\quad (p_{\mathrm{C_2H_4}})_e = \frac{1 + \xi_e}{3 + \xi_e}\,P \quad (p_i = x_iP)$$
+$$\Rightarrow n_{tot} = 3 + \xi_f$$
+$$\iff K^\circ = \frac{(1+\xi_e)P \times (1+\xi_e)P}{(1-\xi_e)P \times (3+\xi_e)\,p^\circ} = \frac{(1+\xi_e)^2}{(1-\xi_e)(3+\xi_e)}\cdot\frac{P}{p^\circ} = 250$$
+</div>
+
+<div class="block remark">
+<span class="label">« Python doc 1 » — schéma du manuscrit</span>
+Le manuscrit esquisse la recherche de la solution sur un intervalle $[a\,;\,b]$ avec un point intermédiaire $m$ (notation habituelle de la <strong>dichotomie</strong> — interprétation), pour une fonction notée « $f(\xi_e) - 1$ » [?]. Le tracé est peu lisible (correcteur blanc, deux courbes superposées) : il n'est <strong>pas reproduit</strong> ici plutôt que redessiné de façon non vérifiée.
+</div>
+
+<div class="block correction">
+<span class="label">Vérification ajoutée (hors manuscrit)</span>
+Avec $P/p^\circ = 70$ (en prenant $p^\circ = 1$ bar), l'équation devient $70(1+\xi_e)^2 = 250(1-\xi_e)(3+\xi_e)$, soit $\xi_e^2 + 2\xi_e - \tfrac{17}{8} = 0$, d'où $\xi_e = -1 + \sqrt{25/8} \approx 0{,}768$ (la solution négative est exclue). Contrôle : $\dfrac{(1{,}768)^2}{(0{,}232)(3{,}768)} \times 70 \approx 250$. Le réactif limitant est l'éthanol ($\xi_{max} = 1$) : le taux d'avancement vaut donc environ 77 %.
+</div>
+</section>
+
+<section id="s2">
+<h2>II. Quotient réactionnel</h2>
+
+<h3 id="s2-1">1) Définition de $Q_r$</h3>
+<div class="block def">
+<span class="label">Définition 2.4 — Quotient réactionnel</span>
+Les activités sont prises à l'E.Q (état quelconque, lecture de l'abréviation). À l'équilibre :
+$$Q_e = K^\circ$$
+<em>Rappel (formule non écrite sur la page du manuscrit) :</em> $Q_r = \dfrac{\prod_i (a_{B_i})^{\nu'_i}}{\prod_i (a_{A_i})^{\nu_i}}$, calculé avec les activités de l'état considéré.
+</div>
+
+<h3 id="s2-2">2) Prévision du sens d'évolution de la réaction</h3>
+
+<h4>a) Exemple</h4>
+<div class="block demo">
+<span class="label">$\mathrm{butane(g) \rightleftharpoons isobutane(g)}$ &nbsp;(le manuscrit dessine les formules topologiques)</span>
+<em>Semi-développées :</em> $\mathrm{CH_3{-}CH_2{-}CH_2{-}CH_3 \rightleftharpoons (CH_3)_2CH{-}CH_3}$.<br>
+Conditions initiales : $m_{but} = m_{iso}$. <em>(Le butane et l'isobutane sont isomères, de même masse molaire : masses égales ⇔ quantités de matière égales.)</em>
+$$Q_r \xrightarrow[t \to +\infty]{} K^\circ = \text{cste}$$
+$$Q_0 = \frac{(p_{iso})_0}{(p_{but})_0} = 1 \quad\text{car}\quad (p_{iso})_0 = (p_{but})_0 \qquad\qquad 1 \overset{?}{\longrightarrow} 2{,}5$$
+$Q_r$ doit augmenter (↗) ; or $Q_r = \dfrac{p_{iso}}{p_{but}}$, donc $p_{iso}$ ↗ et $p_{but}$ ↘.<br>
+<em>(Le manuscrit ne dit pas explicitement que $2{,}5 = K^\circ$ ; c'est ce que suggère la ligne « $Q_r \to K^\circ$ ».)</em>
+</div>
+
+<h4>b) Conclusion</h4>
+<div class="block retenir">
+<span class="label">Critère d'évolution spontanée</span>
+<ul>
+  <li>si $Q_r \lt K^\circ$ : sens <strong>direct</strong> ;</li>
+  <li>si $Q_r \gt K^\circ$ : sens <strong>indirect</strong> ;</li>
+  <li>si $Q_r = K^\circ$ : <strong>équilibre</strong>.</li>
+</ul>
+Ici : la réaction évolue dans le sens direct.
+</div>
+
+<h4>c) Résultat Python</h4>
+<div class="block demo">
+<span class="label">$K^\circ = 0{,}6$ &nbsp; $T = 300\,^\circ\mathrm{C}$ &nbsp; — composition finale ? $(n_{iso})_f$ ? $(n_{but})_f$ ?</span>
+On note $n_2 = n_{iso}$ et $n_1 = n_{but}$. Comme $\Delta\nu_{gaz} = 0$, $n_{tot}$ et $P$ se simplifient :
+$$Q_r = \frac{p_2}{p_1} = \frac{\dfrac{n_2}{n_{tot}}P}{\dfrac{n_1}{n_{tot}}P} = \frac{n_2}{n_1}$$
+Le manuscrit note l'avancement élémentaire de l'algorithme : de $(1)$ vers $(2)$, on passe de $n_1$ à « $n_1 - 0{,}01$ » et de $n_2$ à $n_2 + 0{,}01$ <em>(écrit « N − 0,01 » ; lu $n_1 - 0{,}01$)</em>.
+</div>
+<div class="block remark">
+<span class="label">Remarque ajoutée (hors manuscrit)</span>
+À l'arrêt, $Q_r = n_2/n_1 = K^\circ = 0{,}6$. Avec des quantités initiales égales, $Q_0 = 1 \gt 0{,}6$ : le sens d'évolution est alors le sens <em>indirect</em>, et le pas de $0{,}01$ mol se fait dans l'autre direction que celle notée ci-dessus. La valeur $K^\circ = 0{,}6$ à $300\,^\circ$C n'a pas pu être vérifiée ; en revanche $K^\circ \approx 2{,}5$ à $25\,^\circ$C est bien la valeur usuelle pour ce couple d'isomères (voir Sources).
+</div>
+
+<h3 id="s2-3">3) Déplacement d'équilibre (optimisation)</h3>
+
+<h4>a) Introduction</h4>
+<p>Paramètres qui perturbent un équilibre : la <strong>température</strong>, l'<strong>ajout de matière</strong>, la <strong>pression</strong>.</p>
+
+<h4>b) Principe</h4>
+<p>On calcule $Q_r$, on le compare à $K^\circ$ et on conclut.</p>
+<figure>
+<svg viewBox="0 0 560 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Axe des Qr : sens direct si Qr inférieur à K, sens indirect si Qr supérieur">
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f2b4c"/></marker>
+</defs>
+<line x1="30" y1="95" x2="530" y2="95" stroke="#0f2b4c" stroke-width="2" marker-end="url(#ah)"/>
+<text x="536" y="99" font-size="15" fill="#0f2b4c" font-style="italic">Q<tspan font-size="11" dy="3">r</tspan></text>
+<line x1="110" y1="88" x2="110" y2="102" stroke="#0f2b4c" stroke-width="2"/>
+<line x1="280" y1="88" x2="280" y2="102" stroke="#0f2b4c" stroke-width="2"/>
+<line x1="450" y1="88" x2="450" y2="102" stroke="#0f2b4c" stroke-width="2"/>
+<text x="110" y="124" font-size="14" text-anchor="middle" fill="#1c2430">Qr &lt; K°</text>
+<text x="280" y="124" font-size="14" text-anchor="middle" fill="#1c2430">Qr = K°</text>
+<text x="450" y="124" font-size="14" text-anchor="middle" fill="#1c2430">Qr &gt; K°</text>
+<line x1="112" y1="60" x2="272" y2="60" stroke="#c2185b" stroke-width="2" marker-end="url(#ah)"/>
+<text x="192" y="48" font-size="13" text-anchor="middle" fill="#c2185b">sens direct</text>
+<line x1="448" y1="60" x2="288" y2="60" stroke="#0f2b4c" stroke-width="2" marker-end="url(#ah)"/>
+<text x="368" y="48" font-size="13" text-anchor="middle" fill="#0f2b4c">sens indirect</text>
+</svg>
+<figcaption>Fig. 1 — Le système évolue toujours de façon à rapprocher $Q_r$ de $K^\circ$ : si $Q_r \lt K^\circ$, $Q_r$ augmente (sens direct) ; si $Q_r \gt K^\circ$, $Q_r$ diminue (sens indirect).</figcaption>
+</figure>
+
+<h4>c) Exemples</h4>
+
+<div class="block demo">
+<span class="label">① Ajout d'un constituant (estérification) : $\mathrm{CH_3CO_2H + C_2H_5OH = CH_3CO_2C_2H_5 + H_2O(\ell)}$</span>
+On introduit 1 mole de chacun des réactifs dans 1 L d'eau. On peut introduire l'avancement volumique $x_e = \xi_e / V$ (en mol·L<sup>−1</sup>).
+<div class="tablewrap"><table class="av">
+<thead><tr><th>en mol·L<sup>−1</sup></th><th>acide</th><th>éthanol</th><th>ester</th><th>eau</th></tr></thead>
+<tbody>
+<tr><th>E.I</th><td>1,0</td><td>1,0</td><td>0</td><td rowspan="2">solvant</td></tr>
+<tr><th>E.F</th><td>$1{,}0 - x_e$</td><td>$1{,}0 - x_e$</td><td>$x_e$</td></tr>
+<tr><th>valeurs</th><td>$1{,}0 - 6{,}9\times10^{-2}$</td><td>$1{,}0 - 6{,}9\times10^{-2}$</td><td>$6{,}9\times10^{-2}$</td><td></td></tr>
+</tbody></table></div>
+$$K^\circ = \frac{x_e \times 1}{(1{,}0 - x_e)(1{,}0 - x_e)} = 7{,}9\times10^{-2} \quad\text{on résout :}\quad x_e = 6{,}9\times10^{-2}\ \mathrm{mol\cdot L^{-1}}$$
+<strong>Énoncé :</strong> on ajoute $0{,}4$ mol d'éthanol ; dans quel sens l'équilibre est-il déplacé ? Juste après l'ajout, $[\text{éthanol}] = 1{,}0 - 6{,}9\times10^{-2} + 0{,}4$.
+$$Q_r = \frac{6{,}9\times10^{-2}}{(1 - 6{,}9\times10^{-2})(1{,}4 - 6{,}9\times10^{-2})} = 5{,}6\times10^{-2} \lt 7{,}9\times10^{-2} \ \longrightarrow\ \text{sens direct}$$
+</div>
+
+<div class="block demo">
+<span class="label">② Augmentation de la pression — NB : réaction en phase gaz : $\mathrm{CO(g) + 2\,H_2(g) = CH_3OH(g)}$</span>
+<div class="tablewrap"><table class="av">
+<thead><tr><th>en mol</th><th>$\mathrm{CO}$</th><th>$\mathrm{H_2}$</th><th>$\mathrm{CH_3OH}$</th></tr></thead>
+<tbody>
+<tr><th>E.I</th><td>1,0</td><td>2,0</td><td>0</td></tr>
+<tr><th>E.F</th><td>$1{,}0 - \xi_e$</td><td>$2{,}0 - 2\xi_e$</td><td>$\xi_e$</td></tr>
+</tbody></table></div>
+$$K^\circ = \frac{(p_{\mathrm{CH_3OH}})_e\;p^{\circ 2}}{(p_{\mathrm{CO}})_e \times (p_{\mathrm{H_2}})_e^{2}} \ \Rightarrow\ Q_r = \frac{p_{\mathrm{CH_3OH}}\;p^{\circ 2}}{p_{\mathrm{CO}} \times p_{\mathrm{H_2}}^{2}} = \frac{x_{\mathrm{CH_3OH}}\;p^{\circ 2}}{x_{\mathrm{CO}}\,x_{\mathrm{H_2}}^{2}\times P^2}$$
+<em>Le manuscrit s'arrête à cette expression.</em> Complément : à composition inchangée, $Q_r \propto 1/P^2$ diminue quand $P$ augmente, donc $Q_r \lt K^\circ$ : sens direct, celui qui diminue le nombre de moles de gaz ($\Delta\nu_{gaz} = -2$).
+</div>
+
+<div class="block demo">
+<span class="label">③ Augmentation de la température : $\mathrm{N_2(g) + 3\,H_2(g) = 2\,NH_3(g)}$</span>
+Si $T$ ↘, l'équilibre est déplacé dans le sens $\rightarrow$ (direct).<br>
+Si $T$ ↗, l'équilibre est déplacé <em>[phrase inachevée sur le manuscrit ; d'après la règle ci-dessous : sens indirect, endothermique]</em>.
+</div>
+
+<div class="block retenir">
+<span class="label">Loi de modération (formulation du cours)</span>
+La réaction réagit à la perturbation faite afin de limiter les conséquences de cette dernière :
+<ul>
+  <li>ajout d'un constituant : l'équilibre est déplacé dans le sens de la <strong>consommation</strong> du constituant ajouté (« produit ajouté » sur le manuscrit) ;</li>
+  <li>si $P$ ↗ : l'équilibre est déplacé dans le sens d'une <strong>diminution du nombre de moles de gaz</strong> ;</li>
+  <li>quand $T$ ↗ : l'équilibre est déplacé dans le sens <strong>endothermique</strong>.</li>
+</ul>
+</div>
+<div class="block correction">
+<span class="label">⚠️ Précision sur le domaine de validité</span>
+Cette règle qualitative est sûre pour un ajout à <strong>$T$ et $V$ constants</strong> ; elle n'est pas toujours vraie pour un gaz ajouté à $P$ constante. Le critère fiable reste la comparaison de $Q_r$ et $K^\circ$ (voir Sources). Pour une variation de $T$, c'est $K^\circ$ qui change (et non $Q_r$, juste après la perturbation).
+</div>
+</section>
+
+<section id="s3">
+<h2>III. Coefficient de partage</h2>
+<p><em>Attention : il s'agit d'un équilibre <strong>physique</strong> pour lequel on définit une constante d'équilibre.</em></p>
+
+<h3 id="s3-1">1) Présentation</h3>
+<div class="block def">
+<span class="label">Définition 2.5 — Équilibre de partage</span>
+Il s'agit d'un équilibre physique où la <strong>même espèce</strong> se trouve dans 2 phases différentes.
+<ul>
+  <li><strong>Exemple 1 :</strong> $\mathrm{CO_2(g) = CO_2(aq)}$ &nbsp; (gaz / liquide)</li>
+  <li><strong>Exemple 2 :</strong> $\mathrm{A(S) = A(S')}$ &nbsp; (liquide / liquide) &nbsp; — $S'$ : solvant d'extraction</li>
+</ul>
+Il faut que l'espèce soit <strong>plus soluble</strong> dans $S'$ que dans $S$, et que $S$ et $S'$ soient <strong>non miscibles</strong>. Alors :
+$$K^\circ = \frac{(a_{A(S')})_e}{(a_{A(S)})_e} = \frac{[A(S')]_e}{[A(S)]_e} \gt 1$$
+$K^\circ$ est la <strong>constante (coefficient) de partage</strong>.
+</div>
+<div class="remark block">
+<span class="label">Remarque de lecture</span>
+Sur le manuscrit, la phrase de solubilité est écrite « plus soluble dans S que dans S » ; le prime a été rétabli, ce qui est cohérent avec $K^\circ \gt 1$ et avec « $S'$ : solvant d'extraction ».
+</div>
+
+<h3 id="s3-2">2) Détermination du rendement de l'extraction</h3>
+<div class="block demo">
+<span class="label">$A(S) = A(S')$</span>
+<div class="tablewrap"><table class="av">
+<thead><tr><th></th><th>$A(S)$</th><th>$A(S')$</th></tr></thead>
+<tbody>
+<tr><th>E.I</th><td>$n_0$</td><td>0</td></tr>
+<tr><th>E.F</th><td>$n_1$ (reste)</td><td>$n_0 - n_1$</td></tr>
+</tbody></table></div>
+Avec $C = \dfrac{n}{V}$ :
+$$K^\circ = \frac{a_{A(S')}}{a_{A(S)}} = \frac{[A(S')]_e}{[A(S)]_e} = \frac{\dfrac{n_0 - n_1}{V_{S'}}}{\dfrac{n_1}{V_S}}$$
+$$K^\circ \times \frac{n_1}{V_S} = \frac{n_0}{V_{S'}} - \frac{n_1}{V_{S'}} \ \Rightarrow\ n_1\left(\frac{K^\circ}{V_S} + \frac{1}{V_{S'}}\right) = \frac{n_0}{V_{S'}}$$
+$$\rightarrow\ n_1 = \frac{n_0}{1 + K^\circ\,\dfrac{V_{S'}}{V_S}} \quad (*) \qquad\qquad n_k = \frac{n_0}{(*)^k}$$
+où $(*)$ désigne le dénominateur $1 + K^\circ V_{S'}/V_S$ et $n_k$ la quantité restant dans $S$ après $k$ extractions (avec du solvant $S'$ neuf à chaque fois).
+</div>
+<div class="block def">
+<span class="label">NB — Rendement</span>
+$$r = \frac{q_{\text{extrait}}}{q_{\text{initiale}}} \qquad\text{donc}\qquad r_1 = \frac{n_0 - n_1}{n_0}$$
+</div>
+</section>
+
+<section id="s4">
+<h2>IV. Rupture d'équilibre</h2>
+<div class="block remark">
+<span class="label">Note en marge du manuscrit</span>
+Équilibre (⇌) : $K^\circ$ ; transformation <em>totale</em> : $K^\circ$ barré <em>(lecture incertaine [?])</em>.
+</div>
+
+<h4>a) Cas de la sublimation du diiode ($\mathrm{I_2}$)</h4>
+<div class="block demo">
+<span class="label">$\mathrm{I_2(s) = I_2(g)}$ &nbsp; $K^\circ = 6{,}3\times10^{-2}$ &nbsp; ($T = 373$ K) &nbsp; $V_0 = 5$ L (enceinte initialement vide)</span>
+<div class="tablewrap"><table class="av">
+<thead><tr><th></th><th>$\mathrm{I_2(s)}$</th><th>$\mathrm{I_2(g)}$</th></tr></thead>
+<tbody>
+<tr><th>E.I</th><td>$n_0$</td><td>0</td></tr>
+<tr><th>E.F</th><td>$n_0 - \xi_e$</td><td>$\xi_e$ <em>[?]</em></td></tr>
+</tbody></table></div>
+<em>La page du manuscrit s'arrête ici : la suite de l'exemple n'est pas dans les photos transmises.</em>
+</div>
+<div class="block correction">
+<span class="label">Complément ajouté (hors manuscrit, à confronter au corrigé du professeur)</span>
+Le solide pur a une activité de 1, donc à l'équilibre $K^\circ = p_{\mathrm{I_2}}/p^\circ$, soit $p_{\mathrm{I_2},e} = 6{,}3\times10^{-2}$ bar (avec $p^\circ = 1$ bar). Dans $5$ L à $373$ K, cela correspond à $n_{gaz} = \dfrac{pV}{RT} \approx 1{,}0\times10^{-2}$ mol. Si $n_0$ est inférieur à cette valeur, tout le solide se sublime et $Q_r \lt K^\circ$ à la fin : il n'y a <strong>pas d'équilibre</strong> (rupture d'équilibre, transformation totale). Si $n_0$ est supérieur, il reste du solide et l'équilibre est atteint.
+</div>
+</section>
+
+<section id="quiz">
+<h2>Quiz de fin de chapitre</h2>
+
+<div class="quiz-item">
+<div class="quiz-q">1. [Définition / Hypothèse clé] Quelle est l'activité d'un solvant, d'un solide pur, d'un soluté dilué et d'un gaz parfait ? Pourquoi $K^\circ$ n'a-t-elle pas d'unité ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Solvant et solide pur : $a = 1$. Soluté dilué : $a = [X]/c^\circ$. Gaz parfait : $a = p/p^\circ$. Toutes les activités sont sans dimension, donc $K^\circ$, qui est un rapport de produits d'activités, est elle aussi sans dimension (d'où les $c^\circ$ et $p^\circ$ qui apparaissent dans les exemples du cours).</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">2. [Définition / Hypothèse clé] Que dit la loi d'action de masse, et de quoi $K^\circ$ dépend-elle ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+À l'équilibre, le quotient de réaction est égal à $K^\circ(T)$ : $Q_e = K^\circ$. $K^\circ$ dépend de la température, du sens d'écriture de l'E.B et des coefficients stœchiométriques ; elle ne dépend pas de la composition initiale.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">3. [Application directe] Écrire $K^\circ$ pour $\mathrm{2\,Ag^+ + CrO_4^{2-} = Ag_2CrO_4(s)}$.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Le solide a une activité de 1, et chaque soluté a $a = [X]/c^\circ$ : $K^\circ = \dfrac{1}{\dfrac{[\mathrm{Ag^+}]^2}{c^{\circ 2}}\cdot\dfrac{[\mathrm{CrO_4^{2-}}]}{c^\circ}} = \dfrac{c^{\circ 3}}{[\mathrm{Ag^+}]_e^2\,[\mathrm{CrO_4^{2-}}]_e}$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">4. [Application directe] Sachant $K^\circ_1 = 10^{-10}$ pour $\mathrm{AgCl(s) = Ag^+ + Cl^-}$ et $K^\circ_2 = 10^{7{,}2}$ pour $\mathrm{Ag^+ + 2\,NH_3 = Ag(NH_3)_2^+}$, calculer $K^\circ_3$ de $\mathrm{AgCl(s) + 2\,NH_3 = Ag(NH_3)_2^+ + Cl^-}$.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+L'équation (3) est la somme de (1) et (2), donc $K^\circ_3 = K^\circ_1 K^\circ_2 = 10^{-10}\times 10^{7{,}2} = 10^{-2{,}8} \approx 1{,}6\times10^{-3}$. Cette valeur est inférieure à 1 : sans ammoniac en excès, la dissolution du chlorure d'argent reste limitée.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">5. [Compréhension conceptuelle] Dans l'exemple de l'acide éthanoïque, pourquoi $a_{\mathrm{H_2O}} = 1$ et pourquoi un $c^\circ$ subsiste-t-il dans l'expression finale de $K^\circ$ ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+L'eau est le solvant, son activité vaut 1. Il reste un facteur $1/c^\circ$ car le numérateur contient deux activités de solutés ($[\ ]/c^\circ$ chacune, soit $1/c^{\circ 2}$) et le dénominateur une seule ($1/c^\circ$) : le quotient laisse $1/c^\circ$, ce qui rend $K^\circ$ sans dimension.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">6. [Compréhension conceptuelle] Pour butane ⇌ isobutane avec $Q_0 = 1$ et $K^\circ = 2{,}5$, pourquoi la réaction évolue-t-elle dans le sens direct ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Comme $Q_0 \lt K^\circ$ et que $Q_r$ tend vers $K^\circ$, $Q_r = p_{iso}/p_{but}$ doit augmenter. Cela n'est possible que si la pression partielle d'isobutane augmente et celle de butane diminue : le butane se transforme en isobutane, c'est le sens direct.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">7. [Piège classique] Pour la déshydratation de l'éthanol ($K^\circ = 250$ à 573 K, $P = 70$ bar), un élève affirme « $K^\circ$ est grande, donc la réaction est totale ». Qu'en penser ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+$K^\circ = 250 \lt 10^{3}$ : la réaction n'est pas quasi totale selon le seuil du cours. Le calcul donne $\xi_e \approx 0{,}77$ mol pour $\xi_{max} = 1$ mol, soit un taux d'avancement d'environ 77 % : l'état final est un vrai équilibre, avec du réactif restant.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">8. [Piège classique] Après l'ajout de $0{,}4$ mol d'éthanol à l'équilibre d'estérification, $K^\circ$ change-t-elle ? Et $Q_r$ ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+$K^\circ$ ne dépend que de $T$ : elle reste égale à $7{,}9\times10^{-2}$. C'est $Q_r$ qui change : il passe à $5{,}6\times10^{-2}$ (le dénominateur augmente). Comme $Q_r \lt K^\circ$, le système évolue dans le sens direct. Confondre $Q_r$ et $K^\circ$ est l'erreur classique.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">9. [Synthèse] Une espèce est extraite d'un volume $V_S = 100$ mL avec $K^\circ = 10$ et $100$ mL de solvant $S'$ au total. Comparer le rendement pour une extraction avec $100$ mL et pour deux extractions successives avec $50$ mL.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+Facteur $(*) = 1 + K^\circ V_{S'}/V_S$. Une extraction de $100$ mL : $(*) = 11$, donc $n_1/n_0 = 1/11$ et $r \approx 0{,}909$. Deux extractions de $50$ mL : $(*) = 6$, donc $n_2/n_0 = 1/36$ et $r \approx 0{,}972$. Fractionner le solvant améliore le rendement : $n_k = n_0/(*)^k$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">10. [Synthèse] Pour $\mathrm{CO(g) + 2\,H_2(g) = CH_3OH(g)}$, on augmente la pression totale à $T$ constante et à composition inchangée. Comment varie $Q_r$, et dans quel sens l'équilibre est-il déplacé ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+$Q_r = \dfrac{x_{\mathrm{CH_3OH}}\,p^{\circ 2}}{x_{\mathrm{CO}}\,x_{\mathrm{H_2}}^2\,P^2}$ : à fractions molaires fixées, $Q_r$ diminue quand $P$ augmente. Donc $Q_r \lt K^\circ$ et le système évolue dans le sens direct, celui où le nombre de moles de gaz diminue (de 3 à 1), ce qui rejoint la règle du cours « si $P$ ↗, diminution du nombre de moles de gaz ».</div>
+</div>
+
+</section>
+
+<section id="sources">
+<h2>Sources &amp; Références</h2>
+<ul class="sources">
+  <li>Notes manuscrites de cours de Clarisse — chapitre 2 « Transformations chimiques » (8 pages).</li>
+  <li>ENS de Lyon, « LC 4 – Équilibres chimiques » : loi de modération valide à volume constant, pas toujours pour les gaz à pression constante — <a href="https://perso.ens-lyon.fr/lucie.marpaux/luciem/fichiers/LC4%20Equilibres%20Chimiques.docx" target="_blank" rel="noopener">perso.ens-lyon.fr</a>.</li>
+  <li>Cours de PCSI (cahier-de-prepa.fr, PCSI Perrin Marseille) : taux d'avancement, réaction « quasi totale » si $\tau &gt; 0{,}99$ — <a href="https://cahier-de-prepa.fr/pcsi-perrin-marseille/download?id=1681" target="_blank" rel="noopener">document</a>.</li>
+  <li>Cours de MPSI (cahier-de-prepa.fr, MPSI ISM) : réaction peu avancée pour $K \lt 10^{-4}$, exemple de résolution numérique par dichotomie — <a href="https://cahier-de-prepa.fr/mpsi-ism/download?id=966" target="_blank" rel="noopener">document</a>.</li>
+  <li>College Board, AP Chemistry 2010 Scoring Guidelines (Form B, Q1) : $K = 2{,}5$ à $25\,^\circ$C pour n-butane ⇌ isobutane — <a href="https://secure-media.collegeboard.org/apc/ap10_chemistry_form_b_q1.pdf" target="_blank" rel="noopener">pdf</a> ; LibreTexts donne $K = 2{,}6$.</li>
+  <li>ENS Paris-Saclay, concours 2C 2018, chimie physique : pression de vapeur saturante du diiode ($990$ Pa à $70\,^\circ$C, $1340$ Pa à $75\,^\circ$C) ; l'extrapolation à $373$ K donne un ordre de grandeur cohérent avec $K^\circ = 6{,}3\times10^{-2}$ — <a href="https://ens-paris-saclay.fr/sites/default/files/CONCOURS/ANNALES_2C/2C_Chimie/2018_RO_2C_Chimie_Physique.pdf" target="_blank" rel="noopener">pdf</a>.</li>
+  <li><strong>Non vérifié :</strong> $K^\circ = 0{,}6$ à $300\,^\circ$C pour butane ⇌ isobutane ; valeur $K^\circ = 7{,}9\times10^{-2}$ de l'estérification (donnée d'énoncé).</li>
+</ul>
+</section>
+
+</main>
+</div>
+</body>
+</html>
