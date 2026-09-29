@@ -111,6 +111,18 @@ table.av{border-collapse:collapse;margin:.8rem auto;font-size:.92rem;background:
 table.av th,table.av td{border:1px solid var(--line);padding:.35rem .7rem;text-align:center;}
 table.av thead th{background:#f6f5f1;}
 .tablewrap{overflow-x:auto;max-width:100%;}
+
+.quiz-details{margin-top:.6rem;}
+.quiz-details summary{cursor:pointer; display:inline-block; padding:.35rem .9rem; border:1px solid var(--blue-bd); color:var(--blue-bd); border-radius:999px; font-size:.86rem; font-weight:600; list-style:none; user-select:none;}
+.quiz-details summary::-webkit-details-marker{display:none;}
+.quiz-details summary:hover{background:var(--blue-bg);}
+.quiz-details[open] summary{background:var(--blue-bd); color:#fff;}
+.quiz-details[open] summary::after{content:" — masquer";}
+.quiz-details .quiz-a{margin-top:.6rem;}
+.quiz-toolbar{margin:.6rem 0 1rem;}
+.quiz-toolbar button{font:inherit; font-size:.86rem; padding:.35rem .9rem; border:1px solid var(--line); background:#fff; border-radius:999px; cursor:pointer; color:var(--ink);}
+.quiz-toolbar button:hover{background:var(--gray-bg);}
+@media print{.quiz-details{display:block;} .quiz-details:not([open]) > *:not(summary){display:block;}}
 </style>
 </head>
 <body>
@@ -449,65 +461,66 @@ Le solide pur a une activité de 1, donc à l'équilibre $K^\circ = p_{\mathrm{I
 
 <section id="quiz">
 <h2>Quiz de fin de chapitre</h2>
+<div class="quiz-toolbar"><button type="button" id="quizToggle">Afficher toutes les réponses</button></div>
 
 <div class="quiz-item">
 <div class="quiz-q">1. [Définition / Hypothèse clé] Quelle est l'activité d'un solvant, d'un solide pur, d'un soluté dilué et d'un gaz parfait ? Pourquoi $K^\circ$ n'a-t-elle pas d'unité ?</div>
-<div class="quiz-a"><span class="tag">Réponse</span><br>
-Solvant et solide pur : $a = 1$. Soluté dilué : $a = [X]/c^\circ$. Gaz parfait : $a = p/p^\circ$. Toutes les activités sont sans dimension, donc $K^\circ$, qui est un rapport de produits d'activités, est elle aussi sans dimension (d'où les $c^\circ$ et $p^\circ$ qui apparaissent dans les exemples du cours).</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+Solvant et solide pur : $a = 1$. Soluté dilué : $a = [X]/c^\circ$. Gaz parfait : $a = p/p^\circ$. Toutes les activités sont sans dimension, donc $K^\circ$, qui est un rapport de produits d'activités, est elle aussi sans dimension (d'où les $c^\circ$ et $p^\circ$ qui apparaissent dans les exemples du cours).</div></details>
 </div>
 
 <div class="quiz-item">
 <div class="quiz-q">2. [Définition / Hypothèse clé] Que dit la loi d'action de masse, et de quoi $K^\circ$ dépend-elle ?</div>
-<div class="quiz-a"><span class="tag">Réponse</span><br>
-À l'équilibre, le quotient de réaction est égal à $K^\circ(T)$ : $Q_e = K^\circ$. $K^\circ$ dépend de la température, du sens d'écriture de l'E.B et des coefficients stœchiométriques ; elle ne dépend pas de la composition initiale.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+À l'équilibre, le quotient de réaction est égal à $K^\circ(T)$ : $Q_e = K^\circ$. $K^\circ$ dépend de la température, du sens d'écriture de l'E.B et des coefficients stœchiométriques ; elle ne dépend pas de la composition initiale.</div></details>
 </div>
 
 <div class="quiz-item">
 <div class="quiz-q">3. [Application directe] Écrire $K^\circ$ pour $\mathrm{2\,Ag^+ + CrO_4^{2-} = Ag_2CrO_4(s)}$.</div>
-<div class="quiz-a"><span class="tag">Réponse</span><br>
-Le solide a une activité de 1, et chaque soluté a $a = [X]/c^\circ$ : $K^\circ = \dfrac{1}{\dfrac{[\mathrm{Ag^+}]^2}{c^{\circ 2}}\cdot\dfrac{[\mathrm{CrO_4^{2-}}]}{c^\circ}} = \dfrac{c^{\circ 3}}{[\mathrm{Ag^+}]_e^2\,[\mathrm{CrO_4^{2-}}]_e}$.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+Le solide a une activité de 1, et chaque soluté a $a = [X]/c^\circ$ : $K^\circ = \dfrac{1}{\dfrac{[\mathrm{Ag^+}]^2}{c^{\circ 2}}\cdot\dfrac{[\mathrm{CrO_4^{2-}}]}{c^\circ}} = \dfrac{c^{\circ 3}}{[\mathrm{Ag^+}]_e^2\,[\mathrm{CrO_4^{2-}}]_e}$.</div></details>
 </div>
 
 <div class="quiz-item">
 <div class="quiz-q">4. [Application directe] Sachant $K^\circ_1 = 10^{-10}$ pour $\mathrm{AgCl(s) = Ag^+ + Cl^-}$ et $K^\circ_2 = 10^{7{,}2}$ pour $\mathrm{Ag^+ + 2\,NH_3 = Ag(NH_3)_2^+}$, calculer $K^\circ_3$ de $\mathrm{AgCl(s) + 2\,NH_3 = Ag(NH_3)_2^+ + Cl^-}$.</div>
-<div class="quiz-a"><span class="tag">Réponse</span><br>
-L'équation (3) est la somme de (1) et (2), donc $K^\circ_3 = K^\circ_1 K^\circ_2 = 10^{-10}\times 10^{7{,}2} = 10^{-2{,}8} \approx 1{,}6\times10^{-3}$. Cette valeur est inférieure à 1 : sans ammoniac en excès, la dissolution du chlorure d'argent reste limitée.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+L'équation (3) est la somme de (1) et (2), donc $K^\circ_3 = K^\circ_1 K^\circ_2 = 10^{-10}\times 10^{7{,}2} = 10^{-2{,}8} \approx 1{,}6\times10^{-3}$. Cette valeur est inférieure à 1 : sans ammoniac en excès, la dissolution du chlorure d'argent reste limitée.</div></details>
 </div>
 
 <div class="quiz-item">
 <div class="quiz-q">5. [Compréhension conceptuelle] Dans l'exemple de l'acide éthanoïque, pourquoi $a_{\mathrm{H_2O}} = 1$ et pourquoi un $c^\circ$ subsiste-t-il dans l'expression finale de $K^\circ$ ?</div>
-<div class="quiz-a"><span class="tag">Réponse</span><br>
-L'eau est le solvant, son activité vaut 1. Il reste un facteur $1/c^\circ$ car le numérateur contient deux activités de solutés ($[\ ]/c^\circ$ chacune, soit $1/c^{\circ 2}$) et le dénominateur une seule ($1/c^\circ$) : le quotient laisse $1/c^\circ$, ce qui rend $K^\circ$ sans dimension.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+L'eau est le solvant, son activité vaut 1. Il reste un facteur $1/c^\circ$ car le numérateur contient deux activités de solutés ($[\ ]/c^\circ$ chacune, soit $1/c^{\circ 2}$) et le dénominateur une seule ($1/c^\circ$) : le quotient laisse $1/c^\circ$, ce qui rend $K^\circ$ sans dimension.</div></details>
 </div>
 
 <div class="quiz-item">
 <div class="quiz-q">6. [Compréhension conceptuelle] Pour butane ⇌ isobutane avec $Q_0 = 1$ et $K^\circ = 2{,}5$, pourquoi la réaction évolue-t-elle dans le sens direct ?</div>
-<div class="quiz-a"><span class="tag">Réponse</span><br>
-Comme $Q_0 \lt K^\circ$ et que $Q_r$ tend vers $K^\circ$, $Q_r = p_{iso}/p_{but}$ doit augmenter. Cela n'est possible que si la pression partielle d'isobutane augmente et celle de butane diminue : le butane se transforme en isobutane, c'est le sens direct.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+Comme $Q_0 \lt K^\circ$ et que $Q_r$ tend vers $K^\circ$, $Q_r = p_{iso}/p_{but}$ doit augmenter. Cela n'est possible que si la pression partielle d'isobutane augmente et celle de butane diminue : le butane se transforme en isobutane, c'est le sens direct.</div></details>
 </div>
 
 <div class="quiz-item">
 <div class="quiz-q">7. [Piège classique] Pour la déshydratation de l'éthanol ($K^\circ = 250$ à 573 K, $P = 70$ bar), un élève affirme « $K^\circ$ est grande, donc la réaction est totale ». Qu'en penser ?</div>
-<div class="quiz-a"><span class="tag">Réponse</span><br>
-$K^\circ = 250 \lt 10^{3}$ : la réaction n'est pas quasi totale selon le seuil du cours. Le calcul donne $\xi_e \approx 0{,}77$ mol pour $\xi_{max} = 1$ mol, soit un taux d'avancement d'environ 77 % : l'état final est un vrai équilibre, avec du réactif restant.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+$K^\circ = 250 \lt 10^{3}$ : la réaction n'est pas quasi totale selon le seuil du cours. Le calcul donne $\xi_e \approx 0{,}77$ mol pour $\xi_{max} = 1$ mol, soit un taux d'avancement d'environ 77 % : l'état final est un vrai équilibre, avec du réactif restant.</div></details>
 </div>
 
 <div class="quiz-item">
 <div class="quiz-q">8. [Piège classique] Après l'ajout de $0{,}4$ mol d'éthanol à l'équilibre d'estérification, $K^\circ$ change-t-elle ? Et $Q_r$ ?</div>
-<div class="quiz-a"><span class="tag">Réponse</span><br>
-$K^\circ$ ne dépend que de $T$ : elle reste égale à $7{,}9\times10^{-2}$. C'est $Q_r$ qui change : il passe à $5{,}6\times10^{-2}$ (le dénominateur augmente). Comme $Q_r \lt K^\circ$, le système évolue dans le sens direct. Confondre $Q_r$ et $K^\circ$ est l'erreur classique.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+$K^\circ$ ne dépend que de $T$ : elle reste égale à $7{,}9\times10^{-2}$. C'est $Q_r$ qui change : il passe à $5{,}6\times10^{-2}$ (le dénominateur augmente). Comme $Q_r \lt K^\circ$, le système évolue dans le sens direct. Confondre $Q_r$ et $K^\circ$ est l'erreur classique.</div></details>
 </div>
 
 <div class="quiz-item">
 <div class="quiz-q">9. [Synthèse] Une espèce est extraite d'un volume $V_S = 100$ mL avec $K^\circ = 10$ et $100$ mL de solvant $S'$ au total. Comparer le rendement pour une extraction avec $100$ mL et pour deux extractions successives avec $50$ mL.</div>
-<div class="quiz-a"><span class="tag">Réponse</span><br>
-Facteur $(*) = 1 + K^\circ V_{S'}/V_S$. Une extraction de $100$ mL : $(*) = 11$, donc $n_1/n_0 = 1/11$ et $r \approx 0{,}909$. Deux extractions de $50$ mL : $(*) = 6$, donc $n_2/n_0 = 1/36$ et $r \approx 0{,}972$. Fractionner le solvant améliore le rendement : $n_k = n_0/(*)^k$.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+Facteur $(*) = 1 + K^\circ V_{S'}/V_S$. Une extraction de $100$ mL : $(*) = 11$, donc $n_1/n_0 = 1/11$ et $r \approx 0{,}909$. Deux extractions de $50$ mL : $(*) = 6$, donc $n_2/n_0 = 1/36$ et $r \approx 0{,}972$. Fractionner le solvant améliore le rendement : $n_k = n_0/(*)^k$.</div></details>
 </div>
 
 <div class="quiz-item">
 <div class="quiz-q">10. [Synthèse] Pour $\mathrm{CO(g) + 2\,H_2(g) = CH_3OH(g)}$, on augmente la pression totale à $T$ constante et à composition inchangée. Comment varie $Q_r$, et dans quel sens l'équilibre est-il déplacé ?</div>
-<div class="quiz-a"><span class="tag">Réponse</span><br>
-$Q_r = \dfrac{x_{\mathrm{CH_3OH}}\,p^{\circ 2}}{x_{\mathrm{CO}}\,x_{\mathrm{H_2}}^2\,P^2}$ : à fractions molaires fixées, $Q_r$ diminue quand $P$ augmente. Donc $Q_r \lt K^\circ$ et le système évolue dans le sens direct, celui où le nombre de moles de gaz diminue (de 3 à 1), ce qui rejoint la règle du cours « si $P$ ↗, diminution du nombre de moles de gaz ».</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+$Q_r = \dfrac{x_{\mathrm{CH_3OH}}\,p^{\circ 2}}{x_{\mathrm{CO}}\,x_{\mathrm{H_2}}^2\,P^2}$ : à fractions molaires fixées, $Q_r$ diminue quand $P$ augmente. Donc $Q_r \lt K^\circ$ et le système évolue dans le sens direct, celui où le nombre de moles de gaz diminue (de 3 à 1), ce qui rejoint la règle du cours « si $P$ ↗, diminution du nombre de moles de gaz ».</div></details>
 </div>
 
 </section>
@@ -527,5 +540,17 @@ $Q_r = \dfrac{x_{\mathrm{CH_3OH}}\,p^{\circ 2}}{x_{\mathrm{CO}}\,x_{\mathrm{H_2}
 
 </main>
 </div>
+<script>
+(function(){
+  var b=document.getElementById('quizToggle'); if(!b) return;
+  var all=function(){return document.querySelectorAll('.quiz-details');};
+  b.addEventListener('click',function(){
+    var open=b.getAttribute('data-open')==='1';
+    all().forEach(function(d){ if(open) d.removeAttribute('open'); else d.setAttribute('open',''); });
+    b.setAttribute('data-open',open?'0':'1');
+    b.textContent=open?'Afficher toutes les réponses':'Masquer toutes les réponses';
+  });
+})();
+</script>
 </body>
 </html>
