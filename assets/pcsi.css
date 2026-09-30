@@ -35,10 +35,10 @@
     --section-bg: #16344f;
     --section-text: #bcd6f2;
     --row-alt: #232325;
-    --hl-jaune-bg: rgba(255, 214, 0, 0.06);
-    --hl-jaune-border: rgba(212, 176, 0, 0.35);
-    --hl-orange-bg: rgba(255, 140, 0, 0.10);
-    --hl-orange-border: rgba(224, 122, 26, 0.35);
+    --hl-jaune-bg: rgba(255, 214, 10, 0.20);
+    --hl-jaune-border: rgba(255, 214, 10, 0.95);
+    --hl-orange-bg: rgba(255, 149, 0, 0.26);
+    --hl-orange-border: rgba(255, 149, 0, 1);
   }
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
