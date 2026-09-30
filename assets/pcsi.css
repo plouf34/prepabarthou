@@ -20,6 +20,8 @@
   --hl-jaune-border: rgba(224, 184, 0, 0.28);
   --hl-orange-bg: rgba(255, 140, 0, 0.11);
   --hl-orange-border: rgba(240, 138, 36, 0.35);
+  --hl-jaune-rgb: 255, 214, 0; --hl-jaune-a1: 0.07; --hl-jaune-a2: 0.07; --hl-jaune-dot: #f2b800;
+  --hl-orange-rgb: 255, 140, 0; --hl-orange-a1: 0.11; --hl-orange-a2: 0.11; --hl-orange-dot: #f08a24;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -38,10 +40,10 @@
     --row-alt: #232325;
     --hl-jaune-bg: rgba(255, 204, 0, 0.09);
     --hl-jaune-border: #ffcc00;
-    --hl-jaune-text: #ffe680;
     --hl-orange-bg: rgba(255, 106, 0, 0.11);
     --hl-orange-border: #ff6a00;
-    --hl-orange-text: #ffb27a;
+    --hl-jaune-rgb: 255, 204, 0; --hl-jaune-a1: 0.15; --hl-jaune-a2: 0.03; --hl-jaune-dot: #ffcc00;
+    --hl-orange-rgb: 255, 106, 0; --hl-orange-a1: 0.17; --hl-orange-a2: 0.04; --hl-orange-dot: #ff6a00;
   }
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -165,11 +167,19 @@ tbody tr.prio td.col-titre { font-weight: 700; color: #8a5a00; }
    chapitre des profs de Louis Barthou quand il est différent. Couleurs très
    claires (fond ≈ 7 % jaune / 11 % orange, demande de l'utilisateur). S'applique aussi, dans la section
    Cours, à la ligne du dernier cours de Clarisse et du dernier cours prof. */
-tbody tr.hl-jaune { background: var(--hl-jaune-bg) !important; box-shadow: inset 4px 0 0 var(--hl-jaune-border); }
-tbody tr.hl-orange { background: var(--hl-orange-bg) !important; box-shadow: inset 4px 0 0 var(--hl-orange-border); }
+tbody tr.hl-jaune { box-shadow: inset 4px 0 0 var(--hl-jaune-border); }
+tbody tr.hl-orange { box-shadow: inset 4px 0 0 var(--hl-orange-border); }
 tbody tr.hl-jaune td.col-titre, tbody tr.hl-orange td.col-titre { font-weight: 700; }
-tbody tr.hl-jaune td.col-titre { color: var(--hl-jaune-text, inherit); }
-tbody tr.hl-orange td.col-titre { color: var(--hl-orange-text, inherit); }
+tbody tr.hl-jaune td, tbody tr.hl-orange td { background-color: transparent !important; }
+tbody tr.hl-jaune td.col-n { background: rgba(var(--hl-jaune-rgb), var(--hl-jaune-a1)) !important; }
+tbody tr.hl-orange td.col-n { background: rgba(var(--hl-orange-rgb), var(--hl-orange-a1)) !important; }
+tbody tr.hl-jaune td.col-titre { background: linear-gradient(90deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a1)), rgba(var(--hl-jaune-rgb), var(--hl-jaune-a2))) !important; }
+tbody tr.hl-orange td.col-titre { background: linear-gradient(90deg, rgba(var(--hl-orange-rgb), var(--hl-orange-a1)), rgba(var(--hl-orange-rgb), var(--hl-orange-a2))) !important; }
+tbody tr.hl-jaune td.col-link { background: rgba(var(--hl-jaune-rgb), var(--hl-jaune-a2)) !important; }
+tbody tr.hl-orange td.col-link { background: rgba(var(--hl-orange-rgb), var(--hl-orange-a2)) !important; }
+tbody tr.hl-jaune td.col-titre::before, tbody tr.hl-orange td.col-titre::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; }
+tbody tr.hl-jaune td.col-titre::before { background: var(--hl-jaune-dot); }
+tbody tr.hl-orange td.col-titre::before { background: var(--hl-orange-dot); }
 .manual-chip.hl-jaune { background: var(--hl-jaune-bg); box-shadow: inset 0 0 0 1.5px var(--hl-jaune-border); }
 .manual-chip.hl-orange { background: var(--hl-orange-bg); box-shadow: inset 0 0 0 1.5px var(--hl-orange-border); }
 .hl-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 12.5px; color: var(--sub); margin: 2px 0 8px; }
