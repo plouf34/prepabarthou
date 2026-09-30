@@ -111,7 +111,7 @@ par le script (il ne les régénère jamais).
 
 À appliquer à chaque ajout d'un cours de **Clarisse** ou d'un cours des **profs de Louis Barthou** (jamais pour un cours d'un autre lycée : Saint-Louis, Sainte-Geneviève, Janson, Jean Perrin, Eiffel…). Le script `regen_index.py` le vérifie à chaque régénération et affiche `⚠️ SURLIGNAGE À REVOIR` quand il faut le refaire ; `python3 .claude/skills/transcription-pcsi/surlignage.py . --check` fait la même vérification seul.
 
-**Couleurs** (50 % d'opacité, définies dans `assets/pcsi.css`) :
+**Couleurs** (très clair, ≈ 12 % d'opacité, définies dans `assets/pcsi.css`) :
 - **Jaune** = documents liés au **dernier chapitre des cours de Clarisse** (plus grand numéro `ChNN` des fichiers `*_Cours_Clarisse_*`).
 - **Orange pâle** = documents liés au **dernier chapitre des profs de Louis Barthou**, seulement s'il est **supérieur** à celui de Clarisse, ou s'il n'y a aucun cours de Clarisse dans la matière. Même numéro de chapitre → jaune seul. Les numéros de chapitre de Clarisse et des profs Barthou se correspondent (même si les intitulés diffèrent).
 - Les deux couleurs coexistent sur une même page. Un document qui relève des deux chapitres reste en jaune (déjà traité par Clarisse).

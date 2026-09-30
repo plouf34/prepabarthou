@@ -16,10 +16,10 @@
   --section-bg: #dfe8f7;
   --section-text: #1F4E78;
   --row-alt: #fafafc;
-  --hl-jaune-bg: rgba(255, 243, 163, 0.5);
-  --hl-jaune-border: rgba(224, 184, 0, 0.5);
-  --hl-orange-bg: rgba(255, 226, 196, 0.5);
-  --hl-orange-border: rgba(240, 138, 36, 0.5);
+  --hl-jaune-bg: rgba(255, 214, 0, 0.13);
+  --hl-jaune-border: rgba(224, 184, 0, 0.35);
+  --hl-orange-bg: rgba(255, 140, 0, 0.11);
+  --hl-orange-border: rgba(240, 138, 36, 0.35);
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -35,10 +35,10 @@
     --section-bg: #16344f;
     --section-text: #bcd6f2;
     --row-alt: #232325;
-    --hl-jaune-bg: rgba(74, 63, 0, 0.5);
-    --hl-jaune-border: rgba(212, 176, 0, 0.5);
-    --hl-orange-bg: rgba(74, 42, 12, 0.5);
-    --hl-orange-border: rgba(224, 122, 26, 0.5);
+    --hl-jaune-bg: rgba(255, 214, 0, 0.10);
+    --hl-jaune-border: rgba(212, 176, 0, 0.35);
+    --hl-orange-bg: rgba(255, 140, 0, 0.10);
+    --hl-orange-border: rgba(224, 122, 26, 0.35);
   }
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -159,8 +159,8 @@ tbody tr.prio td.col-titre { font-weight: 700; color: #8a5a00; }
 /* Surlignage « chapitre en cours » (généré par surlignage.py à partir de
    Prepa_barthou/surlignage.json — ne pas poser ces classes à la main).
    Jaune = dernier chapitre des cours de Clarisse ; orange pâle = dernier
-   chapitre des profs de Louis Barthou quand il est différent. Couleurs à 50 %
-   d'opacité (demande de l'utilisateur). S'applique aussi, dans la section
+   chapitre des profs de Louis Barthou quand il est différent. Couleurs très
+   claires (fond ≈ 11-13 % d'opacité, demande de l'utilisateur). S'applique aussi, dans la section
    Cours, à la ligne du dernier cours de Clarisse et du dernier cours prof. */
 tbody tr.hl-jaune { background: var(--hl-jaune-bg) !important; box-shadow: inset 4px 0 0 var(--hl-jaune-border); }
 tbody tr.hl-orange { background: var(--hl-orange-bg) !important; box-shadow: inset 4px 0 0 var(--hl-orange-border); }
