@@ -37,6 +37,11 @@ chaque chapitre la "cle" attendue). Le script :
      aussi la ligne du dernier cours de Clarisse (jaune) et celle du dernier
      cours des profs de Louis Barthou (orange pâle ; jaune si même chapitre ;
      en Physique, le PDF du chapitre de la semaine de khôlle).
+  Les cours d'AUTRES lycées (Saint-Louis, Sainte-Geneviève, Janson…) qui
+  traitent le chapitre en cours sont aussi surlignés dans la section Cours
+  (clé "cours" de surlignage.json : url + couleur + note), jaune s'ils
+  recoupent le chapitre de Clarisse, orange pâle s'ils recoupent celui des
+  profs de Louis Barthou.
   Ne sont surlignés que des exercices, TD, DS et interros : jamais les puces
   de sites (Bibmath, Exo7…) ni les cahiers de calcul.
 """
@@ -253,20 +258,27 @@ def _apply_section(section, liens, cfg_subject):
     return section
 
 
-def _apply_cours(section, cours):
+def _apply_cours(section, cours, autres=None):
     """Surligne, dans la section Cours, la ligne du dernier cours de Clarisse
     (jaune) et celle du dernier cours des profs de Louis Barthou (orange pâle,
     ou jaune si même chapitre que Clarisse ; Physique : chapitre de khôlle)."""
     targets = {os.path.splitext(f)[0]: (c, note) for f, c, note in cours}
+    # Cours d'autres lycées en rapport avec le chapitre en cours (choisis par
+    # Claude après lecture, clé "cours" de surlignage.json) : match sur l'URL.
+    autres = {u["url"]: (u["couleur"], u.get("note", "")) for u in (autres or [])}
 
     def tr_sub(m):
         attrs, body = m.group("attrs"), m.group("body")
         hit = None
         if 'section-row' not in attrs:
             for h in re.findall(r'href="([^"]+)"', body):
-                base = os.path.splitext(html.unescape(h).rsplit("/", 1)[-1])[0]
+                h = html.unescape(h)
+                base = os.path.splitext(h.rsplit("/", 1)[-1])[0]
                 if base in targets:
                     hit = targets[base]
+                    break
+                if h in autres:
+                    hit = autres[h]
                     break
         attrs = _set_classes(attrs, f"hl-{hit[0]}" if hit else None)
         if hit:
@@ -288,7 +300,7 @@ def apply(repo_root, today=None):
         c = cfg.get(label, {})
         liens = {l["url"]: l for l in c.get("liens", []) if (c.get(l["couleur"]) or {}).get("cle")}
         data = re.sub(r'<section id="cours">.*?</section>',
-                      lambda m: _apply_cours(m.group(0), exp[label]["cours"]), data, count=1, flags=re.S)
+                      lambda m: _apply_cours(m.group(0), exp[label]["cours"], cfg.get(label, {}).get("cours")), data, count=1, flags=re.S)
         for sid in ("exercices", "ds"):
             data = re.sub(rf'<section id="{sid}">.*?</section>',
                           lambda m: _apply_section(m.group(0), liens, c), data, count=1, flags=re.S)

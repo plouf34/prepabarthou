@@ -1,5 +1,5 @@
 {
- "_lisez_moi": "Surlignage « chapitre en cours » des sections Exercices/DS. Rempli par Claude APRÈS lecture du dernier cours et des documents ; appliqué par .claude/skills/transcription-pcsi/surlignage.py (appelé aussi par regen_index.py). 'cle' doit correspondre au chapitre attendu calculé par le script (ChNN, ou <Thème>-ChN pour la Physique). 'liens' : URL exacte d'un lien de la ligne (Sujet de préférence) ; toute la ligne est surlignée. 'non_lus' : documents qui n'ont pas pu être ouverts (jugés sur leur titre ou non retenus). Ne surligner que des exercices, TD, DS et interros : jamais Bibmath/Exo7 ni les cahiers de calcul.",
+ "_lisez_moi": "Surlignage « chapitre en cours » des sections Exercices/DS. Rempli par Claude APRÈS lecture du dernier cours et des documents ; appliqué par .claude/skills/transcription-pcsi/surlignage.py (appelé aussi par regen_index.py). 'cle' doit correspondre au chapitre attendu calculé par le script (ChNN, ou <Thème>-ChN pour la Physique). 'liens' : URL exacte d'un lien de la ligne (Sujet de préférence) ; toute la ligne est surlignée. 'non_lus' : documents qui n'ont pas pu être ouverts (jugés sur leur titre ou non retenus). Ne surligner que des exercices, TD, DS et interros : jamais Bibmath/Exo7 ni les cahiers de calcul. Clé 'cours' : cours d'autres lycées qui traitent le chapitre en cours, surlignés dans la section Cours (lus avant décision).",
  "maj": "2026-09-30",
  "Maths": {
   "jaune": {
@@ -47,7 +47,14 @@
     "note": "Ch02 — problèmes 1 et 2 : racines de l'unité, module (le reste porte sur primitives et ED d'ordre 1)"
    }
   ],
-  "non_lus": []
+  "non_lus": [],
+  "cours": [
+   {
+    "url": "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch1_LogiqueFonctions.pdf",
+    "couleur": "jaune",
+    "note": "Saint-Louis — en partie : §XI « Suites récurrentes linéaires d'ordre 2 » (p. 17), vu dans le Ch02 de Clarisse (§III) et le Ch03 des profs"
+   }
+  ]
  },
  "Physique": {
   "jaune": null,
@@ -95,7 +102,8 @@
   "non_lus": [
    "Moodle Louis Barthou (connexion requise) : TD jugés sur leur titre",
    "Stanislas (A. Martin) illisibles (scan ou page bloquée) : S3 ARQS, DS5 2022-23, DS6-CB/DS7-corrigé/DS8/DS11 2020-21, corrigés DS2 2022-23 et DS4/DS10 2021-22 — aucun ne porte sur le 1er ordre d'après son titre, sauf peut-être S3 (ARQS, chapitre 1)"
-  ]
+  ],
+  "cours": []
  },
  "Chimie": {
   "jaune": {
@@ -225,7 +233,19 @@
     "note": "En partie : K°, quotient réactionnel, état final"
    }
   ],
-  "non_lus": []
+  "non_lus": [],
+  "cours": [
+   {
+    "url": "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee/03_CHIMIE/08-2026-09-19_Chimie_Cours_Transformations-chimiques-approche-thermodynamique.pdf",
+    "couleur": "jaune",
+    "note": "Janson — Chap. 3 « Évolution et équilibre » : quotient réactionnel, K°, loi d'action de masse, sens d'évolution (p. 15-20), comme le Ch02 de Clarisse"
+   },
+   {
+    "url": "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee/03_CHIMIE/04-2026-09-18_Chimie_Cours_Description-et-evolution-dun-systeme-physico-chimique.pdf",
+    "couleur": "jaune",
+    "note": "Sainte-Geneviève — en partie : §VI « Évolution vers un état d'équilibre » (p. 22-25) : loi de Guldberg et Waage, K°, quotient réactionnel"
+   }
+  ]
  },
  "SI": {
   "jaune": null,
@@ -233,6 +253,7 @@
   "liens": [],
   "non_lus": [
    "nmesnier.free.fr (Jean Perrin) bloqué par le réseau de l'environnement"
-  ]
+  ],
+  "cours": []
  }
 }
