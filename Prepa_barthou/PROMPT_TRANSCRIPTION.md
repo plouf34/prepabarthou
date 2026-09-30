@@ -126,6 +126,7 @@ par le script (il ne les régénère jamais).
 3. Moodle `prepabarthou.fr` (connexion requise) : juger sur le titre affiché de la ligne, et le signaler. Tout document illisible (scan, site bloqué) : le dire à l'utilisateur et le noter dans `non_lus`.
 4. Mettre à jour `Prepa_barthou/surlignage.json` pour la matière : `jaune` / `orange` = `{cle, libelle}` (`cle` exactement comme attendu par le script : `Ch02`, ou `Électricité-Ch2` en Physique), `liens` = URL exacte du lien Sujet de chaque ligne retenue + `couleur` + `note` courte (affichée au survol), `cours` (cours d'autres lycées en rapport, voir 2 bis), `non_lus`. Retirer les liens de l'ancien chapitre.
 5. Relancer `regen_index.py` (qui réapplique le surlignage) et vérifier le message `✅`.
+6. **Maths uniquement — puces Bibmath** (section Exercices de `Maths.html`, ligne « Exercices en lien avec le chapitre en cours ») : à chaque nouveau cours de **Clarisse**, remplacer les puces par celles de la feuille Bibmath qui correspond **uniquement au dernier chapitre de Clarisse** (pas aux profs Barthou ni aux autres lycées). URL type : `https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/<slug>&type=fexo`. Vérifier que la page du slug contient bien des exercices du bon thème (un slug inexistant répond quand même 200 avec une page vide) et le programme PCSI. Le chapitre actuel (Ch02) : `nombrescomplexes`. Éditer la page à la main, puis relancer `regen_index.py` (il recopie cette section telle quelle).
 
 ## STYLE
 
