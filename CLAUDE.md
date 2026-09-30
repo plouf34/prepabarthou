@@ -12,7 +12,8 @@ transcription, ne pas les dupliquer ici.
 Recette et prompt : `.claude/skills/transcription-pcsi/automatisation/` (photos dans Drive
 `PCSI – À transcrire/<Matière>/Chapitre NN…` → bouton Raccourci → routine API → skill `transcription-pcsi`).
 Le connecteur Drive ne rend pas les images : IDs via connecteur, téléchargement par `curl` (partage par lien).
-Jamais de jeton dans le dépôt.
+Routine « Transcrire PCSI » (`trig_012h7m7nvtXb1yVrwwnEA4ZU`) : son prompt = celui de `PROMPT_ROUTINE.md`,
+à modifier aux deux endroits. Jamais de jeton dans le dépôt.
 
 ## Priorité absolue
 Fidélité maximale au manuscrit ou au PDF du prof : rien d'inventé, rien d'omis.

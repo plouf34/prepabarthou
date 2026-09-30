@@ -38,7 +38,8 @@ Nom : « Transcrire PCSI ». Icône au choix, puis **Ajouter à l'écran d'accue
 
 ## Tester le Raccourci sans lancer de vraie transcription
 Choisir une matière et le chapitre **99** : la routine démarre (le Raccourci affiche « C'est parti »),
-ne trouve aucun dossier et s'arrête sans rien publier. Pour un vrai essai publié sous un autre
+ne trouve aucun dossier et s'arrête sans rien publier. Ne JAMAIS tester avec un chapitre déjà en
+ligne : c'est une vraie demande (la routine complèterait la page existante). Pour un vrai essai publié sous un autre
 numéro, ajouter temporairement `; publier_comme=NN` à la fin du texte de l'action 4.
 
 ## Astuce
@@ -51,7 +52,13 @@ plus confortable pour saisir URL et en-têtes. Ensuite AirDrop vers l'iPhone de 
 - Jeton compromis : routine → API → **Regenerate**, puis remplacer dans l'action 4.
 - L'endpoint `/fire` est en bêta : s'il change, seule l'action 4 est à mettre à jour.
 
-## Fichier prêt à importer (macOS)
-`python3 genere_raccourci.py Transcrire_PCSI_non_signe.shortcut`, puis sur le Mac :
-`shortcuts sign -m anyone -i Transcrire_PCSI_non_signe.shortcut -o Transcrire_PCSI.shortcut`
-et double-clic : l'app demande l'URL et le jeton (questions d'import, rien de secret dans le fichier).
+## Fichier .shortcut généré : NE PAS utiliser
+Essayé le 2026-09-30 : un fichier généré puis signé (`shortcuts sign`) est rejeté en silence par
+l'app Raccourcis (flash, rien n'est importé). Construire le Raccourci à la main (actions ci-dessus),
+de préférence dans Raccourcis sur Mac : c'est ce qui a fonctionné.
+
+## État validé (2026-09-30)
+- Construit à la main sur Mac, appel testé : réponse `{"type":"routine_fire", "claude_code_session_id":…,
+  "claude_code_session_url":…}` = routine lancée. Le Raccourci ne sait PAS si la transcription réussit.
+- Le chiffre saisi peut être `8` ou `08` (la routine compare des nombres).
+- Installation chez Clarisse : AirDrop depuis le Mac (compte Apple différent, pas de synchro iCloud).

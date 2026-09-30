@@ -15,6 +15,21 @@ Pourquoi le téléchargement direct : le connecteur Google Drive ne rend PAS les
 du base64 inexploitable). Il sert seulement à trouver les identifiants des fichiers ; les photos
 sont téléchargées par `curl` grâce au partage par lien (vérifié le 2026-09-30).
 
+## Routine en place
+- Nom « Transcrire PCSI », id `trig_012h7m7nvtXb1yVrwwnEA4ZU`, environnement `prepabarthou`, modèle Opus 5.5.
+- Le prompt stocké dans la routine doit rester identique au bloc ci-dessous : toute modification
+  se fait ici ET dans la routine (Modifier la routine, ou `update_trigger`).
+- « Exécuter maintenant » n'a pas de champ texte : sans payload la routine s'arrête (normal).
+  Pour tester avec un texte : le Raccourci, ou `fire_trigger` avec `text` depuis une session Claude.
+- Notifications (push + e-mail) : au propriétaire du compte Claude (le père), PAS à Clarisse.
+
+## Test du 2026-09-30
+Chaîne validée de bout en bout (`chapitre=02; publier_comme=04`) : dossier trouvé, 10 photos
+téléchargées et lues, page publiée, `Maths.html` et surlignage régénérés, **push direct sur la
+branche par défaut accepté** ; puis page de test retirée (revert `fc401c0`). Réserve : le contenu
+existant ayant été reconnu identique, il a été recopié et vérifié ; une transcription neuve par
+routine reste à juger sur le prochain vrai chapitre.
+
 ## Réglages de la routine
 - **Dépôt** : `plouf34/prepabarthou`.
 - **Déclencheur** : API (le jeton sert dans le Raccourci iPhone).
