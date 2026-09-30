@@ -65,7 +65,7 @@ Format : QCM ou questions ouvertes courtes selon ce qui teste le mieux la notion
 
 Génère un fichier HTML autonome complet (une seule page, sans dépendances externes sauf MathJax via CDN et Google Fonts).
 Structure : sommaire, corps du cours, section Sources, quiz final.
-Respecte le gabarit `ch01-bases-optique-geometrique.html` : typographies Spectral et IBM Plex Sans, sommaire sticky à gauche, encarts avec bordure gauche colorée (def/theorem/demo/remark/correction/retenir), schémas SVG intégrés.
+Gabarits de référence (dans le dépôt) : le gabarit d'origine `templates/gabarit-origine_ch01-bases-optique-geometrique.html` (structure, styles, encarts) ET, pour le quiz avec réponses masquées derrière un bouton (`<details class="quiz-details">` + bouton « Afficher toutes les réponses »), le chapitre le plus récent `Prepa_barthou/1ere_annee/03_CHIMIE/01_Ch02_Cours_Clarisse_Transformations-chimiques_2026-09-29.html`. En cas de différence entre les deux, le chapitre Chimie du 29/09 fait foi pour le quiz, le gabarit d'origine pour le reste. Respecte ce gabarit : typographies Spectral et IBM Plex Sans, sommaire sticky à gauche, encarts avec bordure gauche colorée (def/theorem/demo/remark/correction/retenir), schémas SVG intégrés.
 - Pour les formules très larges (systèmes d'équations, matrices) qu'une réduction rendrait illisibles : en premier, réduire la taille des caractères ; en seconde option si la formule était vraiment trop large et illisible, zone de défilement horizontal activée, sans troncature.
 - Marges intérieures réduites sur mobile (padding adaptatif via media query max-width: 480px).
 
@@ -104,7 +104,7 @@ par le script (il ne les régénère jamais).
     place là, et doit être ajouté à la main dans la section Exercices de la
     page matière correspondante plutôt que d'attendre qu'il apparaisse dans
     Cours.
-- Envoie aussi une copie locale du fichier (en pièce jointe / téléchargement) pour récupération sur le Bureau du Mac utilisé à ce moment-là.
+- Pas de copie locale : donne uniquement le lien public final du fichier pour relecture (le site peut mettre quelques minutes à se mettre à jour).
 
 ## STYLE
 

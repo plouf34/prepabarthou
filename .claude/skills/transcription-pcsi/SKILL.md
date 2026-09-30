@@ -65,8 +65,9 @@ nommage des fichiers, et le workflow de publication.
    surbrillance de l'onglet visible au défilement dans `assets/pcsi.js`.
 5. Commit puis push sur la branche ci-dessus (avec un `git fetch`+`merge`
    juste avant le push, pour la même raison qu'à l'étape 3).
-6. Fournir une copie du fichier à l'utilisateur (pièce jointe/téléchargement)
-   pour récupération locale.
+6. Pas de copie locale : donner à l'utilisateur uniquement le lien public final
+   (`https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee/<dossier>/<fichier>.html`)
+   pour relecture, en précisant que la mise en ligne peut prendre quelques minutes.
 
 Avant de committer : vérifier que les balises HTML/SVG sont équilibrées,
 que le nombre de `$$` est pair, et que le quiz contient bien 10 questions.

@@ -8,6 +8,12 @@ Photos/scans manuscrits ou PDF de prof → invoquer le skill `transcription-pcsi
 `Prepa_barthou/PROMPT_TRANSCRIPTION.md` : c'est la seule source des règles de
 transcription, ne pas les dupliquer ici.
 
+## Priorité absolue
+Fidélité maximale au manuscrit ou au PDF du prof : rien d'inventé, rien d'omis.
+Les erreurs manifestes sont corrigées ET signalées (encart ⚠️ Correction, source réelle citée).
+En cas de doute sur un mot : `[?]` en rouge ; sur une variable clé : demander. Jamais de formule devinée.
+Gabarits : `templates/` + chapitre Chimie du 29/09 pour le quiz (voir prompt maître).
+
 ## Règles de dépôt (à respecter à chaque session)
 - Branche de travail : la branche par défaut du dépôt (`git symbolic-ref refs/remotes/origin/HEAD`).
   Une autre session peut pousser en parallèle : `git fetch` + `git merge origin/<branche>`
@@ -23,4 +29,7 @@ transcription, ne pas les dupliquer ici.
 - Taille : dépôt recommandé < 1 Go (actuellement ~420 Mo) ; éviter d'ajouter des PDF lourds inutiles.
 
 ## Fin de tâche
-Donner à l'utilisateur la copie du fichier créé (SendUserFile) et le lien public attendu.
+Pas de copie locale ni de pièce jointe : donner uniquement le lien public final pour relecture
+(`https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee/<dossier>/<fichier>.html`),
+après push. Le site peut mettre quelques minutes à se mettre à jour : le dire.
+Ne pas toucher à la branche `claude/pcsi-prep-assistant-j9t2gd` (Home Assistant, sans rapport).

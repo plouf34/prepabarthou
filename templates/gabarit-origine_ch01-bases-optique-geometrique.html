@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Optique géométrique — Ch.1 : Bases de l'optique géométrique</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js"></script>
+<style>
+:root{
+  --font-title:'Spectral',Georgia,'Times New Roman',serif;
+  --font-body:'IBM Plex Sans','Segoe UI',Arial,sans-serif;
+  --font-mono:'IBM Plex Mono','Consolas',monospace;
+  --ink:#1c2430;
+  --paper:#fbfaf7;
+  --panel:#ffffff;
+  --line:#e2e0da;
+  --accent:#0f2b4c;
+  --blue-bg:#e9f1fd; --blue-bd:#3b6fd8;
+  --violet-bg:#f2ecfd; --violet-bd:#7c4fd6;
+  --green-bg:#e9f8ee; --green-bd:#2fa365;
+  --gray-bg:#f1f1ef; --gray-bd:#8b8b85;
+  --amber-bg:#fdf3dd; --amber-bd:#c98a12;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--font-body); line-height:1.55; font-size:16px;
+}
+h1,h2,h3,h4{font-family:var(--font-title); color:var(--accent); font-weight:600;}
+h1{font-size:1.9rem; margin:0 0 .2rem 0;}
+h2{font-size:1.35rem; border-bottom:2px solid var(--line); padding-bottom:.3rem; margin-top:2.2rem;}
+h3{font-size:1.1rem; margin-top:1.6rem;}
+h4{font-size:1rem; margin-top:1.2rem;}
+code, .mono{font-family:var(--font-mono);}
+.layout{display:flex; max-width:1250px; margin:0 auto;}
+nav.toc{
+  width:255px; flex-shrink:0; position:sticky; top:0; align-self:flex-start;
+  height:100vh; overflow-y:auto; padding:1.6rem 1rem 2rem 1.4rem;
+  border-right:1px solid var(--line); font-size:.86rem;
+}
+nav.toc h4{margin-top:0; color:var(--ink); font-family:var(--font-body); font-weight:700; letter-spacing:.03em; text-transform:uppercase; font-size:.75rem; color:#7a7a72;}
+nav.toc ol{list-style:none; padding-left:0; margin:.3rem 0 1.1rem 0; counter-reset:sec;}
+nav.toc ol.roman{counter-reset:roman;}
+nav.toc ol.roman > li{counter-increment:roman;}
+nav.toc ol.roman > li > a::before{content: counter(roman, upper-roman) " — "; color:var(--blue-bd); font-weight:600;}
+nav.toc ol ol{margin:.15rem 0 .4rem 1rem;}
+nav.toc a{color:var(--ink); text-decoration:none; display:block; padding:.15rem 0;}
+nav.toc a:hover{color:var(--blue-bd);}
+main{flex:1; min-width:0; padding:2.2rem 3rem 4rem 3rem;}
+header.title{margin-bottom:1.6rem;}
+.meta{color:#7a7a72; font-size:.85rem; font-family:var(--font-mono);}
+section{margin-bottom:1rem;}
+p{margin:.6rem 0;}
+.block{border-left:4px solid; border-radius:6px; padding:.85rem 1.1rem; margin:1rem 0; background:#fff;}
+.block > .label{font-weight:700; font-family:var(--font-body); font-size:.82rem; letter-spacing:.03em; text-transform:uppercase; margin-bottom:.35rem; display:block;}
+.def{background:var(--blue-bg); border-color:var(--blue-bd);} .def>.label{color:var(--blue-bd);}
+.theorem{background:var(--violet-bg); border-color:var(--violet-bd);} .theorem>.label{color:var(--violet-bd);}
+.demo{background:var(--green-bg); border-color:var(--green-bd);} .demo>.label{color:var(--green-bd);}
+.remark{background:var(--gray-bg); border-color:var(--gray-bd);} .remark>.label{color:#5c5c56;}
+.correction{background:var(--amber-bg); border-color:var(--amber-bd);} .correction>.label{color:var(--amber-bd);}
+.retenir{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:1rem 1.2rem; margin:1.3rem 0;}
+.retenir>.label{color:#cfe0f5;}
+.chain{margin:.7rem 0; padding-left:.3rem;}
+.chain .step{display:flex; align-items:baseline; gap:.6rem; margin:.25rem 0;}
+.chain .step .why{color:#7a7a72; font-size:.82rem; font-style:italic;}
+figure{margin:1.2rem 0; text-align:center;}
+figure svg{max-width:100%; height:auto; background:#fff; border:1px solid var(--line); border-radius:8px;}
+figcaption{font-size:.82rem; color:#7a7a72; margin-top:.4rem;}
+table{border-collapse:collapse; margin:1rem 0; width:100%;}
+th,td{border:1px solid var(--line); padding:.4rem .6rem; text-align:left; font-size:.92rem;}
+th{background:#f3f2ee;}
+.quiz-item{border:1px solid var(--line); border-radius:8px; padding:1rem 1.2rem; margin:1rem 0; background:#fff;}
+.quiz-q{font-weight:700;}
+.quiz-a{margin-top:.6rem; padding-top:.6rem; border-top:1px dashed var(--line); color:#333;}
+.quiz-a .tag{font-weight:700; color:var(--green-bd); font-size:.82rem; text-transform:uppercase;}
+.sources li{margin:.35rem 0; font-size:.92rem;}
+.sources a{color:var(--blue-bd);}
+@media (max-width:900px){
+  nav.toc{display:none;}
+  main{padding:1.5rem 1.2rem;}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc">
+<h4>Sommaire</h4>
+<ol class="roman">
+  <li><a href="#s1">Nature de la lumière</a>
+    <ol>
+      <li><a href="#s1-1">Approche historique</a></li>
+      <li><a href="#s1-2">Lumière et sources lumineuses</a>
+        <ol>
+          <li><a href="#s1-2a">Spectre EM et lumière visible</a></li>
+          <li><a href="#s1-2b">Sources primaires / secondaires</a></li>
+          <li><a href="#s1-2c">Indice optique, milieu dispersif</a></li>
+        </ol>
+      </li>
+      <li><a href="#s1-3">Modèle géométrique</a>
+        <ol>
+          <li><a href="#s1-3a">Rayon lumineux</a></li>
+          <li><a href="#s1-3b">Domaine de validité</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#s2">Lois de l'optique géométrique</a>
+    <ol>
+      <li><a href="#s2-1">Lois fondamentales</a></li>
+      <li><a href="#s2-2">Lois de Snell-Descartes</a>
+        <ol>
+          <li><a href="#s2-2a">Mise en évidence</a></li>
+          <li><a href="#s2-2b">Énoncé</a></li>
+          <li><a href="#s2-2c">Réfringence</a></li>
+          <li><a href="#s2-2d">Angles limites</a></li>
+        </ol>
+      </li>
+      <li><a href="#s2-3">Fibre optique à saut d'indice</a></li>
+    </ol>
+  </li>
+  <li><a href="#quiz">Quiz de fin de chapitre</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</nav>
+<main>
+<header class="title">
+<h1>Bases de l'optique géométrique</h1>
+<div class="meta">Physique — Optique — Chapitre 1 · CPGE · mis au propre le 09/09/2026 (relu le 10/09/2026)</div>
+</header>
+
+<section id="s1">
+<h2>I. Nature de la lumière</h2>
+
+<h3 id="s1-1">1) Approche historique</h3>
+<p>La compréhension de la lumière s'est construite en plusieurs étapes, à travers deux grands modèles concurrents avant leur unification moderne.</p>
+
+<p><strong>Modèle géométrique</strong> (la lumière comme rayon) :</p>
+<ul>
+<li><strong>Euclide</strong> (III<sup>e</sup> s. av. J.-C.) énonce la loi de la réflexion.</li>
+<li><strong>Ibn al-Haytham</strong> (X<sup>e</sup>–XI<sup>e</sup> s.) introduit le concept d'image et pose les bases expérimentales de l'optique.</li>
+<li><strong>Galilée</strong> (XVII<sup>e</sup> s.) construit lunette et microscope.</li>
+<li><strong>Descartes</strong> (XVII<sup>e</sup> s.) formule mathématiquement les lois de l'optique géométrique.</li>
+</ul>
+
+<div class="block correction">
+<span class="label">⚠️ Correction</span>
+Le savant est <strong>Ibn al-Haytham</strong> (Alhazen), et non « Ibn Al Aytham » : confusion de retranscription phonétique d'un nom translittéré de l'arabe. C'est un des pères fondateurs de la méthode expérimentale en optique (<em>Kitab al-Manazir</em>, Livre d'optique, vers 1021).
+</div>
+
+<p><strong>Modèle corpusculaire / ondulatoire</strong> :</p>
+<ul>
+<li><strong>Huygens</strong> (XVII<sup>e</sup> s.) développe la théorie ondulatoire de la lumière.</li>
+<li><strong>Planck</strong> et <strong>Einstein</strong> (début XX<sup>e</sup> s.) introduisent le photon, ce qui permet de comprendre l'effet photoélectrique.</li>
+</ul>
+
+<div class="block correction">
+<span class="label">⚠️ Correction</span>
+Le physicien est <strong>Max Planck</strong>, et non « Plank ». C'est Planck qui introduit en 1900 la quantification de l'énergie (constante <em>h</em>), qu'Einstein réutilise en 1905 pour expliquer l'effet photoélectrique via le photon.
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+Aucun des trois modèles pris isolément ne suffit à rendre compte de tous les phénomènes lumineux : le <strong>modèle géométrique</strong> (rayon) décrit la propagation et l'imagerie, le <strong>modèle ondulatoire</strong> décrit interférences et diffraction, le <strong>modèle corpusculaire</strong> décrit les échanges d'énergie (effet photoélectrique). Ce cours se limite au premier.
+</div>
+
+<h3 id="s1-2">2) Lumière et sources lumineuses</h3>
+
+<h4 id="s1-2a">a) Le spectre électromagnétique et la lumière visible</h4>
+<p>Les rayonnements électromagnétiques couvrent une gamme de fréquences très étendue. La lumière visible est une onde électromagnétique dont les longueurs d'onde <em>dans le vide</em> sont comprises entre 400 nm (violet) et 800 nm (rouge) — bornes de convention CPGE (on trouve aussi 380–780 nm selon les ouvrages, la limite étant progressive et non un seuil net).</p>
+
+<div class="block correction">
+<span class="label">⚠️ Correction</span>
+La borne violette du visible est <strong>400 nm</strong>, et non « 4,00 mm » : erreur d'unité de trois ordres de grandeur (mm au lieu de nm) lors de la retranscription.
+</div>
+
+<figure>
+<svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+<defs>
+<linearGradient id="specGrad" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0%" stop-color="#7a0099"/>
+  <stop offset="12%" stop-color="#3b3bff"/>
+  <stop offset="30%" stop-color="#1e90ff"/>
+  <stop offset="55%" stop-color="#2ecc71"/>
+  <stop offset="70%" stop-color="#e6d800"/>
+  <stop offset="85%" stop-color="#ff8c00"/>
+  <stop offset="100%" stop-color="#d90000"/>
+</linearGradient>
+</defs>
+<text x="450" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#0f2b4c">Spectre électromagnétique</text>
+<rect x="60" y="55" width="780" height="45" fill="#dfe3ea" stroke="#8a8a85"/>
+<text x="95" y="83" font-size="13" text-anchor="middle">rayons γ</text>
+<line x1="170" y1="55" x2="170" y2="100" stroke="#8a8a85"/>
+<text x="230" y="83" font-size="13" text-anchor="middle">rayons X</text>
+<line x1="290" y1="55" x2="290" y2="100" stroke="#8a8a85"/>
+<text x="350" y="83" font-size="13" text-anchor="middle">UV</text>
+<line x1="410" y1="55" x2="410" y2="100" stroke="#8a8a85"/>
+<rect x="410" y="55" width="70" height="45" fill="url(#specGrad)"/>
+<text x="445" y="48" font-size="12" text-anchor="middle" fill="#0f2b4c">visible</text>
+<line x1="480" y1="55" x2="480" y2="100" stroke="#8a8a85"/>
+<text x="540" y="83" font-size="13" text-anchor="middle">infrarouge</text>
+<line x1="600" y1="55" x2="600" y2="100" stroke="#8a8a85"/>
+<text x="670" y="83" font-size="13" text-anchor="middle">micro-ondes</text>
+<line x1="740" y1="55" x2="740" y2="100" stroke="#8a8a85"/>
+<text x="800" y="83" font-size="13" text-anchor="middle">ondes radio</text>
+<text x="80" y="120" font-size="12" fill="#555">haute énergie</text>
+<text x="760" y="120" font-size="12" fill="#555" text-anchor="end">basse énergie</text>
+<path d="M80 130 L820 130" stroke="#3b6fd8" stroke-width="2" marker-end="url(#arrow)"/>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#3b6fd8"/></marker></defs>
+<text x="450" y="150" text-anchor="middle" font-size="12" fill="#555">fréquence croissante →</text>
+<!-- zoom visible -->
+<line x1="410" y1="100" x2="150" y2="190" stroke="#b7b7ae" stroke-dasharray="3,3"/>
+<line x1="480" y1="100" x2="750" y2="190" stroke="#b7b7ae" stroke-dasharray="3,3"/>
+<rect x="150" y="190" width="600" height="60" fill="url(#specGrad)"/>
+<text x="450" y="180" text-anchor="middle" font-size="14" font-weight="700" fill="#0f2b4c">zoom — lumière visible</text>
+<text x="150" y="272" font-size="13" text-anchor="middle">400 nm</text>
+<text x="150" y="288" font-size="12" text-anchor="middle" fill="#555">violet</text>
+<text x="750" y="272" font-size="13" text-anchor="middle">800 nm</text>
+<text x="750" y="288" font-size="12" text-anchor="middle" fill="#555">rouge</text>
+<line x1="150" y1="250" x2="150" y2="260" stroke="#333"/>
+<line x1="750" y1="250" x2="750" y2="260" stroke="#333"/>
+<text x="450" y="320" text-anchor="middle" font-size="12" fill="#555">λ croissante, fréquence décroissante →</text>
+</svg>
+<figcaption>Fig. 1 — Spectre électromagnétique et zoom sur la bande visible (400–800 nm).</figcaption>
+</figure>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+Une lumière monochromatique (une seule onde) est caractérisée par trois grandeurs : sa fréquence $f$ (en Hz), sa période $T=\dfrac{1}{f}$ (en s), et sa longueur d'onde $\lambda$ (en m) avec $\lambda = \dfrac{c}{f} = c\,T$ où $c$ est la célérité de l'onde dans le milieu traversé. <strong>La couleur perçue est associée à la fréquence, et non à la longueur d'onde</strong> — cette dernière change quand on change de milieu (voir §c), alors que la couleur, elle, ne change pas.
+</div>
+
+<h4 id="s1-2b">b) Sources primaires et secondaires</h4>
+<div class="block def">
+<span class="label">Définition</span>
+Une <strong>source primaire</strong> émet sa propre lumière. Une <strong>source secondaire</strong> ne produit pas de lumière : elle retransmet la lumière reçue d'ailleurs, par <strong>réflexion</strong> (miroir) ou par <strong>diffusion</strong> (mur, objet diffusant).
+</div>
+
+<p>On distingue plusieurs types de sources primaires :</p>
+<ul>
+<li><strong>Lampes thermiques</strong> : elles émettent de la lumière en fonction de leur température → spectre continu.</li>
+<li><strong>Lampes spectrales</strong> (excitation d'un gaz) → spectre de raies.</li>
+<li><strong>LASER</strong> (Light Amplification by Stimulated Emission of Radiation) → source monochromatique.</li>
+</ul>
+
+<h4 id="s1-2c">c) Indice optique, milieu dispersif, loi de Cauchy</h4>
+
+<div class="block def">
+<span class="label">Définition — indice optique</span>
+$$n = \frac{c_0}{c}$$
+où $c_0$ est la célérité de la lumière dans le vide et $c$ la célérité de la lumière (onde électromagnétique) dans le milieu considéré.
+</div>
+
+<p>Dans le vide, la célérité de la lumière vaut $c_0 = 3{,}0\times 10^{8}\ \text{m·s}^{-1}$ (valeur arrondie usuelle de travail).</p>
+
+<div class="block correction">
+<span class="label">⚠️ Correction</span>
+La valeur $3{,}0\times10^{8}\ \text{m·s}^{-1}$ est un <strong>arrondi de travail</strong>. Depuis la redéfinition du mètre en 1983, la célérité de la lumière dans le vide est fixée <em>exactement</em> à $c_0 = 299\,792\,458\ \text{m·s}^{-1}$ (elle sert de définition au mètre, et n'est donc plus mesurée mais posée par convention).
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+On a toujours $n \geqslant 1$ pour les milieux transparents usuels dans le domaine visible (indice de phase) — l'air valant $n_a \approx 1{,}00$. On a très souvent $n<3$ pour les matériaux optiques courants.
+</div>
+
+<div class="block def">
+<span class="label">Définition — milieu dispersif</span>
+Un milieu est dit <strong>dispersif</strong> lorsque la célérité de l'onde dans ce milieu dépend de la longueur d'onde ; par conséquent l'indice du milieu $n(\lambda)$ dépend de $\lambda$. Loi empirique de <strong>Cauchy</strong> :
+$$n(\lambda) = A + \frac{B}{\lambda^2}$$
+</div>
+
+<h4>Conséquence sur les longueurs d'onde</h4>
+<div class="chain">
+<div class="step"><span>La fréquence $f$ d'une onde électromagnétique est fixée : elle ne change pas en changeant de milieu.</span></div>
+<div class="step"><span>$f = \dfrac{c_0}{\lambda_0} = \dfrac{c}{\lambda}$</span><span class="why">définition de $f$ dans le vide et dans le milieu</span></div>
+<div class="step"><span>$\Rightarrow\ \lambda = \dfrac{c}{c_0}\,\lambda_0 = \dfrac{\lambda_0}{n}$</span><span class="why">en utilisant $n=c_0/c$</span></div>
+</div>
+
+<div class="block retenir">
+<span class="label">À retenir</span>
+$$\lambda = \frac{\lambda_0}{n}$$
+La longueur d'onde diminue quand la lumière pénètre dans un milieu plus réfringent ($n>1$) ; la fréquence, elle, ne change jamais.
+</div>
+
+<h3 id="s1-3">3) Le modèle géométrique de la lumière</h3>
+
+<h4 id="s1-3a">a) Notion de rayon lumineux</h4>
+<div class="block def">
+<span class="label">Définition</span>
+Un <strong>rayon lumineux</strong> est un modèle qui matérialise la propagation de la lumière ; il se représente par une flèche indiquant le sens de propagation.
+</div>
+
+<figure>
+<svg viewBox="0 0 620 380" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+<circle cx="90" cy="190" r="7" fill="#0f2b4c"/>
+<text x="90" y="225" font-size="13" text-anchor="middle">source</text>
+<text x="90" y="240" font-size="13" text-anchor="middle">lumineuse</text>
+<line x1="97" y1="185" x2="280" y2="60" stroke="#c0392b" stroke-width="2"/>
+<line x1="97" y1="190" x2="300" y2="190" stroke="#c0392b" stroke-width="2"/>
+<line x1="97" y1="195" x2="280" y2="320" stroke="#c0392b" stroke-width="2"/>
+<rect x="300" y="140" width="8" height="100" fill="#333"/>
+<text x="304" y="130" font-size="12" text-anchor="middle">obstacle</text>
+<line x1="308" y1="145" x2="470" y2="20" stroke="#c0392b" stroke-width="2"/>
+<line x1="308" y1="235" x2="470" y2="360" stroke="#c0392b" stroke-width="2"/>
+<line x1="470" y1="15" x2="470" y2="365" stroke="#0f2b4c" stroke-width="2"/>
+<path d="M470 15 q10 20 0 40 q-10 20 0 40 q10 20 0 40 q-10 20 0 40 q10 20 0 40 q-10 20 0 40 q10 20 0 40 q-10 20 0 40" stroke="#0f2b4c" fill="none" stroke-width="1.5" transform="translate(0,-15)"/>
+<text x="490" y="45" font-size="13" fill="#c0392b">éclairé</text>
+<text x="490" y="195" font-size="13" fill="#333">ombre</text>
+<text x="490" y="345" font-size="13" fill="#c0392b">éclairé</text>
+</svg>
+<figcaption>Fig. 2 — Ombre géométrique derrière un obstacle : les rayons se propagent en ligne droite, la zone d'ombre est délimitée par les rayons rasants.</figcaption>
+</figure>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+Une ouverture trop petite fait apparaître de la <strong>diffraction</strong> : les rayons ne suivent alors plus des trajets rectilignes et le modèle géométrique cesse d'être valable (voir §b).
+</div>
+
+<h4 id="s1-3b">b) Domaine de validité du modèle géométrique</h4>
+
+<figure>
+<svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+<circle cx="40" cy="90" r="14" fill="#ffcf40" stroke="#e0a800"/>
+<line x1="40" y1="55" x2="40" y2="40" stroke="#e0a800"/><line x1="40" y1="125" x2="40" y2="140" stroke="#e0a800"/>
+<line x1="8" y1="90" x2="-8" y2="90" stroke="#e0a800" transform="translate(20,0)"/>
+<line x1="55" y1="90" x2="105" y2="90" stroke="#0f2b4c" stroke-width="2" marker-end="url(#ar2)"/>
+<defs><marker id="ar2" markerWidth="8" markerHeight="8" refX="6" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4 Z" fill="#0f2b4c"/></marker></defs>
+<line x1="150" y1="55" x2="150" y2="125" stroke="#333" stroke-width="3"/>
+<line x1="160" y1="90" x2="220" y2="90" stroke="#0f2b4c" stroke-width="2" marker-end="url(#ar2)"/>
+<line x1="270" y1="55" x2="270" y2="125" stroke="#333" stroke-width="3"/>
+<line x1="280" y1="90" x2="340" y2="90" stroke="#0f2b4c" stroke-width="2" marker-end="url(#ar2)"/>
+<rect x="345" y="75" width="35" height="30" fill="#cfd6de" stroke="#555"/>
+<circle cx="410" cy="90" r="16" fill="none" stroke="#333" stroke-width="2"/>
+<text x="410" y="63" font-size="13" text-anchor="middle">A</text>
+<line x1="410" y1="90" x2="410" y2="110" stroke="#333"/><line x1="410" y1="110" x2="400" y2="130" stroke="#333"/><line x1="410" y1="110" x2="420" y2="130" stroke="#333"/>
+<rect x="470" y="65" width="120" height="50" fill="#fff" stroke="#555"/>
+<path d="M478 90 l10 -15 l10 20 l10 -25 l10 20 l10 -10 l10 10" stroke="#0f2b4c" fill="none" stroke-width="1.5"/>
+<text x="150" y="150" font-size="12" text-anchor="middle">diaphragme</text>
+<text x="270" y="150" font-size="12" text-anchor="middle">fente</text>
+<text x="362" y="150" font-size="12" text-anchor="middle">photodiode</text>
+<text x="530" y="130" font-size="12" text-anchor="middle">oscilloscope</text>
+</svg>
+<figcaption>Fig. 3 — Montage type : source → diaphragme → fente → photodiode → oscilloscope.</figcaption>
+</figure>
+
+<p>Le modèle géométrique est valable si l'obstacle ou l'ouverture est de taille $a$ telle que $a \gg \lambda$. Dans ce cas, la détection de photons individuels n'est pas possible (le nombre de photons $N \gg 1$) : on mesure alors des <strong>intensités lumineuses</strong> plutôt que des événements individuels.</p>
+
+<div class="block def">
+<span class="label">Définitions — propriétés d'un milieu</span>
+<strong>Homogène</strong> : les propriétés physiques sont les mêmes en tout point du milieu.<br>
+<strong>Transparent</strong> : le milieu laisse passer la lumière.<br>
+<strong>Isotrope</strong> : les propriétés physiques sont les mêmes dans toutes les directions de propagation du rayon.
+</div>
+
+</section>
+
+<section id="s2">
+<h2>II. Lois de l'optique géométrique</h2>
+
+<h3 id="s2-1">1) Lois fondamentales</h3>
+
+<div class="block theorem">
+<span class="label">Propriété — propagation rectiligne</span>
+Dans un milieu <strong>linéaire, transparent, homogène et isotrope</strong>, les rayons lumineux sont des droites.
+</div>
+
+<div class="block theorem">
+<span class="label">Propriété — retour inverse de la lumière</span>
+Que la lumière se propage de A vers B ou de B vers A, elle emprunte la même trajectoire.
+</div>
+
+<div class="block theorem">
+<span class="label">Propriété — indépendance des rayons lumineux</span>
+Il n'y a pas d'interaction entre les rayons lumineux qui se croisent.
+</div>
+
+<h3 id="s2-2">2) Lois de Snell-Descartes</h3>
+
+<h4 id="s2-2a">a) Mise en évidence expérimentale</h4>
+<p>Réflexion et réfraction se produisent lors du passage d'un milieu à un autre.</p>
+
+<div class="block def">
+<span class="label">Définition — dioptre</span>
+Un <strong>dioptre</strong> est la surface de séparation entre deux milieux d'indices différents.
+</div>
+
+<figure>
+<svg viewBox="0 0 500 260" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+<line x1="60" y1="150" x2="440" y2="150" stroke="#333" stroke-width="1.5"/>
+<text x="60" y="140" font-size="12">$n_1$</text>
+<text x="60" y="175" font-size="12">$n_2$</text>
+<g stroke="#c0392b" stroke-width="1.6">
+<line x1="130" y1="60" x2="260" y2="150"/>
+<line x1="150" y1="60" x2="280" y2="150"/>
+<line x1="170" y1="60" x2="300" y2="150"/>
+<line x1="190" y1="60" x2="320" y2="150"/>
+</g>
+<text x="240" y="45" font-size="13" fill="#c0392b" text-anchor="middle">onde incidente</text>
+<line x1="260" y1="150" x2="150" y2="240" stroke="#0f2b4c" stroke-width="2" marker-end="url(#ar3)"/>
+<defs><marker id="ar3" markerWidth="8" markerHeight="8" refX="6" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4 Z" fill="#0f2b4c"/></marker></defs>
+<text x="150" y="255" font-size="13" fill="#0f2b4c">onde réfractée</text>
+</svg>
+<figcaption>Fig. 4 — Au passage d'un dioptre, le rayon incident se partage en un rayon réfléchi et un rayon réfracté.</figcaption>
+</figure>
+
+<h4 id="s2-2b">b) Énoncé des lois</h4>
+
+<div class="block theorem">
+<span class="label">Loi 1</span>
+Les rayons réfléchi et réfracté sont situés dans le plan d'incidence, c'est-à-dire le plan contenant la normale au dioptre et le rayon incident.
+</div>
+
+<figure>
+<svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+<line x1="240" y1="20" x2="240" y2="260" stroke="#999" stroke-dasharray="4,4"/>
+<line x1="60" y1="140" x2="420" y2="140" stroke="#333" stroke-width="1.5"/>
+<text x="60" y="130" font-size="13">$n_1$</text>
+<text x="60" y="160" font-size="13">$n_2$</text>
+<line x1="150" y1="60" x2="240" y2="140" stroke="#c0392b" stroke-width="2"/>
+<line x1="240" y1="140" x2="330" y2="60" stroke="#c0392b" stroke-width="2" marker-end="url(#ar4)"/>
+<line x1="240" y1="140" x2="200" y2="230" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#ar4)"/>
+<defs><marker id="ar4" markerWidth="8" markerHeight="8" refX="6" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4 Z" fill="#c0392b"/></marker></defs>
+<path d="M240 110 A 30 30 0 0 0 217 92" fill="none" stroke="#2fa365" stroke-width="1.5"/>
+<text x="200" y="95" font-size="13" fill="#2fa365">$i_1$</text>
+<path d="M240 110 A 30 30 0 0 1 263 92" fill="none" stroke="#2fa365" stroke-width="1.5"/>
+<text x="270" y="95" font-size="13" fill="#2fa365">$r$</text>
+<path d="M240 170 A 30 30 0 0 1 218 190" fill="none" stroke="#2fa365" stroke-width="1.5"/>
+<text x="195" y="205" font-size="13" fill="#2fa365">$i_2$</text>
+<text x="130" y="50" font-size="12">rayon incident</text>
+<text x="335" y="55" font-size="12">rayon réfléchi</text>
+<text x="140" y="255" font-size="12">rayon réfracté</text>
+</svg>
+<figcaption>Fig. 5 — Dioptre, angles orientés : $i_1$ (incidence), $r$ (réflexion), $i_2$ (réfraction), repérés par rapport à la normale.</figcaption>
+</figure>
+
+<div class="block theorem">
+<span class="label">Loi 2 — réflexion (angles orientés)</span>
+$$i_1 = -r$$
+</div>
+
+<div class="block theorem">
+<span class="label">Loi 3 — réfraction (Snell-Descartes)</span>
+$$n_1 \sin i_1 = n_2 \sin i_2$$
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+Attention à la convention d'angles utilisée. En <strong>angles non orientés</strong> (tous comptés positivement par rapport à la normale), on écrit plus simplement $i_1 = r$ (au lieu de $i_1=-r$) ; la loi de réfraction s'écrit alors $n_1 \sin i_1 = n_2 \sin i_2$, inchangée.
+</div>
+
+<figure>
+<svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+<line x1="240" y1="20" x2="240" y2="240" stroke="#999" stroke-dasharray="4,4"/>
+<line x1="60" y1="130" x2="420" y2="130" stroke="#333" stroke-width="1.5"/>
+<text x="70" y="120" font-size="13">$(n_1)$</text>
+<text x="70" y="150" font-size="13">$(n_2)$</text>
+<line x1="150" y1="55" x2="240" y2="130" stroke="#c0392b" stroke-width="2"/>
+<line x1="240" y1="130" x2="330" y2="55" stroke="#c0392b" stroke-width="2" marker-end="url(#ar5)"/>
+<line x1="240" y1="130" x2="195" y2="215" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#ar5)"/>
+<defs><marker id="ar5" markerWidth="8" markerHeight="8" refX="6" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4 Z" fill="#c0392b"/></marker></defs>
+<path d="M240 105 A 25 25 0 0 0 220 90" fill="none" stroke="#2fa365" stroke-width="1.5"/>
+<text x="205" y="90" font-size="13" fill="#2fa365">$i$</text>
+<path d="M240 105 A 25 25 0 0 1 260 90" fill="none" stroke="#2fa365" stroke-width="1.5"/>
+<text x="262" y="90" font-size="13" fill="#2fa365">$r$</text>
+<path d="M240 155 A 25 25 0 0 1 222 172" fill="none" stroke="#2fa365" stroke-width="1.5"/>
+<text x="200" y="185" font-size="13" fill="#2fa365">$i_2$</text>
+<text x="245" y="200" font-size="12">I</text>
+<text x="150" y="230" font-size="12">$i_1 = r$</text>
+<text x="150" y="245" font-size="12">$n_1\sin i_1 = n_2 \sin i_2$</text>
+</svg>
+<figcaption>Fig. 6 — Dioptre, angles non orientés (tous comptés positivement depuis la normale).</figcaption>
+</figure>
+
+<h4 id="s2-2c">c) Réfringence</h4>
+
+<div class="block def">
+<span class="label">Définition</span>
+Soit deux milieux d'indices $n_1$ et $n_2$ tels que $n_2 < n_1$ : le milieu 1 est alors dit <strong>plus réfringent</strong> que le milieu 2.
+</div>
+
+<div class="block theorem">
+<span class="label">Propriété</span>
+(a) Si $n_1 < n_2$ (passage vers un milieu plus réfringent) : le rayon réfracté se rapproche de la normale.<br>
+(b) Si $n_1 > n_2$ (passage vers un milieu moins réfringent) : le rayon réfracté s'écarte de la normale.
+</div>
+
+<figure>
+<svg viewBox="0 0 620 260" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+<!-- case a -->
+<line x1="90" y1="20" x2="90" y2="230" stroke="#999" stroke-dasharray="4,4"/>
+<line x1="20" y1="120" x2="180" y2="120" stroke="#333"/>
+<text x="20" y="110" font-size="12">$n_1$</text><text x="20" y="140" font-size="12">$n_2 > n_1$</text>
+<line x1="45" y1="55" x2="90" y2="120" stroke="#c0392b" stroke-width="2"/>
+<line x1="90" y1="120" x2="115" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#ar6)"/>
+<defs><marker id="ar6" markerWidth="8" markerHeight="8" refX="6" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4 Z" fill="#c0392b"/></marker></defs>
+<text x="95" y="245" font-size="12" text-anchor="middle">(a) rayon se rapproche</text>
+<text x="95" y="20" font-size="13" text-anchor="middle" font-weight="700">a</text>
+<!-- case b -->
+<line x1="430" y1="20" x2="430" y2="230" stroke="#999" stroke-dasharray="4,4"/>
+<line x1="360" y1="120" x2="520" y2="120" stroke="#333"/>
+<text x="360" y="110" font-size="12">$n_1$</text><text x="360" y="140" font-size="12">$n_2 < n_1$</text>
+<line x1="385" y1="55" x2="430" y2="120" stroke="#c0392b" stroke-width="2"/>
+<line x1="430" y1="120" x2="495" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#ar6)"/>
+<text x="460" y="245" font-size="12" text-anchor="middle">(b) rayon s'écarte</text>
+<text x="430" y="20" font-size="13" text-anchor="middle" font-weight="700">b</text>
+</svg>
+<figcaption>Fig. 7 — Réfringence : effet de $n_2 \gtrless n_1$ sur l'écart à la normale du rayon réfracté.</figcaption>
+</figure>
+
+<div class="block demo">
+<span class="label">Démonstration — cas (a)</span>
+<div class="chain">
+<div class="step"><span>Hyp. : $n_1 < n_2$, avec $i_1 \in \left[0,\dfrac{\pi}{2}\right] \Rightarrow \sin i_1 > 0$</span></div>
+<div class="step"><span>Loi de Snell-Descartes : $n_1 \sin i_1 = n_2 \sin i_2$</span><span class="why">énoncée en b)</span></div>
+<div class="step"><span>$\Rightarrow\ n_2 \sin i_2 < n_2 \sin i_1$</span><span class="why">car $n_1 \sin i_1 = n_2\sin i_2$ et $n_1<n_2$, donc $n_2 \sin i_2 = n_1 \sin i_1 < n_2 \sin i_1$</span></div>
+<div class="step"><span>$n_2 \neq 0 \Rightarrow \sin i_2 < \sin i_1$</span></div>
+<div class="step"><span>$\sin$ croissante sur $\left[0,\dfrac{\pi}{2}\right]$ $\Rightarrow\ i_2 < i_1$</span><span class="why">le rayon réfracté se rapproche donc de la normale</span></div>
+</div>
+</div>
+
+<h4 id="s2-2d">d) Angles limites</h4>
+
+<h5>Angle de réfraction limite ($n_2 > n_1$)</h5>
+<p>À la limite d'incidence rasante ($i_1 \to \frac{\pi}{2}$), on a $n_1 \sin\frac{\pi}{2} = n_2 \sin i_{2,\text{lim}}$, soit :</p>
+$$\sin i_{2,\text{lim}} = \frac{n_1}{n_2} \quad (<1)$$
+<p>$i_{2,\text{lim}}$ est l'angle de réfraction limite : quel que soit l'angle d'incidence, le rayon réfracté reste toujours contenu dans un cône d'angle $i_{2,\text{lim}}$ autour de la normale.</p>
+
+<h5>Angle de réflexion totale ($n_2 < n_1$)</h5>
+<p>Pour $i_1 = i_{1,\text{lim}}$, on a émergence rasante : $i_2 = \frac{\pi}{2}$. La loi de Snell-Descartes donne $n_1 \sin i_{1,\text{lim}} = n_2 \sin\frac{\pi}{2}$, soit :</p>
+$$\sin i_{1,\text{lim}} = \frac{n_2}{n_1}$$
+
+<div class="block retenir">
+<span class="label">À retenir — réflexion totale</span>
+Dans le cas d'une réfraction d'un milieu plus réfringent vers un milieu moins réfringent ($n_2 < n_1$), l'angle limite d'incidence est
+$$i_{1,\text{lim}} = \arcsin\left(\frac{n_2}{n_1}\right)$$
+Si $i_1 > i_{1,\text{lim}}$, il n'existe plus de rayon réfracté : toute la lumière est réfléchie, la réflexion est dite <strong>totale</strong>.
+</div>
+
+<figure>
+<svg viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+<g transform="translate(0,0)">
+<line x1="120" y1="20" x2="120" y2="230" stroke="#999" stroke-dasharray="4,4"/>
+<line x1="50" y1="130" x2="190" y2="130" stroke="#333"/>
+<text x="55" y="120" font-size="11">$n_1$</text><text x="55" y="145" font-size="11">$n_2{<}n_1$</text>
+<line x1="80" y1="70" x2="120" y2="130" stroke="#c0392b" stroke-width="2"/>
+<line x1="120" y1="130" x2="90" y2="200" stroke="#c0392b" stroke-width="2" marker-end="url(#ar7)"/>
+<line x1="120" y1="130" x2="150" y2="80" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="3,2"/>
+<text x="120" y="245" font-size="12" text-anchor="middle">$i_1 < i_{1,\text{lim}}$</text>
+</g>
+<g transform="translate(280,0)">
+<line x1="120" y1="20" x2="120" y2="230" stroke="#999" stroke-dasharray="4,4"/>
+<line x1="50" y1="130" x2="190" y2="130" stroke="#333"/>
+<text x="55" y="120" font-size="11">$n_1$</text><text x="55" y="145" font-size="11">$n_2{<}n_1$</text>
+<line x1="75" y1="60" x2="120" y2="130" stroke="#c0392b" stroke-width="2"/>
+<line x1="120" y1="130" x2="45" y2="130" stroke="#c0392b" stroke-width="2" marker-end="url(#ar7)"/>
+<line x1="120" y1="130" x2="165" y2="60" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="3,2"/>
+<text x="120" y="245" font-size="12" text-anchor="middle">$i_1 = i_{1,\text{lim}}$</text>
+</g>
+<g transform="translate(560,0)">
+<line x1="120" y1="20" x2="120" y2="230" stroke="#999" stroke-dasharray="4,4"/>
+<line x1="50" y1="130" x2="190" y2="130" stroke="#333"/>
+<text x="55" y="120" font-size="11">$n_1$</text><text x="55" y="145" font-size="11">$n_2{<}n_1$</text>
+<line x1="65" y1="55" x2="120" y2="130" stroke="#c0392b" stroke-width="2"/>
+<line x1="120" y1="130" x2="65" y2="55" stroke="#c0392b" stroke-width="2" marker-end="url(#ar7)" transform="rotate(180,120,130)"/>
+<text x="120" y="245" font-size="12" text-anchor="middle">$i_1 > i_{1,\text{lim}}$</text>
+<text x="120" y="15" font-size="11" text-anchor="middle" fill="#2fa365">réflexion totale</text>
+</g>
+<defs><marker id="ar7" markerWidth="8" markerHeight="8" refX="6" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4 Z" fill="#c0392b"/></marker></defs>
+</svg>
+<figcaption>Fig. 8 — Trois incidences croissantes : réfraction partielle, réfraction rasante ($i_1=i_{1,\text{lim}}$), puis réflexion totale ($i_1>i_{1,\text{lim}}$, plus aucun rayon réfracté).</figcaption>
+</figure>
+
+<h3 id="s2-3">3) Fibre optique à saut d'indice</h3>
+
+<div class="block def">
+<span class="label">Définition</span>
+Une fibre optique à saut d'indice est constituée d'un cœur transparent d'indice $n_c$ entouré de deux gaines transparentes d'indice $n_g$, avec $n_c > n_g$. Application numérique usuelle : $n_c = 1{,}62$, $n_g = 1{,}52$, indice de l'air $n_a = 1{,}00$.
+</div>
+
+<p>Soit un rayon lumineux incident arrivant sur la fibre en O avec un angle $\theta$ par rapport à l'axe de la fibre.</p>
+<p><strong>Objectif</strong> : le rayon doit se propager dans la fibre sans pertes, c'est-à-dire subir une réflexion totale à chaque réflexion sur la gaine.</p>
+
+<h4>a) Angle d'acceptance et ouverture numérique</h4>
+
+<p>Pour éviter les pertes, on cherche à avoir une réflexion totale au point I sur l'interface cœur/gaine, ce qui impose :</p>
+<div class="chain">
+<div class="step"><span>$n_c > n_g$ (condition de guidage) et $i > i_{\text{lim}}$ avec $n_c \sin i_{\text{lim}} = n_g$, soit $\sin i_{\text{lim}} = \dfrac{n_g}{n_c}$</span></div>
+<div class="step"><span>Dans le triangle O I C : $180° = \theta_2 + i + 90°$, donc $\theta_2 = 90° - i$</span><span class="why">C est le point d'incidence sur l'axe, le triangle rectangle en C donne la relation d'angles</span></div>
+<div class="step"><span>Réfraction en O (loi de Snell-Descartes) : $n_a \sin\theta = n_c \sin\theta_2$</span></div>
+</div>
+
+<p>La condition $i > i_{\text{lim}}$ se traduit, en utilisant $\theta_2 = 90°-i$ et $\sin i_{\text{lim}}=n_g/n_c$ :</p>
+<div class="chain">
+<div class="step"><span>$\sin i > \sin i_{\text{lim}} = \dfrac{n_g}{n_c}$</span></div>
+<div class="step"><span>$\sin(90° - \theta_2) > \dfrac{n_g}{n_c}\ \Rightarrow\ \cos\theta_2 > \dfrac{n_g}{n_c}$</span></div>
+<div class="step"><span>$\cos^2\theta_2 > \left(\dfrac{n_g}{n_c}\right)^2\ \Rightarrow\ 1-\sin^2\theta_2 > \left(\dfrac{n_g}{n_c}\right)^2$</span></div>
+<div class="step"><span>Or $n_a\sin\theta = n_c\sin\theta_2 \Rightarrow \sin\theta_2 = \dfrac{n_a}{n_c}\sin\theta$</span></div>
+<div class="step"><span>$1 - \dfrac{n_a^2}{n_c^2}\sin^2\theta > \left(\dfrac{n_g}{n_c}\right)^2 \ \Longleftrightarrow\ \sin^2\theta < \dfrac{n_c^2-n_g^2}{n_a^2}$</span></div>
+</div>
+
+<div class="block correction">
+<span class="label">⚠️ Correction</span>
+Sur la copie manuscrite, la ligne intermédiaire $1-\dfrac{n_g^2}{n_c^2}\sin^2\theta > \left(\dfrac{n_g}{n_c}\right)^2$ portait $n_g$ au lieu de $n_a$ dans le terme de gauche (déjà corrigé à la main sur l'original). Le résultat final $\sin^2\theta < n_c^2-n_g^2$ n'est valable que dans le cas particulier $n_a=1$ (fibre dans l'air) ; la forme générale, valable quel que soit le milieu d'entrée, s'écrit avec $n_a$ explicite :
+$$n_a \sin\theta_\ell = \sqrt{n_c^2-n_g^2} = \text{O.N.}$$
+</div>
+
+<div class="block retenir">
+<span class="label">À retenir</span>
+Soit $\theta_\ell$ tel que $\sin\theta_\ell = \dfrac{1}{n_a}\sqrt{n_c^2-n_g^2}$. Le signal se propage totalement dans la fibre (sans pertes) si $\theta < \theta_\ell$.
+<ul>
+<li>$[\theta_\ell]$ est appelé <strong>angle d'acceptance</strong> (ou cône d'acceptance).</li>
+<li>$\left[\sin\theta_\ell\right]$ est appelé <strong>ouverture numérique</strong> (O.N.).</li>
+</ul>
+</div>
+
+<p><strong>Application numérique</strong> (fibre dans l'air, $n_a=1$) : avec $n_c=1{,}62$ et $n_g=1{,}52$,</p>
+$$\text{O.N.} = \sqrt{n_c^2-n_g^2} = \sqrt{1{,}62^2-1{,}52^2} \approx 0{,}56 \quad\Rightarrow\quad \theta_\ell \approx 34°$$
+
+<figure>
+<svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+<rect x="60" y="40" width="500" height="30" fill="#dfe3ea" stroke="#8a8a85"/>
+<text x="600" y="60" font-size="12" text-anchor="start">gaine $n_g$</text>
+<rect x="60" y="70" width="500" height="120" fill="#eaf2fd" stroke="#8a8a85"/>
+<text x="600" y="135" font-size="12" text-anchor="start">cœur $n_c$</text>
+<rect x="60" y="190" width="500" height="30" fill="#dfe3ea" stroke="#8a8a85"/>
+<text x="600" y="210" font-size="12" text-anchor="start">gaine $n_g$</text>
+<line x1="60" y1="130" x2="640" y2="130" stroke="#999" stroke-dasharray="5,3"/>
+<text x="620" y="122" font-size="12">axe</text>
+<!-- incoming ray in air -->
+<line x1="0" y1="90" x2="90" y2="130" stroke="#c0392b" stroke-width="2"/>
+<text x="10" y="82" font-size="12">air $n_a$</text>
+<path d="M90 130 A 20 20 0 0 0 100 116" fill="none" stroke="#2fa365" stroke-width="1.3"/>
+<text x="70" y="112" font-size="12" fill="#2fa365">$\theta$</text>
+<!-- refracted ray inside core to first bounce -->
+<line x1="90" y1="130" x2="230" y2="185" stroke="#0f2b4c" stroke-width="2"/>
+<path d="M90 130 A 18 18 0 0 1 100 145" fill="none" stroke="#2fa365" stroke-width="1.3"/>
+<text x="75" y="150" font-size="12" fill="#2fa365">$\theta_2$</text>
+<!-- normal at I (first bounce, bottom interface) -->
+<line x1="230" y1="160" x2="230" y2="210" stroke="#999" stroke-dasharray="3,2"/>
+<path d="M230 185 A 18 18 0 0 1 245 175" fill="none" stroke="#2fa365" stroke-width="1.3"/>
+<text x="248" y="172" font-size="12" fill="#2fa365">i</text>
+<text x="205" y="230" font-size="12">I</text>
+<!-- OIC triangle marker -->
+<text x="120" y="170" font-size="11" fill="#555">O</text>
+<text x="290" y="145" font-size="11" fill="#555">C</text>
+<line x1="230" y1="185" x2="230" y2="130" stroke="#b7b7ae" stroke-dasharray="2,2"/>
+<!-- reflected ray up to second bounce -->
+<line x1="230" y1="185" x2="370" y2="75" stroke="#0f2b4c" stroke-width="2"/>
+<!-- normal at second bounce -->
+<line x1="370" y1="50" x2="370" y2="100" stroke="#999" stroke-dasharray="3,2"/>
+<!-- continues -->
+<line x1="370" y1="75" x2="500" y2="120" stroke="#0f2b4c" stroke-width="2" marker-end="url(#ar8)"/>
+<defs><marker id="ar8" markerWidth="8" markerHeight="8" refX="6" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4 Z" fill="#0f2b4c"/></marker></defs>
+</svg>
+<figcaption>Fig. 9 — Coupe d'une fibre à saut d'indice : réfraction en O ($\theta \to \theta_2$), puis réflexion totale en I (triangle OIC, $\theta_2 = 90°-i$).</figcaption>
+</figure>
+
+</section>
+
+<section id="quiz">
+<h2>Quiz de fin de chapitre</h2>
+
+<div class="quiz-item">
+<div class="quiz-q">1. Quelle est la condition qui définit le domaine de validité du modèle de l'optique géométrique, et que se passe-t-il physiquement si elle n'est pas respectée ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+La condition est $a \gg \lambda$, où $a$ est la taille caractéristique de l'obstacle ou de l'ouverture rencontré par la lumière. Si l'ouverture devient comparable à $\lambda$, le phénomène de <strong>diffraction</strong> apparaît : les rayons ne se propagent plus en ligne droite et le modèle géométrique (rayon rectiligne) cesse d'être une description valable — il faut alors passer au modèle ondulatoire.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">2. Une fibre à saut d'indice utilisée dans l'air a pour indices $n_c = 1{,}50$ (cœur) et $n_g = 1{,}45$ (gaine). Calculer son ouverture numérique et son angle d'acceptance.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+$\text{O.N.} = \sqrt{n_c^2-n_g^2} = \sqrt{1{,}50^2-1{,}45^2} = \sqrt{2{,}25-2{,}1025} = \sqrt{0{,}1475} \approx 0{,}384$.<br>
+$\theta_\ell = \arcsin(0{,}384) \approx 22{,}6°$.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">3. Pourquoi la réflexion totale ne peut-elle se produire que lorsque le rayon passe d'un milieu plus réfringent vers un milieu moins réfringent ($n_1 > n_2$), et jamais dans le cas inverse ?</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+La loi de Snell-Descartes donne $\sin i_2 = \dfrac{n_1}{n_2}\sin i_1$. Si $n_1 > n_2$, le facteur $n_1/n_2 > 1$ peut rendre $\sin i_2$ supérieur à 1 pour $i_1$ assez grand : il n'existe alors plus d'angle $i_2$ solution, donc plus de rayon réfracté — toute l'énergie repart en réflexion (réflexion totale). Si $n_1 < n_2$, le facteur $n_1/n_2 < 1$ donne toujours $\sin i_2 \leqslant 1$ : un rayon réfracté existe pour tout angle d'incidence, la réflexion totale est donc impossible dans ce sens.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">4. Un piège classique : d'après vos notes, la couleur d'une lumière est-elle liée à sa fréquence ou à sa longueur d'onde ? Justifier à l'aide de ce qui se passe quand la lumière change de milieu.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+La couleur est liée à la <strong>fréquence</strong> $f$, pas à la longueur d'onde $\lambda$. En effet, quand une onde passe du vide à un milieu d'indice $n$, sa fréquence reste inchangée alors que sa longueur d'onde devient $\lambda = \lambda_0/n$. Si la couleur dépendait de $\lambda$, une lumière rouge dans l'air changerait de couleur en entrant dans l'eau — ce qui n'est pas observé : c'est bien la fréquence, invariante, qui détermine la couleur perçue.</div>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">5. Question de synthèse : expliquez, en une chaîne de raisonnement, comment la loi de Snell-Descartes conduit à la notion d'angle limite de réflexion totale, puis comment cet angle limite permet à une fibre optique à saut d'indice de guider la lumière sans pertes.</div>
+<div class="quiz-a"><span class="tag">Réponse</span><br>
+La loi de Snell-Descartes ($n_1\sin i_1 = n_2 \sin i_2$) montre que, lorsque $n_1>n_2$, $\sin i_2$ croît plus vite que $\sin i_1$ ; il existe donc un angle $i_{1,\text{lim}} = \arcsin(n_2/n_1)$ au-delà duquel aucune solution $i_2$ n'existe : la réflexion devient totale. Dans une fibre à saut d'indice, le cœur ($n_c$) est plus réfringent que la gaine ($n_g$) : si le rayon frappe l'interface cœur/gaine avec un angle d'incidence $i$ supérieur à cet angle limite, il subit une réflexion totale et reste piégé dans le cœur. En reliant cette condition sur $i$ à l'angle d'entrée $\theta$ du rayon dans la fibre (via la réfraction en O et la géométrie du triangle OIC), on obtient une condition équivalente sur $\theta$ : $\theta < \theta_\ell$, l'angle d'acceptance, associé à l'ouverture numérique $\text{O.N.}=\sqrt{n_c^2-n_g^2}$ (cas $n_a=1$). C'est ce mécanisme — réfraction puis réflexion totale répétée — qui permet à la lumière de se propager sur de longues distances dans la fibre sans s'échapper par les parois.</div>
+</div>
+
+</section>
+
+<section id="sources">
+<h2>Sources</h2>
+<ul class="sources">
+<li>BIPM — définition SI du mètre et valeur exacte de $c_0$ : <a href="https://www.bipm.org/en/si-base-units/metre" target="_blank">bipm.org/en/si-base-units/metre</a></li>
+<li>Lycée Brizeux (CPGE Quimper) — « La fibre optique à saut d'indice » : <a href="https://www.cpge-brizeux.fr/wordpress/wp-content/uploads/Opt_C2-exple-de-cours.pdf" target="_blank">cpge-brizeux.fr</a></li>
+<li>Le Mans Université — « Fibre optique à saut d'indice » (page non accessible en lecture automatique lors de la vérification, à consulter directement) : <a href="https://ressources.univ-lemans.fr/AccesLibre/UM/Pedago/physique/02/optigeo/fibresaut.html" target="_blank">univ-lemans.fr</a></li>
+</ul>
+</section>
+
+</main>
+</div>
+</body>
+</html>
