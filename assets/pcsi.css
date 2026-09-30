@@ -169,7 +169,6 @@ tbody tr.prio td.col-titre { font-weight: 700; color: #8a5a00; }
    Cours, à la ligne du dernier cours de Clarisse et du dernier cours prof. */
 tbody tr.hl-jaune { box-shadow: inset 4px 0 0 var(--hl-jaune-border); }
 tbody tr.hl-orange { box-shadow: inset 4px 0 0 var(--hl-orange-border); }
-tbody tr.hl-jaune td.col-titre, tbody tr.hl-orange td.col-titre { font-weight: 700; }
 tbody tr.hl-jaune td, tbody tr.hl-orange td { background-color: transparent !important; }
 tbody tr.hl-jaune td.col-n { background: rgba(var(--hl-jaune-rgb), var(--hl-jaune-a1)) !important; }
 tbody tr.hl-orange td.col-n { background: rgba(var(--hl-orange-rgb), var(--hl-orange-a1)) !important; }
