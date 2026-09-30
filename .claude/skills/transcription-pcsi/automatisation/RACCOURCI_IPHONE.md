@@ -50,3 +50,8 @@ plus confortable pour saisir URL et en-têtes. Ensuite AirDrop vers l'iPhone de 
   de Clarisse, ou l'envoyer en privé (AirDrop).
 - Jeton compromis : routine → API → **Regenerate**, puis remplacer dans l'action 4.
 - L'endpoint `/fire` est en bêta : s'il change, seule l'action 4 est à mettre à jour.
+
+## Fichier prêt à importer (macOS)
+`python3 genere_raccourci.py Transcrire_PCSI_non_signe.shortcut`, puis sur le Mac :
+`shortcuts sign -m anyone -i Transcrire_PCSI_non_signe.shortcut -o Transcrire_PCSI.shortcut`
+et double-clic : l'app demande l'URL et le jeton (questions d'import, rien de secret dans le fichier).
