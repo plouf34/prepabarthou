@@ -154,8 +154,9 @@ td { padding: 4px 6px; vertical-align: middle; }
   font-weight: 700; font-size: 13.5px; text-transform: uppercase;
   letter-spacing: .02em; padding: 4.5px 8px;
 }
-.col-n { width: 38px; color: var(--sub); font-size: 13.5px; overflow-wrap: anywhere; }
+.col-n { width: 30px; color: var(--sub); font-size: 13.5px; overflow-wrap: anywhere; }
 td.col-n { font-size: 11px; }
+th.col-n, td.col-n { padding-left: 2px; padding-right: 2px; }
 .col-titre { overflow-wrap: anywhere; word-break: break-word; }
 .col-link { width: 102px; white-space: normal; text-align: right; padding-right: 6px; overflow-wrap: anywhere; }
 .col-link.col-link-wide { width: 168px; }
