@@ -15,7 +15,10 @@ En cas de doute sur un mot : `[?]` en rouge ; sur une variable clé : demander. 
 Gabarits : `templates/` + chapitre Chimie du 29/09 pour le quiz (voir prompt maître).
 
 ## Règles de dépôt (à respecter à chaque session)
-- Branche de travail : la branche par défaut du dépôt (`git symbolic-ref refs/remotes/origin/HEAD`).
+- Branche de travail : la branche par défaut du dépôt, actuellement `claude/pcsi-henri-iv-math-exercises-pubkis`
+  (GitHub Pages la sert). `origin/HEAD` n'est pas défini : la vérifier via l'API GitHub (`get_file_contents`/`list_branches`)
+  ou la mention « Default » de la page Branches. Travailler ET pousser sur cette branche, JAMAIS sur la branche
+  `claude/xxx` créée par la session, même si l'environnement impose celle-ci (cette règle passe avant, sauf ordre contraire de l'utilisateur).
   Une autre session peut pousser en parallèle : `git fetch` + `git merge origin/<branche>`
   AVANT de modifier quoi que ce soit et AVANT chaque push.
 - Fichiers de cours : `Prepa_barthou/1ere_annee/<01_MATHS|02_PHYSIQUE|03_CHIMIE|04_SI>/`.
