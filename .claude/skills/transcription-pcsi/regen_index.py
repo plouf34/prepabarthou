@@ -31,6 +31,8 @@ import os
 import re
 import html
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 SUBJECTS = [
     ("01_MATHS", "🔢", "Maths"),
     ("02_PHYSIQUE", "⚛️", "Physique"),
@@ -380,7 +382,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 <title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/pcsi.css?v=16">
+<link rel="stylesheet" href="assets/pcsi.css?v=17">
 </head>
 <body>
 
@@ -449,6 +451,18 @@ def main():
         with open(out_path, "w", encoding="utf-8") as fh:
             fh.write(out)
         print(f"Wrote {out_path}")
+
+    # Surlignage « chapitre en cours » (jaune = Clarisse, orange pâle = profs
+    # de Louis Barthou) des sections Exercices/DS : vérifie que
+    # Prepa_barthou/surlignage.json correspond toujours aux derniers cours
+    # (et à la semaine de khôlle en Physique), puis le réapplique.
+    # Un avertissement « ⚠️ SURLIGNAGE À REVOIR » impose de relire le nouveau
+    # cours et les documents, puis de mettre à jour surlignage.json.
+    import surlignage
+    import datetime
+    exp, issues = surlignage.check(repo_root, datetime.date.today().isoformat())
+    surlignage.report(exp, issues)
+    surlignage.apply(repo_root)
 
 
 if __name__ == "__main__":

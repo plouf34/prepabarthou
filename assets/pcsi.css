@@ -16,6 +16,10 @@
   --section-bg: #dfe8f7;
   --section-text: #1F4E78;
   --row-alt: #fafafc;
+  --hl-jaune-bg: #fff3a3;
+  --hl-jaune-border: #e0b800;
+  --hl-orange-bg: #ffe2c4;
+  --hl-orange-border: #f08a24;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -31,6 +35,10 @@
     --section-bg: #16344f;
     --section-text: #bcd6f2;
     --row-alt: #232325;
+    --hl-jaune-bg: #4a3f00;
+    --hl-jaune-border: #d4b000;
+    --hl-orange-bg: #4a2a0c;
+    --hl-orange-border: #e07a1a;
   }
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -148,6 +156,19 @@ tbody tr:nth-child(even):not(.section-row) { background: var(--row-alt); }
 tbody tr:not(.section-row) { border-top: 1px solid var(--border); }
 tbody tr.prio { background: var(--prio-bg) !important; }
 tbody tr.prio td.col-titre { font-weight: 700; color: #8a5a00; }
+/* Surlignage « chapitre en cours » (généré par surlignage.py à partir de
+   Prepa_barthou/surlignage.json — ne pas poser ces classes à la main).
+   Jaune = dernier chapitre des cours de Clarisse ; orange pâle = dernier
+   chapitre des profs de Louis Barthou quand il est différent. */
+tbody tr.hl-jaune { background: var(--hl-jaune-bg) !important; box-shadow: inset 4px 0 0 var(--hl-jaune-border); }
+tbody tr.hl-orange { background: var(--hl-orange-bg) !important; box-shadow: inset 4px 0 0 var(--hl-orange-border); }
+tbody tr.hl-jaune td.col-titre, tbody tr.hl-orange td.col-titre { font-weight: 700; }
+.manual-chip.hl-jaune { background: var(--hl-jaune-bg); box-shadow: inset 0 0 0 1.5px var(--hl-jaune-border); }
+.manual-chip.hl-orange { background: var(--hl-orange-bg); box-shadow: inset 0 0 0 1.5px var(--hl-orange-border); }
+.hl-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 12.5px; color: var(--sub); margin: 2px 0 8px; }
+.hl-legend .hl-swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 5px; }
+.hl-legend .hl-swatch.jaune { background: var(--hl-jaune-bg); box-shadow: inset 0 0 0 1.5px var(--hl-jaune-border); }
+.hl-legend .hl-swatch.orange { background: var(--hl-orange-bg); box-shadow: inset 0 0 0 1.5px var(--hl-orange-border); }
 td { padding: 4px 6px; vertical-align: middle; }
 .section-row td {
   background: var(--section-bg); color: var(--section-text);
