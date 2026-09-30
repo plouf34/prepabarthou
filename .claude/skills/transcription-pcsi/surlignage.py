@@ -63,6 +63,8 @@ CONFIG = os.path.join("Prepa_barthou", "surlignage.json")
 KHOLLE = os.path.join("Prepa_barthou", "programme_kholle_physique.json")
 
 CLARISSE_RE = re.compile(r'^\d+_Ch(\d+)_Cours_Clarisse_(.+?)_(\d{4}-\d{2}-\d{2})\.(?:html|pdf)$')
+# « _Cours_Profs_ » sans suffixe de lycée uniquement : un fichier
+# « _Cours_Profs-SaintLouis_ » (autre lycée) n'est jamais un cours Barthou.
 PROFS_RE = re.compile(r'^(\d+)_Ch(\d+)_Cours_Profs_(.+?)_(\d{4}-\d{2}-\d{2})\.(?:html|pdf)$')
 
 

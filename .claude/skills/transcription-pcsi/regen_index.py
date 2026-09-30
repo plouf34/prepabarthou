@@ -52,12 +52,16 @@ BASE_URL = "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee"
 
 # Établissement(s) source des documents "Cours Profs" pour chaque matière
 # (ville affichée à titre indicatif, sans classement — ce n'est pas le Kit de révision).
-# 5e élément = (num_min, num_max) des fichiers "Cours Profs" attribués à cette source
-# (None = source unique, capte tous les fichiers profs de la matière).
+# 5e élément = (num_min, num_max) des fichiers "Cours Profs" SANS suffixe de lycée
+# attribués à cette source (None = aucun par numéro ; si la matière n'a qu'une
+# source, elle capte tous les fichiers profs). Un fichier « _Cours_Profs-<Tag>_ »
+# est attribué par son suffixe (voir SOURCE_FILE_TAGS), quel que soit son numéro.
+# Règle : en Maths et Physique, un fichier « _Cours_Profs_ » sans suffixe est un
+# cours des profs de Louis Barthou ; tout autre lycée porte un suffixe.
 SUBJECT_SOURCES = {
     "01_MATHS": [
-        ("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "logo-barthou.png", (1, 3), None),
-        ("Lycée Saint-Louis", "Paris", "https://pcsi1-saint-louis.ovh/site/", "logo-saint-louis.png", (4, 99), None),
+        ("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "logo-barthou.png", (0, 99), None),
+        ("Lycée Saint-Louis", "Paris", "https://pcsi1-saint-louis.ovh/site/", "logo-saint-louis.png", None, None),
     ],
     "02_PHYSIQUE": [("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "logo-barthou.png", None, None)],
     "03_CHIMIE": [
@@ -69,6 +73,30 @@ SUBJECT_SOURCES = {
         ("Gustave Eiffel", "Bordeaux", "https://aroux-sii.fr/", "https://www.eiffel-bordeaux.org/wp-content/themes/bootscore-child-main/img/favicon/favicon-32x32.png", (9, 13), "psi*2627"),
     ],
 }
+
+# Suffixe de lycée dans le nom de fichier (« 05_Ch05_Cours_Profs-SaintLouis_... »)
+# → nom exact de la source dans SUBJECT_SOURCES. Sans suffixe : attribution par
+# numéro (num_range). Ajouter ici toute nouvelle source.
+SOURCE_FILE_TAGS = {
+    "SaintLouis": "Lycée Saint-Louis",
+    "SainteGenevieve": "Sainte-Geneviève",
+    "Janson": "Janson de Sailly",
+    "JeanPerrin": "Jean Perrin",
+    "Eiffel": "Gustave Eiffel",
+}
+PROFS_TAG_RE = re.compile(r'_Cours_Profs-([A-Za-z]+)_')
+
+
+def file_source(filename):
+    """Nom de la source déclarée par le suffixe « _Cours_Profs-<Tag>_ », sinon None.
+    Un suffixe inconnu est une erreur (fichier qui serait sinon mal classé)."""
+    m = PROFS_TAG_RE.search(filename)
+    if not m:
+        return None
+    if m.group(1) not in SOURCE_FILE_TAGS:
+        raise SystemExit(f"❌ Suffixe de lycée inconnu « {m.group(1)} » dans {filename} : l'ajouter à SOURCE_FILE_TAGS.")
+    return SOURCE_FILE_TAGS[m.group(1)]
+
 
 # Manuel de référence (PDF perso, hébergé localement dans manuels/ à la racine
 # du dépôt) affiché sous le titre de chaque matière, quand disponible.
@@ -145,6 +173,7 @@ def parse_number_and_title(filename):
     rest = re.sub(r'^\d{4}-\d{2}-\d{2}\s+', '', rest)
     rest = re.sub(r'\s+\d{4}-\d{2}-\d{2}\s*$', '', rest)
     rest = re.sub(r'\bCours Clarisse\b', 'Cours de Clarisse', rest)
+    rest = re.sub(r'\bCours Profs-[A-Za-z]+\b', 'Cours Profs', rest)
     return num, rest.strip()
 
 
@@ -285,7 +314,7 @@ def build_subject_body(repo_root, folder):
         num, titre = parse_number_and_title(f)
         if is_td_or_exercice(titre):
             continue
-        profs_entries.append((None, num, titre, url, pdf_url))
+        profs_entries.append((file_source(f), num, titre, url, pdf_url))
     for source_name, num, titre, pdf_url in SUBJECT_EXTERNAL_PROFS.get(folder, []):
         profs_entries.append((source_name, num, titre, None, pdf_url))
 

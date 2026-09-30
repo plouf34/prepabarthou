@@ -19,8 +19,9 @@ nommage des fichiers, et le workflow de publication.
 ## Rappel du workflow de publication (à la fin de chaque transcription)
 
 1. Nommer le fichier selon la section « Nommage des fichiers » du prompt
-   maître (`NN_ChCC_Cours_<Clarisse|Profs>_<Titre>_<AAAA-MM-JJ>.html`) —
-   le `ChCC` est indispensable au surlignage.
+   maître (`NN_ChCC_Cours_<Clarisse|Profs|Profs-Lycée>_<Titre>_<AAAA-MM-JJ>.html`) —
+   le `ChCC` est indispensable au surlignage ; un cours d'un autre lycée que
+   Louis Barthou porte OBLIGATOIREMENT le suffixe (`Profs-SaintLouis`…).
 2. Le placer dans `Prepa_barthou/1ere_annee/<01_MATHS|02_PHYSIQUE|03_CHIMIE|04_SI>/`
    du dépôt `plouf34/prepabarthou`, sur la branche par défaut du dépôt (voir
    `CLAUDE.md`), jamais sur la branche `claude/xxx` créée par la session.

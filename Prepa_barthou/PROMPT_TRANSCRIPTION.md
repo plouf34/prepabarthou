@@ -93,14 +93,16 @@ par le script (il ne les régénère jamais).
 ### Nommage des fichiers
 
 Format (celui que lisent `regen_index.py` et `surlignage.py`) :
-`NN_ChCC_Cours_<Clarisse|Profs>_<Titre-sans-accents-mots-separes-par-tirets>_<AAAA-MM-JJ>.html`
+`NN_ChCC_Cours_<Clarisse|Profs|Profs-Lycée>_<Titre-sans-accents-mots-separes-par-tirets>_<AAAA-MM-JJ>.html`
 - `NN` : numéro à 2 chiffres. Reprendre la convention du dossier : en Maths `NN` = numéro de chapitre (le cours de Clarisse et celui des profs d'un même chapitre partagent le même `NN`) ; sinon, prochain numéro libre du dossier.
 - `ChCC` : numéro de chapitre à 2 chiffres (ex. `Ch02`). **Obligatoire** : le surlignage « chapitre en cours » s'appuie dessus. Le cours de Clarisse et celui des profs d'un même chapitre ont le même `ChCC`.
-- `Clarisse` = prise de notes manuscrite de Clarisse (classé dans « 1. Cours de Clarisse ») ; `Profs` = document d'un professeur (« 2. Cours Profs »).
+- `Clarisse` = prise de notes manuscrite de Clarisse (classé dans « 1. Cours de Clarisse »).
+- `Profs` (sans suffixe) = document des **profs de Louis Barthou** : c'est lui que le surlignage orange suit.
+- `Profs-<Lycée>` = document d'un **autre lycée**, suffixe obligatoire (ex. `05_Ch05_Cours_Profs-SaintLouis_Inegalites_2026-09-30.html`). Suffixes connus : `SaintLouis`, `SainteGenevieve`, `Janson`, `JeanPerrin`, `Eiffel` (table `SOURCE_FILE_TAGS` de `regen_index.py` ; un nouveau lycée s'y ajoute, sinon le script s'arrête sur une erreur). Le lycée n'est jamais déduit du numéro : sans suffixe, un cours d'un autre lycée serait pris pour un cours Barthou et fausserait le surlignage.
 - Titre : intitulé du cours (celui du lien prepabarthou.fr s'il existe), sans accents, mots séparés par des tirets.
 - Date : date du cours (ou de mise en ligne du document), à la fin.
 - Un PDF original du prof garde le même nom, extension `.pdf`, à côté du `.html`.
-- Exemple : `02_Ch02_Cours_Clarisse_Nombres-complexes_2026-09-27.html`.
+- Exemples : `02_Ch02_Cours_Clarisse_Nombres-complexes_2026-09-27.html`, `03_Ch03_Cours_Profs_Problemes-lineaires-bidimensionnels_2026-09-28.html`.
 - Les anciens fichiers au format `NN-Date_Matière_Cours_...` (polycopiés de Physique, SI) restent tels quels : ne pas les renommer (liens publics déjà partagés).
 - Un fichier de type `TD` ou `Exercice` (repéré dans le titre) est exclu du tableau Cours généré : l'ajouter à la main dans la section Exercices de la page matière.
 
