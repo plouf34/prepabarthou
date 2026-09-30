@@ -3,45 +3,48 @@
  "maj": "2026-09-30",
  "Maths": {
   "jaune": {
-   "cle": "Ch04",
-   "libelle": "Ch04 (test, vrai Ch02) — Nombres complexes (Clarisse, 27/09)"
+   "cle": "Ch02",
+   "libelle": "Ch02 — Nombres complexes (Clarisse, 27/09)"
   },
-  "orange": null,
+  "orange": {
+   "cle": "Ch03",
+   "libelle": "Ch03 — Problèmes linéaires bidimensionnels : récurrences linéaires d'ordre 2, équations différentielles linéaires d'ordre 2 (profs Louis Barthou, 28/09)"
+  },
   "liens": [
    {
     "url": "https://www.bourrigan.fr/docs/td03-complexes.pdf",
     "couleur": "jaune",
-    "note": "Ch04 (test, vrai Ch02) — TD entier sur les nombres complexes"
+    "note": "Ch02 — TD entier sur les nombres complexes"
    },
    {
     "url": "https://www.bourrigan.fr/docs/td13-suites.pdf",
     "couleur": "jaune",
-    "note": "Ch04 (test, vrai Ch02) §III — ex. 2 et 7 : suites récurrentes linéaires d'ordre 2"
+    "note": "Ch02 §III (Clarisse) / Ch03 §3.1 (profs) — ex. 2 et 7 : suites récurrentes linéaires d'ordre 2"
    },
    {
     "url": "https://pcsi1-saint-louis.ovh/site/images/Doc2627/exo1_LogiqueFonctions.pdf",
     "couleur": "jaune",
-    "note": "Ch04 (test, vrai Ch02) §III — partie XI (ex. 42–43) : suites récurrentes linéaires d'ordre 2"
+    "note": "Ch02 §III — partie XI (ex. 42–43) : suites récurrentes linéaires d'ordre 2"
    },
    {
     "url": "https://www.bourrigan.fr/docs/td22-EDO.pdf",
-    "couleur": "jaune",
-    "note": "Ch04 (test, vrai Ch02) §III — partie « Deuxième ordre » (Autocorrection B, ex. 2 à 4) : EDL d'ordre 2 à coefficients constants"
+    "couleur": "orange",
+    "note": "Ch03 §3.2 — partie « Deuxième ordre » (Autocorrection B, ex. 2 à 4) : ED linéaires d'ordre 2 à coefficients constants"
    },
    {
     "url": "https://bourrigan.fr/docs/ds02-module-somme-complexes-sujet.pdf",
     "couleur": "jaune",
-    "note": "Ch04 (test, vrai Ch02) — module d'une somme de nombres complexes"
+    "note": "Ch02 — module d'une somme de nombres complexes"
    },
    {
     "url": "https://bourrigan.fr/docs/2425/ds02-polygones-reguliers-sujet.pdf",
     "couleur": "jaune",
-    "note": "Ch04 (test, vrai Ch02) — racines n-ièmes de l'unité, exponentielle complexe"
+    "note": "Ch02 — racines n-ièmes de l'unité, exponentielle complexe"
    },
    {
     "url": "https://pcsi1-saint-louis.ovh/site/images/Doc2425/DS3.pdf",
     "couleur": "jaune",
-    "note": "Ch04 (test, vrai Ch02) — problèmes 1 et 2 : racines de l'unité, module (le reste porte sur primitives et ED d'ordre 1)"
+    "note": "Ch02 — problèmes 1 et 2 : racines de l'unité, module (le reste porte sur primitives et ED d'ordre 1)"
    }
   ],
   "non_lus": [],
@@ -49,7 +52,7 @@
    {
     "url": "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch1_LogiqueFonctions.pdf",
     "couleur": "jaune",
-    "note": "Saint-Louis — en partie : §XI « Suites récurrentes linéaires d'ordre 2 » (p. 17), vu dans le Ch04 (test, vrai Ch02) de Clarisse, §III"
+    "note": "Saint-Louis — en partie : §XI « Suites récurrentes linéaires d'ordre 2 » (p. 17), vu dans le Ch02 de Clarisse (§III) et le Ch03 des profs"
    }
   ],
   "bibmath": [
