@@ -32,8 +32,9 @@
     --border: #2c2c2e;
     --prio-bg: #2a2410;
     --prio-border: #b8912e;
-    --section-bg: #16344f;
-    --section-text: #bcd6f2;
+    --section-bg: #245f96;
+    --section-text: #f0f7ff;
+    --thead-bg: #3376b8;
     --row-alt: #232325;
     --hl-jaune-bg: rgba(255, 214, 10, 0.20);
     --hl-jaune-border: rgba(255, 214, 10, 0.95);
@@ -148,7 +149,7 @@ table {
   border: 1px solid var(--border);
 }
 thead th {
-  background: #1F4E78; color: #fff;
+  background: var(--thead-bg, #1F4E78); color: #fff;
   font-size: 13px; text-transform: uppercase; letter-spacing: .03em;
   padding: 5px 6px; text-align: left; font-weight: 700;
 }
