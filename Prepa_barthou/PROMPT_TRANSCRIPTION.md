@@ -142,7 +142,7 @@ Format (celui que lisent `regen_index.py` et `surlignage.py`) :
 Indépendant du surlignage. Section Exercices de `Maths.html`, ligne « Exercices en lien avec le chapitre en cours » :
 - À chaque nouveau cours de **Clarisse** en Maths, remplacer les puces par la (ou les) feuille(s) Bibmath correspondant **uniquement au dernier chapitre de Clarisse** (pas aux profs de Louis Barthou ni aux autres lycées).
 - URL type : `https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/<slug>&type=fexo`. Trouver le slug depuis la page « Math Sup » de la bibliothèque d'exercices Bibmath.
-- Vérifier en lisant la page que le slug contient bien des exercices du bon thème : un slug inexistant répond quand même HTTP 200 avec une page vide.
+- Vérifier en lisant la page que le slug contient bien des exercices du bon thème : un slug inexistant répond quand même HTTP 200 et affiche la page d'accueil « Ressources mathématiques ». Contrôle fiable : le `<title>` doit commencer par « Exercices math sup : » et la page doit contenir des blocs « Exercice N ». Exemple : `complexes` est bon, `nombrescomplexes` ne l'est pas.
 - Éditer la ligne à la main dans `Maths.html` (après `git fetch` + `merge`), puis relancer `regen_index.py` (il recopie cette section telle quelle) et vérifier que la puce est toujours là.
 - Le script ne contrôle pas ces puces : aucun avertissement en cas d'oubli.
 
