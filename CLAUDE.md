@@ -8,9 +8,11 @@ Photos/scans manuscrits ou PDF de prof → invoquer le skill `transcription-pcsi
 `Prepa_barthou/PROMPT_TRANSCRIPTION.md` : c'est la seule source des règles de
 transcription, ne pas les dupliquer ici.
 
-## Envoi automatique par photos (Raccourci iPhone + routine)
-Recette et prompt : `.claude/skills/transcription-pcsi/automatisation/` (photos → dépôt privé
-`plouf34/prepabarthou-inbox` → routine API → skill `transcription-pcsi`). Jamais de jeton dans le dépôt.
+## Envoi automatique par photos (Google Drive + Raccourci iPhone + routine)
+Recette et prompt : `.claude/skills/transcription-pcsi/automatisation/` (photos dans Drive
+`PCSI – À transcrire/<Matière>/Chapitre NN…` → bouton Raccourci → routine API → skill `transcription-pcsi`).
+Le connecteur Drive ne rend pas les images : IDs via connecteur, téléchargement par `curl` (partage par lien).
+Jamais de jeton dans le dépôt.
 
 ## Priorité absolue
 Fidélité maximale au manuscrit ou au PDF du prof : rien d'inventé, rien d'omis.

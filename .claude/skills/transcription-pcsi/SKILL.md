@@ -77,10 +77,10 @@ nommage des fichiers, et le workflow de publication.
 Avant de committer : vérifier que les balises HTML/SVG sont équilibrées,
 que le nombre de `$$` est pair, et que le quiz contient bien 10 questions.
 
-## Mode automatique (routine, photos déposées dans `prepabarthou-inbox`)
+## Mode automatique (routine, photos déposées dans Google Drive)
 
 Quand la session est une routine déclenchée par le Raccourci iPhone de Clarisse
-(texte `matiere=…; dossier=inbox/…`), suivre `automatisation/PROMPT_ROUTINE.md` :
+(texte `matiere=…; chapitre=NN`), suivre `automatisation/PROMPT_ROUTINE.md` :
 mêmes règles de transcription, mais personne ne peut répondre — en cas de doute bloquant,
-ne rien publier, ne rien supprimer de l'inbox, et poser la question dans le message final.
+ne rien publier, et poser la question dans le message final.
 Recette du Raccourci : `automatisation/RACCOURCI_IPHONE.md`.
