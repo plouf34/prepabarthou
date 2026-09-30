@@ -52,7 +52,8 @@ n'est pas l'une des 4 valeurs ou si `chapitre` n'est pas un nombre, arrête-toi 
    CLAUDE.md). Si un cours de Clarisse pour ce chapitre existe déjà sur le site, c'est une suite :
    complète la page existante au lieu d'en créer une seconde, et dis-le.
    Push refusé sur la branche par défaut : pousse sur `claude/drive-<matiere>-ch<NN>`, ouvre une PR
-   vers la branche par défaut et fusionne-la (outils GitHub MCP), puis dis-le.
+   vers la branche par défaut (outils GitHub MCP), ne la fusionne PAS, et donne son lien : le père
+   de Clarisse la relira et la fusionnera.
 5. Cas d'arrêt (personne ne peut répondre pendant la routine) : variable clé illisible, page
    manifestement manquante, photo trop floue. Ne publie RIEN et termine par la question précise
    (nom de la photo, ce qui pose problème). Une réponse dans cette session permettra de reprendre.
