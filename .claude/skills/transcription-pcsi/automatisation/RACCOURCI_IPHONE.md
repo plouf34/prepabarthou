@@ -1,13 +1,16 @@
 # Raccourci iPhone « Transcrire PCSI » — bouton « Go »
 
 Clarisse dépose d'abord ses photos dans Google Drive
-(`PCSI – À transcrire / <Matière> / Chapitre NN - <titre>`), puis touche ce bouton.
+(`PCSI – À transcrire / <Matière> / NN - <titre>`, « Chapitre » facultatif), depuis Photos →
+Partager → Drive (les noms IMG_xxxx sont conservés), puis touche ce bouton.
 Il ne manipule aucun fichier : il appelle seulement la routine (prompt : `PROMPT_ROUTINE.md`).
 
 **Aucun secret dans ce fichier** (dépôt public). Le jeton de la routine se colle dans le Raccourci.
 
 ## Prérequis (une fois)
-1. Dossier Drive `PCSI – À transcrire` partagé « Tous les utilisateurs disposant du lien — Lecteur ».
+1. Dossier Drive `PCSI – À transcrire` partagé « Tous les utilisateurs disposant du lien — Lecteur »
+   ET partagé nommément avec fmerard@gmail.com (Lecteur) : sans ce second partage, le connecteur
+   ne trouve pas les dossiers créés ensuite (constaté le 2026-09-30).
 2. Réglages iPhone → Appareil photo → Formats → **Le plus compatible** (JPEG). (L'import par l'app
    Drive a converti en JPEG lors du test, mais ce réglage évite de dépendre de ce comportement.)
 3. Routine créée sur claude.ai/code/routines, déclencheur **API** ajouté : copier l'URL

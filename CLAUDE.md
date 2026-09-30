@@ -10,7 +10,7 @@ transcription, ne pas les dupliquer ici.
 
 ## Envoi automatique par photos (Google Drive + Raccourci iPhone + routine)
 Recette et prompt : `.claude/skills/transcription-pcsi/automatisation/` (photos dans Drive
-`PCSI – À transcrire/<Matière>/Chapitre NN…` → bouton Raccourci → routine API → skill `transcription-pcsi`).
+`PCSI – À transcrire/<Matière>/NN - titre` → bouton Raccourci → routine API → skill `transcription-pcsi`).
 Le connecteur Drive ne rend pas les images : IDs via connecteur, téléchargement par `curl` (partage par lien).
 Routine « Transcrire PCSI » (`trig_012h7m7nvtXb1yVrwwnEA4ZU`) : son prompt = celui de `PROMPT_ROUTINE.md`,
 à modifier aux deux endroits. Jamais de jeton dans le dépôt.
