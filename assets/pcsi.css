@@ -109,13 +109,13 @@ main > section { scroll-margin-top: calc(var(--tabbar-h) + var(--switch-h) + 8px
 main > section:first-child .section-title { border-top: none; margin-top: 6px; padding-top: 0; }
 
 .manual-line { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 4px 12px 4px; }
-.manual-chip {
+.manual-chip, .legend-chip {
   display: inline-flex; align-items: center; gap: 3px;
   background: rgba(10,138,74,0.10); border: 1px solid var(--border);
   padding: 3px 8px; border-radius: 10px;
   color: var(--accent-2); font-weight: 600; text-decoration: none; font-size: 12.5px;
 }
-.manual-chip .arrow { opacity: .6; }
+.manual-chip .arrow, .legend-chip .arrow { opacity: .6; }
 .manual-chip.video-chip { background: rgba(214,40,40,0.08); color: #d62828; }
 
 .source-chip-inline {

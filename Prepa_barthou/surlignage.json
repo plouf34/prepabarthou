@@ -1,5 +1,5 @@
 {
- "_lisez_moi": "Surlignage « chapitre en cours » des sections Exercices/DS. Rempli par Claude APRÈS lecture du dernier cours et des documents ; appliqué par .claude/skills/transcription-pcsi/surlignage.py (appelé aussi par regen_index.py). 'cle' doit correspondre au chapitre attendu calculé par le script (ChNN, ou <Thème>-ChN pour la Physique). 'liens' : URL exacte d'un lien de la ligne (Sujet de préférence) ; toute la ligne est surlignée. 'non_lus' : documents qui n'ont pas pu être ouverts (jugés sur leur titre ou non retenus). Ne surligner que des exercices, TD, DS et interros : jamais Bibmath/Exo7 ni les cahiers de calcul. Clé 'cours' : cours d'autres lycées qui traitent le chapitre en cours, surlignés dans la section Cours (lus avant décision).",
+ "_lisez_moi": "Surlignage « chapitre en cours » des sections Exercices/DS. Rempli par Claude APRÈS lecture du dernier cours et des documents ; appliqué par .claude/skills/transcription-pcsi/surlignage.py (appelé aussi par regen_index.py). 'cle' doit correspondre au chapitre attendu calculé par le script (ChNN, ou <Thème>-ChN pour la Physique). 'liens' : URL exacte d'un lien de la ligne (Sujet de préférence) ; toute la ligne est surlignée. 'non_lus' : documents qui n'ont pas pu être ouverts (jugés sur leur titre ou non retenus). Ne surligner que des exercices, TD, DS et interros : jamais Bibmath/Exo7 ni les cahiers de calcul. Clé 'cours' : cours d'autres lycées qui traitent le chapitre en cours, surlignés dans la section Cours (lus avant décision). Clé 'bibmath' (Maths) : puces Bibmath du dernier chapitre de Clarisse [{libelle, url}], affichées dans la légende jaune de la section Exercices (voir section PUCES BIBMATH du prompt maître).",
  "maj": "2026-09-30",
  "Maths": {
   "jaune": {
@@ -53,6 +53,12 @@
     "url": "https://pcsi1-saint-louis.ovh/site/images/Doc2627/ch1_LogiqueFonctions.pdf",
     "couleur": "jaune",
     "note": "Saint-Louis — en partie : §XI « Suites récurrentes linéaires d'ordre 2 » (p. 17), vu dans le Ch02 de Clarisse (§III) et le Ch03 des profs"
+   }
+  ],
+  "bibmath": [
+   {
+    "libelle": "Bibmath — Nombres complexes",
+    "url": "https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/complexes&type=fexo"
    }
   ]
  },

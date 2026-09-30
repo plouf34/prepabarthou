@@ -215,7 +215,7 @@ def _set_classes(attrs, add):
     return attrs
 
 
-def _apply_section(section, liens, cfg_subject):
+def _apply_section(section, liens, cfg_subject, sid=None):
     section = LEGEND_RE.sub("", section)
     used = set()
 
@@ -248,6 +248,11 @@ def _apply_section(section, liens, cfg_subject):
 
     section = CHIP_RE.sub(chip_sub, section)
 
+    # Puces Bibmath (clé "bibmath" de surlignage.json, Maths) : affichées dans la
+    # légende de la section Exercices, en face du dernier cours de Clarisse.
+    bibmath = cfg_subject.get("bibmath") if sid == "exercices" and cfg_subject.get("jaune") else None
+    if bibmath:
+        used.add("jaune")
     if used:
         parts = []
         for couleur in ("jaune", "orange"):
@@ -255,6 +260,9 @@ def _apply_section(section, liens, cfg_subject):
                 qui = "dernier cours de Clarisse" if couleur == "jaune" else "dernier cours des profs de Louis Barthou"
                 parts.append(f'<span><span class="hl-swatch {couleur}"></span>{html.escape(qui)} : '
                              f'<b>{html.escape(cfg_subject[couleur]["libelle"])}</b></span>')
+                if couleur == "jaune" and bibmath:
+                    parts.extend(f'<a class="legend-chip" href="{html.escape(b["url"], quote=True)}" target="_blank" rel="noopener">'
+                                 f'🔗 {html.escape(b["libelle"])} <span class="arrow">↗</span></a>' for b in bibmath)
         legend = f'<div class="hl-legend">{"".join(parts)}</div>'
         section = re.sub(r'(<h2 class="section-title">.*?</h2>\s*)', lambda m: m.group(1) + legend, section, count=1, flags=re.S)
     return section
@@ -305,7 +313,7 @@ def apply(repo_root, today=None):
                       lambda m: _apply_cours(m.group(0), exp[label]["cours"], cfg.get(label, {}).get("cours")), data, count=1, flags=re.S)
         for sid in ("exercices", "ds"):
             data = re.sub(rf'<section id="{sid}">.*?</section>',
-                          lambda m: _apply_section(m.group(0), liens, c), data, count=1, flags=re.S)
+                          lambda m, sid=sid: _apply_section(m.group(0), liens, c, sid), data, count=1, flags=re.S)
         with open(path, "w", encoding="utf-8") as fh:
             fh.write(data)
         n = len(re.findall(r'class="[^"]*\bhl-(?:jaune|orange)\b', data))

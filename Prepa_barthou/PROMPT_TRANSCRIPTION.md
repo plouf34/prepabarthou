@@ -139,12 +139,12 @@ Format (celui que lisent `regen_index.py` et `surlignage.py`) :
 
 ## PUCES BIBMATH (Maths uniquement)
 
-Indépendant du surlignage. Section Exercices de `Maths.html`, ligne « Exercices en lien avec le chapitre en cours » :
-- À chaque nouveau cours de **Clarisse** en Maths, remplacer les puces par la (ou les) feuille(s) Bibmath correspondant **uniquement au dernier chapitre de Clarisse** (pas aux profs de Louis Barthou ni aux autres lycées).
-- URL type : `https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/<slug>&type=fexo`. Trouver le slug depuis la page « Math Sup » de la bibliothèque d'exercices Bibmath.
-- Vérifier en lisant la page que le slug contient bien des exercices du bon thème : un slug inexistant répond quand même HTTP 200 et affiche la page d'accueil « Ressources mathématiques ». Contrôle fiable : le `<title>` doit commencer par « Exercices math sup : » et la page doit contenir des blocs « Exercice N ». Exemple : `complexes` est bon, `nombrescomplexes` ne l'est pas.
-- Éditer la ligne à la main dans `Maths.html` (après `git fetch` + `merge`), puis relancer `regen_index.py` (il recopie cette section telle quelle) et vérifier que la puce est toujours là.
-- Le script ne contrôle pas ces puces : aucun avertissement en cas d'oubli.
+Indépendant du choix des documents surlignés. La puce Bibmath s'affiche dans la légende de la section Exercices de `Maths.html`, juste après « dernier cours de Clarisse : ChNN — … ». Elle est générée par `surlignage.py` : ne jamais l'écrire à la main dans la page.
+- À chaque nouveau cours de **Clarisse** en Maths, mettre à jour la clé `bibmath` de `Maths` dans `Prepa_barthou/surlignage.json` : liste de `{"libelle": "Bibmath — <Thème>", "url": "…"}` pour la (ou les) feuille(s) Bibmath du **dernier chapitre de Clarisse uniquement** (pas des profs de Louis Barthou ni des autres lycées).
+- Trouver l'URL depuis l'index Math Sup `https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/index` : lien « Exercices » de la ligne du thème (forme `…&quoi=mpsi/feuillesexo/<slug>&type=fexo`). Ne jamais deviner le slug.
+- Vérifier en lisant la page : un slug inexistant répond quand même HTTP 200 et affiche la page d'accueil « Ressources mathématiques ». Contrôle fiable : le `<title>` commence par « Exercices math sup : » et la page contient des blocs « Exercice N ». Exemple : `complexes` est bon, `nombrescomplexes` ne l'est pas.
+- Relancer `regen_index.py` et vérifier que la puce apparaît dans la légende.
+- Le script ne contrôle pas que la puce correspond au bon chapitre : aucun avertissement en cas d'oubli.
 
 ## STYLE
 
