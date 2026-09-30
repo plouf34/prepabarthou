@@ -54,8 +54,8 @@ BASE_URL = "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee"
 # (None = source unique, capte tous les fichiers profs de la matière).
 SUBJECT_SOURCES = {
     "01_MATHS": [
-        ("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "logo-barthou.png", (1, 1), None),
-        ("Lycée Saint-Louis", "Paris", "https://pcsi1-saint-louis.ovh/site/", "logo-saint-louis.png", (2, 5), None),
+        ("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "logo-barthou.png", (1, 3), None),
+        ("Lycée Saint-Louis", "Paris", "https://pcsi1-saint-louis.ovh/site/", "logo-saint-louis.png", (4, 99), None),
     ],
     "02_PHYSIQUE": [("Lycée Louis Barthou", "Pau", "https://www.prepabarthou.fr/cours/my/courses.php", "logo-barthou.png", None, None)],
     "03_CHIMIE": [
@@ -234,6 +234,7 @@ def list_entries(dir_path, folder):
     if not os.path.isdir(dir_path):
         return []
     all_files = os.listdir(dir_path)
+    all_files = [f for f in all_files if re.match(r"^\d+[-_]", f)]  # ignore les brouillons non numérotés
     html_files = sorted(f for f in all_files if f.endswith(".html"))
     pdf_files = sorted(f for f in all_files if f.endswith(".pdf"))
     html_basenames = {f[:-5] for f in html_files}
@@ -332,6 +333,7 @@ def build_subject_body(repo_root, folder):
                 if belongs:
                     matched.append((num, titre, e_url, e_pdf_url))
                     assigned_idx.add(i)
+            matched.sort(key=lambda m: m[0])
             if matched:
                 for num, titre, url, pdf_url in matched:
                     body += table_row(num, titre, url, pdf_url, wide=wide)
@@ -378,14 +380,14 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 <title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/pcsi.css?v=14">
+<link rel="stylesheet" href="assets/pcsi.css?v=15">
 </head>
 <body>
 
 <header>
   <div class="crosslinks">
     <a href="index.html">🏠 Accueil</a>
-    <a href="Ressources_MP.html">🔗 Liens</a>
+    <a href="https://www.prepabarthou.fr/cours/my/courses.php" target="_blank" rel="noopener"><img src="logo-barthou.png" alt="">Louis Barthou</a>
   </div>
   <h1>{emoji} {esc(label)}</h1>
   <p>Cours, exercices et DS — mis à jour au fil de l'année</p>

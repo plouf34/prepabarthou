@@ -134,7 +134,7 @@ main > section:first-child .section-title { border-top: none; margin-top: 6px; p
 .section-row td { overflow: hidden; overflow-wrap: anywhere; word-break: break-word; }
 
 table {
-  width: 100%; table-layout: fixed; border-collapse: collapse;
+  width: 100%; table-layout: auto; border-collapse: collapse;
   background: var(--card-bg); border-radius: 12px;
   overflow: hidden; font-size: 14.5px; line-height: 1.24;
   border: 1px solid var(--border);
@@ -154,12 +154,12 @@ td { padding: 4px 6px; vertical-align: middle; }
   font-weight: 700; font-size: 13.5px; text-transform: uppercase;
   letter-spacing: .02em; padding: 4.5px 8px;
 }
-.col-n { width: 30px; color: var(--sub); font-size: 13.5px; overflow-wrap: anywhere; }
+.col-n { width: 1%; white-space: nowrap; color: var(--sub); font-size: 13.5px; }
 td.col-n { font-size: 11px; }
-th.col-n, td.col-n { padding-left: 2px; padding-right: 2px; }
-.col-titre { overflow-wrap: anywhere; word-break: break-word; }
-.col-link { width: 102px; white-space: normal; text-align: right; padding-right: 6px; overflow-wrap: anywhere; }
-.col-link.col-link-wide { width: 168px; }
+th.col-n, td.col-n { padding-left: 6px; padding-right: 0; }
+.col-titre { overflow-wrap: anywhere; word-break: break-word; padding-left: 6px; }
+/* Colonnes N° et Lien : largeur = contenu (1% + nowrap), tout le reste va à l'intitulé. */
+.col-link { width: 1%; white-space: nowrap; text-align: right; padding-right: 6px; }
 .empty-cell { color: var(--sub); font-size: 14.5px; font-style: italic; text-align: center; }
 
 .pill { display: inline-block; font-size: 13px; font-weight: 700; text-decoration: none; padding: 3px 7px; border-radius: 8px; white-space: nowrap; margin: 2px; }
