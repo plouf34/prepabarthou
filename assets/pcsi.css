@@ -195,7 +195,7 @@ td { padding: 4px 6px; vertical-align: middle; }
 td.col-n { font-size: 10px; }
 th.col-n { font-size: 10px; letter-spacing: 0; }
 th.col-n, td.col-n { padding-left: 4px; padding-right: 0; }
-.col-titre { width: 100%; overflow-wrap: break-word; word-break: normal; padding-left: 3px; }
+.col-titre { overflow-wrap: break-word; word-break: normal; padding-left: 3px; }
 /* Colonnes N° et Lien : largeur = contenu (1% + nowrap), tout le reste va à l'intitulé. */
 .col-link { width: 1%; white-space: nowrap; text-align: right; padding-left: 0; padding-right: 4px; }
 /* Écart Sujet ↔ Corrigé réduit : la 1re colonne lien n'a plus de marge droite, la 2e plus de marge gauche. */
@@ -244,4 +244,8 @@ footer { text-align: center; padding: 16px; color: var(--sub); font-size: 12.5px
   .col-link .pill + .pill { margin-left: 3px; }
   .col-link:has(+ .col-link) { padding-right: 0; }
   .col-link:has(+ .col-link) + .col-link { padding-left: 3px; }
+  /* Bandeau « Cours profs — Lycée … » sur une seule ligne */
+  .section-row td { white-space: nowrap; text-overflow: ellipsis; font-size: 12.5px; letter-spacing: 0; padding-left: 6px; padding-right: 4px; }
+  .source-chip-inline { font-size: 12px; padding: 2px 6px; gap: 3px; margin-left: 2px; }
+  .source-chip-inline .arrow { display: none; }
 }
