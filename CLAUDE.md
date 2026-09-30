@@ -28,6 +28,13 @@ Gabarits : `templates/` + chapitre Chimie du 29/09 pour le quiz (voir prompt ma�
 - Un commit + push par cours ajouté (le build Pages a une limite souple de 10 builds/heure).
 - Taille : dépôt recommandé < 1 Go (actuellement ~420 Mo) ; éviter d'ajouter des PDF lourds inutiles.
 
+## Surlignage « chapitre en cours » (Exercices/DS)
+Jaune = dernier chapitre de Clarisse ; orange pâle = dernier chapitre des profs de Louis Barthou s'il est
+supérieur (Physique : semaine du programme de khôlle). Règles complètes : section « SURLIGNAGE » du prompt maître.
+Données : `Prepa_barthou/surlignage.json` (rempli après LECTURE des documents), appliqué par
+`.claude/skills/transcription-pcsi/surlignage.py` (appelé par `regen_index.py`). `⚠️ SURLIGNAGE À REVOIR` → le refaire.
+Jamais de classes `hl-*` posées à la main. Sauvegarde d'avant mise en place : branche `backup/2026-09-30-avant-surlignage`.
+
 ## Fin de tâche
 Pas de copie locale ni de pièce jointe : donner uniquement le lien public final pour relecture
 (`https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee/<dossier>/<fichier>.html`),

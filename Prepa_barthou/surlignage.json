@@ -1,5 +1,5 @@
 {
- "_lisez_moi": "Surlignage « chapitre en cours » des sections Exercices/DS. Rempli par Claude APRÈS lecture du dernier cours et des documents ; appliqué par .claude/skills/transcription-pcsi/surlignage.py (appelé aussi par regen_index.py). 'cle' doit correspondre au chapitre attendu calculé par le script (ChNN, ou <Thème>-ChN pour la Physique). 'liens' : URL exacte d'un lien de la ligne (Sujet de préférence) ; toute la ligne est surlignée. 'non_lus' : documents qui n'ont pas pu être ouverts (jugés sur leur titre ou non retenus).",
+ "_lisez_moi": "Surlignage « chapitre en cours » des sections Exercices/DS. Rempli par Claude APRÈS lecture du dernier cours et des documents ; appliqué par .claude/skills/transcription-pcsi/surlignage.py (appelé aussi par regen_index.py). 'cle' doit correspondre au chapitre attendu calculé par le script (ChNN, ou <Thème>-ChN pour la Physique). 'liens' : URL exacte d'un lien de la ligne (Sujet de préférence) ; toute la ligne est surlignée. 'non_lus' : documents qui n'ont pas pu être ouverts (jugés sur leur titre ou non retenus). Ne surligner que des exercices, TD, DS et interros : jamais Bibmath/Exo7 ni les cahiers de calcul.",
  "maj": "2026-09-30",
  "Maths": {
   "jaune": {
@@ -32,11 +32,6 @@
     "note": "Ch03 §3.2 — partie « Deuxième ordre » (Autocorrection B, ex. 2 à 4) : ED linéaires d'ordre 2 à coefficients constants"
    },
    {
-    "url": "https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/equadiffs&type=fexo",
-    "couleur": "orange",
-    "note": "Ch03 §3.2 — équations différentielles"
-   },
-   {
     "url": "https://bourrigan.fr/docs/ds02-module-somme-complexes-sujet.pdf",
     "couleur": "jaune",
     "note": "Ch02 — module d'une somme de nombres complexes"
@@ -52,9 +47,7 @@
     "note": "Ch02 — problèmes 1 et 2 : racines de l'unité, module (le reste porte sur primitives et ED d'ordre 1)"
    }
   ],
-  "non_lus": [
-   "Sainte-Geneviève — Cahier de calcul (pcsi2.bginette.com bloqué par le réseau de l'environnement)"
-  ]
+  "non_lus": []
  },
  "Physique": {
   "jaune": null,

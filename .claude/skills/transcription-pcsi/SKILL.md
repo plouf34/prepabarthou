@@ -63,6 +63,11 @@ nommage des fichiers, et le workflow de publication.
    du même script — à réutiliser si le gabarit doit changer sur les 4 pages à
    la fois. Le CSS partagé est dans `assets/pcsi.css`, le script de
    surbrillance de l'onglet visible au défilement dans `assets/pcsi.js`.
+4 bis. Si le cours ajouté est un cours de Clarisse ou des profs de Louis
+   Barthou : refaire le **surlignage « chapitre en cours »** (jaune / orange
+   pâle) des sections Exercices et DS, en suivant la section « SURLIGNAGE » du
+   prompt maître (relire le cours, lire les documents, mettre à jour
+   `Prepa_barthou/surlignage.json`, relancer `regen_index.py` jusqu'au `✅`).
 5. Commit puis push sur la branche ci-dessus (avec un `git fetch`+`merge`
    juste avant le push, pour la même raison qu'à l'étape 3).
 6. Pas de copie locale : donner à l'utilisateur uniquement le lien public final

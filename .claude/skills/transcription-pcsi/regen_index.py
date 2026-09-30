@@ -382,7 +382,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 <title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/pcsi.css?v=17">
+<link rel="stylesheet" href="assets/pcsi.css?v=18">
 </head>
 <body>
 
@@ -462,7 +462,7 @@ def main():
     import datetime
     exp, issues = surlignage.check(repo_root, datetime.date.today().isoformat())
     surlignage.report(exp, issues)
-    surlignage.apply(repo_root)
+    surlignage.apply(repo_root, datetime.date.today().isoformat())
 
 
 if __name__ == "__main__":

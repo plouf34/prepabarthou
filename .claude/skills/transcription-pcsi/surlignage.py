@@ -32,8 +32,13 @@ chaque chapitre la "cle" attendue). Le script :
      puis mettre à jour surlignage.json ;
   2. applique surlignage.json aux pages (idempotent : retire d'abord tout
      surlignage précédent, puis pose les classes hl-jaune / hl-orange sur
-     les lignes <tr> et les puces .manual-chip dont un lien figure dans
-     "liens", et ajoute une légende en tête des sections concernées).
+     les lignes <tr> dont un lien figure dans "liens", et ajoute une légende
+     en tête des sections concernées). Dans la section Cours, il surligne
+     aussi la ligne du dernier cours de Clarisse (jaune) et celle du dernier
+     cours des profs de Louis Barthou (orange pâle ; jaune si même chapitre ;
+     en Physique, le PDF du chapitre de la semaine de khôlle).
+  Ne sont surlignés que des exercices, TD, DS et interros : jamais les puces
+  de sites (Bibmath, Exo7…) ni les cahiers de calcul.
 """
 import datetime
 import html
@@ -74,11 +79,11 @@ def latest_clarisse(dir_path):
         if m:
             key = (int(m.group(1)), m.group(3))
             if best is None or key > best[0]:
-                best = (key, m.group(2).replace("-", " "))
+                best = (key, m.group(2).replace("-", " "), f)
     if not best:
         return None
-    (ch, date), titre = best
-    return {"cle": f"Ch{ch:02d}", "num": ch, "date": date, "titre": titre}
+    (ch, date), titre, f = best
+    return {"cle": f"Ch{ch:02d}", "num": ch, "date": date, "titre": titre, "fichier": f}
 
 
 def latest_barthou_files(dir_path, folder):
@@ -91,11 +96,27 @@ def latest_barthou_files(dir_path, folder):
         if m and rng[0] <= int(m.group(1)) <= rng[1]:
             key = (int(m.group(2)), m.group(4))
             if best is None or key > best[0]:
-                best = (key, m.group(3).replace("-", " "))
+                best = (key, m.group(3).replace("-", " "), f)
     if not best:
         return None
-    (ch, date), titre = best
-    return {"cle": f"Ch{ch:02d}", "num": ch, "date": date, "titre": titre}
+    (ch, date), titre, f = best
+    return {"cle": f"Ch{ch:02d}", "num": ch, "date": date, "titre": titre, "fichier": f}
+
+
+def _sans_accents(s):
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn").lower()
+
+
+def physique_barthou_file(dir_path, theme, num):
+    """PDF du polycopié Barthou de Physique correspondant à un chapitre du
+    programme de khôlle (ex. « Électricité », 2 → 02-..._Cours_Electricite_-_2_-_...pdf)."""
+    t = _sans_accents(theme)
+    for f in sorted(os.listdir(dir_path)) if os.path.isdir(dir_path) else []:
+        m = re.search(r'_Cours_([A-Za-z]+)_-_(\d+)_-_', f)
+        if m and _sans_accents(m.group(1)) == t and int(m.group(2)) == num:
+            return f
+    return None
 
 
 def kholle_week(repo_root, today):
@@ -116,18 +137,26 @@ def expected(repo_root, today):
     for folder, label in SUBJECTS:
         dir_path = os.path.join(repo_root, "Prepa_barthou", "1ere_annee", folder)
         cla = latest_clarisse(dir_path)
-        exp = {"jaune": None, "orange": None}
+        exp = {"jaune": None, "orange": None, "cours": []}
         if cla:
+            exp["cours"].append((cla["fichier"], "jaune", "Dernier cours de Clarisse"))
             exp["jaune"] = {"cle": cla["cle"], "libelle": f'{cla["cle"]} — {cla["titre"]} (cours de Clarisse du {cla["date"]})'}
         if folder == "02_PHYSIQUE":
             w = kholle_week(repo_root, today)
             if w and w.get("chapitre"):
                 cle = f'{w["theme"]}-Ch{w["chapitre"]}'
                 clarisse_prime = cla is not None and cla["date"] >= w["debut"]
+                f = physique_barthou_file(dir_path, w["theme"], w["chapitre"])
+                if f:
+                    exp["cours"].append((f, "jaune" if clarisse_prime else "orange",
+                                         f'Chapitre de la khôlle {w["semaine"]} ({w["exercices"]})'))
                 if not clarisse_prime:
                     exp["orange"] = {"cle": cle, "libelle": f'{w["theme"]} Ch{w["chapitre"]} — {w["titre"]} (khôlle {w["semaine"]} du {w["debut"]} ; {w["exercices"]})'}
         else:
             bar = latest_barthou_files(dir_path, folder)
+            if bar and (cla is None or bar["num"] >= cla["num"]):
+                exp["cours"].append((bar["fichier"], "orange" if (cla is None or bar["num"] > cla["num"]) else "jaune",
+                                     "Dernier cours des profs de Louis Barthou"))
             if bar and (cla is None or bar["num"] > cla["num"]):
                 exp["orange"] = {"cle": bar["cle"], "libelle": f'{bar["cle"]} — {bar["titre"]} (cours des profs de Louis Barthou du {bar["date"]})'}
         out[label] = exp
@@ -202,7 +231,7 @@ def _apply_section(section, liens, cfg_subject):
         rest = m.group("rest")
         rest = re.sub(r'\s+data-hl="1"\s+title="[^"]*"', '', rest)
         href = re.search(r'href="([^"]+)"', rest)
-        hit = liens.get(html.unescape(href.group(1))) if href else None
+        hit = None  # puces (Bibmath, sites…) jamais surlignées : seulement les lignes exercices/TD/DS/interros
         if hit:
             cls.append(f'hl-{hit["couleur"]}')
             used.add(hit["couleur"])
@@ -224,7 +253,32 @@ def _apply_section(section, liens, cfg_subject):
     return section
 
 
-def apply(repo_root):
+def _apply_cours(section, cours):
+    """Surligne, dans la section Cours, la ligne du dernier cours de Clarisse
+    (jaune) et celle du dernier cours des profs de Louis Barthou (orange pâle,
+    ou jaune si même chapitre que Clarisse ; Physique : chapitre de khôlle)."""
+    targets = {os.path.splitext(f)[0]: (c, note) for f, c, note in cours}
+
+    def tr_sub(m):
+        attrs, body = m.group("attrs"), m.group("body")
+        hit = None
+        if 'section-row' not in attrs:
+            for h in re.findall(r'href="([^"]+)"', body):
+                base = os.path.splitext(html.unescape(h).rsplit("/", 1)[-1])[0]
+                if base in targets:
+                    hit = targets[base]
+                    break
+        attrs = _set_classes(attrs, f"hl-{hit[0]}" if hit else None)
+        if hit:
+            attrs += f' data-hl="1" title="{html.escape(hit[1], quote=True)}"'
+        return f'<tr{attrs}>{body}</tr>'
+
+    return TR_RE.sub(tr_sub, section)
+
+
+def apply(repo_root, today=None):
+    today = today or datetime.date.today().isoformat()
+    exp = expected(repo_root, today)
     cfg = load_config(repo_root)
     for _folder, label in SUBJECTS:
         path = os.path.join(repo_root, f"{label}.html")
@@ -233,6 +287,8 @@ def apply(repo_root):
         data = open(path, encoding="utf-8").read()
         c = cfg.get(label, {})
         liens = {l["url"]: l for l in c.get("liens", []) if (c.get(l["couleur"]) or {}).get("cle")}
+        data = re.sub(r'<section id="cours">.*?</section>',
+                      lambda m: _apply_cours(m.group(0), exp[label]["cours"]), data, count=1, flags=re.S)
         for sid in ("exercices", "ds"):
             data = re.sub(rf'<section id="{sid}">.*?</section>',
                           lambda m: _apply_section(m.group(0), liens, c), data, count=1, flags=re.S)
@@ -266,7 +322,7 @@ def main():
     print(f"Chapitres en cours au {today} :")
     report(exp, issues)
     if "--check" not in args:
-        apply(repo_root)
+        apply(repo_root, today)
     return 1 if issues else 0
 
 

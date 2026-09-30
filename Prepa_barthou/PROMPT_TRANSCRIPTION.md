@@ -104,7 +104,27 @@ par le script (il ne les régénère jamais).
     place là, et doit être ajouté à la main dans la section Exercices de la
     page matière correspondante plutôt que d'attendre qu'il apparaisse dans
     Cours.
+- **Surlignage « chapitre en cours »** (voir section dédiée ci-dessous) : à faire dès que le cours ajouté est un cours de Clarisse ou un cours des profs de Louis Barthou.
 - Pas de copie locale : donne uniquement le lien public final du fichier pour relecture (le site peut mettre quelques minutes à se mettre à jour).
+
+## SURLIGNAGE « CHAPITRE EN COURS » (pages matière)
+
+À appliquer à chaque ajout d'un cours de **Clarisse** ou d'un cours des **profs de Louis Barthou** (jamais pour un cours d'un autre lycée : Saint-Louis, Sainte-Geneviève, Janson, Jean Perrin, Eiffel…). Le script `regen_index.py` le vérifie à chaque régénération et affiche `⚠️ SURLIGNAGE À REVOIR` quand il faut le refaire ; `python3 .claude/skills/transcription-pcsi/surlignage.py . --check` fait la même vérification seul.
+
+**Couleurs** (50 % d'opacité, définies dans `assets/pcsi.css`) :
+- **Jaune** = documents liés au **dernier chapitre des cours de Clarisse** (plus grand numéro `ChNN` des fichiers `*_Cours_Clarisse_*`).
+- **Orange pâle** = documents liés au **dernier chapitre des profs de Louis Barthou**, seulement s'il est **supérieur** à celui de Clarisse, ou s'il n'y a aucun cours de Clarisse dans la matière. Même numéro de chapitre → jaune seul. Les numéros de chapitre de Clarisse et des profs Barthou se correspondent (même si les intitulés diffèrent).
+- Les deux couleurs coexistent sur une même page. Un document qui relève des deux chapitres reste en jaune (déjà traité par Clarisse).
+- Dans la section **Cours**, la ligne du dernier cours de Clarisse est surlignée en jaune et celle du dernier cours prof Barthou en orange pâle (jaune si même chapitre) — fait automatiquement par le script.
+
+**Physique** : les PDF Barthou (polycopié de l'année) n'ont pas de numéro `ChNN` ; le dernier chapitre Barthou est celui de la **semaine en cours du programme de khôlle** (`Prepa_barthou/programme_kholle_physique.json`, recopié du PDF « Programme de Khôlle – 802 »). Si le dernier cours de Physique de Clarisse date de cette semaine de khôlle ou après, **le cours de Clarisse prime** (jaune seul). Une tâche planifiée (Routine « Surlignage Physique – khôlle du lundi », chaque lundi 6h52 heure de Paris) refait ce contrôle.
+
+**Méthode** (le choix des documents demande de LIRE, le script ne le fait pas) :
+1. Relire le dernier cours concerné (Clarisse et/ou prof) pour en cerner le contenu exact.
+2. Télécharger et lire les PDF des sections **Exercices** et **DS** de la page matière. Ne retenir que des **exercices, TD, DS et interros** — jamais les puces de sites (Bibmath, Exo7…) ni les cahiers de calcul. Retenir un document s'il porte réellement sur ce chapitre (même en partie : le préciser dans la note, avec les numéros d'exercices utiles).
+3. Moodle `prepabarthou.fr` (connexion requise) : juger sur le titre affiché de la ligne, et le signaler. Tout document illisible (scan, site bloqué) : le dire à l'utilisateur et le noter dans `non_lus`.
+4. Mettre à jour `Prepa_barthou/surlignage.json` pour la matière : `jaune` / `orange` = `{cle, libelle}` (`cle` exactement comme attendu par le script : `Ch02`, ou `Électricité-Ch2` en Physique), `liens` = URL exacte du lien Sujet de chaque ligne retenue + `couleur` + `note` courte (affichée au survol), `non_lus`. Retirer les liens de l'ancien chapitre.
+5. Relancer `regen_index.py` (qui réapplique le surlignage) et vérifier le message `✅`.
 
 ## STYLE
 
