@@ -36,10 +36,10 @@
     --section-text: #f0f7ff;
     --thead-bg: #2c7bd0;
     --row-alt: #232325;
-    --hl-jaune-bg: linear-gradient(90deg, rgba(255, 204, 0, 0.17), rgba(255, 204, 0, 0.03) 75%);
+    --hl-jaune-bg: rgba(255, 204, 0, 0.09);
     --hl-jaune-border: #ffcc00;
     --hl-jaune-text: #ffe680;
-    --hl-orange-bg: linear-gradient(90deg, rgba(255, 106, 0, 0.20), rgba(255, 106, 0, 0.04) 75%);
+    --hl-orange-bg: rgba(255, 106, 0, 0.11);
     --hl-orange-border: #ff6a00;
     --hl-orange-text: #ffb27a;
   }
