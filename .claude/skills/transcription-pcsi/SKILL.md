@@ -13,21 +13,17 @@ Ce fichier définit : le rôle, les règles de fidélité aux notations du prof,
 la vérification scientifique des formules et des schémas (SVG, relecture en
 plusieurs passes), le rendu LaTeX/MathJax, la gestion des passages
 illisibles, le quiz obligatoire de 10 questions en fin de chapitre, le
-gabarit HTML (`ch01-bases-optique-geometrique.html`), la convention de
+gabarits HTML (`templates/gabarit-origine_ch01-bases-optique-geometrique.html`, `templates/gabarit-quiz.html`), la convention de
 nommage des fichiers, et le workflow de publication.
 
 ## Rappel du workflow de publication (à la fin de chaque transcription)
 
-1. Nommer le fichier `NN-Date_Matière_Type_NomDuLienSourceSansAccents.html`
-   (NN = prochain numéro disponible dans le sous-dossier concerné).
-   Si le cours transcrit est une prise de notes manuscrite de Clarisse
-   (pas un document du professeur), inclure le mot `Clarisse` dans le nom
-   de fichier (ex. `..._Cours_Clarisse_...`) — l'index le classe
-   automatiquement dans « 1. Cours Clarisse » ; tout fichier sans ce mot est
-   classé dans « 2. Cours Profs » (documents récupérés sur le site du prof
-   ou de Louis Barthou).
+1. Nommer le fichier selon la section « Nommage des fichiers » du prompt
+   maître (`NN_ChCC_Cours_<Clarisse|Profs>_<Titre>_<AAAA-MM-JJ>.html`) —
+   le `ChCC` est indispensable au surlignage.
 2. Le placer dans `Prepa_barthou/1ere_annee/<01_MATHS|02_PHYSIQUE|03_CHIMIE|04_SI>/`
-   du dépôt `plouf34/prepabarthou`, branche `claude/pcsi-henri-iv-math-exercises-pubkis`.
+   du dépôt `plouf34/prepabarthou`, sur la branche par défaut du dépôt (voir
+   `CLAUDE.md`), jamais sur la branche `claude/xxx` créée par la session.
 3. **Avant toute chose** : `git fetch` + `git merge origin/<branche>` (ou
    `pull`) pour être certain de partir d'un checkout à jour — une autre
    session travaille en parallèle sur ce dépôt et pousse régulièrement sur
@@ -68,8 +64,11 @@ nommage des fichiers, et le workflow de publication.
    pâle) des sections Exercices et DS, en suivant la section « SURLIGNAGE » du
    prompt maître (relire le cours, lire les documents, mettre à jour
    `Prepa_barthou/surlignage.json`, relancer `regen_index.py` jusqu'au `✅`).
+4 ter. Nouveau cours de Clarisse en Maths : mettre à jour les puces Bibmath
+   (section « PUCES BIBMATH » du prompt maître).
 5. Commit puis push sur la branche ci-dessus (avec un `git fetch`+`merge`
-   juste avant le push, pour la même raison qu'à l'étape 3).
+   juste avant le push, pour la même raison qu'à l'étape 3), puis vérifier
+   le run « pages build and deployment » (liste de contrôle du prompt maître).
 6. Pas de copie locale : donner à l'utilisateur uniquement le lien public final
    (`https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee/<dossier>/<fichier>.html`)
    pour relecture, en précisant que la mise en ligne peut prendre quelques minutes.

@@ -12,7 +12,7 @@ transcription, ne pas les dupliquer ici.
 Fidélité maximale au manuscrit ou au PDF du prof : rien d'inventé, rien d'omis.
 Les erreurs manifestes sont corrigées ET signalées (encart ⚠️ Correction, source réelle citée).
 En cas de doute sur un mot : `[?]` en rouge ; sur une variable clé : demander. Jamais de formule devinée.
-Gabarits : `templates/` + chapitre Chimie du 29/09 pour le quiz (voir prompt maître).
+Gabarits : `templates/` (`gabarit-origine_…` + `gabarit-quiz.html`, voir prompt maître).
 
 ## Règles de dépôt (à respecter à chaque session)
 - Branche de travail : la branche par défaut du dépôt, actuellement `claude/pcsi-henri-iv-math-exercises-pubkis`
@@ -36,7 +36,7 @@ Jaune = dernier chapitre de Clarisse ; orange pâle = dernier chapitre des profs
 supérieur (Physique : semaine du programme de khôlle). Règles complètes : section « SURLIGNAGE » du prompt maître.
 Données : `Prepa_barthou/surlignage.json` (rempli après LECTURE des documents), appliqué par
 `.claude/skills/transcription-pcsi/surlignage.py` (appelé par `regen_index.py`). `⚠️ SURLIGNAGE À REVOIR` → le refaire.
-À chaque nouveau cours de Clarisse en Maths : mettre aussi à jour les puces Bibmath de `Maths.html` (dernier chapitre de Clarisse seulement, voir étape 6 du prompt maître).
+À chaque nouveau cours de Clarisse en Maths : mettre aussi à jour les puces Bibmath de `Maths.html` (dernier chapitre de Clarisse seulement, section « PUCES BIBMATH » du prompt maître).
 Jamais de classes `hl-*` posées à la main. Sauvegarde d'avant mise en place : branche `backup/2026-09-30-avant-surlignage`.
 
 ## Fin de tâche

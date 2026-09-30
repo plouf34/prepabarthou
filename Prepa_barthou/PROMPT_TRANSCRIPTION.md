@@ -26,7 +26,7 @@ Titre du chapitre, plan avec sections/sous-sections numérotées, numérotation 
 ### 3. Priorité de transcription — règle explicite
 - Conserver impérativement la méthode et les notations du professeur, même si elles diffèrent des conventions standard.
 - En cas de notation non-standard ou inhabituelle : conserver la notation du prof et signaler l'alternative usuelle en note de bas de section, sans remplacer.
-- Ne corriger que les erreurs manifestes de retranscription (lettre manquante, signe oublié).
+- Ne corriger que les erreurs manifestes (lettre manquante, signe oublié, indice inversé). **Toute correction qui touche au sens (formule, signe, valeur, énoncé) est signalée** par un encart ⚠️ Correction (voir point 4), même si elle paraît évidente. Seules les fautes de frappe ou d'orthographe sans effet sur le sens sont corrigées sans encart.
 - Pour toute vraie erreur scientifique, voir point 4.
 
 ### 4. Vérification des formules et énoncés
@@ -65,7 +65,7 @@ Format : QCM ou questions ouvertes courtes selon ce qui teste le mieux la notion
 
 Génère un fichier HTML autonome complet (une seule page, sans dépendances externes sauf MathJax via CDN et Google Fonts).
 Structure : sommaire, corps du cours, section Sources, quiz final.
-Gabarits de référence (dans le dépôt) : le gabarit d'origine `templates/gabarit-origine_ch01-bases-optique-geometrique.html` (structure, styles, encarts) ET, pour le quiz avec réponses masquées derrière un bouton (`<details class="quiz-details">` + bouton « Afficher toutes les réponses »), le chapitre le plus récent `Prepa_barthou/1ere_annee/03_CHIMIE/01_Ch02_Cours_Clarisse_Transformations-chimiques_2026-09-29.html`. En cas de différence entre les deux, le chapitre Chimie du 29/09 fait foi pour le quiz, le gabarit d'origine pour le reste. Respecte ce gabarit : typographies Spectral et IBM Plex Sans, sommaire sticky à gauche, encarts avec bordure gauche colorée (def/theorem/demo/remark/correction/retenir), schémas SVG intégrés.
+Gabarits de référence (dans `templates/`, permanents) : `gabarit-origine_ch01-bases-optique-geometrique.html` pour la structure, les styles et les encarts ; `gabarit-quiz.html` pour le quiz (réponses masquées derrière `<details class="quiz-details">` + bouton « Afficher toutes les réponses », CSS et script à recopier). Le gabarit quiz fait foi pour le quiz, le gabarit d'origine pour le reste. Respecte ce gabarit : typographies Spectral et IBM Plex Sans, sommaire sticky à gauche, encarts avec bordure gauche colorée (def/theorem/demo/remark/correction/retenir), schémas SVG intégrés.
 - Pour les formules très larges (systèmes d'équations, matrices) qu'une réduction rendrait illisibles : en premier, réduire la taille des caractères ; en seconde option si la formule était vraiment trop large et illisible, zone de défilement horizontal activée, sans troncature.
 - Marges intérieures réduites sur mobile (padding adaptatif via media query max-width: 480px).
 
@@ -90,22 +90,30 @@ jamais à la main. Les sections Exercices et DS, elles, sont maintenues à la
 main directement dans le HTML et systématiquement recopiées telles quelles
 par le script (il ne les régénère jamais).
 
-### À la fin :
-- Copie ce code / ou fichier dans un fichier « [chiffre type « 01 » par ordre de fichier créé dans le répertoire associé]-[Date]_[Matière]_[Cours, ou TD, Exercice]_[nom du lien strict récupéré sous prepabarthou.fr sans les accents, espaces remplacés par _].html »
-  Si c'est une prise de notes manuscrite de Clarisse (pas un document du
-  professeur), inclure en plus le mot `Clarisse` dans le nom de fichier
-  (ex. `..._Cours_Clarisse_...`) — l'index le classe alors dans « 1. Cours
-  de Clarisse » plutôt que « 2. Cours Profs ».
-- Mets ce fichier directement dans l'arborescence GitHub : `https://github.com/plouf34/prepabarthou` (branche `claude/pcsi-henri-iv-math-exercises-pubkis`), dans le sous-répertoire `Prepa_barthou/1ere_annee/` correspondant à la matière (01_MATHS, 02_PHYSIQUE, 03_CHIMIE, 04_SI), commit puis push.
-- Régénère ensuite automatiquement les 4 pages Cours à la racine du dépôt (`Maths.html` / `Physique.html` / `Chimie.html` / `SI.html`, via `.claude/skills/transcription-pcsi/regen_index.py`) en te basant sur le contenu réel des 4 dossiers, pas sur une liste mémorisée.
-  - Important : un fichier dont le type est `TD` ou `Exercice` (repéré dans
-    le titre, que ce soit un document prof ou un fichier `Clarisse`) est
-    automatiquement exclu du tableau Cours généré — il n'a alors pas sa
-    place là, et doit être ajouté à la main dans la section Exercices de la
-    page matière correspondante plutôt que d'attendre qu'il apparaisse dans
-    Cours.
-- **Surlignage « chapitre en cours »** (voir section dédiée ci-dessous) : à faire dès que le cours ajouté est un cours de Clarisse ou un cours des profs de Louis Barthou.
-- Pas de copie locale : donne uniquement le lien public final du fichier pour relecture (le site peut mettre quelques minutes à se mettre à jour).
+### Nommage des fichiers
+
+Format (celui que lisent `regen_index.py` et `surlignage.py`) :
+`NN_ChCC_Cours_<Clarisse|Profs>_<Titre-sans-accents-mots-separes-par-tirets>_<AAAA-MM-JJ>.html`
+- `NN` : numéro à 2 chiffres. Reprendre la convention du dossier : en Maths `NN` = numéro de chapitre (le cours de Clarisse et celui des profs d'un même chapitre partagent le même `NN`) ; sinon, prochain numéro libre du dossier.
+- `ChCC` : numéro de chapitre à 2 chiffres (ex. `Ch02`). **Obligatoire** : le surlignage « chapitre en cours » s'appuie dessus. Le cours de Clarisse et celui des profs d'un même chapitre ont le même `ChCC`.
+- `Clarisse` = prise de notes manuscrite de Clarisse (classé dans « 1. Cours de Clarisse ») ; `Profs` = document d'un professeur (« 2. Cours Profs »).
+- Titre : intitulé du cours (celui du lien prepabarthou.fr s'il existe), sans accents, mots séparés par des tirets.
+- Date : date du cours (ou de mise en ligne du document), à la fin.
+- Un PDF original du prof garde le même nom, extension `.pdf`, à côté du `.html`.
+- Exemple : `02_Ch02_Cours_Clarisse_Nombres-complexes_2026-09-27.html`.
+- Les anciens fichiers au format `NN-Date_Matière_Cours_...` (polycopiés de Physique, SI) restent tels quels : ne pas les renommer (liens publics déjà partagés).
+- Un fichier de type `TD` ou `Exercice` (repéré dans le titre) est exclu du tableau Cours généré : l'ajouter à la main dans la section Exercices de la page matière.
+
+### Fin de tâche — liste de contrôle, dans cet ordre
+1. **Branche** : la branche par défaut du dépôt (voir `CLAUDE.md`, qui fait foi), jamais la branche `claude/xxx` de la session. `git fetch` + `git merge origin/<branche>` avant de toucher à quoi que ce soit.
+2. **Fichier** : l'enregistrer dans `Prepa_barthou/1ere_annee/<01_MATHS|02_PHYSIQUE|03_CHIMIE|04_SI>/` selon le nommage ci-dessus.
+3. **Contrôles** : balises HTML/SVG équilibrées, nombre de `$$` pair, quiz de 10 questions.
+4. **Pages matière** : `python3 .claude/skills/transcription-pcsi/regen_index.py .` (section Cours régénérée depuis le contenu réel des 4 dossiers, pas d'une liste mémorisée).
+5. **Surlignage** (cours de Clarisse ou des profs de Louis Barthou) : section « SURLIGNAGE » ci-dessous, jusqu'au message `✅`.
+6. **Puces Bibmath** (nouveau cours de Clarisse en Maths) : section « PUCES BIBMATH » ci-dessous.
+7. **Commit + push** : un commit par cours ajouté, `git fetch` + `merge` juste avant le push, push sur la branche par défaut.
+8. **Déploiement** : 2 à 3 minutes après le push, vérifier le dernier run « pages build and deployment » (API GitHub Actions, `list_workflow_runs`) sur le commit poussé. S'il est en échec, le dire à l'utilisateur (et relancer le build par un nouveau push utile si l'erreur est de notre fait).
+9. **Réponse** : pas de copie locale ni de pièce jointe ; donner uniquement le lien public final (`https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee/<dossier>/<fichier>.html`) en précisant que la mise en ligne peut prendre quelques minutes.
 
 ## SURLIGNAGE « CHAPITRE EN COURS » (pages matière)
 
@@ -126,7 +134,15 @@ par le script (il ne les régénère jamais).
 3. Moodle `prepabarthou.fr` (connexion requise) : juger sur le titre affiché de la ligne, et le signaler. Tout document illisible (scan, site bloqué) : le dire à l'utilisateur et le noter dans `non_lus`.
 4. Mettre à jour `Prepa_barthou/surlignage.json` pour la matière : `jaune` / `orange` = `{cle, libelle}` (`cle` exactement comme attendu par le script : `Ch02`, ou `Électricité-Ch2` en Physique), `liens` = URL exacte du lien Sujet de chaque ligne retenue + `couleur` + `note` courte (affichée au survol), `cours` (cours d'autres lycées en rapport, voir 2 bis), `non_lus`. Retirer les liens de l'ancien chapitre.
 5. Relancer `regen_index.py` (qui réapplique le surlignage) et vérifier le message `✅`.
-6. **Maths uniquement — puces Bibmath** (section Exercices de `Maths.html`, ligne « Exercices en lien avec le chapitre en cours ») : à chaque nouveau cours de **Clarisse**, remplacer les puces par celles de la feuille Bibmath qui correspond **uniquement au dernier chapitre de Clarisse** (pas aux profs Barthou ni aux autres lycées). URL type : `https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/<slug>&type=fexo`. Vérifier que la page du slug contient bien des exercices du bon thème (un slug inexistant répond quand même 200 avec une page vide) et le programme PCSI. Le chapitre actuel (Ch02) : `nombrescomplexes`. Éditer la page à la main, puis relancer `regen_index.py` (il recopie cette section telle quelle).
+
+## PUCES BIBMATH (Maths uniquement)
+
+Indépendant du surlignage. Section Exercices de `Maths.html`, ligne « Exercices en lien avec le chapitre en cours » :
+- À chaque nouveau cours de **Clarisse** en Maths, remplacer les puces par la (ou les) feuille(s) Bibmath correspondant **uniquement au dernier chapitre de Clarisse** (pas aux profs de Louis Barthou ni aux autres lycées).
+- URL type : `https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/<slug>&type=fexo`. Trouver le slug depuis la page « Math Sup » de la bibliothèque d'exercices Bibmath.
+- Vérifier en lisant la page que le slug contient bien des exercices du bon thème : un slug inexistant répond quand même HTTP 200 avec une page vide.
+- Éditer la ligne à la main dans `Maths.html` (après `git fetch` + `merge`), puis relancer `regen_index.py` (il recopie cette section telle quelle) et vérifier que la puce est toujours là.
+- Le script ne contrôle pas ces puces : aucun avertissement en cas d'oubli.
 
 ## STYLE
 

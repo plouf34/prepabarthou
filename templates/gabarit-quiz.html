@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gabarit — Quiz de fin de chapitre</title>
+<!--
+  GABARIT PERMANENT DU QUIZ (référence du prompt maître, section 8).
+  Extrait à l'identique du chapitre Chimie Ch02 du 29/09/2026.
+  Dans un cours : copier le CSS dans le <style> existant (les variables
+  --line, --ink, --blue-bd, --blue-bg, --green-bd, --gray-bg existent déjà
+  dans le gabarit d'origine), la <section id="quiz"> avant </main>, le
+  <script> avant </body>, et l'entrée « Quiz de fin de chapitre » dans le sommaire.
+  Répartition obligatoire : 2 × chaque catégorie, 10 questions.
+-->
+<style>
+:root{--ink:#1c2430; --line:#e2e0da; --blue-bg:#e9f1fd; --blue-bd:#3b6fd8; --green-bd:#2fa365; --gray-bg:#f1f1ef;}
+body{font-family:'IBM Plex Sans','Segoe UI',Arial,sans-serif; color:var(--ink); max-width:820px; margin:2rem auto; padding:0 1rem; line-height:1.55;}
+.quiz-item{border:1px solid var(--line); border-radius:8px; padding:1rem 1.2rem; margin:1rem 0; background:#fff;}
+.quiz-q{font-weight:700;}
+.quiz-a{margin-top:.6rem; padding-top:.6rem; border-top:1px dashed var(--line); color:#333;}
+.quiz-a .tag{font-weight:700; color:var(--green-bd); font-size:.82rem; text-transform:uppercase;}
+.quiz-details{margin-top:.6rem;}
+.quiz-details summary{cursor:pointer; display:inline-block; padding:.35rem .9rem; border:1px solid var(--blue-bd); color:var(--blue-bd); border-radius:999px; font-size:.86rem; font-weight:600; list-style:none; user-select:none;}
+.quiz-details summary::-webkit-details-marker{display:none;}
+.quiz-details summary:hover{background:var(--blue-bg);}
+.quiz-details[open] summary{background:var(--blue-bd); color:#fff;}
+.quiz-details[open] summary::after{content:" — masquer";}
+.quiz-details .quiz-a{margin-top:.6rem;}
+.quiz-toolbar{margin:.6rem 0 1rem;}
+.quiz-toolbar button{font:inherit; font-size:.86rem; padding:.35rem .9rem; border:1px solid var(--line); background:#fff; border-radius:999px; cursor:pointer; color:var(--ink);}
+.quiz-toolbar button:hover{background:var(--gray-bg);}
+@media print{.quiz-details{display:block;} .quiz-details:not([open]) > *:not(summary){display:block;}}
+</style>
+</head>
+<body>
+<section id="quiz">
+<h2>Quiz de fin de chapitre</h2>
+<div class="quiz-toolbar"><button type="button" id="quizToggle">Afficher toutes les réponses</button></div>
+
+<div class="quiz-item">
+<div class="quiz-q">1. [Définition / Hypothèse clé] QUESTION</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+RÉPONSE + explication brève (pas seulement « vrai/faux »).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">2. [Définition / Hypothèse clé] QUESTION</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+RÉPONSE + explication brève (pas seulement « vrai/faux »).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">3. [Application directe] QUESTION</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+RÉPONSE + explication brève (pas seulement « vrai/faux »).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">4. [Application directe] QUESTION</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+RÉPONSE + explication brève (pas seulement « vrai/faux »).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">5. [Conceptuelle] QUESTION</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+RÉPONSE + explication brève (pas seulement « vrai/faux »).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">6. [Conceptuelle] QUESTION</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+RÉPONSE + explication brève (pas seulement « vrai/faux »).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">7. [Piège classique] QUESTION</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+RÉPONSE + explication brève (pas seulement « vrai/faux »).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">8. [Piège classique] QUESTION</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+RÉPONSE + explication brève (pas seulement « vrai/faux »).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">9. [Synthèse] QUESTION</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+RÉPONSE + explication brève (pas seulement « vrai/faux »).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">10. [Synthèse] QUESTION</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+RÉPONSE + explication brève (pas seulement « vrai/faux »).</div></details>
+</div>
+</section>
+<script>
+(function(){
+  var b=document.getElementById('quizToggle'); if(!b) return;
+  var all=function(){return document.querySelectorAll('.quiz-details');};
+  b.addEventListener('click',function(){
+    var open=b.getAttribute('data-open')==='1';
+    all().forEach(function(d){ if(open) d.removeAttribute('open'); else d.setAttribute('open',''); });
+    b.setAttribute('data-open',open?'0':'1');
+    b.textContent=open?'Afficher toutes les réponses':'Masquer toutes les réponses';
+  });
+})();
+</script>
+</body>
+</html>
