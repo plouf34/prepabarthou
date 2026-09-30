@@ -86,7 +86,12 @@ n'est pas l'une des 4 valeurs ou si `chapitre` n'est pas un nombre, arrête-toi 
      retoucher ce qui existe (corrections, encarts ⚠️, `[?]` déjà traités sont conservés tels quels) ;
      si une photo nouvelle s'intercale au milieu (ordre des noms), arrête-toi et demande ;
    - complète le quiz pour qu'il couvre aussi la suite (toujours 10 questions au total), et dis
-     dans le message final quelles photos ont été ajoutées.
+     dans le message final quelles photos ont été ajoutées ;
+   - refais OBLIGATOIREMENT le surlignage (section « SURLIGNAGE » du prompt maître) même si le
+     script n'affiche pas `⚠️ SURLIGNAGE À REVOIR` : la suite couvre de nouvelles notions, donc
+     relis les documents Exercices/DS (et cours des autres lycées) à la lumière du cours COMPLET et
+     mets à jour `surlignage.json` (documents ajoutés, notes et numéros d'exercices utiles) ; en
+     Maths, revois aussi la clé `bibmath`. Dis dans le message final ce qui a changé.
    Push refusé sur la branche par défaut : pousse sur `claude/drive-<matiere>-ch<NN>`, ouvre une PR
    vers la branche par défaut (outils GitHub MCP), ne la fusionne PAS, et donne son lien : le père
    de Clarisse la relira et la fusionnera.
