@@ -59,7 +59,7 @@ Toutes les formules et notations mathématiques sont rendues en LaTeX via MathJa
 - 2 questions portant sur un piège ou une erreur classique du chapitre
 - 2 questions de synthèse reliant plusieurs notions
 
-Format : QCM ou questions ouvertes courtes selon ce qui teste le mieux la notion. Les réponses suivent immédiatement chaque question (pas de bouton à cliquer), avec une explication brève — pas seulement « vrai/faux ».
+Format : QCM ou questions ouvertes courtes selon ce qui teste le mieux la notion. Les réponses suivent immédiatement chaque question, mais masquées par défaut derrière un bouton à cliquer (« Voir la réponse »), avec une explication brève — pas seulement « vrai/faux ».
 
 ## FORMAT DE SORTIE
 
