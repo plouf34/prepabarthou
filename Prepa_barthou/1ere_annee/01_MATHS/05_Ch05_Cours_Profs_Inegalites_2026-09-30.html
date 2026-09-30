@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathématiques — Ch.5 : Inégalités (Saint-Louis)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=Spectral:wght@400;600;700&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: { 
+    inlineMath: [['$','$'],['\\(','\\)']], 
+    displayMath: [['$$','$$'],['\\[','\\]']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js"></script>
+<style>
+:root{
+  --font-title:'Spectral',Georgia,'Times New Roman',serif;
+  --font-body:'IBM Plex Sans','Segoe UI',Arial,sans-serif;
+  --font-mono:'IBM Plex Mono','Consolas',monospace;
+  --ink:#1c2430;
+  --paper:#fbfaf7;
+  --panel:#ffffff;
+  --line:#e2e0da;
+  --accent:#0f2b4c;
+  --blue-bg:#e9f1fd; --blue-bd:#3b6fd8;
+  --violet-bg:#f2ecfd; --violet-bd:#7c4fd6;
+  --green-bg:#e9f8ee; --green-bd:#2fa365;
+  --gray-bg:#f1f1ef; --gray-bd:#8b8b85;
+  --amber-bg:#fdf3dd; --amber-bd:#c98a12;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--font-body); line-height:1.55; font-size:16px;
+  text-align:left; word-wrap:break-word;
+}
+h1,h2,h3,h4,h5{font-family:var(--font-title); color:var(--accent); font-weight:600;}
+h1{font-size:1.95rem; margin:0 0 .25rem 0;}
+h2{font-size:1.38rem; border-bottom:2px solid var(--line); padding-bottom:.35rem; margin-top:2.3rem;}
+h3{font-size:1.15rem; margin-top:1.7rem;}
+h4{font-size:1.02rem; margin-top:1.25rem;}
+h5{font-size:.95rem; margin-top:1rem; font-style:italic;}
+code, .mono{font-family:var(--font-mono);}
+.layout{display:flex; max-width:1260px; margin:0 auto;}
+nav.toc{
+  width:265px; flex-shrink:0; position:sticky; top:0; align-self:flex-start;
+  height:100vh; overflow-y:auto; padding:1.6rem 1rem 2rem 1.4rem;
+  border-right:1px solid var(--line); font-size:.86rem;
+}
+nav.toc h4{margin-top:0; color:#7a7a72; font-family:var(--font-body); font-weight:700; letter-spacing:.03em; text-transform:uppercase; font-size:.75rem;}
+nav.toc ol{list-style:none; padding-left:0; margin:.3rem 0 1.1rem 0; counter-reset:sec;}
+nav.toc ol.roman{counter-reset:roman;}
+nav.toc ol.roman > li{counter-increment:roman;}
+nav.toc ol.roman > li > a::before{content: counter(roman, upper-roman) " — "; color:var(--blue-bd); font-weight:600;}
+nav.toc ol ol{margin:.15rem 0 .4rem 1rem;}
+nav.toc a{color:var(--ink); text-decoration:none; display:block; padding:.18rem 0;}
+nav.toc a:hover{color:var(--blue-bd);}
+main{flex:1; min-width:0; padding:2.2rem 3rem 4rem 3rem;}
+header.title{margin-bottom:1.8rem;}
+.meta{color:#7a7a72; font-size:.85rem; font-family:var(--font-mono);}
+section{margin-bottom:1.5rem;}
+p{margin:.65rem 0;}
+.block{border-left:4px solid; border-radius:6px; padding:.85rem 1.15rem; margin:1.1rem 0; background:#fff;}
+.block > .label{font-weight:700; font-family:var(--font-body); font-size:.82rem; letter-spacing:.03em; text-transform:uppercase; margin-bottom:.4rem; display:block;}
+.def{background:var(--blue-bg); border-color:var(--blue-bd);} .def>.label{color:var(--blue-bd);}
+.theorem{background:var(--violet-bg); border-color:var(--violet-bd);} .theorem>.label{color:var(--violet-bd);}
+.demo{background:var(--green-bg); border-color:var(--green-bd);} .demo>.label{color:var(--green-bd);}
+.remark{background:var(--gray-bg); border-color:var(--gray-bd);} .remark>.label{color:#5c5c56;}
+.correction{background:var(--amber-bg); border-color:var(--amber-bd);} .correction>.label{color:var(--amber-bd);}
+.retenir{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:1.1rem 1.3rem; margin:1.3rem 0;}
+.retenir>.label{color:#cfe0f5;}
+.chain{margin:.75rem 0; padding-left:.3rem;}
+.chain .step{display:flex; align-items:baseline; gap:.6rem; margin:.3rem 0; flex-wrap:wrap;}
+.chain .step .why{color:#7a7a72; font-size:.84rem; font-style:italic;}
+figure{margin:1.3rem 0; text-align:center;}
+figure svg{max-width:100%; height:auto; background:#fff; border:1px solid var(--line); border-radius:8px;}
+figcaption{font-size:.82rem; color:#7a7a72; margin-top:.45rem;}
+.quiz-item{border:1px solid var(--line); border-radius:8px; padding:1rem 1.2rem; margin:1rem 0; background:#fff;}
+.quiz-q{font-weight:700;}
+.quiz-a{margin-top:.6rem; padding-top:.6rem; border-top:1px dashed var(--line); color:#333;}
+.quiz-a .tag{font-weight:700; color:var(--green-bd); font-size:.82rem; text-transform:uppercase;}
+.sources li{margin:.35rem 0; font-size:.92rem;}
+.sources a{color:var(--blue-bd); text-decoration:none;}
+.sources a:hover{text-decoration:underline;}
+
+mjx-container[jax="SVG"]{max-width:100%;}
+mjx-container[jax="SVG"] > svg{max-width:100%; height:auto;}
+mjx-container[jax="SVG"][display="true"]{
+  overflow-x:auto; 
+  overflow-y:hidden; 
+  max-width:100%;
+  padding:0.2em 0;
+  -webkit-overflow-scrolling:touch;
+}
+
+@media (max-width:900px){
+  nav.toc{display:none;}
+  main{padding:1.5rem 1.2rem;}
+}
+@media (max-width:480px){
+  main{padding:1.2rem .8rem;}
+  .chain .step{gap:.35rem;}
+  .block{padding:.75rem .9rem;}
+}
+.crosslinks-course{text-align:center; padding:0 0 .6rem 0; font-size:.82rem;}.crosslinks-course a{color:var(--blue-bd); text-decoration:none; font-weight:600; margin:0 .6rem;}
+
+table.av{border-collapse:collapse;margin:.8rem auto;font-size:.92rem;background:#fff;}
+table.av th,table.av td{border:1px solid var(--line);padding:.35rem .7rem;text-align:center;}
+table.av thead th{background:#f6f5f1;}
+.tablewrap{overflow-x:auto;max-width:100%;}
+
+.quiz-details{margin-top:.6rem;}
+.quiz-details summary{cursor:pointer; display:inline-block; padding:.35rem .9rem; border:1px solid var(--blue-bd); color:var(--blue-bd); border-radius:999px; font-size:.86rem; font-weight:600; list-style:none; user-select:none;}
+.quiz-details summary::-webkit-details-marker{display:none;}
+.quiz-details summary:hover{background:var(--blue-bg);}
+.quiz-details[open] summary{background:var(--blue-bd); color:#fff;}
+.quiz-details[open] summary::after{content:" — masquer";}
+.quiz-details .quiz-a{margin-top:.6rem;}
+.quiz-toolbar{margin:.6rem 0 1rem;}
+.quiz-toolbar button{font:inherit; font-size:.86rem; padding:.35rem .9rem; border:1px solid var(--line); background:#fff; border-radius:999px; cursor:pointer; color:var(--ink);}
+.quiz-toolbar button:hover{background:var(--gray-bg);}
+@media print{.quiz-details{display:block;} .quiz-details:not([open]) > *:not(summary){display:block;}}
+
+/* --- Chapitre 5 : ajouts --- */
+body{overflow-x:hidden;}
+mjx-container{position:relative;}
+mjx-container mjx-assistive-mml{max-width:100%;}
+.method{background:#eef7e6; border-color:#5b9a2a;} .method>.label{color:#4a8021;}
+.example{background:#fff; border-color:#c98a12;} .example>.label{color:#a06f0c;}
+.ineq-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:.2rem 1.4rem; margin-top:.4rem;}
+.ineq-grid ul{margin:.2rem 0; padding-left:1.1rem;} .ineq-grid li{margin:.55rem 0;}
+.ineq-grid > div{min-width:0; overflow-x:auto;}
+.note{font-size:.85rem; color:#5c5c56; font-style:italic;}
+.sol-details{margin-top:.6rem;}
+.sol-details summary{cursor:pointer; display:inline-block; padding:.3rem .85rem; border:1px solid var(--green-bd); color:var(--green-bd); border-radius:999px; font-size:.84rem; font-weight:600; list-style:none; user-select:none;}
+.sol-details summary::-webkit-details-marker{display:none;}
+.sol-details summary:hover{background:var(--green-bg);}
+.sol-details[open] summary{background:var(--green-bd); color:#fff;}
+.sol-details[open] summary::after{content:" — masquer";}
+.sol-body{margin-top:.6rem; padding:.6rem .9rem; background:var(--green-bg); border-radius:6px;}
+@media print{.sol-details > *:not(summary){display:block;}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc">
+<h4>Sommaire</h4>
+<ol class="roman">
+  <li><a href="#s1">Inégalités dans ℝ</a></li>
+  <li><a href="#s2">Valeur absolue</a></li>
+  <li><a href="#s3">Majorations, minorations</a>
+    <ol>
+      <li><a href="#s3-1">Parties majorées, minorées, bornées</a></li>
+      <li><a href="#s3-2">Fonctions majorées, minorées, bornées</a></li>
+      <li><a href="#s3-3">Suites majorées, minorées, bornées</a></li>
+    </ol>
+  </li>
+  <li><a href="#s4">Partie entière</a></li>
+  <li><a href="#quiz">Quiz de fin de chapitre</a></li>
+  <li><a href="#sources">Sources &amp; Références</a></li>
+</ol>
+</nav>
+
+<main>
+<div class="crosslinks-course"><a href="../../../index.html">🏠 Accueil</a><a href="../../../Maths.html">🔢 Maths</a></div>
+
+<header class="title">
+<h1>Chapitre 5 : Inégalités</h1>
+<div class="meta">Mathématiques · CPGE PCSI 1<sup>re</sup> année · Cours du Lycée Saint-Louis (Paris) — polycopié du professeur · Transcription HTML générée le 30 septembre 2026</div>
+</header>
+
+<div class="block remark">
+<span class="label">À propos de cette transcription</span>
+Le contenu suit fidèlement le polycopié (<a href="05_Ch05_Cours_Profs_Inegalites_2026-09-30.pdf" target="_blank" rel="noopener">PDF original</a>). La numérotation est celle du polycopié, préfixée du numéro de chapitre (Définition 5.1 = « Définition 1 » du PDF ; Proposition 5.2 = « Proposition 2 »). Les blocs <em>« Résolution rédigée »</em> (repliés) sont des <strong>ajouts pour la révision</strong> : le polycopié ne donne que les énoncés des exemples, traités en classe.
+</div>
+
+<section id="s1">
+<h2>I. Inégalités dans ℝ</h2>
+
+<p>Les résultats qui suivent découlent de la construction de l'ensemble des nombres réels. Cette construction n'étant pas au programme, on admettra les résultats suivants. Il s'agit des propriétés basiques et bien connues des inégalités, mais elles sont écrites dans un langage formel.</p>
+
+<div class="block def">
+<span class="label">Proposition 5.1 — Ordre total sur ℝ</span>
+$\mathbb{R}$ est muni d'une relation de comparaison $\leq$ qui est dite <strong>relation d'ordre total</strong>, c'est-à-dire qu'elle possède les propriétés suivantes :
+<ul>
+<li><strong>réflexivité</strong> : $\forall x\in\mathbb{R},\ x\leq x$ ;</li>
+<li><strong>antisymétrie</strong> : $\forall x,y\in\mathbb{R},\ \big(x\leq y \text{ et } y\leq x\big)\Longrightarrow x=y$ ;</li>
+<li><strong>transitivité</strong> : $\forall x,y,z\in\mathbb{R},\ \big(x\leq y \text{ et } y\leq z\big)\Longrightarrow x\leq z$ ;</li>
+<li>l'ordre est <strong>total</strong> : pour tous $x,y\in\mathbb{R}$, $x\leq y$ ou $y\leq x$.</li>
+</ul>
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.2 — Opérations sur les inégalités</span>
+Soient $x,y,z,t\in\mathbb{R}$.
+<div class="ineq-grid">
+<div><ul>
+<li>$x\leq y \iff x+z\leq y+z$,</li>
+<li>$\begin{cases}x\leq y\\ z\leq t\end{cases}\Longrightarrow x+z\leq y+t$,</li>
+<li>$x&lt;y \iff x+z&lt;y+z$,</li>
+<li>$\begin{cases}x&lt;y\\ z&lt;t\end{cases}\Longrightarrow x+z&lt;y+t$,</li>
+<li>$\begin{cases}x\leq y\\ z&lt;t\end{cases}\Longrightarrow x+z&lt;y+t$,</li>
+<li>$x\leq y \iff -y\leq -x$,</li>
+<li>$x&lt;y \iff -y&lt;-x$.</li>
+</ul></div>
+<div><ul>
+<li>si $z>0$, $x\leq y\iff xz\leq yz$,</li>
+<li>si $z\geq 0$, $x\leq y\Longrightarrow xz\leq yz$,</li>
+<li>$\begin{cases}0\leq x\leq y\\ 0\leq z\leq t\end{cases}\Longrightarrow xz\leq yt$,</li>
+<li>si $z>0$, $x&lt;y\iff xz&lt;yz$,</li>
+<li>si $z\geq 0$, $x&lt;y\Longrightarrow xz\leq yz$,</li>
+<li>$\begin{cases}0&lt;x&lt;y\\ 0&lt;z&lt;t\end{cases}\Longrightarrow xz&lt;yt$.</li>
+</ul></div>
+<div><ul>
+<li>$0&lt;x\iff 0&lt;\dfrac1x$,</li>
+<li>$0&lt;x\leq y\iff 0&lt;\dfrac1y\leq\dfrac1x$,</li>
+<li>$0&lt;x&lt;y\iff 0&lt;\dfrac1y&lt;\dfrac1x$,</li>
+<li>$x&lt;0\iff \dfrac1x&lt;0$,</li>
+<li>$x\leq y&lt;0\iff \dfrac1y\leq\dfrac1x&lt;0$,</li>
+<li>$x&lt;y&lt;0\iff \dfrac1y&lt;\dfrac1x&lt;0$.</li>
+</ul></div>
+</div>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+Autrement dit : on peut <strong>additionner</strong> des inégalités, <strong>multiplier</strong> des inégalités entre des nombres <strong>positifs</strong> et passer aux <strong>quotients</strong> dans des inégalités entre des nombres de <strong>même signe</strong> en changeant le sens des inégalités.
+</div>
+
+<div class="block method">
+<span class="label">Méthode 5.1</span>
+<ul>
+<li>Pour <strong>soustraire</strong> deux inégalités, on procède en deux étapes : on multiplie la bonne inégalité par $-1$ puis on ajoute les inégalités.</li>
+<li>Pour faire un <strong>produit</strong> d'inégalités, on se ramène au cas où les nombres sont tous positifs, quitte à multiplier par $-1$ en étape intermédiaire.</li>
+<li>Pour faire un <strong>quotient</strong> d'inégalités, on procède en deux étapes : on inverse la bonne inégalité (en faisant attention aux signes !) puis on multiplie les inégalités.</li>
+</ul>
+</div>
+
+<div class="block example">
+<span class="label">➪ Exemple 5.1</span>
+Soient $a,b,c,d,e,f,x,y,z\in\mathbb{R}$ tels que $0&lt;a\leq x\leq b$, $d\leq y\leq c&lt;0$ et $0&lt;e\leq z\leq f$. Encadrer :
+<ul><li>$x-y$</li><li>$xy$</li><li>$\dfrac{x-y}{z}$</li></ul>
+<details class="sol-details"><summary>Résolution rédigée</summary><div class="sol-body">
+<p><strong>$x-y$ :</strong> de $d\leq y\leq c$ on tire $-c\leq -y\leq -d$ ; on ajoute à $a\leq x\leq b$ :
+$$a-c\;\leq\; x-y\;\leq\; b-d.$$</p>
+<p><strong>$xy$ :</strong> on se ramène à des positifs : $0&lt;a\leq x\leq b$ et $0&lt;-c\leq -y\leq -d$, donc $a(-c)\leq x(-y)\leq b(-d)$, soit $-ac\leq -xy\leq -bd$ et, en multipliant par $-1$ :
+$$bd\;\leq\; xy\;\leq\; ac.$$</p>
+<p><strong>$\dfrac{x-y}{z}$ :</strong> on a $0&lt;a-c\leq x-y\leq b-d$ (positifs) et, en inversant $0&lt;e\leq z\leq f$ : $0&lt;\dfrac1f\leq\dfrac1z\leq\dfrac1e$. Par produit :
+$$\frac{a-c}{f}\;\leq\;\frac{x-y}{z}\;\leq\;\frac{b-d}{e}.$$</p>
+</div></details>
+</div>
+
+<div class="block example">
+<span class="label">➪ Exemple 5.2</span>
+Résoudre l'inéquation d'inconnue $x\in\mathbb{R}$ : $$(x+1)^3(x-1)>(x+1)^4.$$
+<details class="sol-details"><summary>Résolution rédigée</summary><div class="sol-body">
+<p>On ne divise pas par $(x+1)^3$ (signe inconnu) : on factorise.
+$$(x+1)^3(x-1)-(x+1)^4>0\iff (x+1)^3\big[(x-1)-(x+1)\big]>0\iff -2\,(x+1)^3>0\iff (x+1)^3&lt;0\iff x&lt;-1.$$
+Ensemble des solutions : $\mathcal{S}=\left]-\infty,-1\right[$. <em>Contrôle :</em> pour $x=-2$, $(-1)^3(-3)=3>(-1)^4=1$ ✓.</p>
+</div></details>
+</div>
+</section>
+
+<section id="s2">
+<h2>II. Valeur absolue</h2>
+
+<div class="block def">
+<span class="label">Définition 5.1 — Valeur absolue</span>
+On appelle <strong>valeur absolue</strong> de $x\in\mathbb{R}$ le réel, noté $|x|$ et défini par :
+$$|x|=\begin{cases}x & \text{si } x\geq 0\\ -x & \text{si } x&lt;0\end{cases}$$
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+<ul>
+<li>La valeur absolue est définie par une <strong>disjonction de cas</strong>. Dans une définition par disjonction de cas, il faut bien que les cas soient disjoints. On a donc choisi de mettre le cas $x=0$ dans le cas positif mais on aurait pu faire le choix du cas négatif.</li>
+<li>On peut définir la valeur absolue sans disjonction de cas en utilisant le maximum (noté $\max$) de deux nombres : $\forall x\in\mathbb{R},\ |x|=\max(x,-x)$. En effet :
+<ul>
+<li>si $x\geq 0$, alors $x\geq -x$ donc $\max(x,-x)=x=|x|$,</li>
+<li>si $x&lt;0$, alors $-x\geq x$ donc $\max(x,-x)=-x=|x|$.</li>
+</ul></li>
+</ul>
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.3</span>
+Soient $x,y\in\mathbb{R}$. On a :
+<ul>
+<li>$|x|\geq 0$,</li>
+<li>$|x|=0\iff x=0$,</li>
+<li>$|-x|=|x|$,</li>
+<li>$|x-y|=|y-x|$,</li>
+<li>$-|x|\leq x\leq |x|$,</li>
+<li>$|x|=|y|\iff x=\pm y$,</li>
+<li>soit $a\in\mathbb{R}_+$, $\ |x|\leq a\iff -a\leq x\leq a$.</li>
+</ul>
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.4</span>
+Soient $x,y\in\mathbb{R}$, soit $n\in\mathbb{N}$. On a :
+<ul>
+<li>$|xy|=|x|\,|y|$,</li>
+<li>$|x^n|=|x|^n$,</li>
+<li>si $y\neq0$, $\ \left|\dfrac{x}{y}\right|=\dfrac{|x|}{|y|}$.</li>
+</ul>
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.5</span>
+$$\forall x\in\mathbb{R},\quad \sqrt{x^2}=|x|.$$
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+La relation $\sqrt{x^2}=x$ n'est vraie que pour $x\geq0$.
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.6</span>
+Soient $a\in\mathbb{R}$ et $b\in\mathbb{R}_+$, soit $x\in\mathbb{R}$. On a :
+<ul>
+<li>$|x-a|\leq b\iff -b\leq x-a\leq b\iff a-b\leq x\leq a+b$.</li>
+<li>$|x-a|\geq b\iff x-a\geq b$ ou $x-a\leq -b\iff x\leq a-b$ ou $x\geq a+b$.</li>
+</ul>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+<ul>
+<li>La valeur absolue d'un réel représente sa <strong>distance à 0</strong>. Si $a$ et $x$ sont deux réels, $|x-a|$ est la distance de $a$ à $x$. Si $b\geq0$, l'inégalité $|x-a|\leq b$ signifie que $x$ est à une distance de $a$ inférieure ou égale à $b$.</li>
+</ul>
+
+<figure>
+<svg viewBox="0 0 440 110" role="img" aria-label="Segment centré en a de demi-longueur b">
+  <defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#7a7a72"/></marker></defs>
+  <line x1="15" y1="60" x2="425" y2="60" stroke="#444" stroke-width="1.5"/>
+  <polygon points="425,60 417,56 417,64" fill="#444"/>
+  <line x1="120" y1="60" x2="320" y2="60" stroke="#3b6fd8" stroke-width="5"/>
+  <circle cx="120" cy="60" r="4.5" fill="#3b6fd8"/><circle cx="220" cy="60" r="4.5" fill="#1c2430"/><circle cx="320" cy="60" r="4.5" fill="#3b6fd8"/>
+  <text x="220" y="84" text-anchor="middle" font-size="14" font-style="italic" fill="#1c2430">a</text>
+  <text x="120" y="84" text-anchor="middle" font-size="14" font-style="italic" fill="#1c2430">a − b</text>
+  <text x="320" y="84" text-anchor="middle" font-size="14" font-style="italic" fill="#1c2430">a + b</text>
+  <path d="M215 44 H125" stroke="#7a7a72" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M225 44 H315" stroke="#7a7a72" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="170" y="38" text-anchor="middle" font-size="13" font-style="italic" fill="#7a7a72">b</text>
+  <text x="270" y="38" text-anchor="middle" font-size="13" font-style="italic" fill="#7a7a72">b</text>
+  <text x="220" y="16" text-anchor="middle" font-size="14" fill="#3b6fd8">|x − a| ≤ b</text>
+</svg>
+<figcaption>Les réels $x$ tels que $|x-a|\leq b$ forment le segment $[a-b,\,a+b]$, centré en $a$, de demi-longueur $b$.</figcaption>
+</figure>
+
+<ul>
+<li>Ces propriétés sont encore vraies en remplaçant les inégalités larges par des inégalités strictes.</li>
+<li>En particulier, dans le cas $a=0$, on a : $|x|\leq b\iff -b\leq x\leq b$.</li>
+</ul>
+</div>
+
+<div class="block example">
+<span class="label">➪ Exemple 5.3</span>
+Résoudre, dans $\mathbb{R}$, l'inéquation suivante : $$|1-x|\leq 2|x|-3.$$
+<details class="sol-details"><summary>Résolution rédigée</summary><div class="sol-body">
+<p>On distingue selon le signe de $1-x$ et de $x$ :</p>
+<ul>
+<li>$x\geq1$ : $|1-x|=x-1$ et $|x|=x$. L'inéquation devient $x-1\leq 2x-3\iff x\geq 2$. Solutions : $[2,+\infty[$.</li>
+<li>$0\leq x&lt;1$ : $1-x\leq 2x-3\iff 4\leq 3x\iff x\geq\tfrac43$, incompatible avec $x&lt;1$. Aucune solution.</li>
+<li>$x&lt;0$ : $|x|=-x$ et $1-x\leq -2x-3\iff x\leq -4$. Solutions : $]-\infty,-4]$.</li>
+</ul>
+<p>$\mathcal{S}=\left]-\infty,-4\right]\cup\left[2,+\infty\right[$. <em>Contrôle :</em> $x=2$ : $1\leq1$ ✓ ; $x=-4$ : $5\leq5$ ✓ ; $x=-3$ : $4\leq3$ ✗.</p>
+</div></details>
+</div>
+
+<div class="block example">
+<span class="label">➪ Exemple 5.4</span>
+Résoudre, dans $\mathbb{R}$, l'inéquation suivante : $$|(x-1)(x+2)|\leq 2.$$
+<details class="sol-details"><summary>Résolution rédigée</summary><div class="sol-body">
+<p>$(x-1)(x+2)=x^2+x-2$. Par la Proposition 5.6 (avec $a=0$, $b=2$) : $-2\leq x^2+x-2\leq 2$, c'est-à-dire
+$$x^2+x\geq 0\ \ (x\leq -1\ \text{ou}\ x\geq 0)\qquad\text{et}\qquad x^2+x-4\leq0\ \ \left(x\in\left[\tfrac{-1-\sqrt{17}}{2},\,\tfrac{-1+\sqrt{17}}{2}\right]\right).$$
+En intersectant : $\mathcal{S}=\left[\dfrac{-1-\sqrt{17}}{2},\,-1\right]\cup\left[0,\,\dfrac{-1+\sqrt{17}}{2}\right]$ (environ $[-2{,}56;-1]\cup[0;1{,}56]$).</p>
+</div></details>
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.7 — Inégalités triangulaires</span>
+Soient $x,y\in\mathbb{R}$. On a :
+<ul>
+<li>$|x+y|\leq|x|+|y|$ <em>(inégalité triangulaire)</em> ;</li>
+<li>$\big||x|-|y|\big|\leq|x-y|$ <em>(deuxième inégalité triangulaire)</em>.</li>
+</ul>
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.8</span>
+Soient $a,b\in\mathbb{R}$. $$2|ab|\leq a^2+b^2.$$
+</div>
+</section>
+<section id="s3">
+<h2>III. Majorations, minorations</h2>
+
+<h3 id="s3-1">3.1 Parties majorées, minorées, bornées</h3>
+
+<div class="block def">
+<span class="label">Définition 5.2</span>
+Soit $A$ une partie de $\mathbb{R}$. On dit que :
+<ul>
+<li>$M\in\mathbb{R}$ est un <strong>majorant</strong> de $A$ ssi : $\forall x\in A,\ x\leq M$.</li>
+<li>$m\in\mathbb{R}$ est un <strong>minorant</strong> de $A$ ssi : $\forall x\in A,\ x\geq m$.</li>
+<li>$A$ est <strong>majorée</strong> ssi $A$ admet un majorant, c'est-à-dire : $\exists M\in\mathbb{R},\ \forall x\in A,\ x\leq M$.</li>
+<li>$A$ est <strong>minorée</strong> ssi $A$ admet un minorant, c'est-à-dire : $\exists m\in\mathbb{R},\ \forall x\in A,\ x\geq m$.</li>
+<li>$A$ est <strong>bornée</strong> ssi $A$ est majorée et minorée, c'est-à-dire : $\exists m,M\in\mathbb{R},\ \forall x\in A,\ m\leq x\leq M$.</li>
+</ul>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+En cas d'existence, il n'y a pas d'unicité du majorant. Par exemple, les majorants de $A=[0,1[$ sont tous les éléments de $[1,+\infty[$.
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.9</span>
+Soit $A$ une partie de $\mathbb{R}$. $A$ est bornée ssi : $$\exists M\in\mathbb{R}_+,\ \forall x\in A,\ |x|\leq M.$$
+</div>
+
+<div class="block def">
+<span class="label">Définition 5.3 — Maximum, minimum</span>
+Soit $A$ une partie de $\mathbb{R}$. On dit que :
+<ul>
+<li>Soit $M\in\mathbb{R}$. $M$ est le <strong>maximum</strong> de $A$ ou le <strong>plus grand élément</strong> de $A$ ssi : $$M\in A\quad\text{et}\quad\forall x\in A,\ x\leq M.$$ Un tel élément est unique, et est noté $M=\max(A)$.</li>
+<li>Soit $m\in\mathbb{R}$. $m$ est le <strong>minimum</strong> de $A$ ou le <strong>plus petit élément</strong> de $A$ ssi : $$m\in A\quad\text{et}\quad\forall x\in A,\ x\geq m.$$ Un tel élément est unique, et est noté $m=\min(A)$.</li>
+</ul>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+<ul>
+<li>Une partie majorée n'admet pas toujours de maximum. Par exemple, $[0,1[$ est majorée mais n'admet pas de maximum.</li>
+<li>Une partie finie admet toujours un maximum et un minimum.</li>
+</ul>
+</div>
+
+<div class="block correction">
+<span class="label">⚠️ Précision (non-vide)</span>
+La dernière remarque est imprécise : il faut ajouter <strong>non vide</strong>. L'ensemble vide est fini, mais d'après la Définition 5.3 un maximum $M$ doit vérifier $M\in A$, ce qui est impossible si $A=\varnothing$. Énoncé exact : <em>toute partie finie <strong>non vide</strong> de $\mathbb{R}$ admet un maximum et un minimum.</em> Cette précision vient d'un raisonnement direct à partir de la définition, sans référence à un manuel : à confirmer avec le professeur.
+</div>
+
+<h3 id="s3-2">3.2 Fonctions majorées, minorées, bornées</h3>
+
+<div class="block def">
+<span class="label">Définition 5.4</span>
+Soit $D$ une partie non vide de $\mathbb{R}$. Soit $f:D\to\mathbb{R}$. On dit que $f$ est :
+<ul>
+<li><strong>majorée</strong> (sur $D$) ssi : $\exists M\in\mathbb{R},\ \forall x\in D,\ f(x)\leq M$. Un tel $M$ est appelé <strong>majorant</strong> de $f$ sur $D$.</li>
+<li><strong>minorée</strong> (sur $D$) ssi : $\exists m\in\mathbb{R},\ \forall x\in D,\ f(x)\geq m$. Un tel $m$ est appelé <strong>minorant</strong> de $f$ sur $D$.</li>
+<li><strong>bornée</strong> (sur $D$) ssi $f$ est majorée et minorée, c'est-à-dire : $\exists m,M\in\mathbb{R},\ \forall x\in D,\ m\leq f(x)\leq M$.</li>
+</ul>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+<ul>
+<li>L'ordre des quantificateurs est très important. Il faut bien placer le « $\exists M$ » <strong>avant</strong> le « $\forall x$ » afin que $M$ ne dépende pas de $x$.</li>
+<li>Ces propriétés se traduisent géométriquement par des courbes représentatives qui sont en dessous ou au-dessus de droites horizontales.</li>
+</ul>
+
+<figure>
+<svg viewBox="0 0 690 175" role="img" aria-label="Fonction majorée, minorée, bornée">
+  <defs><marker id="ax" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#333"/></marker></defs>
+  <g>
+    <line x1="15" y1="130" x2="215" y2="130" stroke="#333" marker-end="url(#ax)"/><line x1="60" y1="160" x2="60" y2="15" stroke="#333" marker-end="url(#ax)"/>
+    <line x1="20" y1="40" x2="210" y2="40" stroke="#d62828" stroke-width="1.5"/>
+    <path d="M45 130 Q120 0 195 130" fill="none" stroke="#3b6fd8" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <text x="22" y="34" font-size="12" fill="#d62828" font-style="italic">y = M</text>
+    <text x="205" y="146" font-size="11" font-style="italic">x</text><text x="65" y="20" font-size="11" font-style="italic">y</text>
+    <text x="118" y="170" text-anchor="middle" font-size="13">Fonction majorée</text>
+  </g>
+  <g transform="translate(230,0)">
+    <line x1="15" y1="130" x2="215" y2="130" stroke="#333" marker-end="url(#ax)"/><line x1="60" y1="160" x2="60" y2="15" stroke="#333" marker-end="url(#ax)"/>
+    <line x1="20" y1="115" x2="210" y2="115" stroke="#d62828" stroke-width="1.5"/>
+    <path d="M25 100 Q150 95 190 15" fill="none" stroke="#3b6fd8" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <text x="150" y="108" font-size="12" fill="#d62828" font-style="italic">y = m</text>
+    <text x="205" y="146" font-size="11" font-style="italic">x</text><text x="65" y="20" font-size="11" font-style="italic">y</text>
+    <text x="118" y="170" text-anchor="middle" font-size="13">Fonction minorée</text>
+  </g>
+  <g transform="translate(460,0)">
+    <line x1="15" y1="130" x2="215" y2="130" stroke="#333" marker-end="url(#ax)"/><line x1="60" y1="160" x2="60" y2="15" stroke="#333" marker-end="url(#ax)"/>
+    <line x1="20" y1="35" x2="210" y2="35" stroke="#d62828" stroke-width="1.5"/>
+    <line x1="20" y1="120" x2="210" y2="120" stroke="#d62828" stroke-width="1.5"/>
+    <path d="M30 80 Q55 40 80 80 T130 80 T180 80" fill="none" stroke="#3b6fd8" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <text x="22" y="29" font-size="12" fill="#d62828" font-style="italic">y = M</text>
+    <text x="22" y="114" font-size="12" fill="#d62828" font-style="italic">y = m</text>
+    <text x="205" y="146" font-size="11" font-style="italic">x</text><text x="65" y="20" font-size="11" font-style="italic">y</text>
+    <text x="118" y="170" text-anchor="middle" font-size="13">Fonction bornée</text>
+  </g>
+</svg>
+<figcaption>Règle vérifiée : la droite $y=M$ (resp. $y=m$) est un majorant (resp. minorant) car la courbe reste entièrement en dessous (resp. au-dessus) d'elle.</figcaption>
+</figure>
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.10 — Caractérisation des fonctions bornées</span>
+Soit $D$ une partie non vide de $\mathbb{R}$. Soit $f:D\to\mathbb{R}$. La fonction $f$ est bornée ssi : $$\exists M\in\mathbb{R}_+,\ \forall x\in D,\ |f(x)|\leq M.$$
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+Ce résultat est analogue à celui vu sur les parties bornées. Il dit qu'une fonction $f$ est bornée ssi $|f|$ est majorée.
+</div>
+
+<div class="block def">
+<span class="label">Définition 5.5 — Maximum, minimum d'une fonction</span>
+Soit $D$ une partie non vide de $\mathbb{R}$. Soient $f:D\to\mathbb{R}$ et $a\in D$. On dit que :
+<ul>
+<li>$f$ admet un <strong>maximum en $a$</strong> ssi : $\forall x\in D,\ f(x)\leq f(a)$. Le réel $f(a)$ est alors appelé le maximum de $f$ en $a$, on le note $\displaystyle\max_D f$ ou $\displaystyle\max_{x\in D}f(x)$.</li>
+<li>$f$ admet un <strong>minimum en $a$</strong> ssi : $\forall x\in D,\ f(x)\geq f(a)$. Le réel $f(a)$ est alors appelé le minimum de $f$ en $a$, on le note $\displaystyle\min_D f$ ou $\displaystyle\min_{x\in D}f(x)$.</li>
+</ul>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+<ul>
+<li>Contrairement au majorant, le maximum est <strong>toujours atteint</strong>.</li>
+<li>Une fonction peut n'avoir ni maximum, ni minimum, ou bien encore le maximum s'il existe peut être atteint en plusieurs points.</li>
+</ul>
+
+<figure>
+<svg viewBox="0 0 440 150" role="img" aria-label="Fonction admettant un maximum en a et en b">
+  <defs><marker id="ax2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#333"/></marker></defs>
+  <line x1="15" y1="75" x2="425" y2="75" stroke="#333" marker-end="url(#ax2)"/>
+  <line x1="60" y1="140" x2="60" y2="8" stroke="#333" marker-end="url(#ax2)"/>
+  <line x1="20" y1="30" x2="420" y2="30" stroke="#d62828" stroke-width="1.5"/>
+  <path d="M35 105 Q60 90 80 75 Q105 30 130 30 Q155 30 180 75 Q205 120 230 120 Q255 120 280 75 Q305 30 330 30 Q355 30 380 75" fill="none" stroke="#3b6fd8" stroke-width="1.6"/>
+  <line x1="130" y1="30" x2="130" y2="82" stroke="#333" stroke-dasharray="4 3"/>
+  <line x1="330" y1="30" x2="330" y2="82" stroke="#333" stroke-dasharray="4 3"/>
+  <text x="130" y="97" text-anchor="middle" font-size="13" font-style="italic">a</text>
+  <text x="330" y="97" text-anchor="middle" font-size="13" font-style="italic">b</text>
+  <text x="420" y="90" font-size="11" font-style="italic">x</text><text x="66" y="14" font-size="11" font-style="italic">y</text>
+</svg>
+<figcaption>La fonction admet un maximum aux points $a$ et $b$ : la courbe touche la droite horizontale (rouge) en ces deux points et reste en dessous ailleurs.</figcaption>
+</figure>
+</div>
+
+<h3 id="s3-3">3.3 Suites minorées, majorées, bornées</h3>
+
+<div class="block def">
+<span class="label">Définition 5.6</span>
+On dit qu'une suite $(u_n)_{n\in\mathbb{N}}$ est :
+<ul>
+<li><strong>majorée</strong> ssi : $\exists M\in\mathbb{R},\ \forall n\in\mathbb{N},\ u_n\leq M$.</li>
+<li><strong>minorée</strong> ssi : $\exists m\in\mathbb{R},\ \forall n\in\mathbb{N},\ m\leq u_n$.</li>
+<li><strong>bornée</strong> ssi : $\exists m,M\in\mathbb{R},\ \forall n\in\mathbb{N},\ m\leq u_n\leq M$.</li>
+</ul>
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.11 — Caractérisation des suites bornées</span>
+Soit $(u_n)_{n\in\mathbb{N}}$ une suite réelle. La suite $(u_n)_{n\in\mathbb{N}}$ est bornée ssi : $$\exists M\in\mathbb{R}_+,\ \forall n\in\mathbb{N},\ |u_n|\leq M.$$
+</div>
+
+<div class="block example">
+<span class="label">➪ Exemple 5.5</span>
+On considère la suite $(u_n)$ définie par : $$u_0=\frac12\quad\text{et}\quad\forall n\in\mathbb{N},\ u_{n+1}=\frac{(-1)^n+u_n}{2}.$$ Montrons que $(u_n)$ est bornée.
+<details class="sol-details"><summary>Résolution rédigée</summary><div class="sol-body">
+<p>Montrons par récurrence que $\forall n\in\mathbb{N},\ |u_n|\leq 1$ (ce qui suffit par la Proposition 5.11 avec $M=1$).</p>
+<ul>
+<li><strong>Initialisation :</strong> $|u_0|=\tfrac12\leq1$.</li>
+<li><strong>Hérédité :</strong> si $|u_n|\leq1$, l'inégalité triangulaire donne $|u_{n+1}|=\dfrac{|(-1)^n+u_n|}{2}\leq\dfrac{|(-1)^n|+|u_n|}{2}\leq\dfrac{1+1}{2}=1$.</li>
+</ul>
+<p>Donc $(u_n)$ est bornée (par $M=1$).</p>
+</div></details>
+</div>
+</section>
+
+<section id="s4">
+<h2>IV. Partie entière</h2>
+
+<div class="block def">
+<span class="label">Définition 5.7 — Partie entière</span>
+Soit $x\in\mathbb{R}$. On appelle <strong>partie entière</strong> de $x$, et on note $\lfloor x\rfloor$, le plus grand entier relatif inférieur ou égal à $x$ : $$\lfloor x\rfloor=\max\{n\in\mathbb{Z},\ n\leq x\}.$$
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+La partie entière d'un nombre n'est pas « ce qui est avant la virgule ». C'est faux pour les nombres négatifs : $\lfloor -1{,}7\rfloor=-2$.
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.12</span>
+Soit $x\in\mathbb{R}$, soit $n\in\mathbb{R}$. $$n=\lfloor x\rfloor\iff n\in\mathbb{Z}\ \text{ et }\ n\leq x&lt;n+1.$$ On a donc : $$\lfloor x\rfloor\leq x&lt;\lfloor x\rfloor+1.$$
+<p class="note">Note : le polycopié écrit « $n\in\mathbb{R}$ » ; l'énoncé reste correct puisque $n\in\mathbb{Z}$ figure à droite de l'équivalence.</p>
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.13</span>
+Soit $x\in\mathbb{R}$,
+<ul>
+<li>$x=\lfloor x\rfloor\iff x\in\mathbb{Z}$.</li>
+<li>$\forall n\in\mathbb{Z},\ \lfloor x+n\rfloor=\lfloor x\rfloor+n$.</li>
+</ul>
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+<ul>
+<li>En général, $\lfloor 2x\rfloor\neq 2\lfloor x\rfloor$. Par exemple, pour $x=\frac32$, $\lfloor 2x\rfloor=3$ et $2\lfloor x\rfloor=2$.</li>
+<li>En général, $\lfloor x+y\rfloor\neq\lfloor x\rfloor+\lfloor y\rfloor$. Par exemple, pour $x=\frac12$ et $y=\frac32$, $\lfloor x+y\rfloor=2$ et $\lfloor x\rfloor+\lfloor y\rfloor=1$.</li>
+</ul>
+</div>
+
+<div class="block theorem">
+<span class="label">Proposition 5.14</span>
+La fonction définie sur $\mathbb{R}$ par $x\mapsto\lfloor x\rfloor$ est <strong>croissante</strong>, c'est-à-dire : $$\forall x,y\in\mathbb{R},\ x\leq y\Longrightarrow\lfloor x\rfloor\leq\lfloor y\rfloor.$$
+</div>
+
+<div class="block remark">
+<span class="label">Remarque</span>
+La fonction partie entière n'est pas strictement croissante sur $\mathbb{R}$, elle est constante sur tout intervalle $[n,n+1[$, $n\in\mathbb{Z}$.
+
+<figure>
+<svg viewBox="0 0 420 300" role="img" aria-label="Graphe de la fonction partie entière">
+  <defs><marker id="ax3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#333"/></marker></defs>
+  <line x1="20" y1="150" x2="405" y2="150" stroke="#333" marker-end="url(#ax3)"/>
+  <line x1="210" y1="290" x2="210" y2="8" stroke="#333" marker-end="url(#ax3)"/>
+  <text x="398" y="168" font-size="12" font-style="italic">x</text><text x="216" y="14" font-size="12" font-style="italic">y</text>
+  <g stroke="#d62828" stroke-width="2" fill="#d62828">
+    <line x1="90" y1="270" x2="130" y2="270"/><circle cx="90" cy="270" r="3.6"/><circle cx="130" cy="270" r="3.6" fill="#fff"/>
+    <line x1="130" y1="230" x2="170" y2="230"/><circle cx="130" cy="230" r="3.6"/><circle cx="170" cy="230" r="3.6" fill="#fff"/>
+    <line x1="170" y1="190" x2="210" y2="190"/><circle cx="170" cy="190" r="3.6"/><circle cx="210" cy="190" r="3.6" fill="#fff"/>
+    <line x1="210" y1="150" x2="250" y2="150"/><circle cx="210" cy="150" r="3.6"/><circle cx="250" cy="150" r="3.6" fill="#fff"/>
+    <line x1="250" y1="110" x2="290" y2="110"/><circle cx="250" cy="110" r="3.6"/><circle cx="290" cy="110" r="3.6" fill="#fff"/>
+    <line x1="290" y1="70" x2="330" y2="70"/><circle cx="290" cy="70" r="3.6"/><circle cx="330" cy="70" r="3.6" fill="#fff"/>
+    <line x1="330" y1="30" x2="370" y2="30"/><circle cx="330" cy="30" r="3.6"/><circle cx="370" cy="30" r="3.6" fill="#fff"/>
+  </g>
+  <g font-size="11" fill="#555" text-anchor="middle">
+    <text x="90" y="166">−3</text><text x="130" y="166">−2</text><text x="170" y="166">−1</text><text x="250" y="166">1</text><text x="290" y="166">2</text><text x="330" y="166">3</text>
+    <text x="198" y="274" text-anchor="end">−3</text><text x="198" y="234" text-anchor="end">−2</text><text x="198" y="194" text-anchor="end">−1</text><text x="222" y="114">1</text><text x="222" y="74">2</text><text x="222" y="34">3</text>
+  </g>
+</svg>
+<figcaption>Graphe de $x\mapsto\lfloor x\rfloor$ : sur chaque $[n,n+1[$ la valeur vaut $n$ (point plein à gauche : atteint ; point creux à droite : non atteint), avec un saut de $1$ en chaque entier. Vérifié : $\lfloor 0{,}5\rfloor=0$, $\lfloor -0{,}5\rfloor=-1$.</figcaption>
+</figure>
+</div>
+
+<div class="block example">
+<span class="label">➪ Exemple 5.6</span>
+Montrer que : $$\forall m,n\in\mathbb{Z},\quad\left\lfloor\frac{n+m}{2}\right\rfloor+\left\lfloor\frac{n-m+1}{2}\right\rfloor=n.$$
+<details class="sol-details"><summary>Résolution rédigée</summary><div class="sol-body">
+<p>On distingue selon la parité de $n+m$.</p>
+<ul>
+<li>$n+m=2k$ : $\left\lfloor\frac{n+m}{2}\right\rfloor=k$ et $n-m+1=2(n-k)+1$, donc $\left\lfloor\frac{n-m+1}{2}\right\rfloor=\left\lfloor (n-k)+\frac12\right\rfloor=n-k$. Somme : $k+(n-k)=n$.</li>
+<li>$n+m=2k+1$ : $\left\lfloor\frac{n+m}{2}\right\rfloor=\left\lfloor k+\frac12\right\rfloor=k$ et $n-m+1=2(n-k)$, donc $\left\lfloor\frac{n-m+1}{2}\right\rfloor=n-k$. Somme : $n$.</li>
+</ul>
+<p>Dans les deux cas la somme vaut $n$. $\blacksquare$</p>
+</div></details>
+</div>
+
+<div class="block example">
+<span class="label">➪ Exemple 5.7</span>
+Résoudre l'équation d'inconnue $x\in\mathbb{R}$ : $$\lfloor 3x-2\rfloor=\lfloor x+1\rfloor.$$
+<details class="sol-details"><summary>Résolution rédigée</summary><div class="sol-body">
+<p>Posons $n=\lfloor x+1\rfloor\in\mathbb{Z}$. Par la Proposition 5.12, l'équation équivaut à
+$$n\leq x+1&lt;n+1\quad\text{et}\quad n\leq 3x-2&lt;n+1,$$
+soit $x\in[n-1,\,n[\ \cap\ \left[\dfrac{n+2}{3},\,\dfrac{n+3}{3}\right[$. Cette intersection est non vide ssi $n-1&lt;\dfrac{n+3}{3}$ et $\dfrac{n+2}{3}&lt;n$, c'est-à-dire $n&lt;3$ et $n>1$ : donc $n=2$. Alors $x\in[1,2[\ \cap\ \left[\tfrac43,\tfrac53\right[=\left[\tfrac43,\tfrac53\right[$.</p>
+<p>$\mathcal{S}=\left[\dfrac43,\dfrac53\right[$. <em>Contrôle :</em> $x=\frac43$ : $\lfloor2\rfloor=2=\lfloor\frac73\rfloor$ ✓ ; $x=\frac53$ : $\lfloor3\rfloor=3\neq\lfloor\frac83\rfloor=2$ ✗ (borne exclue).</p>
+</div></details>
+</div>
+
+<div class="block example">
+<span class="label">➪ Exemple 5.8</span>
+Soit $n\in\mathbb{N}^*$, soit $f:\ \mathbb{R}\to\mathbb{R},\ x\mapsto x-n\left\lfloor\dfrac{x}{n}\right\rfloor$. Montrer que $f$ est périodique et que : $$\forall x\in\mathbb{R},\ 0\leq f(x)&lt;n.$$
+<details class="sol-details"><summary>Résolution rédigée</summary><div class="sol-body">
+<p><strong>Périodicité :</strong> par la Proposition 5.13, $\left\lfloor\dfrac{x+n}{n}\right\rfloor=\left\lfloor\dfrac xn+1\right\rfloor=\left\lfloor\dfrac xn\right\rfloor+1$, donc
+$f(x+n)=x+n-n\left(\left\lfloor\frac xn\right\rfloor+1\right)=f(x)$ : $f$ est $n$-périodique.</p>
+<p><strong>Encadrement :</strong> par la Proposition 5.12, $\left\lfloor\frac xn\right\rfloor\leq\frac xn&lt;\left\lfloor\frac xn\right\rfloor+1$. En multipliant par $n>0$ : $n\left\lfloor\frac xn\right\rfloor\leq x&lt;n\left\lfloor\frac xn\right\rfloor+n$, soit $0\leq x-n\left\lfloor\frac xn\right\rfloor&lt;n$. $\blacksquare$</p>
+</div></details>
+</div>
+</section>
+
+<section id="quiz">
+<h2>Quiz de fin de chapitre</h2>
+<div class="quiz-toolbar"><button id="quizToggle" type="button" data-open="0">Afficher toutes les réponses</button></div>
+
+<div class="quiz-item">
+<div class="quiz-q">1. [Définition] Que signifie « $M$ est le maximum de $A$ » et en quoi est-ce plus fort que « $M$ est un majorant de $A$ » ? Donner un exemple de partie majorée sans maximum.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+Un majorant vérifie seulement $\forall x\in A,\ x\leq M$. Le maximum exige en plus $M\in A$ : il est <strong>atteint</strong>. Exemple : $A=[0,1[$ est majorée (par tout élément de $[1,+\infty[$) mais $1\notin A$ et aucun élément de $A$ n'est plus grand que tous les autres : pas de maximum.</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">2. [Définition] Donner $\lfloor 2{,}9\rfloor$, $\lfloor -2{,}3\rfloor$ et $\lfloor -5\rfloor$. Pourquoi la partie entière n'est-elle pas « ce qui est avant la virgule » ?</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+$\lfloor 2{,}9\rfloor=2$, $\lfloor -2{,}3\rfloor=-3$, $\lfloor -5\rfloor=-5$. C'est le <em>plus grand entier $\leq x$</em> : pour $x&lt;0$ non entier, il est <strong>en dessous</strong> de $x$, alors que « ce qui est avant la virgule » ($-2$) est au-dessus de $-2{,}3$.</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">3. [Application directe] Résoudre $|2x-1|\leq 3$ dans $\mathbb{R}$.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+$|2x-1|\leq3\iff-3\leq2x-1\leq3\iff-2\leq2x\leq4\iff-1\leq x\leq2$. Donc $\mathcal{S}=[-1,2]$ (segment de centre $\frac12$ et de demi-longueur $\frac32$).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">4. [Application directe] On sait que $2\leq x\leq3$ et $-5\leq y\leq-4$. Encadrer $xy$.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+On se ramène à des positifs : $4\leq -y\leq5$, donc $2\cdot4\leq x(-y)\leq3\cdot5$, soit $8\leq-xy\leq15$, d'où $-15\leq xy\leq-8$.</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">5. [Conceptuel] Pourquoi l'ordre des quantificateurs est-il crucial dans « $\exists M,\ \forall x\in D,\ f(x)\leq M$ » ? Que dirait « $\forall x\in D,\ \exists M,\ f(x)\leq M$ » ?</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+Dans la première, $M$ est choisi <strong>avant</strong> $x$ : c'est une borne <em>commune</em> à toutes les valeurs. Dans la seconde, $M$ peut dépendre de $x$ : il suffit de prendre $M=f(x)$, donc la propriété est vraie pour <strong>toute</strong> fonction et n'exprime plus rien.</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">6. [Conceptuel] Si $f$ admet un maximum en $a$, ce maximum est-il un majorant ? Un majorant est-il forcément un maximum ?</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+Si $f$ admet un maximum en $a$, alors $f(x)\leq f(a)$ pour tout $x$ : $f(a)$ est un majorant, <strong>atteint</strong> en $a$. Réciproque fausse : un majorant n'est pas forcément atteint (ex. $x\mapsto -x^2$ sur $\mathbb{R}$ est majorée par $1$, mais son maximum vaut $0$).</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">7. [Piège] Sachant $1\leq x\leq2$ et $3\leq y\leq5$, un élève écrit $1-3\leq x-y\leq2-5$. Où est l'erreur et quel est le bon encadrement ?</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+On ne <strong>soustrait pas</strong> des inégalités membre à membre. Il faut d'abord multiplier l'encadrement de $y$ par $-1$ : $-5\leq-y\leq-3$, puis additionner : $1-5\leq x-y\leq2-3$, soit $-4\leq x-y\leq-1$. (L'élève obtient $-2\leq x-y\leq-3$, qui est absurde.)</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">8. [Piège] Vrai ou faux : (a) $\sqrt{x^2}=x$ pour tout réel $x$ ; (b) $\lfloor x+y\rfloor=\lfloor x\rfloor+\lfloor y\rfloor$ pour tous réels $x,y$ ?</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+(a) <strong>Faux</strong> : $\sqrt{x^2}=|x|$ ; pour $x=-3$, $\sqrt9=3\neq-3$. (b) <strong>Faux</strong> : pour $x=\frac12$ et $y=\frac32$, $\lfloor2\rfloor=2$ alors que $0+1=1$. En revanche $\lfloor x+n\rfloor=\lfloor x\rfloor+n$ est vrai <em>quand $n$ est entier</em>.</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">9. [Synthèse] Démontrer $2|ab|\leq a^2+b^2$ en utilisant la valeur absolue et un carré.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+$|ab|=|a||b|$ (Prop. 5.4) et $a^2=|a|^2$, $b^2=|b|^2$ (Prop. 5.4/5.5). Or $\big(|a|-|b|\big)^2\geq0$, donc $|a|^2+|b|^2-2|a||b|\geq0$, c'est-à-dire $2|ab|\leq a^2+b^2$.</div></details>
+</div>
+
+<div class="quiz-item">
+<div class="quiz-q">10. [Synthèse] Soit $g(x)=x-\lfloor x\rfloor$. Montrer que $g$ est bornée, qu'elle admet un minimum, mais pas de maximum.</div>
+<details class="quiz-details"><summary>Voir la réponse</summary><div class="quiz-a"><span class="tag">Réponse</span><br>
+Par la Prop. 5.12, $\lfloor x\rfloor\leq x&lt;\lfloor x\rfloor+1$, donc $0\leq g(x)&lt;1$ : $g$ est bornée. Le minimum $0$ est atteint en tout entier. Pas de maximum : $1$ est un majorant jamais atteint ($g&lt;1$) ; et si $M=g(x_0)&lt;1$, avec $x_0=n+M$, le point $x_1=n+\frac{1+M}{2}$ vérifie $g(x_1)=\frac{1+M}{2}>M$ : aucune valeur n'est maximale.</div></details>
+</div>
+</section>
+
+<section id="sources">
+<h2>Sources &amp; Références</h2>
+<ul class="sources">
+<li>Polycopié « Chapitre 5 : Inégalités » — cours du Lycée Saint-Louis (Paris), PCSI 1 : <a href="https://pcsi1-saint-louis.ovh/site/" target="_blank" rel="noopener">site de la classe</a> ; <a href="05_Ch05_Cours_Profs_Inegalites_2026-09-30.pdf" target="_blank" rel="noopener">PDF original conservé dans ce dépôt</a>.</li>
+<li>Programme officiel de Mathématiques en CPGE PCSI — Ministère de l'Enseignement supérieur et de la Recherche.</li>
+<li>Vérifications : énoncés relus contre le PDF ; contre-exemples et démonstrations contrôlés à la main. Le seul point signalé est la précision « non vide » (encart ⚠️, section III). Les résolutions d'exemples et le quiz sont des ajouts de rédaction, absents du polycopié.</li>
+</ul>
+</section>
+
+</main>
+</div>
+<script>
+(function(){
+  var b=document.getElementById('quizToggle'); if(!b) return;
+  var all=function(){return document.querySelectorAll('.quiz-details');};
+  b.addEventListener('click',function(){
+    var open=b.getAttribute('data-open')==='1';
+    all().forEach(function(d){ if(open) d.removeAttribute('open'); else d.setAttribute('open',''); });
+    b.setAttribute('data-open',open?'0':'1');
+    b.textContent=open?'Afficher toutes les réponses':'Masquer toutes les réponses';
+  });
+})();
+</script>
+</body>
+</html>
