@@ -131,7 +131,7 @@ main > section:first-child .section-title { border-top: none; margin-top: 6px; p
   font-size: 13px; text-transform: none; letter-spacing: normal;
 }
 .source-chip-inline.source-chip-static { color: var(--section-text); }
-.source-chip-inline .arrow { opacity: .6; }
+.source-chip-inline .arrow { display: none; }
 .source-icon { height:13px; width:auto; border-radius:2px; vertical-align:middle; }
 .source-pin { opacity: .7; font-weight: 500; }
 
@@ -141,7 +141,7 @@ main > section:first-child .section-title { border-top: none; margin-top: 6px; p
   padding: 5px 10px; border-radius: 14px;
   color: var(--accent); font-weight: 600; text-decoration: none; font-size: 14px;
 }
-.source-chip .arrow { opacity: .6; }
+.source-chip .arrow { display: none; }
 .source-chip img { height: 14px; width: 14px; border-radius: 3px; vertical-align: middle; }
 .section-row .source-chip { text-transform: none; font-size: 13px; padding: 2px 8px; }
 .section-row td { overflow: hidden; overflow-wrap: anywhere; word-break: break-word; }
@@ -247,5 +247,4 @@ footer { text-align: center; padding: 16px; color: var(--sub); font-size: 12.5px
   /* Bandeau « Cours profs — Lycée … » sur une seule ligne */
   .section-row td { white-space: nowrap; text-overflow: ellipsis; font-size: 12.5px; letter-spacing: 0; padding-left: 6px; padding-right: 4px; }
   .source-chip-inline { font-size: 12px; padding: 2px 6px; gap: 3px; margin-left: 2px; }
-  .source-chip-inline .arrow { display: none; }
 }
