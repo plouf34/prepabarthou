@@ -61,4 +61,6 @@ de préférence dans Raccourcis sur Mac : c'est ce qui a fonctionné.
 - Construit à la main sur Mac, appel testé : réponse `{"type":"routine_fire", "claude_code_session_id":…,
   "claude_code_session_url":…}` = routine lancée. Le Raccourci ne sait PAS si la transcription réussit.
 - Le chiffre saisi peut être `8` ou `08` (la routine compare des nombres).
+- Suite d'un cours : ajouter les nouvelles photos dans le MÊME dossier et relancer le bouton ; seules
+  les photos absentes du commentaire `photos-drive` de la page sont transcrites et ajoutées à la fin.
 - Installation chez Clarisse : AirDrop depuis le Mac (compte Apple différent, pas de synchro iCloud).

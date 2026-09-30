@@ -71,8 +71,20 @@ n'est pas l'une des 4 valeurs ou si `chapitre` n'est pas un nombre, arrête-toi 
    Ce sont les notes manuscrites de Clarisse (auteur = Clarisse).
 4. Invoque le skill `transcription-pcsi` et applique-le intégralement (surlignage, puces Bibmath
    en Maths, régénération de la page matière, commit + push sur la branche par défaut, voir
-   CLAUDE.md). Si un cours de Clarisse pour ce chapitre existe déjà sur le site, c'est une suite :
-   complète la page existante au lieu d'en créer une seconde, et dis-le.
+   CLAUDE.md). Traçabilité : dans toute page publiée ou modifiée par la routine, tiens à jour, juste
+   avant `</body>`, le commentaire `<!-- photos-drive: IMG_7994.jpeg, IMG_7995.jpeg, … -->` (liste
+   complète des photos transcrites dans cette page, dans l'ordre).
+   Si un cours de Clarisse pour ce chapitre existe déjà sur le site, c'est une SUITE :
+   - ne crée pas de seconde page, garde le nom de fichier existant ;
+   - photos nouvelles = celles du dossier absentes du commentaire `photos-drive`. Sans commentaire
+     (page faite hors routine), lis toutes les photos et repère sur le manuscrit l'endroit où s'arrête
+     la page existante ; en cas de doute sur la jonction, arrête-toi et demande ;
+   - aucune photo nouvelle : ne publie rien et dis-le ;
+   - ajoute UNIQUEMENT la transcription des photos nouvelles à la suite du contenu existant, sans
+     retoucher ce qui existe (corrections, encarts ⚠️, `[?]` déjà traités sont conservés tels quels) ;
+     si une photo nouvelle s'intercale au milieu (ordre des noms), arrête-toi et demande ;
+   - complète le quiz pour qu'il couvre aussi la suite (toujours 10 questions au total), et dis
+     dans le message final quelles photos ont été ajoutées.
    Push refusé sur la branche par défaut : pousse sur `claude/drive-<matiere>-ch<NN>`, ouvre une PR
    vers la branche par défaut (outils GitHub MCP), ne la fusionne PAS, et donne son lien : le père
    de Clarisse la relira et la fusionnera.
