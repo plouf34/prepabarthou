@@ -443,7 +443,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 {sections_html}
 </main>
 
-<script src="assets/pcsi.js" defer></script>
+<script src="assets/pcsi.js?v=38" defer></script>
 </body>
 </html>
 """
