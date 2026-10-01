@@ -1,10 +1,10 @@
 {
- "_lisez_moi": "Surlignage « en cours » des sections Exercices/DS (règles du 01/10/2026, voir CLAUDE.md). Rempli par Claude APRÈS lecture des documents ; appliqué par .claude/skills/transcription-pcsi/surlignage.py (appelé aussi par regen_index.py). 'jaune' = {cle, libelle} du COURS en cours (ChNN, calculé par le script) ; 'orange' = {cle, libelle} de la COLLE en cours (Q2, S3…, calculée par le script). 'liens' : URL exacte d'un lien de la ligne (Sujet de préférence) + couleur : 'jaune' (lié au cours en cours), 'orange' (lié à la colle en cours) ou 'jo' (lié aux deux : pastille et pavé en dégradé jaune → orange, de haut en bas) + note. 'non_lus' : documents qui n'ont pas pu être ouverts. Ne surligner que des exercices, TD, DS et interros : jamais Bibmath/Exo7 ni les cahiers de calcul. Clé 'cours' : cours d'autres lycées qui traitent le cours en cours (jaune), section Cours. Clé 'bibmath' (Maths) : puces Bibmath [{libelle, url, couleur jaune|orange|jo}] du cours en cours et de la colle en cours, colorées comme les exercices. Clé 'exceptions' (facultative, seulement si Fabien l'a stipulé) : {'profs_priment': true} = le cours prof en cours prime sur Clarisse ; {'cours_dates': {'<fichier>': ['AAAA-MM-JJ', 'AAAA-MM-JJ']}} = intervalle donné à un cours non daté.",
+ "_lisez_moi": "Surlignage « en cours » des sections Exercices/DS (règles du 01/10/2026, voir CLAUDE.md). Rempli par Claude APRÈS lecture des documents ; appliqué par .claude/skills/transcription-pcsi/surlignage.py (appelé aussi par regen_index.py). 'jaune' = {cle, libelle} des COURS en cours : dernier cours de Clarisse ET dernier cours daté des profs (ex. 'Ch02 Clarisse + Ch03 profs', calculé par le script) ; 'orange' = {cle, libelle} de la COLLE en cours (Q2, S3…, calculée par le script). 'liens' : URL exacte d'un lien de la ligne (Sujet de préférence) + couleur : 'jaune' (lié au cours en cours), 'orange' (lié à la colle en cours) ou 'jo' (lié aux deux : pastille et pavé en dégradé jaune → orange, de haut en bas) + note. 'non_lus' : documents qui n'ont pas pu être ouverts. Ne surligner que des exercices, TD, DS et interros : jamais Bibmath/Exo7 ni les cahiers de calcul. Clé 'cours' : cours d'autres lycées qui traitent le cours en cours (jaune), section Cours. Clé 'bibmath' (Maths) : puces Bibmath [{libelle, url, couleur jaune|orange|jo}] du cours en cours et de la colle en cours, colorées comme les exercices, affichées sous le tableau Exercices. Clé 'exceptions' (facultative, seulement si Fabien l'a stipulé) : {'clarisse_seule': true} ou {'profs_priment': true} = un seul des deux cours compte ; {'cours_dates': {'<fichier>': ['AAAA-MM-JJ', 'AAAA-MM-JJ']}} = intervalle donné à un cours non daté.",
  "maj": "2026-10-01",
  "Maths": {
   "jaune": {
-   "cle": "Ch02",
-   "libelle": "Ch02 — Nombres complexes (Clarisse, 27/09)"
+   "cle": "Ch02 Clarisse + Ch03 profs",
+   "libelle": "Ch02 — Nombres complexes (Clarisse, 27/09) + Ch03 — Problèmes linéaires bidimensionnels (profs, 28/09)"
   },
   "liens": [
    {
@@ -15,17 +15,17 @@
    {
     "url": "https://www.bourrigan.fr/docs/td13-suites.pdf",
     "couleur": "jo",
-    "note": "Ch02 §III Clarisse + colle Q2 (récurrences linéaires de pas 2) — ex. 2 et 7"
+    "note": "Ch02 §III Clarisse + Ch03 profs + colle Q2 (récurrences linéaires de pas 2) — ex. 2 et 7"
    },
    {
     "url": "https://pcsi1-saint-louis.ovh/site/images/Doc2627/exo1_LogiqueFonctions.pdf",
     "couleur": "jo",
-    "note": "Ch02 §III Clarisse + colle Q2 — partie XI (ex. 42–43) : suites récurrentes linéaires d'ordre 2"
+    "note": "Ch02 §III Clarisse + Ch03 profs + colle Q2 — partie XI (ex. 42–43) : suites récurrentes linéaires d'ordre 2"
    },
    {
     "url": "https://www.bourrigan.fr/docs/td22-EDO.pdf",
     "couleur": "jo",
-    "note": "Ch02 §III Clarisse (EDL② homogènes) + colle Q2 — partie « Deuxième ordre » (Autocorrection B, ex. 2 à 4) : ED linéaires d'ordre 2 à coefficients constants"
+    "note": "Ch02 §III Clarisse + Ch03 profs (EDL② homogènes) + colle Q2 — partie « Deuxième ordre » (Autocorrection B, ex. 2 à 4) : ED linéaires d'ordre 2 à coefficients constants"
    },
    {
     "url": "https://bourrigan.fr/docs/ds02-module-somme-complexes-sujet.pdf",
@@ -41,6 +41,11 @@
     "url": "https://pcsi1-saint-louis.ovh/site/images/Doc2425/DS3.pdf",
     "couleur": "jaune",
     "note": "Ch02 Clarisse — problèmes 1 et 2 : racines de l'unité, module (racines n-ièmes hors colle Q2)"
+   },
+   {
+    "url": "https://pcsi1-saint-louis.ovh/site/images/Doc2425/DS4.pdf",
+    "couleur": "jo",
+    "note": "Ch03 profs + colle Q2 — problème 1 : se ramène à 4z″ + 4z′ + z = e^(−2t) − 4e^t (EDL d'ordre 2 à coefficients constants, second membre exponentiel)"
    }
   ],
   "non_lus": [],
@@ -129,7 +134,7 @@
  },
  "Chimie": {
   "jaune": {
-   "cle": "Ch02",
+   "cle": "Ch02 Clarisse",
    "libelle": "Ch02 — Transformations chimiques : K°, quotient réactionnel, sens d'évolution, coefficient de partage, rupture d'équilibre (Clarisse, 29/09)"
   },
   "liens": [

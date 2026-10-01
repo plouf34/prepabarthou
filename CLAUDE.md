@@ -39,19 +39,19 @@ Gabarits : `templates/` (`gabarit-origine_…` + `gabarit-quiz.html`, voir promp
 - Taille : dépôt recommandé < 1 Go (actuellement ~420 Mo) ; éviter d'ajouter des PDF lourds inutiles.
 
 ## Surlignage « en cours » (Exercices/DS) — règles de Fabien du 01/10/2026
-- **Jaune** = lié au **cours en cours** : le dernier cours manuscrit de Clarisse ; à défaut, un cours des profs
-  de Louis Barthou **daté** dont l'intervalle contient la date du jour (de sa date à la veille du cours prof suivant).
-  Cours non datés (ex. polycopié de Physique) : ignorés. Clarisse ET profs : **Clarisse fait foi**.
+- **Jaune** = lié aux **cours en cours** : TOUJOURS le dernier cours manuscrit de Clarisse ET le dernier cours
+  daté des profs de Louis Barthou (le plus récent dont la date est passée), les deux ensemble.
+  Cours non datés (ex. polycopié de Physique) : ignorés.
 - **Orange pâle** = lié à la **colle en cours** (programmes de colle, section Colles).
 - Lié aux deux (`jo`) : pastille mi-jaune (haut) mi-orange (bas).
 - **Seules les pastilles sont colorées** (ni fond ni liseré : demande de Fabien), y compris sur les puces Bibmath et la colle en cours.
 - **Exceptions** (seulement si Fabien les stipule) : clé `exceptions` de la matière dans `Prepa_barthou/surlignage.json`
-  (`"profs_priment": true` → le cours prof en cours prime sur Clarisse ; `"cours_dates": {"<fichier>": [debut, fin]}`
+  (`"clarisse_seule": true` ou `"profs_priment": true` → un seul des deux cours compte, à poser seulement le jour où Fabien le stipule ; `"cours_dates": {"<fichier>": [debut, fin]}`
   → donne un intervalle à un cours non daté). Les noter aussi ici : <!-- exceptions en vigueur : aucune -->
 - Données : `Prepa_barthou/surlignage.json` (liens jaune|orange|jo, remplis après LECTURE des documents), appliqué par
   `.claude/skills/transcription-pcsi/surlignage.py` (appelé par `regen_index.py`). `⚠️ SURLIGNAGE À REVOIR` (nouveau cours,
   nouvelle colle) → le refaire. Règles complètes : section « SURLIGNAGE » du prompt maître.
-- Puces Bibmath (Maths) : clé `bibmath` de `surlignage.json`, colorées comme les exercices (jaune/orange/jo) ; à revoir à chaque nouveau cours de Clarisse et à chaque nouvelle colle (section « PUCES BIBMATH » du prompt maître).
+- Puces Bibmath (Maths) : clé `bibmath` de `surlignage.json`, colorées comme les exercices (jaune/orange/jo), affichées sous le tableau Exercices ; à revoir à chaque nouveau cours de Clarisse et à chaque nouvelle colle (section « PUCES BIBMATH » du prompt maître).
 - Jamais de classes `hl-*` posées à la main. Sauvegarde d'avant mise en place : branche `backup/2026-09-30-avant-surlignage`.
 
 ## Colles (programmes + planning)

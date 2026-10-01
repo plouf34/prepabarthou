@@ -122,7 +122,7 @@ Format (celui que lisent `regen_index.py` et `surlignage.py`) :
 Règles décidées par Fabien le 01/10/2026 (résumé dans `CLAUDE.md`). À refaire à chaque nouveau cours de **Clarisse** ou des **profs de Louis Barthou** et à chaque changement de **colle**. Le script `regen_index.py` le vérifie à chaque régénération et affiche `⚠️ SURLIGNAGE À REVOIR` quand il faut le refaire ; `python3 .claude/skills/transcription-pcsi/surlignage.py . --check` fait la même vérification seul (`--date AAAA-MM-JJ` pour simuler une date).
 
 **Couleurs** (définies dans `assets/pcsi.css`) :
-- **Jaune** = documents liés au **cours en cours** : le dernier cours manuscrit de Clarisse (plus grand `ChNN` des fichiers `*_Cours_Clarisse_*`) ; à défaut, le cours des profs de Louis Barthou **daté** dont l'intervalle contient la date du jour (de sa date jusqu'à la veille du cours prof suivant). Un cours non daté (ex. polycopié de Physique) n'est pas pris en compte. S'il y a un cours de Clarisse et un cours prof, **Clarisse fait foi**. Exceptions seulement si Fabien les stipule : clé `exceptions` de la matière dans `surlignage.json` (`profs_priment`, `cours_dates`).
+- **Jaune** = documents liés aux **cours en cours** : TOUJOURS le dernier cours manuscrit de Clarisse (plus grand `ChNN` des fichiers `*_Cours_Clarisse_*`) ET le dernier cours **daté** des profs de Louis Barthou (le plus récent dont la date est <= aujourd'hui), les deux ensemble (règle de Fabien du 01/10/2026). Un cours non daté (ex. polycopié de Physique) n'est pas pris en compte. Exceptions seulement si Fabien les stipule un jour donné : clé `exceptions` de la matière dans `surlignage.json` (`clarisse_seule`, `profs_priment`, `cours_dates`).
 - **Orange pâle** = documents liés à la **colle en cours** (programmes de colle de la section Colles : `programme_colle_maths.json`, `programme_colle_chimie.json`, `programme_kholle_physique.json`). Une colle est en cours de son début jusqu'au dimanche qui suit sa fin.
 - **Les deux** (`jo`) : pastille mi-jaune (haut) mi-orange (bas).
 - **Seules les pastilles sont colorées** : aucun fond ni liseré de couleur (demande de Fabien).
@@ -138,11 +138,11 @@ Règles décidées par Fabien le 01/10/2026 (résumé dans `CLAUDE.md`). À refa
 
 ## PUCES BIBMATH (Maths uniquement)
 
-Les puces Bibmath s'affichent dans la légende de la section Exercices de `Maths.html` et sont **colorées comme les exercices** (`couleur` : `jaune` = cours en cours, `orange` = colle en cours, `jo` = les deux). Elles sont générées par `surlignage.py` : ne jamais les écrire à la main dans la page.
+Les puces Bibmath s'affichent sous le tableau de la section Exercices de `Maths.html` (ligne « Exercices Bibmath : ») et sont **colorées comme les exercices** (`couleur` : `jaune` = cours en cours, `orange` = colle en cours, `jo` = les deux). Elles sont générées par `surlignage.py` : ne jamais les écrire à la main dans la page.
 - À chaque nouveau cours de **Clarisse** en Maths et à chaque nouvelle **colle**, mettre à jour la clé `bibmath` de `Maths` dans `Prepa_barthou/surlignage.json` : liste de `{"libelle": "Bibmath — <Thème>", "url": "…", "couleur": "jaune|orange|jo"}` pour les feuilles Bibmath du cours en cours et de la colle en cours.
 - Trouver l'URL depuis l'index Math Sup `https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/index` : lien « Exercices » de la ligne du thème (forme `…&quoi=mpsi/feuillesexo/<slug>&type=fexo`). Ne jamais deviner le slug.
 - Vérifier en lisant la page : un slug inexistant répond quand même HTTP 200 et affiche la page d'accueil « Ressources mathématiques ». Contrôle fiable : le `<title>` commence par « Exercices math sup : » et la page contient des blocs « Exercice N ». Exemple : `complexes` est bon, `nombrescomplexes` ne l'est pas.
-- Relancer `regen_index.py` et vérifier que la puce apparaît dans la légende.
+- Relancer `regen_index.py` et vérifier que la puce apparaît sous le tableau Exercices.
 - Le script ne contrôle pas que la puce correspond au bon chapitre : aucun avertissement en cas d'oubli.
 
 ## STYLE

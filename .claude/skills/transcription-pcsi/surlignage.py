@@ -11,14 +11,14 @@ Usage :
   - JAUNE  = documents liés au COURS EN COURS :
              * le dernier cours manuscrit de Clarisse (plus grand ChNN des
                fichiers *_Cours_Clarisse_*) ;
-             * sinon le cours des profs de Louis Barthou DATÉ dont l'intervalle
-               contient la date du jour (de sa date jusqu'à la veille du cours
-               prof suivant). Cours non datés (ex. polycopié de Physique) :
-               ignorés.
-             * Clarisse ET profs : Clarisse fait foi.
+             * ET le dernier cours des profs de Louis Barthou DATÉ (le plus
+               récent dont la date est <= aujourd'hui). Cours non datés (ex.
+               polycopié de Physique) : ignorés.
+             (règle de Fabien du 01/10/2026 : toujours les deux.)
              Exceptions (seulement si stipulées) : clé "exceptions" de la
-             matière dans surlignage.json — "profs_priment": true (le cours
-             prof en cours prime sur Clarisse), "cours_dates": {fichier:
+             matière dans surlignage.json — "clarisse_seule": true ou
+             "profs_priment": true (un seul des deux cours compte),
+             "cours_dates": {fichier:
              [debut, fin]} (donne un intervalle à un cours non daté).
   - ORANGE = documents liés à la COLLE EN COURS (programmes de colle :
              SUBJECT_COLLES de regen_index.py). Une colle est en cours de sa
@@ -182,13 +182,19 @@ def expected(repo_root, today, cfg=None):
             if deb <= today <= fin:
                 bar = {"cle": f, "date": deb, "titre": os.path.splitext(f)[0], "fichier": f}
         exp = {"jaune": None, "orange": None, "cours": []}
-        src = cla
-        if bar and (cla is None or exc.get("profs_priment")):
-            src = bar
-        if src:
-            qui = "cours de Clarisse" if src is cla else "cours des profs de Louis Barthou"
-            exp["cours"].append((src["fichier"], "jaune", f"Cours en cours ({qui})"))
-            exp["jaune"] = {"cle": src["cle"], "libelle": f'{src["cle"]} — {src["titre"]} ({qui} du {src["date"]})'}
+        # Jaune = dernier cours de Clarisse ET dernier cours (daté) des profs,
+        # sauf exception stipulée par Fabien : "clarisse_seule" ou "profs_priment".
+        srcs = [(cla, "Clarisse"), (bar, "profs")]
+        if exc.get("clarisse_seule") and cla:
+            srcs = [(cla, "Clarisse")]
+        elif exc.get("profs_priment") and bar:
+            srcs = [(bar, "profs")]
+        srcs = [(s, qui) for s, qui in srcs if s]
+        if srcs:
+            for s, qui in srcs:
+                exp["cours"].append((s["fichier"], "jaune", f"Cours en cours (dernier cours {'de Clarisse' if qui == 'Clarisse' else 'des profs de Louis Barthou'})"))
+            exp["jaune"] = {"cle": " + ".join(f'{s["cle"]} {qui}' for s, qui in srcs),
+                            "libelle": " + ".join(f'{s["cle"]} — {s["titre"]} ({qui}, {s["date"][8:]}/{s["date"][5:7]})' for s, qui in srcs)}
         col = colle_en_cours(repo_root, folder, today)
         if col:
             exp["orange"] = {"cle": col["cle"], "libelle": f'Colle {col["cle"]} du {col["debut"]} — {col["titre"]}'}
@@ -225,6 +231,7 @@ def check(repo_root, today):
 
 
 LEGEND_RE = re.compile(r'<div class="hl-legend"[^>]*>.*?</div>\s*', re.S)
+BIBMATH_RE = re.compile(r'\s*<div class="hl-bibmath">.*?</div>', re.S)
 TR_RE = re.compile(r'<tr(?P<attrs>(?:\s[^>]*)?)>(?P<body>.*?)</tr>', re.S)
 CHIP_RE = re.compile(r'<a class="(?P<cls>manual-chip[^"]*)"(?P<rest>[^>]*)>')
 
@@ -265,6 +272,7 @@ def _set_classes(attrs, add):
 
 def _apply_section(section, liens, cfg_subject, sid=None):
     section = LEGEND_RE.sub("", section)
+    section = BIBMATH_RE.sub("", section)
     used = set()
 
     def tr_sub(m):
@@ -316,10 +324,13 @@ def _apply_section(section, liens, cfg_subject, sid=None):
                              f'<b>{html.escape(cfg_subject[couleur]["libelle"])}</b></span>')
         if "jaune" in used and "orange" in used:
             parts.append('<span><span class="hl-swatch jo"></span>les deux</span>')
-        parts.extend(f'<a class="legend-chip hl-{c}" href="{html.escape(b["url"], quote=True)}" target="_blank" rel="noopener">'
-                     f'🔗 {html.escape(b["libelle"])} <span class="arrow">↗</span></a>' for b, c in bibmath)
         legend = f'<div class="hl-legend">{"".join(parts)}</div>'
         section = re.sub(r'(<h2 class="section-title">.*?</h2>\s*)', lambda m: m.group(1) + legend, section, count=1, flags=re.S)
+    if bibmath:
+        # Sous le pavé Exercices (demande de Fabien du 01/10/2026).
+        chips = "".join(f'<a class="legend-chip hl-{c}" href="{html.escape(b["url"], quote=True)}" target="_blank" rel="noopener">'
+                        f'🔗 {html.escape(b["libelle"])} <span class="arrow">↗</span></a>' for b, c in bibmath)
+        section = re.sub(r'</section>$', lambda m: f'<div class="hl-bibmath"><span class="hl-bibmath-t">Exercices Bibmath :</span>{chips}</div></section>', section)
     return section
 
 
