@@ -462,7 +462,6 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
     <a href="https://www.prepabarthou.fr/cours/my/courses.php" target="_blank" rel="noopener"><img src="logo-barthou.png" alt="">Louis Barthou</a>
   </div>
   <h1>{emoji} {esc(label)}</h1>
-  <p>Cours, exercices et DS — mis à jour au fil de l'année</p>
 </header>
 
 {subject_switch_html(folder)}
