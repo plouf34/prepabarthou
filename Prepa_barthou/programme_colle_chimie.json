@@ -31,7 +31,8 @@
           ]
         }
       ],
-      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10"
+      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10",
+      "pdf": "Prepa_barthou/colles/03_CHIMIE/Colles_Chimie_S1.pdf"
     },
     {
       "numero": 2,
@@ -62,7 +63,8 @@
           ]
         }
       ],
-      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10"
+      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10",
+      "pdf": "Prepa_barthou/colles/03_CHIMIE/Colles_Chimie_S2.pdf"
     },
     {
       "numero": 3,
@@ -82,7 +84,8 @@
           ]
         }
       ],
-      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10"
+      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10",
+      "pdf": "Prepa_barthou/colles/03_CHIMIE/Colles_Chimie_S3.pdf"
     },
     {
       "numero": 4,
@@ -111,7 +114,8 @@
           ]
         }
       ],
-      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10"
+      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10",
+      "pdf": "Prepa_barthou/colles/03_CHIMIE/Colles_Chimie_S4.pdf"
     }
   ]
 }

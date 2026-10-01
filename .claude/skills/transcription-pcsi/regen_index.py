@@ -79,6 +79,8 @@ def colles_from_kholle(data):
             "exercices": det.get("exercices_a_connaitre", []),
             "remarque": det.get("remarque", ""),
             "corrections": det.get("corrections", []),
+            "pdf": f'{data["pdf"]}#page={s["page_pdf"]}' if data.get("pdf") and s.get("page_pdf") else data.get("pdf", ""),
+            "pdf_page": s.get("page_pdf"),
         })
     return {"prefixe": "S", "quinzaines": out}
 
@@ -516,6 +518,10 @@ def build_colles_section(repo_root, folder):
             rows.append((q, f'<div class="colle-plan-row" {attrs}>{head}</div>'))
             continue
         inner = ""
+        if q.get("pdf"):
+            pg = f' (page {q["pdf_page"]})' if q.get("pdf_page") else ""
+            inner += (f'<p class="colle-pdf"><a class="manual-chip" href="{esc(q["pdf"])}" target="_blank" rel="noopener">'
+                      f'📄 PDF du programme{pg} <span class="arrow">↗</span></a></p>')
         if q.get("rappel"):
             inner += f'<p class="colle-rappel">{q["rappel"]}</p>'
         for b in q.get("blocs", []):

@@ -286,6 +286,7 @@ details[open] > summary.colle-plan-row::after { transform: rotate(90deg); }
 .colle-group-list > * { border-top: 1px solid var(--border); }
 .colle-group-list > :first-child { border-top: none; }
 .colle-group-list .colle-plan-row { padding-left: 22px; }
+.colle-pdf { margin: 10px 0 4px; }
 .colle-correction { font-size: 13px !important; color: var(--sub); border-top: 1px dashed var(--border); padding-top: 8px; margin-bottom: 12px; }
 @media (max-width: 430px) {
   nav.tab-bar { gap: 4px; padding: 6px 4px; }
