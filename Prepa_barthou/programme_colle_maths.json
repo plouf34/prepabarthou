@@ -1,0 +1,55 @@
+{
+  "_source": "Programmes de colle de Maths de Clarisse (Lycée Louis Barthou, PCSI 1, 2026-2027). Quinzaine 2 : PDF « serie2Colles.pdf » fourni le 01/10/2026.",
+  "_usage": "Lu par .claude/skills/transcription-pcsi/regen_index.py, qui génère la section « Colles » (#colles) de Maths.html : planning des quinzaines puis programme détaillé de chacune. Champs texte en HTML (sup/sub autorisés). La quinzaine en cours est surlignée côté navigateur d'après debut/fin (assets/pcsi.js). Quinzaine sans 'blocs' = programme prévisionnel seulement. Ajouter chaque nouveau programme ici puis relancer regen_index.py ; ne jamais éditer la section #colles à la main.",
+  "quinzaines": [
+    {
+      "numero": 2,
+      "debut": "2026-09-28",
+      "fin": "2026-10-09",
+      "titre": "Équations de degré deux et nombres complexes ; problèmes linéaires d'ordre 2",
+      "rappel": "Les éléments essentiels du premier programme de colle doivent encore être connus : suites récurrentes linéaires et équations différentielles linéaires d'ordre 1 ; calculs de primitives ; théorèmes principaux sur les primitives. On continue à privilégier un point de vue calculatoire.",
+      "blocs": [
+        {
+          "titre": "Équations de degré deux et nombres complexes",
+          "intro": "",
+          "items": [
+            "Les nombres complexes sont définis comme des expressions de la forme <i>a</i> + <i>b</i>i, pour <i>a</i> et <i>b</i> réels, soumises à une règle d'égalité (identification des parties réelle et imaginaires), munies d'une addition (ℝ-linéarité des parties réelle et imaginaire) et d'un produit (qui se déduit de l'égalité fondamentale i<sup>2</sup> = −1, de la commutativité et l'associativité des opérations, et de la distributivité de la multiplication par rapport à l'addition).",
+            "Recherche des racines carrées d'un nombre complexe en écriture cartésienne. Équation biquadratique réelle. Les racines carrées d'un réel positif sont réelles ; les racines carrées d'un réel strictement négatif sont imaginaires pures. Tout complexe non nul a exactement deux racines carrées, opposées l'une de l'autre.",
+            "Équation trinôme du second degré <i>ax</i><sup>2</sup> + <i>bx</i> + <i>c</i> = 0 (le vocabulaire des polynômes n'est pas exigible). Mise sous forme canonique. Discriminant. Rappel de la résolution dans le cas réel à discriminant positif. Solutions complexes dans le cas réel à discriminant négatif. Cas général.",
+            "Notation exponentielle d'un nombre complexe. Formule e<sup><i>z</i><sub>1</sub>+<i>z</i><sub>2</sub></sup> = e<sup><i>z</i><sub>1</sub></sup>e<sup><i>z</i><sub>2</sub></sup>.",
+            "Module, conjugué, arguments d'un nombre complexe. Formulaires sur le module et le conjugué.",
+            "Nombres complexes de module 1. Technique de l'angle moitié notamment pour les expressions 1 ± e<sup>i<i>θ</i></sup>.",
+            "Plan complexe : image d'un nombre complexe dans le plan complexe. Interprétation géométrique du module, des arguments.",
+            "Formulaire de trigonométrie : formules d'Euler, cos<sup>2</sup> <i>a</i> + sin<sup>2</sup> <i>a</i> = 1, formules d'addition, formules de doublement. Valeurs remarquables des fonctions cosinus, sinus, tangente.",
+            "Relations coefficients racines dans une équation du second degré (elles ont été données sans démonstration)."
+          ],
+          "hors_programme": "Ne figurent pas au programme : les inégalités triangulaires, la factorisation des expressions polynomiales par connaissance d'une racine, la formule du binôme, les racines <i>n</i>-èmes, les interprétations complexes des transformations du plan."
+        },
+        {
+          "titre": "Applications à des problèmes linéaires d'ordre 2",
+          "intro": "Les étudiants doivent connaître la structure de l'ensemble des solutions d'une équation linéaire : sommes d'une solution « particulière » de l'équation avec second membre avec toutes les solutions de l'équation homogène associée.",
+          "items": [
+            "Équations différentielles linéaires d'ordre 2 à coefficients constants et à second membre de type polynôme ou exponentiel : plan des solutions de l'équation homogène, principe de superposition, recherche d'une solution particulière de l'équation avec second membre sous forme adaptée. On admettra la dérivation des fonctions <i>t</i> ↦ e<sup><i>at</i></sup>.",
+            "Relations de récurrence linéaire de pas 2 à coefficients constants : seul le cas homogène est au programme. Des exemples de second membre de type polynomial ou géométrique ont néanmoins été rencontrés."
+          ],
+          "hors_programme": ""
+        }
+      ],
+      "questions_de_cours": [
+        "Un nombre complexe <i>Z</i> = <i>A</i> + <i>B</i>i a deux racines carrées distinctes et opposées : preuve dans le cas <i>B</i> ≠ 0.",
+        "Égalité e<sup><i>z</i><sub>1</sub>+<i>z</i><sub>2</sub></sup> = e<sup><i>z</i><sub>1</sub></sup>e<sup><i>z</i><sub>2</sub></sup> : preuve.",
+        "Solutions (complexes) d'une relation de récurrence <i>au</i><sub><i>n</i>+2</sub> + <i>bu</i><sub><i>n</i>+1</sub> + <i>cu</i><sub><i>n</i></sub> = 0 dans le cas <i>a</i>, <i>b</i> et <i>c</i> constants non nuls : énoncé et preuve."
+      ],
+      "corrections": [
+        "Question de cours 1 : « deux racines carrées distincts » dans le PDF, corrigé en « distinctes » (accord avec « racines »)."
+      ]
+    },
+    {
+      "numero": 3,
+      "debut": "2026-10-12",
+      "fin": "2026-11-06",
+      "titre": "Systèmes linéaires, et leurs interprétations géométriques en petite dimension",
+      "previsionnel": true
+    }
+  ]
+}

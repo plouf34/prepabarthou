@@ -30,3 +30,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+// Section « Colles » : surligne la quinzaine en cours (data-debut/data-fin,
+// dates incluses, week-end suivant compris) et ouvre son programme détaillé.
+document.addEventListener("DOMContentLoaded", function () {
+  var now = new Date();
+  var today = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+  document.querySelectorAll("#colles [data-debut]").forEach(function (el) {
+    var fin = new Date(el.dataset.fin + "T12:00:00");
+    fin.setDate(fin.getDate() + 2);
+    var finWe = fin.toISOString().slice(0, 10);
+    if (el.dataset.debut <= today && today <= finWe) {
+      el.classList.add("is-now");
+      if (el.tagName === "DETAILS") el.open = true;
+    }
+  });
+});

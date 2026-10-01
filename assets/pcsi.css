@@ -248,3 +248,35 @@ footer { text-align: center; padding: 16px; color: var(--sub); font-size: 12.5px
   .section-row td { white-space: nowrap; text-overflow: ellipsis; font-size: 12.5px; letter-spacing: 0; padding-left: 6px; padding-right: 4px; }
   .source-chip-inline { font-size: 12px; padding: 2px 6px; gap: 3px; margin-left: 2px; }
 }
+
+/* Section « Colles » (Maths) : planning des quinzaines + programme détaillé,
+   générée par regen_index.py depuis Prepa_barthou/programme_colle_maths.json.
+   .is-now = quinzaine en cours (posée par assets/pcsi.js d'après les dates). */
+.colle-plan { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin: 0 0 12px; }
+.colle-plan-row { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; padding: 10px 12px; color: var(--text); text-decoration: none; border-top: 1px solid var(--border); }
+.colle-plan-row:first-child { border-top: none; }
+.colle-plan-row .colle-q { grid-row: span 2; align-self: center; }
+.colle-dates { font-size: 12.5px; color: var(--sub); font-weight: 600; }
+.colle-plan-titre { font-size: 14.5px; line-height: 1.35; }
+.colle-q { display: inline-block; min-width: 34px; text-align: center; font-weight: 800; font-size: 13px; color: var(--section-text); background: var(--section-bg); border-radius: 8px; padding: 3px 6px; }
+.colle-tag { display: inline-block; margin-left: 6px; font-size: 11.5px; font-weight: 600; color: var(--sub); border: 1px solid var(--border); border-radius: 8px; padding: 0 6px; }
+.colle-now { display: none; }
+.colle-plan-row.is-now { background: linear-gradient(90deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a1)), rgba(var(--hl-jaune-rgb), var(--hl-jaune-a2))); }
+.colle-plan-row.is-now .colle-now { display: inline; grid-column: 2; font-size: 11.5px; font-weight: 700; color: var(--hl-jaune-dot); }
+.colle-plan-row.is-now .colle-now::before { content: "● "; }
+.colle-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; margin: 0 0 10px; padding: 0 14px; }
+.colle-card.is-now { box-shadow: inset 4px 0 0 var(--hl-jaune-dot); }
+.colle-card > summary { cursor: pointer; padding: 12px 0; font-weight: 700; font-size: 15px; line-height: 1.35; }
+.colle-card[open] > summary { border-bottom: 1px solid var(--border); margin-bottom: 10px; }
+.colle-card-head { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin-bottom: 6px; }
+.colle-card h3 { font-size: 15.5px; margin: 16px 0 6px; color: var(--accent); }
+.colle-card p, .colle-card li { font-size: 14.5px; line-height: 1.5; }
+.colle-card ul { padding-left: 20px; margin: 4px 0 8px; }
+.colle-card li { margin-bottom: 5px; }
+.colle-rappel { background: var(--prio-bg); border-left: 3px solid var(--prio-border); border-radius: 6px; padding: 8px 10px; }
+.colle-hors { color: var(--sub); font-size: 13.5px !important; }
+.colle-correction { font-size: 13px !important; color: var(--sub); border-top: 1px dashed var(--border); padding-top: 8px; margin-bottom: 12px; }
+@media (max-width: 430px) {
+  nav.tab-bar { gap: 4px; padding: 6px 4px; }
+  nav.tab-bar a { font-size: 13.5px; padding: 9px 2px; }
+}
