@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
       list.forEach(function (el) { dest.appendChild(el); });
       var ref = list.length ? list[x[2] ? list.length - 1 : 0] : null;
       box.querySelector(".colle-n").textContent = list.length;
-      box.querySelector(".colle-gdate").textContent = ref ? ref.querySelector(".colle-dates").textContent : "";
+      box.querySelector(".colle-gdate").textContent = ref ? ref.querySelector(".colle-dates").firstChild.textContent : "";
       box.hidden = !list.length;
     });
     g.encours.forEach(function (el) { encours.appendChild(el); });

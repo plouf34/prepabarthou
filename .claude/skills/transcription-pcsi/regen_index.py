@@ -452,7 +452,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 <title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/pcsi.css?v=51">
+<link rel="stylesheet" href="assets/pcsi.css?v=52">
 </head>
 <body>
 
@@ -472,7 +472,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 {sections_html}
 </main>
 
-<script src="assets/pcsi.js?v=43" defer></script>
+<script src="assets/pcsi.js?v=44" defer></script>
 </body>
 </html>
 """
@@ -510,9 +510,8 @@ def build_colles_section(repo_root, folder):
         dates = (f'semaine du {date_fr(q["debut"])}' if q.get("debut_seul")
                  else f'{date_fr(q["debut"])} → {date_fr(q["fin"])}')
         head = (f'<span class="colle-q">{pref}{q["numero"]}</span>'
-                f'<span class="colle-dates">{dates}</span>'
-                f'<span class="colle-plan-titre">{q["titre"]}{tag}</span>'
-                f'<span class="colle-now">cette semaine</span>')
+                f'<span class="colle-dates">{dates}<span class="colle-now">cette semaine</span></span>'
+                f'<span class="colle-plan-titre">{q["titre"]}{tag}</span>')
         attrs = f'id="colle-q{q["numero"]}" data-debut="{q["debut"]}" data-fin="{q["fin"]}"'
         if q.get("previsionnel"):
             rows.append((q, f'<div class="colle-plan-row" {attrs}>{head}</div>'))

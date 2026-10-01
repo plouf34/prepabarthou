@@ -282,7 +282,7 @@ details[open] > summary.colle-plan-row::after { transform: rotate(90deg); }
 .colle-tag { display: inline-block; margin-left: 6px; font-size: 11.5px; font-weight: 600; color: var(--sub); border: 1px solid var(--border); border-radius: 8px; padding: 0 6px; }
 .colle-now { display: none; }
 .is-now > .colle-plan-row, .colle-plan-row.is-now { background: linear-gradient(90deg, rgba(var(--hl-orange-rgb), var(--hl-orange-a1)), rgba(var(--hl-orange-rgb), var(--hl-orange-a2))); }
-.is-now .colle-now { display: inline; font-size: 11.5px; font-weight: 700; color: #e2700f; }
+.is-now .colle-now { display: inline; margin-left: 10px; font-size: 11.5px; font-weight: 700; color: #e2700f; }
 .is-now .colle-now::before { content: "● "; }
 .colle-body { padding: 4px 14px 6px; border-top: 1px solid var(--border); }
 .colle-item.is-now > .colle-body { box-shadow: inset 4px 0 0 var(--hl-orange-dot); }
