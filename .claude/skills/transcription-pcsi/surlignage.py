@@ -36,7 +36,7 @@ jaune|orange|jo + note ; "jaune"/"orange" = {cle, libelle} attendus). Le script 
      relire les documents et mettre à jour surlignage.json ;
   2. applique surlignage.json aux pages (idempotent) : classes hl-jaune /
      hl-orange / hl-jo sur les lignes <tr> Exercices/DS dont un lien figure
-     dans "liens", légende en tête des sections. Dans la section Cours : la
+     dans "liens", légende compacte (● Cours ● Colles) en haut de page. Dans la section Cours : la
      ligne du cours en cours (jaune), les cours d'autres lycées de la clé
      "cours" (jaune), et en Physique le chapitre du polycopié de la colle en
      cours (orange).
@@ -315,15 +315,6 @@ def _apply_section(section, liens, cfg_subject, sid=None):
             if coul:
                 bibmath.append((b, coul))
                 used.update(("jaune", "orange") if coul == "jo" else (coul,))
-    if used:
-        parts = []
-        for couleur in ("jaune", "orange"):
-            if couleur in used and cfg_subject.get(couleur):
-                qui = "cours en cours" if couleur == "jaune" else "colle en cours"
-                parts.append(f'<span><span class="hl-swatch {couleur}"></span>{html.escape(qui)} : '
-                             f'<b>{html.escape(cfg_subject[couleur]["libelle"])}</b></span>')
-        legend = f'<div class="hl-legend">{"".join(parts)}</div>'
-        section = re.sub(r'(<h2 class="section-title">.*?</h2>\s*)', lambda m: m.group(1) + legend, section, count=1, flags=re.S)
     if bibmath:
         # Sous le pavé Exercices (demande de Fabien du 01/10/2026).
         chips = "".join(f'<a class="legend-chip hl-{c}" href="{html.escape(b["url"], quote=True)}" target="_blank" rel="noopener">'
@@ -378,6 +369,13 @@ def apply(repo_root, today=None):
         for sid in ("exercices", "ds"):
             data = re.sub(rf'<section id="{sid}">.*?</section>',
                           lambda m, sid=sid: _apply_section(m.group(0), liens, c, sid), data, count=1, flags=re.S)
+        # Légende unique et compacte, en haut de page (demande de Fabien du
+        # 01/10/2026 : pastille + « Cours » / « Colles », sans détail).
+        data = LEGEND_RE.sub("", data)
+        parts = [f'<span><span class="hl-swatch {k}"></span>{t}</span>'
+                 for k, t in (("jaune", "Cours"), ("orange", "Colles")) if (c.get(k) or {}).get("cle")]
+        if parts:
+            data = re.sub(r'(<header>.*?)(</header>)', lambda m: m.group(1) + f'  <div class="hl-legend hl-legend-page">{"".join(parts)}</div>\n' + m.group(2), data, count=1, flags=re.S)
         with open(path, "w", encoding="utf-8") as fh:
             fh.write(data)
         n = len(re.findall(r'class="[^"]*\bhl-(?:jaune|orange|jo)\b', data))

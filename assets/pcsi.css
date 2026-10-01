@@ -324,3 +324,5 @@ tbody tr.hl-jaune td.col-link, tbody tr.hl-orange td.col-link, tbody tr.hl-jo td
 /* Puces Bibmath sous le tableau Exercices (surlignage.py) */
 .hl-bibmath { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; margin: 10px 0 2px; font-size: 12.5px; }
 .hl-bibmath-t { color: var(--sub); margin-right: 4px; }
+/* Légende unique du surlignage, en haut de page */
+.hl-legend-page { justify-content: center; margin: 8px 0 0; }
