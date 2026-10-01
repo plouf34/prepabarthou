@@ -23,8 +23,8 @@ Usage :
   - ORANGE = documents liés à la COLLE EN COURS (programmes de colle :
              SUBJECT_COLLES de regen_index.py). Une colle est en cours de sa
              date de début jusqu'au dimanche qui suit sa date de fin.
-  - JAUNE + ORANGE (couleur "jo") = documents liés aux deux : pastille et
-             pavé en dégradé du jaune (haut) vers l'orange (bas).
+  - JAUNE + ORANGE (couleur "jo") = documents liés aux deux :
+             pastille mi-jaune (gauche) mi-orange (droite).
 
 Ce script NE DÉCIDE PAS quels documents sont liés au cours ou à la colle :
 ce choix demande de lire les documents, il est fait par Claude et consigné

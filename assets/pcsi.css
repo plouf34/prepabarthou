@@ -189,7 +189,7 @@ tbody tr.hl-orange td.col-titre::before { background: var(--hl-orange-dot); }
 .hl-legend .hl-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; vertical-align: 1px; margin-right: 6px; }
 .hl-legend .hl-swatch.jaune { background: var(--hl-jaune-dot); }
 .hl-legend .hl-swatch.orange { background: var(--hl-orange-dot); }
-.hl-legend .hl-swatch.jo { background: linear-gradient(180deg, var(--hl-jaune-dot) 50%, var(--hl-orange-dot) 50%); }
+.hl-legend .hl-swatch.jo { background: linear-gradient(90deg, var(--hl-jaune-dot) 50%, var(--hl-orange-dot) 50%); }
 /* Orange pâle = lié à la colle en cours ; jo = lié au cours ET à la colle :
    pastille et pavé en dégradé vertical, jaune en haut → orange en bas. */
 tbody tr.hl-jo { box-shadow: inset 4px 0 0 transparent; }
@@ -197,7 +197,7 @@ tbody tr.hl-jo td { background-color: transparent !important; }
 tbody tr.hl-jo td.col-n { background: linear-gradient(180deg, var(--hl-jaune-border) 50%, var(--hl-orange-border) 50%) left / 4px 100% no-repeat, linear-gradient(180deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a1)) 30%, rgba(var(--hl-orange-rgb), var(--hl-orange-a1)) 70%) !important; }
 tbody tr.hl-jo td.col-titre { background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--card-bg) 75%, transparent)), linear-gradient(180deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a1)) 30%, rgba(var(--hl-orange-rgb), var(--hl-orange-a1)) 70%) !important; }
 tbody tr.hl-jo td.col-link { background: linear-gradient(180deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a2)) 30%, rgba(var(--hl-orange-rgb), var(--hl-orange-a2)) 70%) !important; }
-tbody tr.hl-jo td.col-titre::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; background: linear-gradient(180deg, var(--hl-jaune-dot) 50%, var(--hl-orange-dot) 50%); }
+tbody tr.hl-jo td.col-titre::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; background: linear-gradient(90deg, var(--hl-jaune-dot) 50%, var(--hl-orange-dot) 50%); }
 td { padding: 4px 6px; vertical-align: middle; }
 .section-row td {
   background: var(--section-bg); color: var(--section-text);
@@ -320,7 +320,7 @@ tbody tr.hl-jaune td.col-link, tbody tr.hl-orange td.col-link, tbody tr.hl-jo td
 .legend-chip.hl-jaune::before, .legend-chip.hl-orange::before, .legend-chip.hl-jo::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; }
 .legend-chip.hl-jaune::before { background: var(--hl-jaune-dot); }
 .legend-chip.hl-orange::before { background: var(--hl-orange-dot); }
-.legend-chip.hl-jo::before { background: linear-gradient(180deg, var(--hl-jaune-dot) 50%, var(--hl-orange-dot) 50%); }
+.legend-chip.hl-jo::before { background: linear-gradient(90deg, var(--hl-jaune-dot) 50%, var(--hl-orange-dot) 50%); }
 /* Puces Bibmath sous le tableau Exercices (surlignage.py) */
 .hl-bibmath { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; margin: 10px 0 2px; font-size: 12.5px; }
 .hl-bibmath-t { color: var(--sub); margin-right: 4px; }
