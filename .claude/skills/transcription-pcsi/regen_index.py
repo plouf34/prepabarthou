@@ -452,7 +452,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 <title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/pcsi.css?v=39">
+<link rel="stylesheet" href="assets/pcsi.css?v=40">
 </head>
 <body>
 
@@ -472,7 +472,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 {sections_html}
 </main>
 
-<script src="assets/pcsi.js?v=39" defer></script>
+<script src="assets/pcsi.js?v=40" defer></script>
 </body>
 </html>
 """
@@ -565,12 +565,17 @@ def build_colles_section(repo_root, folder):
     for q, h in rows:
         groupes[statut(q)].append((q, h))
 
-    def lbl(q):
-        return f'{pref}{q["numero"]} — {q["titre"]}'
+    def lbl(q, avec_date=False):
+        if not avec_date:
+            return f'{pref}{q["numero"]} — {q["titre"]}'
+        d = (f'semaine du {date_fr(q["debut"])}' if q.get("debut_seul")
+             else f'{date_fr(q["debut"])} → {date_fr(q["fin"])}')
+        return f'{pref}{q["numero"]} ({d}) — {q["titre"]}'
 
     def groupe(cle, icone, nom, rappel, items):
         cache = "" if items else ' hidden'
-        r = lbl(items[-1 if cle == "passees" else 0][0]) if items else ""
+        # « à venir » rappelle aussi la date de la prochaine colle
+        r = lbl(items[-1 if cle == "passees" else 0][0], avec_date=(cle == "avenir")) if items else ""
         return (f'<details class="colle-group" data-groupe="{cle}"{cache}>'
                 f'<summary class="colle-plan-row"><span class="colle-q">{icone}</span>'
                 f'<span class="colle-dates">{nom} (<span class="colle-n">{len(items)}</span>)</span>'
