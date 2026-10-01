@@ -322,8 +322,6 @@ def _apply_section(section, liens, cfg_subject, sid=None):
                 qui = "cours en cours" if couleur == "jaune" else "colle en cours"
                 parts.append(f'<span><span class="hl-swatch {couleur}"></span>{html.escape(qui)} : '
                              f'<b>{html.escape(cfg_subject[couleur]["libelle"])}</b></span>')
-        if "jaune" in used and "orange" in used:
-            parts.append('<span><span class="hl-swatch jo"></span>les deux</span>')
         legend = f'<div class="hl-legend">{"".join(parts)}</div>'
         section = re.sub(r'(<h2 class="section-title">.*?</h2>\s*)', lambda m: m.group(1) + legend, section, count=1, flags=re.S)
     if bibmath:
