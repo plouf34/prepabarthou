@@ -50,7 +50,7 @@ Gabarits : `templates/` (`gabarit-origine_…` + `gabarit-quiz.html`, voir promp
 - Données : `Prepa_barthou/surlignage.json` (liens jaune|orange|jo, remplis après LECTURE des documents), appliqué par
   `.claude/skills/transcription-pcsi/surlignage.py` (appelé par `regen_index.py`). `⚠️ SURLIGNAGE À REVOIR` (nouveau cours,
   nouvelle colle) → le refaire. Règles complètes : section « SURLIGNAGE » du prompt maître.
-- À chaque nouveau cours de Clarisse en Maths : mettre aussi à jour la clé `bibmath` de `surlignage.json` (section « PUCES BIBMATH » du prompt maître).
+- Puces Bibmath (Maths) : clé `bibmath` de `surlignage.json`, colorées comme les exercices (jaune/orange/jo) ; à revoir à chaque nouveau cours de Clarisse et à chaque nouvelle colle (section « PUCES BIBMATH » du prompt maître).
 - Jamais de classes `hl-*` posées à la main. Sauvegarde d'avant mise en place : branche `backup/2026-09-30-avant-surlignage`.
 
 ## Colles (programmes + planning)

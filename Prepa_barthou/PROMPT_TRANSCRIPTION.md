@@ -137,8 +137,8 @@ Règles décidées par Fabien le 01/10/2026 (résumé dans `CLAUDE.md`). À refa
 
 ## PUCES BIBMATH (Maths uniquement)
 
-Indépendant du choix des documents surlignés. La puce Bibmath s'affiche dans la légende de la section Exercices de `Maths.html`, juste après « dernier cours de Clarisse : ChNN — … ». Elle est générée par `surlignage.py` : ne jamais l'écrire à la main dans la page.
-- À chaque nouveau cours de **Clarisse** en Maths, mettre à jour la clé `bibmath` de `Maths` dans `Prepa_barthou/surlignage.json` : liste de `{"libelle": "Bibmath — <Thème>", "url": "…"}` pour la (ou les) feuille(s) Bibmath du **dernier chapitre de Clarisse uniquement** (pas des profs de Louis Barthou ni des autres lycées).
+Les puces Bibmath s'affichent dans la légende de la section Exercices de `Maths.html` et sont **colorées comme les exercices** (`couleur` : `jaune` = cours en cours, `orange` = colle en cours, `jo` = les deux). Elles sont générées par `surlignage.py` : ne jamais les écrire à la main dans la page.
+- À chaque nouveau cours de **Clarisse** en Maths et à chaque nouvelle **colle**, mettre à jour la clé `bibmath` de `Maths` dans `Prepa_barthou/surlignage.json` : liste de `{"libelle": "Bibmath — <Thème>", "url": "…", "couleur": "jaune|orange|jo"}` pour les feuilles Bibmath du cours en cours et de la colle en cours.
 - Trouver l'URL depuis l'index Math Sup `https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/index` : lien « Exercices » de la ligne du thème (forme `…&quoi=mpsi/feuillesexo/<slug>&type=fexo`). Ne jamais deviner le slug.
 - Vérifier en lisant la page : un slug inexistant répond quand même HTTP 200 et affiche la page d'accueil « Ressources mathématiques ». Contrôle fiable : le `<title>` commence par « Exercices math sup : » et la page contient des blocs « Exercice N ». Exemple : `complexes` est bon, `nombrescomplexes` ne l'est pas.
 - Relancer `regen_index.py` et vérifier que la puce apparaît dans la légende.

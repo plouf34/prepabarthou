@@ -298,10 +298,15 @@ def _apply_section(section, liens, cfg_subject, sid=None):
     section = CHIP_RE.sub(chip_sub, section)
 
     # Puces Bibmath (clé "bibmath" de surlignage.json, Maths) : affichées dans la
-    # légende de la section Exercices, en face du dernier cours de Clarisse.
-    bibmath = cfg_subject.get("bibmath") if sid == "exercices" and cfg_subject.get("jaune") else None
-    if bibmath:
-        used.add("jaune")
+    # légende de la section Exercices, colorées comme les exercices (couleur
+    # jaune = cours en cours, orange = colle en cours, jo = les deux).
+    bibmath = []
+    if sid == "exercices":
+        for b in cfg_subject.get("bibmath") or []:
+            coul = _couleur_active(b.get("couleur", "jaune"), cfg_subject)
+            if coul:
+                bibmath.append((b, coul))
+                used.update(("jaune", "orange") if coul == "jo" else (coul,))
     if used:
         parts = []
         for couleur in ("jaune", "orange"):
@@ -309,11 +314,10 @@ def _apply_section(section, liens, cfg_subject, sid=None):
                 qui = "cours en cours" if couleur == "jaune" else "colle en cours"
                 parts.append(f'<span><span class="hl-swatch {couleur}"></span>{html.escape(qui)} : '
                              f'<b>{html.escape(cfg_subject[couleur]["libelle"])}</b></span>')
-                if couleur == "jaune" and bibmath:
-                    parts.extend(f'<a class="legend-chip" href="{html.escape(b["url"], quote=True)}" target="_blank" rel="noopener">'
-                                 f'🔗 {html.escape(b["libelle"])} <span class="arrow">↗</span></a>' for b in bibmath)
         if "jaune" in used and "orange" in used:
             parts.append('<span><span class="hl-swatch jo"></span>les deux</span>')
+        parts.extend(f'<a class="legend-chip hl-{c}" href="{html.escape(b["url"], quote=True)}" target="_blank" rel="noopener">'
+                     f'🔗 {html.escape(b["libelle"])} <span class="arrow">↗</span></a>' for b, c in bibmath)
         legend = f'<div class="hl-legend">{"".join(parts)}</div>'
         section = re.sub(r'(<h2 class="section-title">.*?</h2>\s*)', lambda m: m.group(1) + legend, section, count=1, flags=re.S)
     return section

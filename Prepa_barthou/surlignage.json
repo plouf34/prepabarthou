@@ -1,5 +1,5 @@
 {
- "_lisez_moi": "Surlignage « en cours » des sections Exercices/DS (règles du 01/10/2026, voir CLAUDE.md). Rempli par Claude APRÈS lecture des documents ; appliqué par .claude/skills/transcription-pcsi/surlignage.py (appelé aussi par regen_index.py). 'jaune' = {cle, libelle} du COURS en cours (ChNN, calculé par le script) ; 'orange' = {cle, libelle} de la COLLE en cours (Q2, S3…, calculée par le script). 'liens' : URL exacte d'un lien de la ligne (Sujet de préférence) + couleur : 'jaune' (lié au cours en cours), 'orange' (lié à la colle en cours) ou 'jo' (lié aux deux : pastille et pavé en dégradé jaune → orange, de haut en bas) + note. 'non_lus' : documents qui n'ont pas pu être ouverts. Ne surligner que des exercices, TD, DS et interros : jamais Bibmath/Exo7 ni les cahiers de calcul. Clé 'cours' : cours d'autres lycées qui traitent le cours en cours (jaune), section Cours. Clé 'bibmath' (Maths) : puces Bibmath du dernier chapitre de Clarisse. Clé 'exceptions' (facultative, seulement si Fabien l'a stipulé) : {'profs_priment': true} = le cours prof en cours prime sur Clarisse ; {'cours_dates': {'<fichier>': ['AAAA-MM-JJ', 'AAAA-MM-JJ']}} = intervalle donné à un cours non daté.",
+ "_lisez_moi": "Surlignage « en cours » des sections Exercices/DS (règles du 01/10/2026, voir CLAUDE.md). Rempli par Claude APRÈS lecture des documents ; appliqué par .claude/skills/transcription-pcsi/surlignage.py (appelé aussi par regen_index.py). 'jaune' = {cle, libelle} du COURS en cours (ChNN, calculé par le script) ; 'orange' = {cle, libelle} de la COLLE en cours (Q2, S3…, calculée par le script). 'liens' : URL exacte d'un lien de la ligne (Sujet de préférence) + couleur : 'jaune' (lié au cours en cours), 'orange' (lié à la colle en cours) ou 'jo' (lié aux deux : pastille et pavé en dégradé jaune → orange, de haut en bas) + note. 'non_lus' : documents qui n'ont pas pu être ouverts. Ne surligner que des exercices, TD, DS et interros : jamais Bibmath/Exo7 ni les cahiers de calcul. Clé 'cours' : cours d'autres lycées qui traitent le cours en cours (jaune), section Cours. Clé 'bibmath' (Maths) : puces Bibmath [{libelle, url, couleur jaune|orange|jo}] du cours en cours et de la colle en cours, colorées comme les exercices. Clé 'exceptions' (facultative, seulement si Fabien l'a stipulé) : {'profs_priment': true} = le cours prof en cours prime sur Clarisse ; {'cours_dates': {'<fichier>': ['AAAA-MM-JJ', 'AAAA-MM-JJ']}} = intervalle donné à un cours non daté.",
  "maj": "2026-10-01",
  "Maths": {
   "jaune": {
@@ -24,8 +24,8 @@
    },
    {
     "url": "https://www.bourrigan.fr/docs/td22-EDO.pdf",
-    "couleur": "orange",
-    "note": "Colle Q2 — partie « Deuxième ordre » (Autocorrection B, ex. 2 à 4) : ED linéaires d'ordre 2 à coefficients constants (pas dans le Ch02 de Clarisse)"
+    "couleur": "jo",
+    "note": "Ch02 §III Clarisse (EDL② homogènes) + colle Q2 — partie « Deuxième ordre » (Autocorrection B, ex. 2 à 4) : ED linéaires d'ordre 2 à coefficients constants"
    },
    {
     "url": "https://bourrigan.fr/docs/ds02-module-somme-complexes-sujet.pdf",
@@ -54,7 +54,23 @@
   "bibmath": [
    {
     "libelle": "Bibmath — Nombres complexes",
-    "url": "https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/complexes&type=fexo"
+    "url": "https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/complexes&type=fexo",
+    "couleur": "jo"
+   },
+   {
+    "libelle": "Bibmath — Suites (ex. 24 : récurrentes linéaires d'ordre 2)",
+    "url": "https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/suites&type=fexo",
+    "couleur": "jo"
+   },
+   {
+    "libelle": "Bibmath — Équations différentielles linéaires (2nd ordre)",
+    "url": "https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/equadiffs&type=fexo",
+    "couleur": "jo"
+   },
+   {
+    "libelle": "Bibmath — Trigonométrie",
+    "url": "https://www.bibmath.net/ressources/index.php?action=affiche&quoi=mpsi/feuillesexo/trigo&type=fexo",
+    "couleur": "orange"
    }
   ],
   "orange": {
