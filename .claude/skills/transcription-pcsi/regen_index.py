@@ -423,7 +423,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 <title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/pcsi.css?v=37">
+<link rel="stylesheet" href="assets/pcsi.css?v=38">
 </head>
 <body>
 
@@ -459,10 +459,12 @@ def date_fr(iso):
 
 
 def build_colles_section(repo_root, folder):
-    """Section « Colles » générée depuis SUBJECT_COLLES[folder] : planning des
-    quinzaines (la quinzaine en cours est surlignée par assets/pcsi.js d'après
-    data-debut/data-fin) puis le programme détaillé de chacune, la plus récente
-    en premier. Les champs du JSON sont du HTML (sup/sub) recopié tel quel."""
+    """Section « Colles » générée depuis SUBJECT_COLLES[folder] : UNE seule liste
+    (planning) où chaque quinzaine est une ligne dépliable qui contient son
+    programme détaillé. La quinzaine en cours est surlignée et ouverte par
+    assets/pcsi.js d'après data-debut/data-fin ; sans JS, le programme détaillé
+    le plus récent est ouvert. Une quinzaine « previsionnel » n'est pas
+    dépliable. Les champs du JSON sont du HTML (sup/sub) recopié tel quel."""
     import json
     data = json.load(open(os.path.join(repo_root, SUBJECT_COLLES[folder]), encoding="utf-8"))
     qz = sorted(data["quinzaines"], key=lambda q: q["debut"])
@@ -470,45 +472,38 @@ def build_colles_section(repo_root, folder):
     def li(items):
         return "<ul>" + "".join(f"<li>{x}</li>" for x in items) + "</ul>"
 
-    plan = []
+    ouvert = next((q["numero"] for q in reversed(qz) if not q.get("previsionnel")), None)
+    rows = []
     for q in qz:
         tag = '<span class="colle-tag">prévisionnel</span>' if q.get("previsionnel") else ""
-        href = "" if q.get("previsionnel") else f' href="#colle-q{q["numero"]}"'
-        plan.append(
-            f'<a class="colle-plan-row"{href} data-debut="{q["debut"]}" data-fin="{q["fin"]}">'
-            f'<span class="colle-q">Q{q["numero"]}</span>'
-            f'<span class="colle-dates">{date_fr(q["debut"])} → {date_fr(q["fin"])}</span>'
-            f'<span class="colle-plan-titre">{q["titre"]}{tag}</span>'
-            f'<span class="colle-now">cette semaine</span></a>'
-        )
-    body = f'<div class="colle-plan">{"".join(plan)}</div>'
-
-    # Ouvert par défaut : le programme détaillé le plus récent.
-    ouvert = next((q["numero"] for q in reversed(qz) if not q.get("previsionnel")), None)
-    for q in reversed(qz):
-        head = (f'<div class="colle-card-head"><span class="colle-q">Quinzaine {q["numero"]}</span>'
-                f'<span class="colle-dates">du {date_fr(q["debut"])} au {date_fr(q["fin"])}</span></div>')
+        head = (f'<span class="colle-q">Q{q["numero"]}</span>'
+                f'<span class="colle-dates">{date_fr(q["debut"])} → {date_fr(q["fin"])}</span>'
+                f'<span class="colle-plan-titre">{q["titre"]}{tag}</span>'
+                f'<span class="colle-now">cette semaine</span>')
+        attrs = f'id="colle-q{q["numero"]}" data-debut="{q["debut"]}" data-fin="{q["fin"]}"'
         if q.get("previsionnel"):
-            continue  # seulement dans le planning, en attendant le programme détaillé
-        else:
-            inner = head
-            if q.get("rappel"):
-                inner += f'<p class="colle-rappel">{q["rappel"]}</p>'
-            for b in q.get("blocs", []):
-                inner += f'<h3>{b["titre"]}</h3>'
-                if b.get("intro"):
-                    inner += f'<p>{b["intro"]}</p>'
-                inner += li(b["items"])
-                if b.get("outro"):
-                    inner += f'<p>{b["outro"]}</p>'
-                if b.get("hors_programme"):
-                    inner += f'<p class="colle-hors">🚫 {b["hors_programme"]}</p>'
-            if q.get("questions_de_cours"):
-                inner += f'<h3>🎤 Questions de cours</h3>{li(q["questions_de_cours"])}'
-            for c in q.get("corrections", []):
-                inner += f'<p class="colle-correction">⚠️ Correction : {c}</p>'
+            rows.append(f'<div class="colle-plan-row" {attrs}>{head}</div>')
+            continue
+        inner = ""
+        if q.get("rappel"):
+            inner += f'<p class="colle-rappel">{q["rappel"]}</p>'
+        for b in q.get("blocs", []):
+            inner += f'<h3>{b["titre"]}</h3>'
+            if b.get("intro"):
+                inner += f'<p>{b["intro"]}</p>'
+            inner += li(b["items"])
+            if b.get("outro"):
+                inner += f'<p>{b["outro"]}</p>'
+            if b.get("hors_programme"):
+                inner += f'<p class="colle-hors">🚫 {b["hors_programme"]}</p>'
+        if q.get("questions_de_cours"):
+            inner += f'<h3>🎤 Questions de cours</h3>{li(q["questions_de_cours"])}'
+        for c in q.get("corrections", []):
+            inner += f'<p class="colle-correction">⚠️ Correction : {c}</p>'
         op = " open" if q["numero"] == ouvert else ""
-        body += f'<details class="colle-card" id="colle-q{q["numero"]}"{op} data-debut="{q["debut"]}" data-fin="{q["fin"]}"><summary>Q{q["numero"]} — {q["titre"]}</summary>{inner}</details>'
+        rows.append(f'<details class="colle-item" {attrs}{op}><summary class="colle-plan-row">{head}</summary>'
+                    f'<div class="colle-body">{inner}</div></details>')
+    body = f'<div class="colle-plan">{"".join(rows)}</div>'
     return f'<section id="colles">{section_title_html("colles")}{body}</section>'
 
 
