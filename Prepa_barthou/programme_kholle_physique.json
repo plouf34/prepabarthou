@@ -1,36 +1,716 @@
 {
   "_source": "Programme de Khôlle – 802 (Physique, Lycée Louis Barthou), année 2026-2027, PDF fourni le 30/09/2026.",
-  "_usage": "Lu par .claude/skills/transcription-pcsi/surlignage.py : la semaine en cours est la dernière dont la date de début est <= aujourd'hui ; son 'dernier_chapitre' est le dernier chapitre des profs de Louis Barthou en Physique (numérotation par thème, comme les TD Barthou de la page Physique).",
+  "_usage": "Lu par .claude/skills/transcription-pcsi/surlignage.py : la semaine en cours est la dernière dont la date de début est <= aujourd'hui ; son 'dernier_chapitre' est le dernier chapitre des profs de Louis Barthou en Physique (numérotation par thème, comme les TD Barthou de la page Physique). Chaque semaine porte aussi 'detail' (programme recopié du PDF : blocs par thème, exercices à connaître parfaitement, remarque, corrections) : lu par regen_index.py pour la section « Colles » (#colles) de Physique.html (une ligne dépliable par semaine, date de début seule car le PDF ne donne que le lundi).",
   "semaines": [
-    {"semaine": "S1",  "debut": "2026-09-14", "theme": "Électricité",     "chapitre": 1, "titre": "Lois générales de l'électricité", "exercices": "TD1 : ex. 4, 5, 7"},
-    {"semaine": "S2",  "debut": "2026-09-21", "theme": "Électricité",     "chapitre": 2, "titre": "Régime transitoire du 1er ordre (RC, RL série)", "exercices": "TD1 : ex. 7 ; TD2 : ex. 1, 2"},
-    {"semaine": "S3",  "debut": "2026-09-28", "theme": "Électricité",     "chapitre": 2, "titre": "Régime transitoire du 1er ordre (RC, RL série)", "exercices": "TD2 : ex. 3, 4, 5"},
-    {"semaine": "S4",  "debut": "2026-10-05", "theme": "Électricité",     "chapitre": 3, "titre": "Régime transitoire du 2e ordre (RLC série)", "exercices": "TD3 : ex. 1, 3, 4"},
-    {"semaine": "S5",  "debut": "2026-10-12", "theme": "Électricité",     "chapitre": 4, "titre": "Régime sinusoïdal forcé", "exercices": "TD3 : ex. 1, 3, 4"},
-    {"semaine": "S6",  "debut": "2026-11-02", "theme": "Électricité",     "chapitre": 4, "titre": "Régime sinusoïdal forcé", "exercices": "TD4 : ex. 2, 3, 5"},
-    {"semaine": "S7",  "debut": "2026-11-09", "theme": "Électricité",     "chapitre": 5, "titre": "Les filtres", "exercices": "TD4 : ex. 3, 5 ; TD5 : ex. 2"},
-    {"semaine": "S8",  "debut": "2026-11-16", "theme": "Signal",          "chapitre": 1, "titre": "Ondes progressives", "exercices": "TD5 Filtres : ex. 7, 8 ; TD1 Ondes : ex. 4"},
-    {"semaine": "S9",  "debut": "2026-11-23", "theme": "Signal",          "chapitre": 2, "titre": "Interférences", "exercices": "TD Signal 2 : ex. 3, 4, 6"},
-    {"semaine": "S10", "debut": "2026-11-30", "theme": "Signal",          "chapitre": 4, "titre": "Lentilles minces (et Ch3 lois de Descartes)", "exercices": "TD Signal 2 : ex. 6 ; TD Signal 4 : ex. 1, 2"},
-    {"semaine": "S11", "debut": "2026-12-08", "theme": "Mécanique",       "chapitre": 1, "titre": "Cinématique", "exercices": "TD Signal 4 : ex. 1, 2 ; TD Méca 1 : ex. 1"},
-    {"semaine": "S12", "debut": "2026-12-15", "theme": "Mécanique",       "chapitre": 2, "titre": "Lois de Newton", "exercices": "TD Méca 1 : ex. 1 ; TD Méca 2 : ex. 1, 2"},
-    {"semaine": "S13", "debut": "2027-01-05", "theme": "Mécanique",       "chapitre": 2, "titre": "Lois de Newton", "exercices": "TD Méca 2 : ex. 3, 4, 9"},
-    {"semaine": "S14", "debut": "2027-01-12", "theme": "Mécanique",       "chapitre": 3, "titre": "Théorème de l'énergie mécanique", "exercices": "TD Méca 2 : ex. 9 ; TD Méca 3 : ex. 2, 5"},
-    {"semaine": "S15", "debut": "2027-01-19", "theme": "Mécanique",       "chapitre": 4, "titre": "Mouvement d'une particule chargée", "exercices": "TD Méca 3 : ex. 2, 5, 7"},
-    {"semaine": "S16", "debut": "2027-01-26", "theme": "Mécanique",       "chapitre": 5, "titre": "Les trois lois de Kepler", "exercices": "TD Méca 3 : ex. 7 ; TD Méca 4 : ex. 2 ; TD Méca 5 : ex. 1"},
-    {"semaine": "S17", "debut": "2027-02-02", "theme": "Mécanique",       "chapitre": 5, "titre": "Les trois lois de Kepler", "exercices": "TD Méca 5 : ex. 4, 6, 7"},
-    {"semaine": "S18", "debut": "2027-02-23", "theme": "Mécanique",       "chapitre": 6, "titre": "Rotation d'un solide autour d'un axe", "exercices": "TD Méca 5 : ex. 6 ; TD Méca 6 : ex. 1, 2"},
-    {"semaine": "S19", "debut": "2027-03-02", "theme": "Mécanique",       "chapitre": 6, "titre": "Rotation d'un solide autour d'un axe", "exercices": "TD Méca 5 : ex. 6 ; TD Méca 6 : ex. 1, 2"},
-    {"semaine": "S20", "debut": "2027-03-09", "theme": "Thermodynamique", "chapitre": 1, "titre": "Le gaz parfait monoatomique", "exercices": "TD Thermo 1 : ex. 1, 6, 7"},
-    {"semaine": "S21", "debut": "2027-03-16", "theme": "Thermodynamique", "chapitre": 2, "titre": "Le premier principe", "exercices": "TD Thermo 1 : ex. 7 ; TD Thermo 2 : ex. 3, 6"},
-    {"semaine": "S22", "debut": "2027-03-23", "theme": "Thermodynamique", "chapitre": 3, "titre": "Le second principe", "exercices": "TD Thermo 2 : ex. 7, 8, 9"},
-    {"semaine": "S23", "debut": "2027-03-30", "theme": "Thermodynamique", "chapitre": 3, "titre": "Le second principe", "exercices": "TD Thermo 3 : ex. 4, 5, 6"},
-    {"semaine": "S24", "debut": "2027-04-20", "theme": "Thermodynamique", "chapitre": 5, "titre": "Les machines thermiques (et Ch4 changement de phase)", "exercices": "TD Thermo 4 : ex. 3, 4 ; TD Thermo 5 : ex. 5"},
-    {"semaine": "S25", "debut": "2027-04-27", "theme": "Thermodynamique", "chapitre": 5, "titre": "Les machines thermiques", "exercices": "TD Thermo 4 : ex. 3, 4 ; TD Thermo 5 : ex. 5"},
-    {"semaine": "S26", "debut": "2027-05-04", "theme": "Thermodynamique", "chapitre": 6, "titre": "La statique des fluides", "exercices": "TD Thermo 5 : ex. 5 ; TD Thermo 6 : ex. 6, 7"},
-    {"semaine": "S27", "debut": "2027-05-18", "theme": "Induction",       "chapitre": 2, "titre": "La loi de Faraday (et Ch1 force de Laplace)", "exercices": "TD Induction 2 : ex. 0, 1, 2"},
-    {"semaine": "S28", "debut": "2027-05-25", "theme": "Induction",       "chapitre": 2, "titre": "La loi de Faraday", "exercices": "TD Induction 2 : ex. 0, 2, 5"},
-    {"semaine": "S29", "debut": "2027-06-01", "theme": null,              "chapitre": null, "titre": "Tout le programme de l'année", "exercices": ""},
-    {"semaine": "S30", "debut": "2027-06-08", "theme": null,              "chapitre": null, "titre": "Tout le programme de l'année", "exercices": ""}
+    {
+      "semaine": "S1",
+      "debut": "2026-09-14",
+      "theme": "Électricité",
+      "chapitre": 1,
+      "titre": "Lois générales de l'électricité",
+      "exercices": "TD1 : ex. 4, 5, 7",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Électricité",
+            "items": [
+              "Lois générales de l'électricité, loi d'Ohm, pont diviseur de tension et de courant, loi des nœuds, loi des mailles, équivalence Thévenin Norton, résistance équivalente de deux résistances en dérivation."
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD1 : exercices 4, 5 et 7"
+        ],
+        "corrections": [
+          "« Thèvenin » et « loi d'ohm » dans le PDF, corrigés en « Thévenin » et « loi d'Ohm »."
+        ]
+      }
+    },
+    {
+      "semaine": "S2",
+      "debut": "2026-09-21",
+      "theme": "Électricité",
+      "chapitre": 2,
+      "titre": "Régime transitoire du 1er ordre (RC, RL série)",
+      "exercices": "TD1 : ex. 7 ; TD2 : ex. 1, 2",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Électricité",
+            "items": [
+              "Chapitre 1 : Lois générales de l'électricité, loi d'Ohm, pont diviseur de tension et de courant, loi des nœuds, loi des mailles, équivalence Thévenin Norton, résistance équivalente de deux résistances en dérivation.",
+              "Chapitre 2 : Régime transitoire 1<sup>er</sup> ordre. Circuit RC série, circuit RL série. Énergie capacitive et inductive, portrait de phase."
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD 1 : exercice 7",
+          "TD 2 : exercices 1, 2"
+        ],
+        "corrections": [
+          "« Thèvenin » et « loi d'ohm » dans le PDF, corrigés en « Thévenin » et « loi d'Ohm »."
+        ]
+      }
+    },
+    {
+      "semaine": "S3",
+      "debut": "2026-09-28",
+      "theme": "Électricité",
+      "chapitre": 2,
+      "titre": "Régime transitoire du 1er ordre (RC, RL série)",
+      "exercices": "TD2 : ex. 3, 4, 5",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Électricité",
+            "items": [
+              "Chapitre 2 : Régime transitoire 1<sup>er</sup> ordre. Circuit RC série, circuit RL série. Puissance capacitive et inductive."
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD 2 : exercices 3, 4 et 5"
+        ]
+      }
+    },
+    {
+      "semaine": "S4",
+      "debut": "2026-10-05",
+      "theme": "Électricité",
+      "chapitre": 3,
+      "titre": "Régime transitoire du 2e ordre (RLC série)",
+      "exercices": "TD3 : ex. 1, 3, 4",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Électricité",
+            "items": [
+              "Chapitres 2 et 3 : Régime transitoire 1<sup>er</sup> et 2<sup>ème</sup> ordre.",
+              "Circuit RLC série. Régime apériodique, pseudo-périodique.",
+              "Équation caractéristique du second degré.",
+              "Résolution de l'équation différentielle de la charge : <i>q̈</i> + (<i>ω</i><sub>0</sub>/<i>Q</i>) <i>q̇</i> + <i>ω</i><sub>0</sub>²<i>q</i> = <i>E</i>/<i>L</i> selon la valeur de <i>Q</i> par rapport à ½.",
+              "Analogie électro-mécanique."
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD 2 : exercice 5",
+          "TD 3 : exercices 1 et 3"
+        ]
+      }
+    },
+    {
+      "semaine": "S5",
+      "debut": "2026-10-12",
+      "theme": "Électricité",
+      "chapitre": 4,
+      "titre": "Régime sinusoïdal forcé",
+      "exercices": "TD3 : ex. 1, 3, 4",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Électricité",
+            "items": [
+              "Chapitre 3 : Régime transitoire 2<sup>ème</sup> ordre. Circuit RLC série. Régime apériodique, pseudo-périodique. Équation caractéristique du second degré. Résolution de l'équation différentielle de la charge : <i>q̈</i> + (<i>ω</i><sub>0</sub>/<i>Q</i>) <i>q̇</i> + <i>ω</i><sub>0</sub>²<i>q</i> = <i>E</i>/<i>L</i> selon la valeur de <i>Q</i> par rapport à ½. Analogie électro-mécanique.",
+              "Chapitre 4 : Régime sinusoïdal forcé (R.S.F)<ul><li>Correspondance complexe entre « cos(<i>ωt</i>+<i>φ</i>) » et « exp j(<i>ωt</i>+<i>φ</i>) ».</li><li>Étude d’un circuit RL et RC série en R.S.F.</li><li>Schéma de Fresnel.</li></ul>"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD 3 : exercices 1, 3 et 4"
+        ]
+      }
+    },
+    {
+      "semaine": "S6",
+      "debut": "2026-11-02",
+      "theme": "Électricité",
+      "chapitre": 4,
+      "titre": "Régime sinusoïdal forcé",
+      "exercices": "TD4 : ex. 2, 3, 5",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Électricité",
+            "items": [
+              "Chapitre 4 : Régime sinusoïdal forcé (R.S.F)<ul><li>Correspondance complexe entre « cos(<i>ωt</i>+<i>φ</i>) » et « exp j(<i>ωt</i>+<i>φ</i>) ».</li><li>Étude des circuits RL, RC et RLC série en R.S.F.</li><li>Schéma de Fresnel.</li><li>Impédance complexe <u>Z</u> : <u>e</u> = <u>Z</u> <u>i</u></li></ul>"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD 4 : exercices 2, 3 et 5"
+        ]
+      }
+    },
+    {
+      "semaine": "S7",
+      "debut": "2026-11-09",
+      "theme": "Électricité",
+      "chapitre": 5,
+      "titre": "Les filtres",
+      "exercices": "TD4 : ex. 3, 5 ; TD5 : ex. 2",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Électricité",
+            "items": [
+              "Chapitre 4 : Régime sinusoïdal forcé (R.S.F)<ul><li>Correspondance complexe entre « cos(<i>ωt</i>+<i>φ</i>) » et « exp j(<i>ωt</i>+<i>φ</i>) ».</li><li>Étude des circuits RL, RC et RLC série en R.S.F.</li><li>Schéma de Fresnel.</li><li>Impédance complexe <u>Z</u> : <u>e</u> = <u>Z</u> <u>i</u></li></ul>",
+              "Chapitre 5 : Les filtres<ul><li>Fonction transfert</li><li>Diagramme de Bode</li><li>Bande passante à −3 dB</li></ul>"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD 4 : exercices 3 et 5",
+          "TD 5 : exercice 2"
+        ],
+        "corrections": [
+          "« −3db » dans le PDF, corrigé en « −3 dB » (décibel)."
+        ]
+      }
+    },
+    {
+      "semaine": "S8",
+      "debut": "2026-11-16",
+      "theme": "Signal",
+      "chapitre": 1,
+      "titre": "Ondes progressives",
+      "exercices": "TD5 Filtres : ex. 7, 8 ; TD1 Ondes : ex. 4",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Électricité",
+            "items": [
+              "Chapitre 5 : Les filtres<ul><li>Fonction transfert</li><li>Diagramme de Bode</li><li>Bande passante à −3 dB</li></ul>"
+            ]
+          },
+          {
+            "titre": "Ondes",
+            "items": [
+              "Chapitre 1 : Rappel sur les ondes progressives : <i>s</i>(<i>x</i>&gt;0, <i>t</i>) = <i>S</i> cos(<i>ω</i>(<i>t</i> − <i>x</i>/<i>c</i>))<br>Formules classiques : <i>λ</i> = <i>cT</i> ; <i>T</i> = 1/<i>f</i> = 2<i>π</i>/<i>ω</i>"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD 5 Filtres : 7 (filtre actif 1) ; 8 (filtre actif 2)",
+          "TD 1 Ondes : 4"
+        ],
+        "corrections": [
+          "« −3db » dans le PDF, corrigé en « −3 dB » (décibel)."
+        ]
+      }
+    },
+    {
+      "semaine": "S9",
+      "debut": "2026-11-23",
+      "theme": "Signal",
+      "chapitre": 2,
+      "titre": "Interférences",
+      "exercices": "TD Signal 2 : ex. 3, 4, 6",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Ondes",
+            "items": [
+              "Chapitre 1 : Rappel sur les ondes progressives : <i>s</i>(<i>x</i>&gt;0, <i>t</i>) = <i>S</i> cos(<i>ω</i>(<i>t</i> − <i>x</i>/<i>c</i>))",
+              "Chapitre 2 : Interférences (calculs, Fresnel, corde de Melde, phénomène de battements)"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Signal 2 (Interférences) : 3, 4 et 6"
+        ]
+      }
+    },
+    {
+      "semaine": "S10",
+      "debut": "2026-11-30",
+      "theme": "Signal",
+      "chapitre": 4,
+      "titre": "Lentilles minces (et Ch3 lois de Descartes)",
+      "exercices": "TD Signal 2 : ex. 6 ; TD Signal 4 : ex. 1, 2",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Ondes",
+            "items": [
+              "Chapitre 1 : Ondes progressives",
+              "Chapitre 2 : Interférences (calculs, Fresnel, corde de Melde, phénomène de battements)",
+              "Chapitre 3 : Lois de Descartes de la réfraction, angle limite, principe de Fermat.",
+              "Chapitre 4 : Les lentilles minces dans l'approximation de Gauss, tracés de rayons."
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Signal 2 (Interférences) : 6 (corde de Melde A/ et B/)",
+          "TD Signal 4 (Lentilles) : 1 et 2"
+        ]
+      }
+    },
+    {
+      "semaine": "S11",
+      "debut": "2026-12-08",
+      "theme": "Mécanique",
+      "chapitre": 1,
+      "titre": "Cinématique",
+      "exercices": "TD Signal 4 : ex. 1, 2 ; TD Méca 1 : ex. 1",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Ondes",
+            "items": [
+              "Chapitre 4 : Les lentilles minces dans l'approximation de Gauss, tracés de rayons."
+            ]
+          },
+          {
+            "titre": "Mécanique",
+            "items": [
+              "Chapitre 1 : Cinématique, les systèmes de coordonnées, les éléments de volume"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Signal 4 (Lentilles) : 1 et 2",
+          "TD Mécanique 1 (Cinématique) : 1"
+        ]
+      }
+    },
+    {
+      "semaine": "S12",
+      "debut": "2026-12-15",
+      "theme": "Mécanique",
+      "chapitre": 2,
+      "titre": "Lois de Newton",
+      "exercices": "TD Méca 1 : ex. 1 ; TD Méca 2 : ex. 1, 2",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Mécanique",
+            "items": [
+              "Chapitre 1 : Cinématique, les systèmes de coordonnées, les éléments de volume",
+              "Chapitre 2 : Les lois de Newton"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Mécanique 1 : 1",
+          "TD Mécanique 2 : 1 et 2"
+        ]
+      }
+    },
+    {
+      "semaine": "S13",
+      "debut": "2027-01-05",
+      "theme": "Mécanique",
+      "chapitre": 2,
+      "titre": "Lois de Newton",
+      "exercices": "TD Méca 2 : ex. 3, 4, 9",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Mécanique",
+            "items": [
+              "Chapitre 2 : Les lois de Newton"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Mécanique 2 : 3, 4 et 9"
+        ]
+      }
+    },
+    {
+      "semaine": "S14",
+      "debut": "2027-01-12",
+      "theme": "Mécanique",
+      "chapitre": 3,
+      "titre": "Théorème de l'énergie mécanique",
+      "exercices": "TD Méca 2 : ex. 9 ; TD Méca 3 : ex. 2, 5",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Mécanique",
+            "items": [
+              "Chapitre 2 : Les lois de Newton",
+              "Chapitre 3 : Le théorème de l'énergie mécanique"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Mécanique 2 : 9",
+          "TD Mécanique 3 : 2 et 5"
+        ]
+      }
+    },
+    {
+      "semaine": "S15",
+      "debut": "2027-01-19",
+      "theme": "Mécanique",
+      "chapitre": 4,
+      "titre": "Mouvement d'une particule chargée",
+      "exercices": "TD Méca 3 : ex. 2, 5, 7",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Mécanique",
+            "items": [
+              "Chapitre 3 : Le théorème de l'énergie mécanique",
+              "Chapitre 4 : Mouvement d'une particule chargée"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Mécanique 3 : 2, 5 et 7"
+        ]
+      }
+    },
+    {
+      "semaine": "S16",
+      "debut": "2027-01-26",
+      "theme": "Mécanique",
+      "chapitre": 5,
+      "titre": "Les trois lois de Kepler",
+      "exercices": "TD Méca 3 : ex. 7 ; TD Méca 4 : ex. 2 ; TD Méca 5 : ex. 1",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Mécanique",
+            "items": [
+              "Chapitre 3 : Le théorème de l'énergie mécanique",
+              "Chapitre 4 : Mouvement d'une particule chargée",
+              "Chapitre 5 : Les trois lois de Kepler"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Mécanique 3 (Énergie) : 7",
+          "TD Mécanique 4 (particule chargée) : 2",
+          "TD Mécanique 5 (Kepler) : 1"
+        ]
+      }
+    },
+    {
+      "semaine": "S17",
+      "debut": "2027-02-02",
+      "theme": "Mécanique",
+      "chapitre": 5,
+      "titre": "Les trois lois de Kepler",
+      "exercices": "TD Méca 5 : ex. 4, 6, 7",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Mécanique",
+            "items": [
+              "Chapitre 3 : Le théorème de l'énergie mécanique",
+              "Chapitre 4 : Mouvement d'une particule chargée",
+              "Chapitre 5 : Les trois lois de Kepler"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Mécanique 5 (Kepler) : 4, 6 et 7"
+        ]
+      }
+    },
+    {
+      "semaine": "S18",
+      "debut": "2027-02-23",
+      "theme": "Mécanique",
+      "chapitre": 6,
+      "titre": "Rotation d'un solide autour d'un axe",
+      "exercices": "TD Méca 5 : ex. 6 ; TD Méca 6 : ex. 1, 2",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Mécanique",
+            "items": [
+              "Chapitre 3 : Le théorème de l'énergie mécanique",
+              "Chapitre 5 : Les trois lois de Kepler",
+              "Chapitre 6 : Rotation d'un solide autour d'un axe"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Mécanique 5 (Kepler) : 6",
+          "TD Mécanique 6 (TMC) : 1, 2"
+        ],
+        "remarque": "Remarque sur l'exercice 1 du TD6 : il faut apprendre par cœur le corrigé des questions 1/, 2/ et 3/ comme corrigées sur Moodle."
+      }
+    },
+    {
+      "semaine": "S19",
+      "debut": "2027-03-02",
+      "theme": "Mécanique",
+      "chapitre": 6,
+      "titre": "Rotation d'un solide autour d'un axe",
+      "exercices": "TD Méca 5 : ex. 6 ; TD Méca 6 : ex. 1, 2",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Mécanique",
+            "items": [
+              "Chapitre 3 : Le théorème de l'énergie mécanique",
+              "Chapitre 5 : Les trois lois de Kepler",
+              "Chapitre 6 : Rotation d'un solide autour d'un axe"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Mécanique 5 (Kepler) : 6",
+          "TD Mécanique 6 (TMC) : 1, 2"
+        ],
+        "remarque": "Remarque sur l'exercice 1 du TD6 : il faut apprendre par cœur le corrigé des questions 1/, 2/ et 3/ comme corrigées sur Moodle."
+      }
+    },
+    {
+      "semaine": "S20",
+      "debut": "2027-03-09",
+      "theme": "Thermodynamique",
+      "chapitre": 1,
+      "titre": "Le gaz parfait monoatomique",
+      "exercices": "TD Thermo 1 : ex. 1, 6, 7",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Thermodynamique",
+            "items": [
+              "Chapitre 1 : Le gaz parfait monoatomique"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Thermodynamique 1 : 1, 6 et 7"
+        ]
+      }
+    },
+    {
+      "semaine": "S21",
+      "debut": "2027-03-16",
+      "theme": "Thermodynamique",
+      "chapitre": 2,
+      "titre": "Le premier principe",
+      "exercices": "TD Thermo 1 : ex. 7 ; TD Thermo 2 : ex. 3, 6",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Thermodynamique",
+            "items": [
+              "Chapitre 1 : Le gaz parfait monoatomique",
+              "Chapitre 2 : Le Premier Principe de la Thermodynamique"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Thermodynamique 1 : 7",
+          "TD Thermodynamique 2 : 3 et 6"
+        ]
+      }
+    },
+    {
+      "semaine": "S22",
+      "debut": "2027-03-23",
+      "theme": "Thermodynamique",
+      "chapitre": 3,
+      "titre": "Le second principe",
+      "exercices": "TD Thermo 2 : ex. 7, 8, 9",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Thermodynamique",
+            "items": [
+              "Chapitre 1 : Le gaz parfait monoatomique",
+              "Chapitre 2 : Le Premier Principe de la Thermodynamique",
+              "Chapitre 3 : Le Second Principe de la Thermodynamique"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Thermodynamique 2 : 7, 8 et 9"
+        ]
+      }
+    },
+    {
+      "semaine": "S23",
+      "debut": "2027-03-30",
+      "theme": "Thermodynamique",
+      "chapitre": 3,
+      "titre": "Le second principe",
+      "exercices": "TD Thermo 3 : ex. 4, 5, 6",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Thermodynamique",
+            "items": [
+              "Chapitre 1 : Le gaz parfait monoatomique",
+              "Chapitre 2 : Le Premier Principe de la Thermodynamique",
+              "Chapitre 3 : Le Second Principe de la Thermodynamique"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Thermodynamique 3 : 4, 5 et 6"
+        ]
+      }
+    },
+    {
+      "semaine": "S24",
+      "debut": "2027-04-20",
+      "theme": "Thermodynamique",
+      "chapitre": 5,
+      "titre": "Les machines thermiques (et Ch4 changement de phase)",
+      "exercices": "TD Thermo 4 : ex. 3, 4 ; TD Thermo 5 : ex. 5",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Thermodynamique",
+            "items": [
+              "Chapitre 1 : Le gaz parfait monoatomique",
+              "Chapitre 2 : Le Premier Principe de la Thermodynamique",
+              "Chapitre 3 : Le Second Principe de la Thermodynamique",
+              "Chapitre 4 : Changement de phase d'un corps pur",
+              "Chapitre 5 : Les machines thermiques"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Thermodynamique 4 : 3, 4 : calculatrice autorisée",
+          "TD Thermodynamique 5 : 5"
+        ]
+      }
+    },
+    {
+      "semaine": "S25",
+      "debut": "2027-04-27",
+      "theme": "Thermodynamique",
+      "chapitre": 5,
+      "titre": "Les machines thermiques",
+      "exercices": "TD Thermo 4 : ex. 3, 4 ; TD Thermo 5 : ex. 5",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Thermodynamique",
+            "items": [
+              "Chapitre 1 : Le gaz parfait monoatomique",
+              "Chapitre 2 : Le Premier Principe de la Thermodynamique",
+              "Chapitre 3 : Le Second Principe de la Thermodynamique",
+              "Chapitre 4 : Changement de phase d'un corps pur",
+              "Chapitre 5 : Les machines thermiques"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Thermodynamique 4 : 3, 4 : calculatrice autorisée",
+          "TD Thermodynamique 5 : 5"
+        ]
+      }
+    },
+    {
+      "semaine": "S26",
+      "debut": "2027-05-04",
+      "theme": "Thermodynamique",
+      "chapitre": 6,
+      "titre": "La statique des fluides",
+      "exercices": "TD Thermo 5 : ex. 5 ; TD Thermo 6 : ex. 6, 7",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Thermodynamique",
+            "items": [
+              "Chapitre 1 : Le gaz parfait monoatomique",
+              "Chapitre 2 : Le Premier Principe de la Thermodynamique",
+              "Chapitre 3 : Le Second Principe de la Thermodynamique",
+              "Chapitre 4 : Changement de phase d'un corps pur",
+              "Chapitre 5 : Les machines thermiques",
+              "Chapitre 6 : La statique des fluides"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Thermodynamique 5 : 5",
+          "TD Thermodynamique 6 : 6 et 7"
+        ]
+      }
+    },
+    {
+      "semaine": "S27",
+      "debut": "2027-05-18",
+      "theme": "Induction",
+      "chapitre": 2,
+      "titre": "La loi de Faraday (et Ch1 force de Laplace)",
+      "exercices": "TD Induction 2 : ex. 0, 1, 2",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Induction",
+            "items": [
+              "Chapitre 1 : La force de Laplace",
+              "Chapitre 2 : La loi de Faraday"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Induction 2 : 0, 1 et 2"
+        ]
+      }
+    },
+    {
+      "semaine": "S28",
+      "debut": "2027-05-25",
+      "theme": "Induction",
+      "chapitre": 2,
+      "titre": "La loi de Faraday",
+      "exercices": "TD Induction 2 : ex. 0, 2, 5",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "Induction",
+            "items": [
+              "Chapitre 1 : La force de Laplace",
+              "Chapitre 2 : La loi de Faraday"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": [
+          "TD Induction 2 : 0, 2 et 5"
+        ]
+      }
+    },
+    {
+      "semaine": "S29",
+      "debut": "2027-06-01",
+      "theme": null,
+      "chapitre": null,
+      "titre": "Tout le programme de l'année",
+      "exercices": "",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "",
+            "items": [
+              "Tout le programme de toute l'année"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": []
+      }
+    },
+    {
+      "semaine": "S30",
+      "debut": "2027-06-08",
+      "theme": null,
+      "chapitre": null,
+      "titre": "Tout le programme de l'année",
+      "exercices": "",
+      "detail": {
+        "blocs": [
+          {
+            "titre": "",
+            "items": [
+              "Tout le programme de toute l'année"
+            ]
+          }
+        ],
+        "exercices_a_connaitre": []
+      }
+    }
   ]
 }

@@ -54,8 +54,34 @@ TABS = [
 # Les autres matières n'ont ni la section ni l'onglet.
 SUBJECT_COLLES = {
     "01_MATHS": "Prepa_barthou/programme_colle_maths.json",
+    "02_PHYSIQUE": "Prepa_barthou/programme_kholle_physique.json",
     "03_CHIMIE": "Prepa_barthou/programme_colle_chimie.json",
 }
+
+
+def colles_from_kholle(data):
+    """Adapte programme_kholle_physique.json (clé 'semaines', aussi lue par
+    surlignage.py) au format des programmes de colle. Le PDF ne donne que le
+    lundi de chaque semaine : 'fin' = vendredi de la même semaine (sert
+    seulement au surlignage « cette semaine ») et seule la date de début est
+    affichée."""
+    import datetime
+    out = []
+    for s in data["semaines"]:
+        d = datetime.date.fromisoformat(s["debut"])
+        fin = d + datetime.timedelta(days=4 - d.weekday()) if d.weekday() < 5 else d
+        det = s.get("detail", {})
+        out.append({
+            "numero": int(s["semaine"][1:]),
+            "debut": s["debut"], "fin": fin.isoformat(), "debut_seul": True,
+            "titre": f'{s["theme"]} — {s["titre"]}' if s.get("theme") else s["titre"],
+            "blocs": det.get("blocs", []),
+            "exercices": det.get("exercices_a_connaitre", []),
+            "remarque": det.get("remarque", ""),
+            "corrections": det.get("corrections", []),
+        })
+    return {"prefixe": "S", "quinzaines": out}
+
 
 BASE_URL = "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee"
 
@@ -468,6 +494,8 @@ def build_colles_section(repo_root, folder):
     dépliable. Les champs du JSON sont du HTML (sup/sub) recopié tel quel."""
     import json
     data = json.load(open(os.path.join(repo_root, SUBJECT_COLLES[folder]), encoding="utf-8"))
+    if "semaines" in data:
+        data = colles_from_kholle(data)
     qz = sorted(data["quinzaines"], key=lambda q: q["debut"])
     pref = data.get("prefixe", "Q")  # Q1… (quinzaines, Maths) ou S1… (semaines, Chimie)
 
@@ -477,8 +505,10 @@ def build_colles_section(repo_root, folder):
     rows = []
     for q in qz:
         tag = '<span class="colle-tag">prévisionnel</span>' if q.get("previsionnel") else ""
+        dates = (f'semaine du {date_fr(q["debut"])}' if q.get("debut_seul")
+                 else f'{date_fr(q["debut"])} → {date_fr(q["fin"])}')
         head = (f'<span class="colle-q">{pref}{q["numero"]}</span>'
-                f'<span class="colle-dates">{date_fr(q["debut"])} → {date_fr(q["fin"])}</span>'
+                f'<span class="colle-dates">{dates}</span>'
                 f'<span class="colle-plan-titre">{q["titre"]}{tag}</span>'
                 f'<span class="colle-now">cette semaine</span>')
         attrs = f'id="colle-q{q["numero"]}" data-debut="{q["debut"]}" data-fin="{q["fin"]}"'
@@ -489,7 +519,8 @@ def build_colles_section(repo_root, folder):
         if q.get("rappel"):
             inner += f'<p class="colle-rappel">{q["rappel"]}</p>'
         for b in q.get("blocs", []):
-            inner += f'<h3>{b["titre"]}</h3>'
+            if b.get("titre"):
+                inner += f'<h3>{b["titre"]}</h3>'
             if b.get("intro"):
                 inner += f'<p>{b["intro"]}</p>'
             inner += li(b["items"])
@@ -499,6 +530,10 @@ def build_colles_section(repo_root, folder):
                 inner += f'<p class="colle-hors">🚫 {b["hors_programme"]}</p>'
         if q.get("questions_de_cours"):
             inner += f'<h3>🎤 Questions de cours</h3>{li(q["questions_de_cours"])}'
+        if q.get("exercices"):
+            inner += f'<h3>📌 Exercices à connaître parfaitement</h3>{li(q["exercices"])}'
+        if q.get("remarque"):
+            inner += f'<p class="colle-rappel">{q["remarque"]}</p>'
         if q.get("nb"):
             inner += f'<p class="colle-rappel">{q["nb"]}</p>'
         for c in q.get("corrections", []):
