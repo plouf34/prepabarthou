@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git fetch -q origin claude/pcsi-henri-iv-math-exercises-pubkis && git checkout -q -B claude/pcsi-henri-iv-math-exercises-pubkis origin/claude/pcsi-henri-iv-math-exercises-pubkis || true"
+          }
+        ]
+      }
+    ]
+  }
+}
