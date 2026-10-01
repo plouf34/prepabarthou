@@ -20,8 +20,8 @@
   --hl-jaune-border: rgba(235, 195, 0, 0.55);
   --hl-orange-bg: rgba(255, 140, 0, 0.11);
   --hl-orange-border: rgba(242, 107, 0, 0.55);
-  --hl-jaune-rgb: 255, 221, 0; --hl-jaune-a1: 0.16; --hl-jaune-a2: 0.03; --hl-jaune-dot: #fff3b0;
-  --hl-orange-rgb: 255, 110, 0; --hl-orange-a1: 0.17; --hl-orange-a2: 0.04; --hl-orange-dot: #f26b00;
+  --hl-jaune-rgb: 255, 221, 0; --hl-jaune-a1: 0.16; --hl-jaune-a2: 0.03; --hl-jaune-dot: #ffeb8f;
+  --hl-orange-rgb: 255, 110, 0; --hl-orange-a1: 0.17; --hl-orange-a2: 0.04; --hl-orange-dot: #f7a265;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -42,8 +42,8 @@
     --hl-jaune-border: #ffcc00;
     --hl-orange-bg: rgba(255, 106, 0, 0.11);
     --hl-orange-border: #ff5f00;
-    --hl-jaune-rgb: 255, 204, 0; --hl-jaune-a1: 0.15; --hl-jaune-a2: 0.03; --hl-jaune-dot: #f5ecbf;
-    --hl-orange-rgb: 255, 95, 0; --hl-orange-a1: 0.18; --hl-orange-a2: 0.04; --hl-orange-dot: #ff5f00;
+    --hl-jaune-rgb: 255, 204, 0; --hl-jaune-a1: 0.15; --hl-jaune-a2: 0.03; --hl-jaune-dot: #f0de8a;
+    --hl-orange-rgb: 255, 95, 0; --hl-orange-a1: 0.18; --hl-orange-a2: 0.04; --hl-orange-dot: #f09a5c;
   }
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -282,7 +282,7 @@ details[open] > summary.colle-plan-row::after { transform: rotate(90deg); }
 .colle-tag { display: inline-block; margin-left: 6px; font-size: 11.5px; font-weight: 600; color: var(--sub); border: 1px solid var(--border); border-radius: 8px; padding: 0 6px; }
 .colle-now { display: none; }
 .is-now > .colle-plan-row, .colle-plan-row.is-now { background: linear-gradient(90deg, rgba(var(--hl-orange-rgb), var(--hl-orange-a1)), rgba(var(--hl-orange-rgb), var(--hl-orange-a2))); }
-.is-now .colle-now { display: inline; font-size: 11.5px; font-weight: 700; color: var(--hl-orange-dot); }
+.is-now .colle-now { display: inline; font-size: 11.5px; font-weight: 700; color: #e2700f; }
 .is-now .colle-now::before { content: "● "; }
 .colle-body { padding: 4px 14px 6px; border-top: 1px solid var(--border); }
 .colle-item.is-now > .colle-body { box-shadow: inset 4px 0 0 var(--hl-orange-dot); }
