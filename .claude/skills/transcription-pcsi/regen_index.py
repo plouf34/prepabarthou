@@ -452,7 +452,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 <title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/pcsi.css?v=40">
+<link rel="stylesheet" href="assets/pcsi.css?v=41">
 </head>
 <body>
 
@@ -472,7 +472,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 {sections_html}
 </main>
 
-<script src="assets/pcsi.js?v=40" defer></script>
+<script src="assets/pcsi.js?v=41" defer></script>
 </body>
 </html>
 """
@@ -565,21 +565,23 @@ def build_colles_section(repo_root, folder):
     for q, h in rows:
         groupes[statut(q)].append((q, h))
 
-    def lbl(q, avec_date=False):
-        if not avec_date:
-            return f'{pref}{q["numero"]} — {q["titre"]}'
-        d = (f'semaine du {date_fr(q["debut"])}' if q.get("debut_seul")
-             else f'{date_fr(q["debut"])} → {date_fr(q["fin"])}')
-        return f'{pref}{q["numero"]} ({d}) — {q["titre"]}'
+    def lbl(q):
+        return f'{pref}{q["numero"]} — {q["titre"]}'
+
+    def dates_de(q):
+        return (f'semaine du {date_fr(q["debut"])}' if q.get("debut_seul")
+                else f'{date_fr(q["debut"])} → {date_fr(q["fin"])}')
 
     def groupe(cle, icone, nom, rappel, items):
+        # 1re ligne grise : « Colles passées (n) · date de la dernière » ou
+        # « Colles à venir (n) · date de la prochaine » ; 2e ligne : rappel du titre.
         cache = "" if items else ' hidden'
-        # « à venir » rappelle aussi la date de la prochaine colle
-        r = lbl(items[-1 if cle == "passees" else 0][0], avec_date=(cle == "avenir")) if items else ""
+        q0 = items[-1 if cle == "passees" else 0][0] if items else None
         return (f'<details class="colle-group" data-groupe="{cle}"{cache}>'
                 f'<summary class="colle-plan-row"><span class="colle-q">{icone}</span>'
-                f'<span class="colle-dates">{nom} (<span class="colle-n">{len(items)}</span>)</span>'
-                f'<span class="colle-plan-titre">{rappel} : <span class="colle-lbl">{r}</span></span></summary>'
+                f'<span class="colle-dates">{nom} (<span class="colle-n">{len(items)}</span>) · '
+                f'<span class="colle-gdate">{dates_de(q0) if q0 else ""}</span></span>'
+                f'<span class="colle-plan-titre">{rappel} : <span class="colle-lbl">{lbl(q0) if q0 else ""}</span></span></summary>'
                 f'<div class="colle-group-list">{"".join(h for _, h in items)}</div></details>')
 
     encours = "".join(h for _, h in groupes["encours"])
