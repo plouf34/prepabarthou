@@ -375,7 +375,7 @@ def apply(repo_root, today=None):
         parts = [f'<span><span class="hl-swatch {k}"></span>{t}</span>'
                  for k, t in (("jaune", "Cours"), ("orange", "Colles")) if (c.get(k) or {}).get("cle")]
         if parts:
-            data = re.sub(r'(<header>.*?)(</header>)', lambda m: m.group(1) + f'  <div class="hl-legend hl-legend-page">{"".join(parts)}</div>\n' + m.group(2), data, count=1, flags=re.S)
+            data = re.sub(r'(<header>.*?)(</header>)', lambda m: m.group(1) + f'  <div class="hl-legend hl-legend-page"><span>En cours :</span>{"".join(parts)}</div>\n' + m.group(2), data, count=1, flags=re.S)
         with open(path, "w", encoding="utf-8") as fh:
             fh.write(data)
         n = len(re.findall(r'class="[^"]*\bhl-(?:jaune|orange|jo)\b', data))

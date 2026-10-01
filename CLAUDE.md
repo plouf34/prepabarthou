@@ -45,7 +45,7 @@ Gabarits : `templates/` (`gabarit-origine_…` + `gabarit-quiz.html`, voir promp
 - **Orange pâle** = lié à la **colle en cours** (programmes de colle, section Colles).
 - Lié aux deux (`jo`) : pastille mi-jaune (gauche) mi-orange (droite).
 - **Seules les pastilles sont colorées** (ni fond ni liseré : demande de Fabien), y compris sur les puces Bibmath et la colle en cours.
-- Légende : une seule par page, en haut sous le titre, « ● Cours ● Colles » sans aucun détail (générée par `surlignage.py`).
+- Légende : une seule par page, en haut sous le titre, « En cours : ● Cours ● Colles » sans aucun détail (générée par `surlignage.py`).
 - **Exceptions** (seulement si Fabien les stipule) : clé `exceptions` de la matière dans `Prepa_barthou/surlignage.json`
   (`"clarisse_seule": true` ou `"profs_priment": true` → un seul des deux cours compte, à poser seulement le jour où Fabien le stipule ; `"cours_dates": {"<fichier>": [debut, fin]}`
   → donne un intervalle à un cours non daté). Les noter aussi ici : <!-- exceptions en vigueur : aucune -->
