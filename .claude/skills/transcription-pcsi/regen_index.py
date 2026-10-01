@@ -54,6 +54,7 @@ TABS = [
 # Les autres matières n'ont ni la section ni l'onglet.
 SUBJECT_COLLES = {
     "01_MATHS": "Prepa_barthou/programme_colle_maths.json",
+    "03_CHIMIE": "Prepa_barthou/programme_colle_chimie.json",
 }
 
 BASE_URL = "https://plouf34.github.io/prepabarthou/Prepa_barthou/1ere_annee"
@@ -468,6 +469,7 @@ def build_colles_section(repo_root, folder):
     import json
     data = json.load(open(os.path.join(repo_root, SUBJECT_COLLES[folder]), encoding="utf-8"))
     qz = sorted(data["quinzaines"], key=lambda q: q["debut"])
+    pref = data.get("prefixe", "Q")  # Q1… (quinzaines, Maths) ou S1… (semaines, Chimie)
 
     def li(items):
         return "<ul>" + "".join(f"<li>{x}</li>" for x in items) + "</ul>"
@@ -475,7 +477,7 @@ def build_colles_section(repo_root, folder):
     rows = []
     for q in qz:
         tag = '<span class="colle-tag">prévisionnel</span>' if q.get("previsionnel") else ""
-        head = (f'<span class="colle-q">Q{q["numero"]}</span>'
+        head = (f'<span class="colle-q">{pref}{q["numero"]}</span>'
                 f'<span class="colle-dates">{date_fr(q["debut"])} → {date_fr(q["fin"])}</span>'
                 f'<span class="colle-plan-titre">{q["titre"]}{tag}</span>'
                 f'<span class="colle-now">cette semaine</span>')
@@ -497,6 +499,8 @@ def build_colles_section(repo_root, folder):
                 inner += f'<p class="colle-hors">🚫 {b["hors_programme"]}</p>'
         if q.get("questions_de_cours"):
             inner += f'<h3>🎤 Questions de cours</h3>{li(q["questions_de_cours"])}'
+        if q.get("nb"):
+            inner += f'<p class="colle-rappel">{q["nb"]}</p>'
         for c in q.get("corrections", []):
             inner += f'<p class="colle-correction">⚠️ Correction : {c}</p>'
         rows.append(f'<details class="colle-item" {attrs}><summary class="colle-plan-row">{head}</summary>'

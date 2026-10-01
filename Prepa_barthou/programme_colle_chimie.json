@@ -1,0 +1,117 @@
+{
+  "_source": "Programmes de colle de Chimie (Lycée Louis Barthou, PCSI, 2026-2027) : PDF « Semaine 1 » à « Semaine 4 » fournis par Fabien le 01/10/2026.",
+  "_usage": "Même format que programme_colle_maths.json (voir son _usage). prefixe/unite : libellés des lignes (S1… / Semaine). 'nb' = remarque affichée en fin de programme.",
+  "prefixe": "S",
+  "unite": "Semaine",
+  "quinzaines": [
+    {
+      "numero": 1,
+      "debut": "2026-09-14",
+      "fin": "2026-09-18",
+      "titre": "Ch1 Transformations de la matière ; Ch2 Transformations chimiques (K°)",
+      "blocs": [
+        {
+          "titre": "Chapitre 1 : Transformations de la matière (physiques et chimiques)",
+          "intro": "",
+          "items": [
+            "Définitions (savoir différencier une transformation physique d'une transformation chimique)",
+            "diagramme de phase d'un corps pur (cas particulier de celui de l'eau)",
+            "définition d'un GP et loi des GP (AN à maîtriser)",
+            "avancement de la réaction : ξ (savoir faire un tableau d'avancement)",
+            "définition et calcul d'un rendement",
+            "introduction du coefficient de dissociation α (connaître la définition)",
+            "définition et expression de l'activité d'un constituant physico-chimique"
+          ]
+        },
+        {
+          "titre": "Chapitre 2 : Transformations chimiques",
+          "intro": "",
+          "items": [
+            "Définitions / expressions de la constante d'équilibre K°"
+          ]
+        }
+      ],
+      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10"
+    },
+    {
+      "numero": 2,
+      "debut": "2026-09-21",
+      "fin": "2026-09-25",
+      "titre": "Ch1 Transformations de la matière ; Ch2 Transformations chimiques (K°, Q<sub>r</sub>, sens d'évolution)",
+      "blocs": [
+        {
+          "titre": "Chapitre 1 : Transformations de la matière (physiques et chimiques)",
+          "intro": "",
+          "items": [
+            "Définitions (savoir différencier une transformation physique d'une transformation chimique)",
+            "diagramme de phase d'un corps pur (cas particulier de celui de l'eau)",
+            "définition d'un GP et loi des GP (AN à maîtriser)",
+            "avancement de la réaction : ξ (savoir faire un tableau d'avancement)",
+            "définition et calcul d'un rendement",
+            "introduction du coefficient de dissociation α (connaître la définition)",
+            "définition et expression de l'activité d'un constituant physico-chimique"
+          ]
+        },
+        {
+          "titre": "Chapitre 2 : Transformations chimiques",
+          "intro": "",
+          "items": [
+            "Définitions / expressions et calculs de la constante d'équilibre K° et du quotient réactionnel Q<sub>r</sub>",
+            "sens d'évolution d'une réaction / déplacement d'équilibre<br>(ajout d'un constituant / influence de la température / influence de la pression)",
+            "Loi de modération à maîtriser"
+          ]
+        }
+      ],
+      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10"
+    },
+    {
+      "numero": 3,
+      "debut": "2026-09-28",
+      "fin": "2026-10-02",
+      "titre": "Ch2 Transformations chimiques (équilibres, constante de partage)",
+      "blocs": [
+        {
+          "titre": "Chapitre 2 : Transformations chimiques",
+          "intro": "",
+          "items": [
+            "Définitions / expressions et calculs de la constante d'équilibre K° et du quotient réactionnel Q<sub>r</sub>. A connaître parfaitement.",
+            "sens d'évolution d'une réaction / déplacement d'équilibre<br>(ajout d'un constituant / influence de la température / influence de la pression)",
+            "Loi de modération à maîtriser",
+            "rupture d'équilibre",
+            "Constante (ou coefficient) de partage : application à l'extraction d'une molécule à l'aide d'un solvant (le TP n'a pas été encore fait). Savoir retrouver l'expression du nombre de moles de A restant après 1 extraction et après k extractions. Savoir calculer le rendement de l'extraction."
+          ]
+        }
+      ],
+      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10"
+    },
+    {
+      "numero": 4,
+      "debut": "2026-10-05",
+      "fin": "2026-10-09",
+      "titre": "Ch2 Transformations chimiques ; Ch3 Cinétique formelle (début)",
+      "blocs": [
+        {
+          "titre": "Chapitre 2 : Transformations chimiques",
+          "intro": "",
+          "items": [
+            "Définitions / expressions et calculs de la constante d'équilibre K° et du quotient réactionnel Q<sub>r</sub>. A connaître parfaitement.",
+            "sens d'évolution d'une réaction / déplacement d'équilibre<br>(ajout d'un constituant / influence de la température / influence de la pression)",
+            "Loi de modération à maîtriser",
+            "rupture d'équilibre",
+            "Constante (ou coefficient) de partage : application à l'extraction d'une molécule à l'aide d'un solvant (le TP a été effectué). Savoir retrouver l'expression du nombre de moles de A restant après 1 extraction et après k extractions. Savoir calculer le rendement de l'extraction."
+          ]
+        },
+        {
+          "titre": "Chapitre 3 : Cinétique formelle (début du cours)",
+          "intro": "",
+          "items": [
+            "Connaître la loi d'Arrhénius parfaitement et savoir faire une régression linéaire pour trouver Ea et A.",
+            "Définitions des ordres partiels et de l'ordre (global) d'une réaction.",
+            "Maîtriser ordre 0 : savoir intégrer et déterminer [ ] = f(t) ; unité de k ; temps de demi-réaction"
+          ]
+        }
+      ],
+      "nb": "NB : les définitions doivent être connues / dans le cas contraire : note de colle au-dessous de 10"
+    }
+  ]
+}
