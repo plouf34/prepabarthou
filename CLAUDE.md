@@ -38,13 +38,26 @@ Gabarits : `templates/` (`gabarit-origine_…` + `gabarit-quiz.html`, voir promp
 - Un commit + push par cours ajouté (le build Pages a une limite souple de 10 builds/heure).
 - Taille : dépôt recommandé < 1 Go (actuellement ~420 Mo) ; éviter d'ajouter des PDF lourds inutiles.
 
-## Surlignage « chapitre en cours » (Exercices/DS)
-Jaune = dernier chapitre de Clarisse ; orange pâle = dernier chapitre des profs de Louis Barthou s'il est
-supérieur (Physique : semaine du programme de khôlle). Règles complètes : section « SURLIGNAGE » du prompt maître.
-Données : `Prepa_barthou/surlignage.json` (rempli après LECTURE des documents), appliqué par
-`.claude/skills/transcription-pcsi/surlignage.py` (appelé par `regen_index.py`). `⚠️ SURLIGNAGE À REVOIR` → le refaire.
-À chaque nouveau cours de Clarisse en Maths : mettre aussi à jour la clé `bibmath` de `surlignage.json` (puce générée dans la légende Exercices ; dernier chapitre de Clarisse seulement, section « PUCES BIBMATH » du prompt maître).
-Jamais de classes `hl-*` posées à la main. Sauvegarde d'avant mise en place : branche `backup/2026-09-30-avant-surlignage`.
+## Surlignage « en cours » (Exercices/DS) — règles de Fabien du 01/10/2026
+- **Jaune** = lié au **cours en cours** : le dernier cours manuscrit de Clarisse ; à défaut, un cours des profs
+  de Louis Barthou **daté** dont l'intervalle contient la date du jour (de sa date à la veille du cours prof suivant).
+  Cours non datés (ex. polycopié de Physique) : ignorés. Clarisse ET profs : **Clarisse fait foi**.
+- **Vert pâle** = lié à la **colle en cours** (programmes de colle, section Colles ; plus d'orange).
+- Lié aux deux (`jv`) : pastille et dégradé mi-jaune (haut) mi-vert (bas).
+- **Exceptions** (seulement si Fabien les stipule) : clé `exceptions` de la matière dans `Prepa_barthou/surlignage.json`
+  (`"profs_priment": true` → le cours prof en cours prime sur Clarisse ; `"cours_dates": {"<fichier>": [debut, fin]}`
+  → donne un intervalle à un cours non daté). Les noter aussi ici : <!-- exceptions en vigueur : aucune -->
+- Données : `Prepa_barthou/surlignage.json` (liens jaune|vert|jv, remplis après LECTURE des documents), appliqué par
+  `.claude/skills/transcription-pcsi/surlignage.py` (appelé par `regen_index.py`). `⚠️ SURLIGNAGE À REVOIR` (nouveau cours,
+  nouvelle colle) → le refaire. Règles complètes : section « SURLIGNAGE » du prompt maître.
+- À chaque nouveau cours de Clarisse en Maths : mettre aussi à jour la clé `bibmath` de `surlignage.json` (section « PUCES BIBMATH » du prompt maître).
+- Jamais de classes `hl-*` posées à la main. Sauvegarde d'avant mise en place : branche `backup/2026-09-30-avant-surlignage`.
+
+## Colles (programmes + planning)
+Section `#colles` des pages Maths/Physique/Chimie GÉNÉRÉE par `regen_index.py` (`SUBJECT_COLLES`) depuis
+`Prepa_barthou/programme_colle_maths.json`, `programme_colle_chimie.json`, `programme_kholle_physique.json` ;
+PDF sources dans `Prepa_barthou/colles/`. 3 pavés (passées / en cours / à venir) classés à la date du jour par
+`assets/pcsi.js`, tout fermé par défaut. Bumper `?v=` de `pcsi.js`/`pcsi.css` dans `regen_index.py` à chaque modification.
 
 ## Fin de tâche
 Pas de copie locale ni de pièce jointe : donner uniquement le lien public final pour relecture
