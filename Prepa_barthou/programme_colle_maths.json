@@ -1,7 +1,66 @@
 {
-  "_source": "Programmes de colle de Maths de Clarisse (Lycée Louis Barthou, PCSI 1, 2026-2027). Quinzaine 2 : PDF « serie2Colles.pdf » fourni le 01/10/2026.",
+  "_source": "Programmes de colle de Maths de Clarisse (Lycée Louis Barthou, PCSI 1, 2026-2027). Quinzaine 1 : PDF « serie1.pdf » ; quinzaine 2 : PDF « serie2Colles.pdf » ; fournis le 01/10/2026.",
   "_usage": "Lu par .claude/skills/transcription-pcsi/regen_index.py, qui génère la section « Colles » (#colles) de Maths.html : planning des quinzaines puis programme détaillé de chacune. Champs texte en HTML (sup/sub autorisés). La quinzaine en cours est surlignée côté navigateur d'après debut/fin (assets/pcsi.js). Quinzaine sans 'blocs' = programme prévisionnel seulement. Ajouter chaque nouveau programme ici puis relancer regen_index.py ; ne jamais éditer la section #colles à la main.",
   "quinzaines": [
+    {
+      "numero": 1,
+      "debut": "2026-09-14",
+      "fin": "2026-09-25",
+      "titre": "Langage ensembliste ; récurrences linéaires de pas 1 ; fonctions d'une variable réelle ; équations différentielles linéaires d'ordre 1",
+      "blocs": [
+        {
+          "titre": "Langage ensembliste",
+          "intro": "Les éléments du vocabulaire ensembliste sont introduits au fur et à mesure des besoins.",
+          "items": [
+            "Notation ensembliste : ensemble défini par une équation, ensemble paramétré.",
+            "Exemples de preuves d'égalités ensemblistes par double inclusion."
+          ],
+          "hors_programme": ""
+        },
+        {
+          "titre": "Relations de récurrence linéaires de pas 1",
+          "intro": "",
+          "items": [
+            "Suites arithmétiques, suites géométriques : définition, expression du terme général en fonction de l'indice. Exploitation d'une condition initiale <em>(on insiste sur la pratique du calcul de la solution, plus que sur le théorème d'existence et d'unicité)</em>.",
+            "Suites arithmético-géométriques. <em>La relation de récurrence est analysée comme une équation linéaire avec second membre, sans qu'aucune théorie de la linéarité ne soit étudiée à ce stade.</em> Résolution de l'équation homogène associée. Recherche d'une solution particulière de l'équation avec second membre sous forme d'une suite constante. Les solutions de l'équation avec second membre sont les sommes des solutions de l'équation homogène avec une solution de l'équation avec second membre.",
+            "Exemples de relations de récurrence linéaires de pas 1, à coefficients constants, avec second membre non constant, de type polynôme-exponentiel : recherche d'une solution particulière sous une forme adaptée donnée.",
+            "Superposition des solutions."
+          ],
+          "hors_programme": ""
+        },
+        {
+          "titre": "Rappels sur les fonctions d'une variable réelle",
+          "intro": "Les notions de continuité et de dérivabilité, les méthodes pour établir ces propriétés, ne font pas partie du programme de colle : elles sont systématiquement admises sur les exemples rencontrés.",
+          "items": [
+            "Notion d'intervalle.",
+            "Composition de fonctions. <em>Aucun travail sur la détermination des domaines n'a été mené, en-dehors d'exemples simples.</em>",
+            "Règles usuelles de calcul de dérivée : linéarité, produit, quotient, composée.",
+            "Notion de primitive d'une fonction sur un intervalle. Théorème de quasi-unicité des primitives sur un intervalle.",
+            "Notation ∫<sup><i>x</i></sup> <i>f</i>(<i>t</i>)d<i>t</i>, et utilisation pour des calculs de primitive.",
+            "Exemples guidés de décomposition en éléments simples."
+          ],
+          "outro": "<em>Les calculs de primitives ne sont pas un objectif central du programme : ils pourront intervenir lors de la résolution d'une équation différentielle, mais resteront élémentaires, ou feront l'objet d'indications détaillées.</em>",
+          "hors_programme": ""
+        },
+        {
+          "titre": "Équations différentielles linéaires d'ordre 1",
+          "intro": "Les équations considérées sont de la forme <i>y</i>′(<i>t</i>) + <i>a</i>(<i>t</i>)<i>y</i>(<i>t</i>) = <i>f</i>(<i>t</i>), pour <i>a</i> et <i>f</i> continues sur un intervalle.",
+          "items": [
+            "Exploitation de la linéarité de l'équation : l'ensemble des solutions d'une équation homogène est stable par combinaison linéaire ; ensemble des solutions de l'équation avec second membre connaissant une solution particulière et les solutions de l'équation homogène ; superposition des solutions.",
+            "Résolution de l'équation homogène associée.",
+            "Méthode de variation de la constante.",
+            "Superposition des solutions.",
+            "Exemples de recherche d'une solution de l'équation avec second membre sous forme particulière."
+          ],
+          "hors_programme": ""
+        }
+      ],
+      "questions_de_cours": [
+        "Ensemble des solutions d'une relation de récurrence arithmético-géométrique. <em>Méthode et justification.</em>",
+        "Ensemble des solutions d'une EDL1 avec second membre connaissant une solution particulière et les solutions de l'équation homogène. <em>Énoncé et démonstration.</em>",
+        "Ensemble des solutions d'une EDL1 homogène. <em>Énoncé et démonstration.</em>"
+      ]
+    },
     {
       "numero": 2,
       "debut": "2026-09-28",

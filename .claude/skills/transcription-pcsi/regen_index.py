@@ -499,6 +499,8 @@ def build_colles_section(repo_root, folder):
                 if b.get("intro"):
                     inner += f'<p>{b["intro"]}</p>'
                 inner += li(b["items"])
+                if b.get("outro"):
+                    inner += f'<p>{b["outro"]}</p>'
                 if b.get("hors_programme"):
                     inner += f'<p class="colle-hors">🚫 {b["hors_programme"]}</p>'
             if q.get("questions_de_cours"):
