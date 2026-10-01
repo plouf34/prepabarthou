@@ -326,3 +326,8 @@ tbody tr.hl-jaune td.col-link, tbody tr.hl-orange td.col-link, tbody tr.hl-jo td
 .hl-bibmath-t { color: var(--sub); margin-right: 4px; }
 /* Légende unique du surlignage, en haut de page */
 .hl-legend-page { justify-content: center; margin: 8px 0 0; }
+
+/* Pavés « Colles passées / à venir » : une seule ligne de texte, centrée verticalement */
+.colle-group > summary.colle-plan-row { align-items: center; }
+.colle-group > summary.colle-plan-row .colle-q,
+.colle-group > summary.colle-plan-row::after { grid-row: 1; }
