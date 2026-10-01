@@ -22,7 +22,6 @@
   --hl-orange-border: rgba(240, 138, 36, 0.35);
   --hl-jaune-rgb: 255, 214, 0; --hl-jaune-a1: 0.14; --hl-jaune-a2: 0.03; --hl-jaune-dot: #f2b800;
   --hl-orange-rgb: 255, 140, 0; --hl-orange-a1: 0.17; --hl-orange-a2: 0.04; --hl-orange-dot: #f08a24;
-  --hl-vert-rgb: 52, 199, 89; --hl-vert-a1: 0.14; --hl-vert-a2: 0.03; --hl-vert-dot: #34c759; --hl-vert-border: rgba(40, 170, 75, 0.30);
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -45,7 +44,6 @@
     --hl-orange-border: #ff6a00;
     --hl-jaune-rgb: 255, 204, 0; --hl-jaune-a1: 0.15; --hl-jaune-a2: 0.03; --hl-jaune-dot: #ffcc00;
     --hl-orange-rgb: 255, 106, 0; --hl-orange-a1: 0.17; --hl-orange-a2: 0.04; --hl-orange-dot: #ff6a00;
-    --hl-vert-rgb: 48, 209, 88; --hl-vert-a1: 0.15; --hl-vert-a2: 0.03; --hl-vert-dot: #30d158; --hl-vert-border: #30d158;
   }
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -187,21 +185,15 @@ tbody tr.hl-orange td.col-titre::before { background: var(--hl-orange-dot); }
 .hl-legend .hl-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; vertical-align: 1px; margin-right: 6px; }
 .hl-legend .hl-swatch.jaune { background: var(--hl-jaune-dot); }
 .hl-legend .hl-swatch.orange { background: var(--hl-orange-dot); }
-.hl-legend .hl-swatch.vert { background: var(--hl-vert-dot); }
-.hl-legend .hl-swatch.jv { background: linear-gradient(180deg, var(--hl-jaune-dot) 50%, var(--hl-vert-dot) 50%); }
-/* Vert pâle = lié à la colle en cours ; jv = lié au cours ET à la colle :
-   pastille et dégradé mi-jaune (moitié haute) mi-vert (moitié basse). */
-tbody tr.hl-vert { box-shadow: inset 4px 0 0 var(--hl-vert-border); }
-tbody tr.hl-vert td, tbody tr.hl-jv td { background-color: transparent !important; }
-tbody tr.hl-vert td.col-n { background: rgba(var(--hl-vert-rgb), var(--hl-vert-a1)) !important; }
-tbody tr.hl-vert td.col-titre { background: linear-gradient(90deg, rgba(var(--hl-vert-rgb), var(--hl-vert-a1)), rgba(var(--hl-vert-rgb), var(--hl-vert-a2))) !important; }
-tbody tr.hl-vert td.col-link { background: rgba(var(--hl-vert-rgb), var(--hl-vert-a2)) !important; }
-tbody tr.hl-jv td.col-n { background: linear-gradient(180deg, var(--hl-jaune-border) 50%, var(--hl-vert-border) 50%) left / 4px 100% no-repeat, linear-gradient(180deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a1)) 50%, rgba(var(--hl-vert-rgb), var(--hl-vert-a1)) 50%) !important; }
-tbody tr.hl-jv td.col-titre { background: linear-gradient(90deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a1)), rgba(var(--hl-jaune-rgb), var(--hl-jaune-a2))) top / 100% 50% no-repeat, linear-gradient(90deg, rgba(var(--hl-vert-rgb), var(--hl-vert-a1)), rgba(var(--hl-vert-rgb), var(--hl-vert-a2))) bottom / 100% 50% no-repeat !important; }
-tbody tr.hl-jv td.col-link { background: linear-gradient(180deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a2)) 50%, rgba(var(--hl-vert-rgb), var(--hl-vert-a2)) 50%) !important; }
-tbody tr.hl-vert td.col-titre::before, tbody tr.hl-jv td.col-titre::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; }
-tbody tr.hl-vert td.col-titre::before { background: var(--hl-vert-dot); }
-tbody tr.hl-jv td.col-titre::before { background: linear-gradient(180deg, var(--hl-jaune-dot) 50%, var(--hl-vert-dot) 50%); }
+.hl-legend .hl-swatch.jo { background: linear-gradient(180deg, var(--hl-jaune-dot) 25%, var(--hl-orange-dot) 75%); }
+/* Orange pâle = lié à la colle en cours ; jo = lié au cours ET à la colle :
+   pastille et pavé en dégradé vertical, jaune en haut → orange en bas. */
+tbody tr.hl-jo { box-shadow: inset 4px 0 0 transparent; }
+tbody tr.hl-jo td { background-color: transparent !important; }
+tbody tr.hl-jo td.col-n { background: linear-gradient(180deg, var(--hl-jaune-border), var(--hl-orange-border)) left / 4px 100% no-repeat, linear-gradient(180deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a1)), rgba(var(--hl-orange-rgb), var(--hl-orange-a1))) !important; }
+tbody tr.hl-jo td.col-titre { background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--card-bg) 75%, transparent)), linear-gradient(180deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a1)), rgba(var(--hl-orange-rgb), var(--hl-orange-a1))) !important; }
+tbody tr.hl-jo td.col-link { background: linear-gradient(180deg, rgba(var(--hl-jaune-rgb), var(--hl-jaune-a2)), rgba(var(--hl-orange-rgb), var(--hl-orange-a2))) !important; }
+tbody tr.hl-jo td.col-titre::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; background: linear-gradient(180deg, var(--hl-jaune-dot) 25%, var(--hl-orange-dot) 75%); }
 td { padding: 4px 6px; vertical-align: middle; }
 .section-row td {
   background: var(--section-bg); color: var(--section-text);
@@ -285,11 +277,11 @@ details[open] > summary.colle-plan-row::after { transform: rotate(90deg); }
 .colle-q { display: inline-block; min-width: 34px; text-align: center; font-weight: 800; font-size: 13px; color: var(--section-text); background: var(--section-bg); border-radius: 8px; padding: 3px 6px; }
 .colle-tag { display: inline-block; margin-left: 6px; font-size: 11.5px; font-weight: 600; color: var(--sub); border: 1px solid var(--border); border-radius: 8px; padding: 0 6px; }
 .colle-now { display: none; }
-.is-now > .colle-plan-row, .colle-plan-row.is-now { background: linear-gradient(90deg, rgba(var(--hl-vert-rgb), var(--hl-vert-a1)), rgba(var(--hl-vert-rgb), var(--hl-vert-a2))); }
-.is-now .colle-now { display: inline; font-size: 11.5px; font-weight: 700; color: var(--hl-vert-dot); }
+.is-now > .colle-plan-row, .colle-plan-row.is-now { background: linear-gradient(90deg, rgba(var(--hl-orange-rgb), var(--hl-orange-a1)), rgba(var(--hl-orange-rgb), var(--hl-orange-a2))); }
+.is-now .colle-now { display: inline; font-size: 11.5px; font-weight: 700; color: var(--hl-orange-dot); }
 .is-now .colle-now::before { content: "● "; }
 .colle-body { padding: 4px 14px 6px; border-top: 1px solid var(--border); }
-.colle-item.is-now > .colle-body { box-shadow: inset 4px 0 0 var(--hl-vert-dot); }
+.colle-item.is-now > .colle-body { box-shadow: inset 4px 0 0 var(--hl-orange-dot); }
 .colle-body h3 { font-size: 15.5px; margin: 16px 0 6px; color: var(--accent); }
 .colle-body p, .colle-body li { font-size: 14.5px; line-height: 1.5; }
 .colle-body ul { padding-left: 20px; margin: 4px 0 8px; }

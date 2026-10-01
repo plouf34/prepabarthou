@@ -62,7 +62,7 @@ nommage des fichiers, et le workflow de publication.
    surbrillance de l'onglet visible au défilement dans `assets/pcsi.js`.
 4 bis. Si le cours ajouté est un cours de Clarisse ou des profs de Louis
    Barthou, ou si la colle a changé : refaire le **surlignage « en cours »**
-   (jaune = cours en cours, vert pâle = colle en cours) des sections Exercices et DS, en suivant la section « SURLIGNAGE » du
+   (jaune = cours en cours, orange pâle = colle en cours) des sections Exercices et DS, en suivant la section « SURLIGNAGE » du
    prompt maître (relire le cours, lire les documents, mettre à jour
    `Prepa_barthou/surlignage.json`, relancer `regen_index.py` jusqu'au `✅`).
 4 ter. Nouveau cours de Clarisse en Maths : mettre à jour les puces Bibmath

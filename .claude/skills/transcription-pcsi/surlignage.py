@@ -20,26 +20,26 @@ Usage :
              matière dans surlignage.json — "profs_priment": true (le cours
              prof en cours prime sur Clarisse), "cours_dates": {fichier:
              [debut, fin]} (donne un intervalle à un cours non daté).
-  - VERT   = documents liés à la COLLE EN COURS (programmes de colle :
+  - ORANGE = documents liés à la COLLE EN COURS (programmes de colle :
              SUBJECT_COLLES de regen_index.py). Une colle est en cours de sa
              date de début jusqu'au dimanche qui suit sa date de fin.
-  - JAUNE + VERT (couleur "jv") = documents liés aux deux : pastille et
-             dégradé mi-jaune (haut) mi-vert (bas).
+  - JAUNE + ORANGE (couleur "jo") = documents liés aux deux : pastille et
+             pavé en dégradé du jaune (haut) vers l'orange (bas).
 
 Ce script NE DÉCIDE PAS quels documents sont liés au cours ou à la colle :
 ce choix demande de lire les documents, il est fait par Claude et consigné
 dans Prepa_barthou/surlignage.json (clé "liens" : url + couleur
-jaune|vert|jv + note ; "jaune"/"vert" = {cle, libelle} attendus). Le script :
-  1. calcule le cours (jaune) et la colle (vert) en cours pour chaque matière
+jaune|orange|jo + note ; "jaune"/"orange" = {cle, libelle} attendus). Le script :
+  1. calcule le cours (jaune) et la colle (orange) en cours pour chaque matière
      et signale « ⚠️ SURLIGNAGE À REVOIR » quand surlignage.json ne
      correspond plus (nouveau cours, changement de colle) — Claude doit alors
      relire les documents et mettre à jour surlignage.json ;
   2. applique surlignage.json aux pages (idempotent) : classes hl-jaune /
-     hl-vert / hl-jv sur les lignes <tr> Exercices/DS dont un lien figure
+     hl-orange / hl-jo sur les lignes <tr> Exercices/DS dont un lien figure
      dans "liens", légende en tête des sections. Dans la section Cours : la
      ligne du cours en cours (jaune), les cours d'autres lycées de la clé
      "cours" (jaune), et en Physique le chapitre du polycopié de la colle en
-     cours (vert).
+     cours (orange).
   Ne sont surlignés que des exercices, TD, DS et interros : jamais les puces
   de sites (Bibmath, Exo7…) ni les cahiers de calcul.
 """
@@ -169,7 +169,7 @@ def colle_en_cours(repo_root, folder, today):
 
 
 def expected(repo_root, today, cfg=None):
-    """Cours (jaune) et colle (vert) attendus pour chaque matière."""
+    """Cours (jaune) et colle (orange) attendus pour chaque matière."""
     cfg = cfg if cfg is not None else load_config(repo_root)
     out = {}
     for folder, label in SUBJECTS:
@@ -181,7 +181,7 @@ def expected(repo_root, today, cfg=None):
         for f, (deb, fin) in (exc.get("cours_dates") or {}).items():
             if deb <= today <= fin:
                 bar = {"cle": f, "date": deb, "titre": os.path.splitext(f)[0], "fichier": f}
-        exp = {"jaune": None, "vert": None, "cours": []}
+        exp = {"jaune": None, "orange": None, "cours": []}
         src = cla
         if bar and (cla is None or exc.get("profs_priment")):
             src = bar
@@ -191,12 +191,12 @@ def expected(repo_root, today, cfg=None):
             exp["jaune"] = {"cle": src["cle"], "libelle": f'{src["cle"]} — {src["titre"]} ({qui} du {src["date"]})'}
         col = colle_en_cours(repo_root, folder, today)
         if col:
-            exp["vert"] = {"cle": col["cle"], "libelle": f'Colle {col["cle"]} du {col["debut"]} — {col["titre"]}'}
+            exp["orange"] = {"cle": col["cle"], "libelle": f'Colle {col["cle"]} du {col["debut"]} — {col["titre"]}'}
             w = col.get("kholle")
             if w and w.get("chapitre"):
                 f = physique_barthou_file(dir_path, w["theme"], w["chapitre"])
                 if f:
-                    exp["cours"].append((f, "vert", f'Chapitre de la colle {w["semaine"]} ({w["exercices"]})'))
+                    exp["cours"].append((f, "orange", f'Chapitre de la colle {w["semaine"]} ({w["exercices"]})'))
         out[label] = exp
     return out
 
@@ -215,7 +215,7 @@ def check(repo_root, today):
     issues = []
     for label, e in exp.items():
         c = cfg.get(label, {})
-        for couleur in ("jaune", "vert"):
+        for couleur in ("jaune", "orange"):
             want = e[couleur]["cle"] if e[couleur] else None
             have = (c.get(couleur) or {}).get("cle")
             if want != have:
@@ -229,20 +229,20 @@ TR_RE = re.compile(r'<tr(?P<attrs>(?:\s[^>]*)?)>(?P<body>.*?)</tr>', re.S)
 CHIP_RE = re.compile(r'<a class="(?P<cls>manual-chip[^"]*)"(?P<rest>[^>]*)>')
 
 
-HL_CLASSES = ("hl-jaune", "hl-orange", "hl-vert", "hl-jv")
+HL_CLASSES = ("hl-jaune", "hl-orange", "hl-vert", "hl-jv", "hl-jo")
 
 
 def _couleur_active(couleur, cfg_subject):
     """Couleur effective d'un lien selon ce qui est en cours : un lien « jv »
     dont la colle (ou le cours) n'est plus en cours ne garde que l'autre."""
     j = bool((cfg_subject.get("jaune") or {}).get("cle"))
-    v = bool((cfg_subject.get("vert") or {}).get("cle"))
-    if couleur == "jv":
-        return "jv" if (j and v) else ("jaune" if j else ("vert" if v else None))
+    v = bool((cfg_subject.get("orange") or {}).get("cle"))
+    if couleur == "jo":
+        return "jo" if (j and v) else ("jaune" if j else ("orange" if v else None))
     if couleur == "jaune":
         return "jaune" if j else None
-    if couleur == "vert":
-        return "vert" if v else None
+    if couleur == "orange":
+        return "orange" if v else None
     return None
 
 
@@ -274,7 +274,7 @@ def _apply_section(section, liens, cfg_subject, sid=None):
         coul = _couleur_active(hit["couleur"], cfg_subject) if hit else None
         attrs = _set_classes(attrs, f'hl-{coul}' if coul else None)
         if coul:
-            used.update(("jaune", "vert") if coul == "jv" else (coul,))
+            used.update(("jaune", "orange") if coul == "jo" else (coul,))
             note = hit.get("note")
             if note:
                 attrs += f' data-hl="1" title="{html.escape(note, quote=True)}"'
@@ -304,7 +304,7 @@ def _apply_section(section, liens, cfg_subject, sid=None):
         used.add("jaune")
     if used:
         parts = []
-        for couleur in ("jaune", "vert"):
+        for couleur in ("jaune", "orange"):
             if couleur in used and cfg_subject.get(couleur):
                 qui = "cours en cours" if couleur == "jaune" else "colle en cours"
                 parts.append(f'<span><span class="hl-swatch {couleur}"></span>{html.escape(qui)} : '
@@ -312,8 +312,8 @@ def _apply_section(section, liens, cfg_subject, sid=None):
                 if couleur == "jaune" and bibmath:
                     parts.extend(f'<a class="legend-chip" href="{html.escape(b["url"], quote=True)}" target="_blank" rel="noopener">'
                                  f'🔗 {html.escape(b["libelle"])} <span class="arrow">↗</span></a>' for b in bibmath)
-        if "jaune" in used and "vert" in used:
-            parts.append('<span><span class="hl-swatch jv"></span>les deux</span>')
+        if "jaune" in used and "orange" in used:
+            parts.append('<span><span class="hl-swatch jo"></span>les deux</span>')
         legend = f'<div class="hl-legend">{"".join(parts)}</div>'
         section = re.sub(r'(<h2 class="section-title">.*?</h2>\s*)', lambda m: m.group(1) + legend, section, count=1, flags=re.S)
     return section
@@ -321,7 +321,7 @@ def _apply_section(section, liens, cfg_subject, sid=None):
 
 def _apply_cours(section, cours, autres=None):
     """Surligne, dans la section Cours, la ligne du cours en cours (jaune) et,
-    en Physique, le chapitre du polycopié de la colle en cours (vert ;
+    en Physique, le chapitre du polycopié de la colle en cours (orange ;
     ou jaune si même chapitre que Clarisse ; Physique : chapitre de khôlle)."""
     targets = {os.path.splitext(f)[0]: (c, note) for f, c, note in cours}
     # Cours d'autres lycées en rapport avec le chapitre en cours (choisis par
@@ -367,15 +367,15 @@ def apply(repo_root, today=None):
                           lambda m, sid=sid: _apply_section(m.group(0), liens, c, sid), data, count=1, flags=re.S)
         with open(path, "w", encoding="utf-8") as fh:
             fh.write(data)
-        n = len(re.findall(r'class="[^"]*\bhl-(?:jaune|vert|jv)\b', data))
+        n = len(re.findall(r'class="[^"]*\bhl-(?:jaune|orange|jo)\b', data))
         print(f"Surlignage appliqué à {label}.html : {n} élément(s)")
 
 
 def report(exp, issues):
     for label, e in exp.items():
         j = e["jaune"]["libelle"] if e["jaune"] else "—"
-        v = e["vert"]["libelle"] if e["vert"] else "—"
-        print(f"  {label:9s} jaune : {j}\n  {'':9s} vert  : {v}")
+        v = e["orange"]["libelle"] if e["orange"] else "—"
+        print(f"  {label:9s} jaune  : {j}\n  {'':9s} orange : {v}")
     if issues:
         print("⚠️ SURLIGNAGE À REVOIR — relire le(s) nouveau(x) cours et les documents Exercices/DS,")
         print("   puis mettre à jour Prepa_barthou/surlignage.json (cle + libelle + liens) :")
