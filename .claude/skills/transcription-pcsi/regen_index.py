@@ -450,7 +450,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 <title>{esc(label)} — Prépa PCSI</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/pcsi.css?v=38">
+<link rel="stylesheet" href="assets/pcsi.css?v=39">
 </head>
 <body>
 
@@ -470,7 +470,7 @@ def page_shell(folder, emoji, label, sections_html, banner=""):
 {sections_html}
 </main>
 
-<script src="assets/pcsi.js?v=38" defer></script>
+<script src="assets/pcsi.js?v=39" defer></script>
 </body>
 </html>
 """
@@ -513,7 +513,7 @@ def build_colles_section(repo_root, folder):
                 f'<span class="colle-now">cette semaine</span>')
         attrs = f'id="colle-q{q["numero"]}" data-debut="{q["debut"]}" data-fin="{q["fin"]}"'
         if q.get("previsionnel"):
-            rows.append(f'<div class="colle-plan-row" {attrs}>{head}</div>')
+            rows.append((q, f'<div class="colle-plan-row" {attrs}>{head}</div>'))
             continue
         inner = ""
         if q.get("rappel"):
@@ -538,9 +538,45 @@ def build_colles_section(repo_root, folder):
             inner += f'<p class="colle-rappel">{q["nb"]}</p>'
         for c in q.get("corrections", []):
             inner += f'<p class="colle-correction">⚠️ Correction : {c}</p>'
-        rows.append(f'<details class="colle-item" {attrs}><summary class="colle-plan-row">{head}</summary>'
-                    f'<div class="colle-body">{inner}</div></details>')
-    body = f'<div class="colle-plan">{"".join(rows)}</div>'
+        rows.append((q, f'<details class="colle-item" {attrs}><summary class="colle-plan-row">{head}</summary>'
+                        f'<div class="colle-body">{inner}</div></details>'))
+
+    # 3 pavés (demande de Fabien) : « Colles passées » (replié, rappelle la
+    # dernière), la colle en cours, « Colles à venir » (replié, rappelle la
+    # prochaine). Classement à la date de génération pour l'affichage sans JS ;
+    # assets/pcsi.js refait le classement à la date du jour dans le navigateur
+    # (même règle : une semaine reste « en cours » jusqu'au dimanche après 'fin').
+    import datetime
+    today = datetime.date.today()
+
+    def statut(q):
+        fin = datetime.date.fromisoformat(q["fin"]) + datetime.timedelta(days=2)
+        if today > fin:
+            return "passees"
+        return "encours" if datetime.date.fromisoformat(q["debut"]) <= today else "avenir"
+
+    groupes = {"passees": [], "encours": [], "avenir": []}
+    for q, h in rows:
+        groupes[statut(q)].append((q, h))
+
+    def lbl(q):
+        return f'{pref}{q["numero"]} — {q["titre"]}'
+
+    def groupe(cle, icone, nom, rappel, items):
+        cache = "" if items else ' hidden'
+        r = lbl(items[-1 if cle == "passees" else 0][0]) if items else ""
+        return (f'<details class="colle-group" data-groupe="{cle}"{cache}>'
+                f'<summary class="colle-plan-row"><span class="colle-q">{icone}</span>'
+                f'<span class="colle-dates">{nom} (<span class="colle-n">{len(items)}</span>)</span>'
+                f'<span class="colle-plan-titre">{rappel} : <span class="colle-lbl">{r}</span></span></summary>'
+                f'<div class="colle-group-list">{"".join(h for _, h in items)}</div></details>')
+
+    encours = "".join(h for _, h in groupes["encours"])
+    body = ('<div class="colle-plan">'
+            + groupe("passees", "✓", "Colles passées", "dernière", groupes["passees"])
+            + f'<div class="colle-encours"{"" if encours else " hidden"}>{encours}</div>'
+            + groupe("avenir", "→", "Colles à venir", "prochaine", groupes["avenir"])
+            + '</div>')
     return f'<section id="colles">{section_title_html("colles")}{body}</section>'
 
 

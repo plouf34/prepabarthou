@@ -31,17 +31,43 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Section « Colles » : surligne la quinzaine en cours (data-debut/data-fin,
-// dates incluses, week-end suivant compris) ; son programme reste replié.
+// Section « Colles » : 3 pavés (Colles passées / colle en cours / Colles à
+// venir), reclassés ici à la date du jour (le HTML généré l'est à la date de
+// génération). Une semaine reste « en cours » du début jusqu'au dimanche qui
+// suit sa date de fin. Les pavés restent repliés ; la colle en cours est
+// seulement surlignée.
 document.addEventListener("DOMContentLoaded", function () {
-  var now = new Date();
-  var today = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
-  document.querySelectorAll("#colles [data-debut]").forEach(function (el) {
-    var fin = new Date(el.dataset.fin + "T12:00:00");
-    fin.setDate(fin.getDate() + 2);
-    var finWe = fin.toISOString().slice(0, 10);
-    if (el.dataset.debut <= today && today <= finWe) {
-      el.classList.add("is-now");
+  function iso(d) {
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  var today = iso(new Date());
+  document.querySelectorAll("#colles .colle-plan").forEach(function (plan) {
+    var passees = plan.querySelector('[data-groupe="passees"]');
+    var avenir = plan.querySelector('[data-groupe="avenir"]');
+    var encours = plan.querySelector(".colle-encours");
+    if (!passees || !avenir || !encours) return;
+    var items = Array.prototype.slice.call(plan.querySelectorAll("[data-debut]"))
+      .sort(function (a, b) { return a.dataset.debut < b.dataset.debut ? -1 : 1; });
+    var g = { passees: [], encours: [], avenir: [] };
+    items.forEach(function (el) {
+      var fin = new Date(el.dataset.fin + "T12:00:00");
+      fin.setDate(fin.getDate() + 2);
+      var k = today > iso(fin) ? "passees" : (el.dataset.debut <= today ? "encours" : "avenir");
+      el.classList.toggle("is-now", k === "encours");
+      g[k].push(el);
+    });
+    function label(el) {
+      return el.querySelector(".colle-q").textContent + " — " + el.querySelector(".colle-plan-titre").innerHTML;
     }
+    [[passees, g.passees, true], [avenir, g.avenir, false]].forEach(function (x) {
+      var box = x[0], list = x[1];
+      var dest = box.querySelector(".colle-group-list");
+      list.forEach(function (el) { dest.appendChild(el); });
+      box.querySelector(".colle-n").textContent = list.length;
+      box.querySelector(".colle-lbl").innerHTML = list.length ? label(list[x[2] ? list.length - 1 : 0]) : "";
+      box.hidden = !list.length;
+    });
+    g.encours.forEach(function (el) { encours.appendChild(el); });
+    encours.hidden = !g.encours.length;
   });
 });
