@@ -305,3 +305,19 @@ details[open] > summary.colle-plan-row::after { transform: rotate(90deg); }
   nav.tab-bar { gap: 4px; padding: 6px 4px; }
   nav.tab-bar a { font-size: 13.5px; padding: 9px 2px; }
 }
+
+/* Sobriété (demande de Fabien, 01/10/2026) : AUCUN fond ni liseré coloré pour
+   le surlignage ; seules les pastilles (jaune = cours en cours, orange = colle
+   en cours, mi-jaune/mi-orange = les deux) restent colorées. */
+tbody tr.hl-jaune, tbody tr.hl-orange, tbody tr.hl-jo { box-shadow: none !important; }
+tbody tr.hl-jaune td, tbody tr.hl-orange td, tbody tr.hl-jo td,
+tbody tr.hl-jaune td.col-n, tbody tr.hl-orange td.col-n, tbody tr.hl-jo td.col-n,
+tbody tr.hl-jaune td.col-titre, tbody tr.hl-orange td.col-titre, tbody tr.hl-jo td.col-titre,
+tbody tr.hl-jaune td.col-link, tbody tr.hl-orange td.col-link, tbody tr.hl-jo td.col-link { background: transparent !important; }
+.colle-plan-row.is-now, .is-now > .colle-plan-row { background: none !important; }
+.colle-item.is-now > .colle-body { box-shadow: none !important; }
+.legend-chip.hl-jaune, .legend-chip.hl-orange, .legend-chip.hl-jo { background: rgba(10,138,74,0.10) !important; border-color: var(--border) !important; }
+.legend-chip.hl-jaune::before, .legend-chip.hl-orange::before, .legend-chip.hl-jo::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; }
+.legend-chip.hl-jaune::before { background: var(--hl-jaune-dot); }
+.legend-chip.hl-orange::before { background: var(--hl-orange-dot); }
+.legend-chip.hl-jo::before { background: linear-gradient(180deg, var(--hl-jaune-dot) 50%, var(--hl-orange-dot) 50%); }

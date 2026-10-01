@@ -124,7 +124,8 @@ Règles décidées par Fabien le 01/10/2026 (résumé dans `CLAUDE.md`). À refa
 **Couleurs** (définies dans `assets/pcsi.css`) :
 - **Jaune** = documents liés au **cours en cours** : le dernier cours manuscrit de Clarisse (plus grand `ChNN` des fichiers `*_Cours_Clarisse_*`) ; à défaut, le cours des profs de Louis Barthou **daté** dont l'intervalle contient la date du jour (de sa date jusqu'à la veille du cours prof suivant). Un cours non daté (ex. polycopié de Physique) n'est pas pris en compte. S'il y a un cours de Clarisse et un cours prof, **Clarisse fait foi**. Exceptions seulement si Fabien les stipule : clé `exceptions` de la matière dans `surlignage.json` (`profs_priment`, `cours_dates`).
 - **Orange pâle** = documents liés à la **colle en cours** (programmes de colle de la section Colles : `programme_colle_maths.json`, `programme_colle_chimie.json`, `programme_kholle_physique.json`). Une colle est en cours de son début jusqu'au dimanche qui suit sa fin.
-- **Les deux** (`jo`) : pastille et pavé en dégradé vertical, jaune en haut → orange en bas.
+- **Les deux** (`jo`) : pastille mi-jaune (haut) mi-orange (bas).
+- **Seules les pastilles sont colorées** : aucun fond ni liseré de couleur (demande de Fabien).
 - Section **Cours** : la ligne du cours en cours est surlignée en jaune (automatique), ainsi que les cours d'autres lycées de la clé `cours` ; en Physique, le chapitre du polycopié de la colle en cours est surligné en orange (automatique).
 
 **Méthode** (le choix des documents demande de LIRE, le script ne le fait pas) :

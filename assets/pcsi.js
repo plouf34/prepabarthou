@@ -56,9 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
       el.classList.toggle("is-now", k === "encours");
       g[k].push(el);
     });
-    function label(el) {
-      return el.querySelector(".colle-q").textContent + " — " + el.querySelector(".colle-plan-titre").innerHTML;
-    }
     [[passees, g.passees, true], [avenir, g.avenir, false]].forEach(function (x) {
       var box = x[0], list = x[1];
       var dest = box.querySelector(".colle-group-list");
@@ -66,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
       var ref = list.length ? list[x[2] ? list.length - 1 : 0] : null;
       box.querySelector(".colle-n").textContent = list.length;
       box.querySelector(".colle-gdate").textContent = ref ? ref.querySelector(".colle-dates").textContent : "";
-      box.querySelector(".colle-lbl").innerHTML = ref ? label(ref) : "";
       box.hidden = !list.length;
     });
     g.encours.forEach(function (el) { encours.appendChild(el); });

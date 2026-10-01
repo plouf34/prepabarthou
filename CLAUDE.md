@@ -43,7 +43,8 @@ Gabarits : `templates/` (`gabarit-origine_…` + `gabarit-quiz.html`, voir promp
   de Louis Barthou **daté** dont l'intervalle contient la date du jour (de sa date à la veille du cours prof suivant).
   Cours non datés (ex. polycopié de Physique) : ignorés. Clarisse ET profs : **Clarisse fait foi**.
 - **Orange pâle** = lié à la **colle en cours** (programmes de colle, section Colles).
-- Lié aux deux (`jo`) : pastille et pavé en dégradé vertical, jaune en haut → orange en bas.
+- Lié aux deux (`jo`) : pastille mi-jaune (haut) mi-orange (bas).
+- **Seules les pastilles sont colorées** (ni fond ni liseré : demande de Fabien), y compris sur les puces Bibmath et la colle en cours.
 - **Exceptions** (seulement si Fabien les stipule) : clé `exceptions` de la matière dans `Prepa_barthou/surlignage.json`
   (`"profs_priment": true` → le cours prof en cours prime sur Clarisse ; `"cours_dates": {"<fichier>": [debut, fin]}`
   → donne un intervalle à un cours non daté). Les noter aussi ici : <!-- exceptions en vigueur : aucune -->
