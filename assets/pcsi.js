@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Section « Colles » : surligne la quinzaine en cours (data-debut/data-fin,
-// dates incluses, week-end suivant compris) et ouvre son programme détaillé.
+// dates incluses, week-end suivant compris) ; son programme reste replié.
 document.addEventListener("DOMContentLoaded", function () {
   var now = new Date();
   var today = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var finWe = fin.toISOString().slice(0, 10);
     if (el.dataset.debut <= today && today <= finWe) {
       el.classList.add("is-now");
-      if (el.tagName === "DETAILS") el.open = true;
     }
   });
 });

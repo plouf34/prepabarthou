@@ -461,9 +461,9 @@ def date_fr(iso):
 def build_colles_section(repo_root, folder):
     """Section « Colles » générée depuis SUBJECT_COLLES[folder] : UNE seule liste
     (planning) où chaque quinzaine est une ligne dépliable qui contient son
-    programme détaillé. La quinzaine en cours est surlignée et ouverte par
-    assets/pcsi.js d'après data-debut/data-fin ; sans JS, le programme détaillé
-    le plus récent est ouvert. Une quinzaine « previsionnel » n'est pas
+    programme détaillé. Toutes les lignes sont FERMÉES par défaut (choix de
+    Fabien) ; la quinzaine en cours est seulement surlignée par assets/pcsi.js
+    d'après data-debut/data-fin. Une quinzaine « previsionnel » n'est pas
     dépliable. Les champs du JSON sont du HTML (sup/sub) recopié tel quel."""
     import json
     data = json.load(open(os.path.join(repo_root, SUBJECT_COLLES[folder]), encoding="utf-8"))
@@ -472,7 +472,6 @@ def build_colles_section(repo_root, folder):
     def li(items):
         return "<ul>" + "".join(f"<li>{x}</li>" for x in items) + "</ul>"
 
-    ouvert = next((q["numero"] for q in reversed(qz) if not q.get("previsionnel")), None)
     rows = []
     for q in qz:
         tag = '<span class="colle-tag">prévisionnel</span>' if q.get("previsionnel") else ""
@@ -500,8 +499,7 @@ def build_colles_section(repo_root, folder):
             inner += f'<h3>🎤 Questions de cours</h3>{li(q["questions_de_cours"])}'
         for c in q.get("corrections", []):
             inner += f'<p class="colle-correction">⚠️ Correction : {c}</p>'
-        op = " open" if q["numero"] == ouvert else ""
-        rows.append(f'<details class="colle-item" {attrs}{op}><summary class="colle-plan-row">{head}</summary>'
+        rows.append(f'<details class="colle-item" {attrs}><summary class="colle-plan-row">{head}</summary>'
                     f'<div class="colle-body">{inner}</div></details>')
     body = f'<div class="colle-plan">{"".join(rows)}</div>'
     return f'<section id="colles">{section_title_html("colles")}{body}</section>'
